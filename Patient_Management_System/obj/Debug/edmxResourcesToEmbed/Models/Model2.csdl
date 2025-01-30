@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Patient_Management_SystemModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="LoginInfo">
+    <Key>
+      <PropertyRef Name="Login_Id" />
+    </Key>
+    <Property Name="Login_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Patient_Id" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Login_Details" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="PatientsTbl" Relationship="Self.FK__LoginInfo__Patie__17036CC0" FromRole="LoginInfo" ToRole="PatientsTbl" />
+  </EntityType>
+  <EntityType Name="PatientsTbl">
+    <Key>
+      <PropertyRef Name="Patient_Id" />
+    </Key>
+    <Property Name="Patient_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="P_FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="P_MiddleName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="P_LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="P_Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="P_DOB" Type="DateTime" Precision="0" />
+    <Property Name="P_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="P_Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="P_BloodGrp" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="P_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="P_City" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="P_State" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="P_Pincode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="P_Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="P_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="P_Password" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="LoginInfoes" Relationship="Self.FK__LoginInfo__Patie__17036CC0" FromRole="PatientsTbl" ToRole="LoginInfo" />
+  </EntityType>
+  <Association Name="FK__LoginInfo__Patie__17036CC0">
+    <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="1" />
+    <End Role="LoginInfo" Type="Self.LoginInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PatientsTbl">
+        <PropertyRef Name="Patient_Id" />
+      </Principal>
+      <Dependent Role="LoginInfo">
+        <PropertyRef Name="Patient_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Patient_Management_SystemEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="LoginInfoes" EntityType="Self.LoginInfo" />
+    <EntitySet Name="PatientsTbls" EntityType="Self.PatientsTbl" />
+    <AssociationSet Name="FK__LoginInfo__Patie__17036CC0" Association="Self.FK__LoginInfo__Patie__17036CC0">
+      <End Role="PatientsTbl" EntitySet="PatientsTbls" />
+      <End Role="LoginInfo" EntitySet="LoginInfoes" />
+    </AssociationSet>
+    <FunctionImport Name="sp_Add_Patients">
+      <Parameter Name="P_FirstName" Mode="In" Type="String" />
+      <Parameter Name="P_MiddleName" Mode="In" Type="String" />
+      <Parameter Name="P_LastName" Mode="In" Type="String" />
+      <Parameter Name="P_Gender" Mode="In" Type="String" />
+      <Parameter Name="P_DOB" Mode="In" Type="DateTime" />
+      <Parameter Name="P_Email" Mode="In" Type="String" />
+      <Parameter Name="P_Phone" Mode="In" Type="String" />
+      <Parameter Name="P_BloodGrp" Mode="In" Type="String" />
+      <Parameter Name="P_Address" Mode="In" Type="String" />
+      <Parameter Name="P_City" Mode="In" Type="String" />
+      <Parameter Name="P_State" Mode="In" Type="String" />
+      <Parameter Name="P_Pincode" Mode="In" Type="String" />
+      <Parameter Name="P_Message" Mode="In" Type="String" />
+      <Parameter Name="P_Image" Mode="In" Type="String" />
+      <Parameter Name="P_Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetData" />
+    <FunctionImport Name="sp_LoginInfo">
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

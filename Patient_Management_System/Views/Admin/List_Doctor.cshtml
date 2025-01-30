@@ -1,0 +1,128 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-sm-4 col-3">
+        <h4 class="page-title">Doctor</h4>
+    </div>
+    <div class="col-sm-8 col-9 text-right m-b-20">
+        <a href="Add_Doctor" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i>Add Doctor</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-border table-striped custom-table datatable mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-right">ACTION</th>
+                        <th>ID</th>
+                        <th>FIRSTNAME</th>
+                        <th>LASTNAME</th>
+                        <th>DEPT.</th>
+                        <th>EMAIL</th>
+                        <th>PASSWORD</th>
+                        <th>DOB</th>
+                        <th>GENDER</th>
+                        <th>PHONE</th>
+                        <th>DEGREE</th>
+                        <th>ADDRESS</th>
+                        <th>CITY</th>
+                        <th>STATE</th>
+                        <th>PINCODE</th>
+                        <th>FEES</th>
+                        <th>IMAGE</th>
+                        <th>STATUS</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var doctorVM in Model)
+                    {
+
+                        <tr>
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action">
+                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="@Url.Action("Edit_Doctor", new { doctorId = doctorVM.Doctor_ID })">
+                                            <i class="fa fa-pencil m-r-5"></i> Edit
+                                        </a>
+
+                                        <a class="dropdown-item" href="@Url.Action("Delete_Doctor","Admin", new { doctorId = doctorVM.Doctor_ID })">
+                                            <i class="fa fa-trash-o m-r-5"></i> Delete
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>@doctorVM.Doctor_ID</td>
+                            <td>Dr.@doctorVM.Dr_FirstName</td>
+                            <td>@doctorVM.Dr_LastName</td>
+                            <td>@doctorVM.Dept_Name</td>
+                            <td>@doctorVM.Dr_Email</td>
+                            <td>@doctorVM.Dr_Password</td>
+                            <td>@doctorVM.Dr_DOB.ToString("dd/MM/yyyy")</td>
+                            <td>@doctorVM.Dr_Gender</td>
+                            <td>@doctorVM.Dr_Phone</td>
+                            <td>@doctorVM.Dr_Qualification</td>
+                            <td>@doctorVM.Dr_Address</td>
+                            <td>@doctorVM.Dr_City</td>
+                            <td>@doctorVM.Dr_State</td>
+                            <td>@doctorVM.Dr_Pincode</td>
+                            <td>@doctorVM.Fees</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(doctorVM.Dr_ImagePath))
+                                {
+                                    <img src="@Url.Content(doctorVM.Dr_ImagePath)" alt="Doctor Image" width="50" height="50" />
+                                }
+
+
+
+
+                                else
+                                {
+                                    <span>No Image</span>
+                                }
+                            </td>
+                            <td>@doctorVM.Dr_Status</td>
+
+
+
+
+
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+<div class="sidebar-overlay" data-reff=""></div>
+<script src="assets/js/jquery-3.2.1.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/jquery.slimscroll.js"></script>
+<script src="assets/js/select2.min.js"></script>
+<script src="assets/js/jquery.dataTables.min.js"></script>
+<script src="assets/js/dataTables.bootstrap4.min.js"></script>
+<script src="assets/js/moment.min.js"></script>
+<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+<script src="assets/js/app.js"></script>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="see-all">
+            <a class="see-all-btn" href="javascript:void(0);">More</a>
+        </div>
+    </div>
+</div>
+        </div>

@@ -1,0 +1,374 @@
+@media (max-width: 767px) {
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+    .main-nav__right img {
+        width: 100px;
+    }
+    .main-nav-one .main-nav__right {
+        margin-left: 10px;
+    }
+    .main-nav-one__inner-page .side-menu__toggler {
+        position: absolute;
+        top: 25px;
+        right: 20px;
+    }
+    .main-nav-one__mobile-logo {
+        width: 170px;
+    }
+    .home-slider-new .slider-four__content h3 {
+        font-size: 28px;
+    }
+    .home-slider-new .banner-sub {
+        font-size: 16px;
+        padding: 5px 15px;
+    }
+    .home-slider-new .slider-four__carousel .item {
+        height: 35vh;
+    }
+    .block-title h3 {
+        margin: auto;
+        color: var(--thm-black);
+        font-size: 29px;
+        display: table;
+        line-height: 50px;
+        font-family: 'Bree Serif', serif;
+        position: relative;
+    }
+    .team-one .row.high-gutter>[class*=col-] {
+        padding-left: 33px;
+        padding-right: 33px;
+    }
+    .service-one__about-one {
+        padding-top: 100px;
+        padding-bottom: 56px;
+    }
+    .team-one {
+        padding-top: 44px;
+    }
+    two__single {
+        margin-bottom: 50px;
+    }
+    .event-two {
+        padding-bottom: 60px;
+    }
+    .about-one__image img {
+        left: 0 !important;
+    }
+    h1.new-title-home {
+        font-size: 21px;
+    }
+    .nabh_logo img {
+        width: 100%;
+        height: 100%;
+    }
+    .nabh_logo .logo-1 {
+        width: 50%;
+    }
+    .cta-two-section h3 {
+        font-size: 29px;
+    }
+    .box_block .service-one__single {
+        margin-bottom: 100px !important;
+    }
+    .footer-widget__about {
+        top: unset;
+    }
+    .footer-widget__about .footer-widget__title {
+        margin-bottom: 25px;
+        margin-top: 25px;
+    }
+    .footer-widget.footer-widget__post {
+        margin-top: -28px;
+    }
+    .block-title h1 {
+        font-size: 32px;
+    }
+    .technician-details {
+        padding: 9px;
+        display: block;
+        overflow-x: auto;
+    }
+    .block-title h1 {
+        font-size: 32px !important;
+        line-height: normal;
+    }
+    .clients .image {
+        margin-bottom: 30px !important;
+    }
+    .donation-one {
+        padding-top: 10px;
+    }
+    .donation-one__single {
+        margin-bottom: 50px !important;
+    }
+    .sec-opinion-details {
+        padding-bottom: 50px !important;
+    }
+    .sec_pad {
+        padding: 39px 0;
+    }
+    .event-details {
+        padding-bottom: 60px;
+    }
+    .testimonial-video {
+        padding: 67px 0 50px !important;
+    }
+    .service-details {
+        padding-top: 56px;
+        padding-bottom: 55px;
+    }
+    .history-one {
+        padding-top: 22px;
+        padding-bottom: 51px;
+    }
+    .about-nursing-edu-details h5 {
+        font-size: 19px;
+    }
+    .cori-call-btn {
+        width: 57%;
+        padding: 10px 12px 10px 12px;
+        margin: inherit;
+    }
+    .about-one__image img {
+        max-width: 93% !important;
+    }
+    .history-one__image>img {
+        padding-top: 20px;
+    }
+    .technicion-table {
+        width: inherit;
+    }
+    .technicion-table {
+        margin-top: inherit;
+    }
+    .vdp-datepicker {
+        width: 100%;
+    }
+    .block-title {
+        padding-bottom: 40px;
+    }
+    .sec_pad .block-title img {
+        width: 100%;
+    }
+    h1.new-title-foundation,
+    .dark-title-foundation {
+        font-size: 30px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .home-slider-new .slider-four__carousel .item {
+        height: 60vh;
+    }
+    .main-nav-one {
+        padding: 20px 0;
+    }
+    .main-nav__right img {
+        width: 150px;
+    }
+    .main-nav-one .main-nav__right {
+        margin-left: 50px;
+    }
+    .main-nav-one__inner-page .side-menu__toggler {
+        top: 10px;
+        position: absolute;
+        right: 0;
+    }
+    .page-header {
+        height: 110px;
+        margin-top: 15%;
+        background-size: contain;
+    }
+    .medical_spec {
+        width: 100% !important;
+    }
+    .medical_spec li a {
+        color: #fff !important;
+    }
+    .left-side-social-icons {
+        display: none;
+    }
+    .event-two {
+        padding-bottom: 60px;
+    }
+    .funfact-two__single {
+        margin-bottom: 23px;
+    }
+    h1.new-title-home {
+        font-size: 32px;
+    }
+    .block-title h1 {
+        font-size: 40px;
+    }
+    .cd-faq-categories {
+        width: 695px !important;
+    }
+    .clients .image {
+        width: 31%;
+    }
+    .footer-widget__about {
+        top: unset;
+        position: relative;
+    }
+    .scroll-to-top {
+        left: inherit;
+        z-index: inherit;
+        bottom: 90px;
+    }
+    .site-footer__bottom p {
+        margin-right: 15px;
+    }
+    .page-breadcrumb li {
+        font-size: 14px;
+    }
+    .technician-details {
+        padding: 9px;
+        display: block;
+        overflow-x: auto;
+    }
+    .about-one__image img {
+        width: 100% !important;
+    }
+    .event-details .living-option-two__tab-title {
+        padding: inherit;
+        height: inherit;
+    }
+    .living-option-two__tab-title {
+        display: block;
+    }
+}
+
+@media (max-width: 1023px) {
+    .event-two [class*=col-]:nth-child(5n-1) .event-two__single,
+    .event-two [class*=col-]:nth-child(5n-2) .event-two__single {
+        flex-direction: row
+    }
+    .event-two [class*=col-]:nth-child(2n) .event-two__single {
+        flex-direction: row-reverse
+    }
+}
+
+@media (max-width: 991px) {
+    .topbar-one {
+        display: block;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        position: fixed;
+        z-index: 999;
+        width: 100%;
+    }
+    .main-nav-one {
+        position: fixed;
+        top: 7%;
+    }
+    .topbar-one__left,
+    .topbar-one__left>a {
+        align-items: center;
+        display: inline;
+    }
+    .topbar-one__left>a:nth-child(1),
+    .topbar-one__left>a:nth-child(2),
+    .topbar-one__left>a:nth-child(3),
+    .topbar-one__left>a:nth-child(7),
+    .topbar-one__left>a:nth-child(8) {
+        display: none;
+    }
+    .topbar-one__left>a:nth-child(4) {
+        display: inline-block;
+    }
+    .topbar-one__left>a:nth-child(6) {
+        border-right: none;
+        padding-right: 0;
+    }
+    .topbar-one__left>a {
+        font-size: 12px;
+    }
+    .topbar-one__inner-page .topbar-one__social,
+    .topbar-one__left>a:not(:last-of-type) {
+        margin-right: 5px;
+        padding-right: 7px;
+    }
+    .topbar-one__left>a i {
+        color: #fff;
+        margin-right: 3px;
+    }
+}
+
+@media (min-width: 991px) and (max-width: 1025px) {
+    .service-one__about-one .about-one__image,
+    .event-two__single {
+        margin-bottom: 0;
+    }
+    .about-one .about-one__image {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+    .about-one .about-one__image img {
+        left: 0 !important;
+    }
+    .footer-widget__about {
+        margin-bottom: 0;
+        position: relative;
+        top: 0;
+    }
+    .main-nav-one {
+        padding: 20px 0;
+    }
+    .main-nav-one .main-nav__right {
+        margin-left: 50px;
+    }
+    .main-nav-one__inner-page .side-menu__toggler {
+        top: 10px;
+        position: absolute;
+        right: 0;
+    }
+    .event-details__sidebar-dark-bg h3:before {
+        left: 27px;
+    }
+    .event-details__sidebar-dark-bg h3:after {
+        right: 26px;
+    }
+    .left-side-social-icons {
+        display: none;
+    }
+    .cori-call-btn {
+        margin-left: 4px;
+        margin-top: 14px;
+    }
+    .appointment-one__moc {
+        left: -11%;
+    }
+    .medical_spec .col-lg-3 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .medical_spec .col-lg-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .medical_spec {
+        width: 100% !important;
+    }
+    .medical_spec li a {
+        color: #fff !important;
+    }
+    .side-menu__block-inner {
+        width: 400px;
+    }
+    .Our-Specialities .event-two__content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .page-header {
+        height: 58vh;
+        margin-top: 0;
+        background-size: contain;
+    }
+    .page-header .container {
+        bottom: 22%;
+    }
+}

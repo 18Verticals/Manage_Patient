@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Patient_Management_SystemModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DoctorTbl">
+    <Key>
+      <PropertyRef Name="Doctor_ID" />
+    </Key>
+    <Property Name="Doctor_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Dr_FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dr_LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dr_Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dr_Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dr_DOB" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dr_Gender" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dr_Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dr_Qualification" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dr_Address" Type="nvarchar(max)" />
+    <Property Name="Dr_City" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dr_State" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dr_Pincode" Type="int" />
+    <Property Name="Dr_ImagePath" Type="nvarchar" MaxLength="255" />
+    <Property Name="Dr_Status" Type="nvarchar" MaxLength="10" />
+    <Property Name="Dept_ID" Type="int" />
+  </EntityType>
+  <EntityContainer Name="Patient_Management_SystemModel1StoreContainer">
+    <EntitySet Name="DoctorTbl" EntityType="Self.DoctorTbl" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

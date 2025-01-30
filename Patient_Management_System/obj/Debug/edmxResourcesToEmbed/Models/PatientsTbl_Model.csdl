@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Patient_Management_SystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="PatientsTbl">
+    <Key>
+      <PropertyRef Name="Patient_Id" />
+    </Key>
+    <Property Name="Patient_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="P_FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="P_MiddleName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="P_LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="P_Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="P_DOB" Type="DateTime" Precision="0" />
+    <Property Name="P_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="P_Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="P_BloodGrp" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="P_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="P_City" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="P_State" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="P_Pincode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="P_Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="P_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="P_Password" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="P_Login_Details" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="Patient_Management_SystemEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="PatientsTbls" EntityType="Self.PatientsTbl" />
+  </EntityContainer>
+</Schema>

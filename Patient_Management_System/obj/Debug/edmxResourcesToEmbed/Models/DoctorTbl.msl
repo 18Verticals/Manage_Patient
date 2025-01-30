@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Patient_Management_SystemModel1StoreContainer" CdmEntityContainer="Patient_Management_SystemEntities1">
+    <EntitySetMapping Name="DoctorTbls">
+      <EntityTypeMapping TypeName="Patient_Management_SystemModel1.DoctorTbl">
+        <MappingFragment StoreEntitySet="DoctorTbl">
+          <ScalarProperty Name="Doctor_ID" ColumnName="Doctor_ID" />
+          <ScalarProperty Name="Dr_FirstName" ColumnName="Dr_FirstName" />
+          <ScalarProperty Name="Dr_LastName" ColumnName="Dr_LastName" />
+          <ScalarProperty Name="Dr_Email" ColumnName="Dr_Email" />
+          <ScalarProperty Name="Dr_Password" ColumnName="Dr_Password" />
+          <ScalarProperty Name="Dr_DOB" ColumnName="Dr_DOB" />
+          <ScalarProperty Name="Dr_Gender" ColumnName="Dr_Gender" />
+          <ScalarProperty Name="Dr_Phone" ColumnName="Dr_Phone" />
+          <ScalarProperty Name="Dr_Qualification" ColumnName="Dr_Qualification" />
+          <ScalarProperty Name="Dr_Address" ColumnName="Dr_Address" />
+          <ScalarProperty Name="Dr_City" ColumnName="Dr_City" />
+          <ScalarProperty Name="Dr_State" ColumnName="Dr_State" />
+          <ScalarProperty Name="Dr_Pincode" ColumnName="Dr_Pincode" />
+          <ScalarProperty Name="Dr_ImagePath" ColumnName="Dr_ImagePath" />
+          <ScalarProperty Name="Dr_Status" ColumnName="Dr_Status" />
+          <ScalarProperty Name="Dept_ID" ColumnName="Dept_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

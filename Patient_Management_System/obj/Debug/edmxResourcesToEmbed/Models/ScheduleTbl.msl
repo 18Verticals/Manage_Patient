@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Patient_Management_SystemModel1StoreContainer" CdmEntityContainer="Patient_Management_SystemEntities6">
+    <EntitySetMapping Name="DepartmentTbls">
+      <EntityTypeMapping TypeName="Patient_Management_SystemModel1.DepartmentTbl">
+        <MappingFragment StoreEntitySet="DepartmentTbl">
+          <ScalarProperty Name="Dept_ID" ColumnName="Dept_ID" />
+          <ScalarProperty Name="Dept_Name" ColumnName="Dept_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DoctorTbls">
+      <EntityTypeMapping TypeName="Patient_Management_SystemModel1.DoctorTbl">
+        <MappingFragment StoreEntitySet="DoctorTbl">
+          <ScalarProperty Name="Doctor_ID" ColumnName="Doctor_ID" />
+          <ScalarProperty Name="Dr_FirstName" ColumnName="Dr_FirstName" />
+          <ScalarProperty Name="Dr_LastName" ColumnName="Dr_LastName" />
+          <ScalarProperty Name="Dr_Email" ColumnName="Dr_Email" />
+          <ScalarProperty Name="Dr_Password" ColumnName="Dr_Password" />
+          <ScalarProperty Name="Dr_DOB" ColumnName="Dr_DOB" />
+          <ScalarProperty Name="Dr_Gender" ColumnName="Dr_Gender" />
+          <ScalarProperty Name="Dr_Phone" ColumnName="Dr_Phone" />
+          <ScalarProperty Name="Dr_Qualification" ColumnName="Dr_Qualification" />
+          <ScalarProperty Name="Dr_Address" ColumnName="Dr_Address" />
+          <ScalarProperty Name="Dr_City" ColumnName="Dr_City" />
+          <ScalarProperty Name="Dr_State" ColumnName="Dr_State" />
+          <ScalarProperty Name="Dr_Pincode" ColumnName="Dr_Pincode" />
+          <ScalarProperty Name="Dr_ImagePath" ColumnName="Dr_ImagePath" />
+          <ScalarProperty Name="Dr_Status" ColumnName="Dr_Status" />
+          <ScalarProperty Name="Dept_ID" ColumnName="Dept_ID" />
+          <ScalarProperty Name="Fees" ColumnName="Fees" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ScheduleTbls">
+      <EntityTypeMapping TypeName="Patient_Management_SystemModel1.ScheduleTbl">
+        <MappingFragment StoreEntitySet="ScheduleTbl">
+          <ScalarProperty Name="Schedule_ID" ColumnName="Schedule_ID" />
+          <ScalarProperty Name="Doctor_ID" ColumnName="Doctor_ID" />
+          <ScalarProperty Name="Dept_ID" ColumnName="Dept_ID" />
+          <ScalarProperty Name="Available_Days" ColumnName="Available_Days" />
+          <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+          <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
