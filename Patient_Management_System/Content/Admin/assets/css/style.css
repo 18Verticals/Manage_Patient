@@ -6,7 +6,7 @@ Version      : 1.0
 
 /*============================
  [Table of CSS]
-
+0. Image of Login Page
 1. General
 2. Table
 3. Helper Class
@@ -51,6 +51,19 @@ Version      : 1.0
 42. Responsive
 
 ========================================*/
+
+/*-----------------
+0. Image of Login Page
+-----------------------*/
+
+
+
+/* Ensure the layout is centered vertically and horizontally */
+
+
+
+
+
 
 /*-----------------
 	1. General
@@ -1229,6 +1242,8 @@ textarea.form-control {
 /*-----------------
 	8. Login
 -----------------------*/
+
+
 
 .account-page {
 	display: table-row;
