@@ -6,7 +6,7 @@ Version      : 1.0
 
 /*============================
  [Table of CSS]
-
+0. Image of Login Page
 1. General
 2. Table
 3. Helper Class
@@ -53,8 +53,21 @@ Version      : 1.0
 ========================================*/
 
 /*-----------------
-	1. General
+0. Image of Login Page
 -----------------------*/
+
+
+
+/* Ensure the layout is centered vertically and horizontally */
+
+
+
+
+
+
+/*-----------------
+	1. General
+-------------------*/
 
 @import url('https://fonts.googleapis.com/css?family=Rubik:400,500,700');
 
@@ -195,7 +208,7 @@ textarea.form-control {
 
 /*-----------------
 	2. Table
------------------------*/
+-------------------*/
 
 .table {
 	color: #000;
@@ -1229,6 +1242,8 @@ textarea.form-control {
 /*-----------------
 	8. Login
 -----------------------*/
+
+
 
 .account-page {
 	display: table-row;

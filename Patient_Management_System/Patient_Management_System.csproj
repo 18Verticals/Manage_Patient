@@ -227,6 +227,7 @@
     <Content Include="Content\Admin\assets\img\patient-thumb-02.jpg" />
     <Content Include="Content\Admin\assets\img\placeholder-thumb.jpg" />
     <Content Include="Content\Admin\assets\img\placeholder.jpg" />
+    <Content Include="Content\Admin\assets\img\resetpassword.png" />
     <Content Include="Content\Admin\assets\img\sent.png" />
     <Content Include="Content\Admin\assets\img\user-02.jpg" />
     <Content Include="Content\Admin\assets\img\user-03.jpg" />
