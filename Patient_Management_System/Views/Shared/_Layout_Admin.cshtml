@@ -45,7 +45,7 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                   
-                    <a class="dropdown-item" href="login.html">Logout</a>
+                    <a class="dropdown-item" href="@Url.Action("Login","Admin")">Logout</a>
                 </div>
             </div>
         </div>
@@ -71,6 +71,10 @@
                         </li>
                         <li>
                             <a href="@Url.Action("List_Department","Admin")"><i class="fa fa-hospital-o"></i> <span>Departments</span></a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("List_Contact","Admin")"><i class="fa fa-phone "></i> <span>Contact</span></a>
                         </li>
                         <li class="submenu">
                             <a href="#"><i class="fa fa-envelope"></i> <span> Email</span></a>

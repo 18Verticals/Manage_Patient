@@ -4,13 +4,6 @@
 }
 @using (Html.BeginForm("Edit_Appointment", "Admin", FormMethod.Post))
 {@Html.AntiForgeryToken()
-<link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/bootstrap-datetimepicker.min.css" />
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/style.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <div class="row">
@@ -30,12 +23,12 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Doctor Name</label>
-                    @Html.EditorFor(model => model.Doctor_ID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownList("Doctor_ID", (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "-- Select Doctor --", new { @class = "form-control" })
+
                     @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
 
                 </div>
             </div>
-
 
             <!-- Department -->
             <div class="col-sm-4">
@@ -97,6 +90,6 @@
 </div>
 
 <div>
-    <button type="submit" class="btn btn-primary">Update Appointment</button>
+    <button type="submit" class="btn btn-primary" style="margin-top:50px;">Update Appointment</button>
 </div>
 }

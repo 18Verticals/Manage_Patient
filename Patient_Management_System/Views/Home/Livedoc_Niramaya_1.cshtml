@@ -1,750 +1,662 @@
-﻿@{
-    ViewBag.Title = "Test";
-    Layout = "~/Views/Shared/_Layout_Patient.cshtml";
-}
 
-<div class="page-wrapper">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Quality Healthcare for Women in Ahmedabad | LiveDoc Hospital</title>
+
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="KD Hospital's Niramaya offers quality healthcare services for women, including gynecology, obstetrics, infertility treatment, and more. Trust us for your healthcare needs." />
+    <meta name="keyword" Content="KD Hospital, Multi Super Speciality Hospital in Ahmedabad , Health Check Up Packages in Ahmedabad,  Retina Doctor in Ahmedabad , Nursing Education in Ahmedabad , Stroke Unit in Ahmedabad" />
+    <meta name="robots" Content="index,follow" />
+    <meta name="contact" Content="+91 79 6677 0000" />
+    <meta name="distribution" Content="Global" />
+    <meta name="rating" content="General" />
+    <!--<meta name="revisit-after" content="1 days" />-->
+    <meta name="geo.placename" content="Ahmedabad , India" />
+    <meta name="geo.placename" content="Gujarat , India" />
+    <meta name="author" content="KD Hospital, contact@kdhospital.co.in" />
+
+    <meta name="og:title" content="Quality Healthcare for Women in Ahmedabad | KD Hospital" />
+
+    <meta name="og:description" content="KD Hospital's Niramaya offers quality healthcare services for women, including gynecology, obstetrics, infertility treatment, and more. Trust us for your healthcare needs." />
+    <meta name="og:email" content="contact@kdhospital.co.in" />
+    <meta name="og:phone_number" content="+91 79 6677 0000" />
+
+    <meta name="og:url" content="https://kdhospital.co.in/" />
+
+    <link rel="canonical" href="https://kdhospital.co.in/kd-niramaya-1" />
+
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- Start FONT LINK -->
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/all.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/all.min.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/brands.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/brands.min.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/fontawesome.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/regular.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/regular.min.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/solid.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/solid.min.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/svg-with-js.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/svg-with-js.min.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/v4-font-face.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/v4-font-face.min.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/v4-shims.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/v5-font-face.css" rel="stylesheet" />
+    <link href="~/Content/template/fontawesome-free-6.7.2-web/css/v5-font-face.min.css" rel="stylesheet" />
+    <!-- End FONT LINK -->
+    <!-- plugins styles -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Baloo+2:400,500,600,700,800%7CLato:100,300,400,700,900%7COpen+Sans:300,400,600,700,800%7CRoboto:300,400,500,700,900%7CRubik:300,400,500,700,900&amp;display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/template/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/animate.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/hover-min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/swiper.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/icons.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/testimonial.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/style.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/responsive.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/new-responsive.css">
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-MGPDDCF');</script>
+    <!-- End Google Tag Manager -->
+
+    <meta name="facebook-domain-verification" content="ytjhlmp3l3eawjdp4seo1d3omiqyi6" />
+</head>
+
+<body>
+    <div class="btm_div"><a onclick="if(window.innerWidth>769){popUp=window.open('https://web.whatsapp.com/send?phone=+9163596036283&amp;text=Hi,%20I%20contacted%20you%20Through%20your%20Website', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();}else{popUp=window.open('whatsapp://send?phone=+916359603628&amp;text=Hi,%20I%20contacted%20you%20Through%20your%20Website', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();}" target="_blank"><img src="assets/images/whatsapp.png"></a> </div>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MGPDDCF"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="preloader">
+
+    </div><!-- /.preloader -->
 
 
     <div class="page-wrapper">
-
-        <div class="slider-four__wrapper home-slider-new">
-            <div class="slider-four">
-                <div class="slider-four__carousel thm__owl-dot-1 owl-carousel owl-theme thm__owl-carousel" data-carousel-prev-btn=".slider-four__nav-right" data-carousel-next-btn=".slider-four__nav-left" data-options='{"loop": true, "items": 1, "margin": 0, "dots": false, "nav": false, "animateOut": &quot;slideOutDown&quot;, "animateIn": &quot;fadeIn&quot;, "active": true, "smartSpeed": 2000, "autoplay": false, "autoplayTimeout": 7000, "autoplayHoverPause": false}'>
-                    <div class="item slider-four__slide-1" style="background-image: url(../Content/template/assets/images/main-slider/transplant-centre-of-ahmedabad.jpg);">
-                        <div class="container">
-                            <div class="slider-four__content text-center">
-                                <h3 class="anim-elm">Transplant Centre<br> of Gujarat</h3>
-                                <p class="anim-elm banner-sub">Heart • Lung • Liver • Kidney • Cornea</p>
-                            </div>
-                            <!-- /.slider-four__content text-center -->
-                        </div>
-                        <!-- /.container -->
+        <section class="topbar-one topbar-one__inner-page">
+            <div class="container">
+                <div class="topbar-one__left">
+                    <a href="tel:+91 79 66770000"><i class="fa fa-phone"></i>Appointment: +91 79 6677 0000</a>
+                    <a href="tel:+91 7966770077" class="top-imigration-num"><i class="fa fa-phone"></i>Immigration: +91 79667 70077</a>
+                    <a href="tel:+91 9979153196"> +91 99791 53196 </a>
+                    <a href="https://kd.doctor9.com/default.htm" target="_blank"><i class="fa fa-list-alt"></i> Book an Appointment</a>
+                    <a href="http://111.93.87.226/OnlineLabReports/" target="_blank"><i class="fa fa-list-alt"></i> Patient Billing</a>
+                    <a href="virtual-tour" target="_blank" style="border-right: none;padding-right: 0;"><img src="~/Content/template/assets/images/weight_loss_surgery_in_ahmedabad.png" alt="Best Hospitals in Ahmedabad" title="Best Hospitals in Ahmedabad"></a>
+                    <a href="download" style="border-left: 1px solid rgba(255, 255, 255, .2);padding-left: 20px;"><i class="fa fa-download"></i></a>
+                    <a href="immigrants-visa-health-checkup" class="blink">Immigrants Visa Health checkup</a>
+                </div><!-- /.topbar-one__left -->
+            </div><!-- /.container -->
+        </section><!-- /.topbar-one -->  <nav class="main-nav-one main-nav-one__inner-page stricky inner-page-menu original">
+            <div class="container">
+                <div class="inner-container">
+                    <div class="logo">
+                        <a href="index" class=""> <img src="~/Content/template/assets/images/kd-logo.webp" class="main-nav-one__main-logo" alt="Best Super Speciality Hospital in Ahmedabad" title="Best Super Speciality Hospital in Ahmedabad"> <img src="~/Content/template/assets/images/kd-logo.webp" width="219" class="main-nav-one__mobile-logo" alt="Best Super Speciality Hospital in Ahmedabad" title="Best Super Speciality Hospital in Ahmedabad"> </a>
+                        <span class="side-menu__toggler"><i class="fa fa-bars"></i></span>
                     </div>
-                    <!-- /.item -->
-                    <div class="item slider-four__slide-1" style="background-image: url(../Content/template/assets/images/main-slider/neuro-intervention.jpg);">
-                        <div class="container">
-                            <div class="slider-four__content text-center">
-                                <h3 class="anim-elm">Neuro-intervention</h3>
-                            </div>
-                            <!-- /.slider-four__content text-center -->
-                        </div>
-                        <!-- /.container -->
+                    <!-- /.logo-box -->
+                    <!--          <div class="nabh-logo"><img src="assets/images/nabh-logo/nabh_logo.webp" class="nabh_sticky_logo" alt="Best Hospitals in Ahmedabad" title="Best Hospitals in Ahmedabad"></div>-->
+                    <div class="main-nav__main-navigation">
+                        <ul class="main-nav__navigation-box">
+                            <li class="dropdown mega-menu">
+                                <a href="#">Specialities </a>
+                                <ul class="medical_spec">
+                                    <div class="col-md-12 p0">
+                                        <div class="row m0">
+                                            <div class="col-lg-3 pr15">
+                                                <div class="box-brder">
+                                    <li><a href="anaesthesiology">Anaesthesiology</a></li>
+                                    <li><a href="bariatric-surgery">Bariatric Surgery</a></li>
+                                    <li><a href="https://kdblossom.co.in/breast_clinic.html" target="_blank">Breast Clinic </a></li>
+                                    <li><a href="cardiac-surgery">Cardiac Surgery </a></li>
+                                    <li><a href="cardiologist-in-ahmedabad">Cardiology </a></li>
+                                    <li><a href="dermatology">Dermatology & Cosmetology </a></li>
+                                    <li><a href="emergencycare-trauma-and-icu" class="orange-color">Emergency Care, CCU, & ICU </a> </li>
+                                    <li><a href="endocrinolog">Endocrinology </a></li>
+                                    <li><a href="ent">ENT </a> </li>
+                                    <li><a href="epilepsy-clinic" class="orange-color"> Epilepsy Clinic </a> </li>
+                                    <li><a href="https://kdblossom.co.in/foetal_medicine.html" target="_blank">Foetal Medicine </a></li>
+                                    <li><a href="gastroenterology">Gastroenterology </a> </li>
+                                    <li><a href="gastrosurgery">Gastrosurgery </a> </li>
                     </div>
-                    <!-- /.item -->
-                    <div class="item slider-four__slide-1" style="background-image: url(../Content/template/assets/images/main-slider/bariatric-surgery.jpg);">
-                        <div class="container">
-                            <div class="slider-four__content text-center">
-                                <h3 class="anim-elm">Bariatric Surgery</h3>
-                            </div>
-                            <!-- /.slider-four__content text-center -->
-                        </div>
-                        <!-- /.container -->
-                    </div>
-                    <!-- /.item -->
-                    <div class="item slider-four__slide-1" style="background-image: url(../Content/template/assets/images/main-slider/urology-and-uro-surgery.jpg);">
-                        <div class="container">
-                            <div class="slider-four__content text-center">
-                                <h3 class="anim-elm">Urology and Uro-surgery</h3>
-                            </div>
-                            <!-- /.slider-four__content text-center -->
-                        </div>
-                        <!-- /.container -->
-                    </div>
-                    <!-- /.item -->
-
                 </div>
-                <!-- /.slider-four__carousel -->
-                <div class="slider-four__nav">
-                    <a href="#" class="slider-four__nav-left"><i class="fa fa-angle-left"></i></a>
-                    <!-- /.slider-four__nav-left -->
-                    <a href="#" class="slider-four__nav-right"><i class="fa fa-angle-right"></i></a>
-                    <!-- /.slider-four__nav-right -->
+                <div class="col-lg-3 pl0 pr15">
+                    <div class="box-brder">
+                        <li><a href="general-dentistry-and-implant-centre">General Dentistry & Implant Centre</a></li>
+                        <li><a href="general-surgery">General Surgery </a></li>
+                        <li><a href="https://www.kdblossom.co.in/gynaecology.html" target="_blank">Gynaecology </a></li>
+                        <li><a href="health-package">Health Checkup Packages</a></li>
+                        <li><a href="heart-valve-clinic">Heart Valve Clinic</a></li>
+                        <li><a href="home-healthcare" class="orange-color">Home Healthcare</a></li>
+                        <li><a href="immigrants-visa-health-checkup">Immigrants Visa Health Checkup</a></li>
+                        <li><a href="internal-medicine">Internal Medicine </a></li>
+                        <li><a href="https://kdblossom.co.in/ivf.html" target="_blank">Fertility Clinic</a></li>
+                        <li><a href="laboratory-medicine">Laboratory Medicine</a></li>
+                        <li><a href="liver-transplant">Liver Transplant</a></li>
+                        <li><a href="medical-oncology-n-chemotherapy-centre">Medical Oncology </a></li>
+                        <li><a href="https://kdblossom.co.in/neonatology.html" target="_blank">Neonatology & Paediatrics </a></li>
+                    </div>
                 </div>
-                <!-- /.slider-four__nav -->
+                <div class="col-lg-3 pl0 pr15">
+                    <div class="box-brder">
+                        <li><a href="nephrologist-in-ahmedabad">Nephrology & Dialysis Centre</a></li>
+                        <li><a href="neurology-hospital-near-me">Neurology</a></li>
+                        <li><a href="neurosurgeon-in-ahmedabad">Neurosurgery</a></li>
+                        <li><a href="https://www.kdblossom.co.in/obstetrics.html" target="_blank">Obstetrics </a></li>
+                        <li><a href="ophthalmology-clinic-near-me">Ophthalmology </a></li>
+                        <li><a href="orthopedic-hospital-ahmedabad">Orthopaedic & Joint Replacement </a></li>
+                        <li><a href="cori-robotics">Joint Replacement (Robotic)</a></li>
+                        <li><a href="pain-clinic">Pain Clinic</a></li>
+                        <li><a href="physiotherapy-center">Physiotherapy Centre</a></li>
+                        <li><a href="plastic-surgery">Plastic Surgery </a></li>
+                        <li><a href="psychiatry">Psychiatry</a></li>
+                        <li><a href="pulmonology">Pulmonology</a></li>
+                        <li><a href="radiology">Radiology </a></li>
+                    </div>
+                </div>
+                <div class="col-lg-3 pl0 pr15">
+                    <div class="box-brder">
+                        <li><a href="robotic-surgery.html" class="orange-color">Robotic Surgery </a></li>
+                        <li><a href="sleep-lab">Sleep Clinic</a></li>
+                        <li><a href="spine-surgery">Spine Surgery </a></li>
+                        <li><a href="surgical-oncology">Surgical Oncology</a></li>
+                        <li><a href="organ-donation" class="orange-color">Transplant Services</a></li>
+                        <li><a href="trauma-centre" class="orange-color">Trauma Centre</a></li>
+                        <li><a href="telemedicine">Telemedicine</a></li>
+                        <li><a href="urologist-in-ahmedabad" class="orange-color">Urology</a></li>
+                        <li><a href="vascular-n-thoracic-surgery">Vascular & Thoracic Surgery </a></li>
+                        <li><a href="vertigo-and-balance-disorder-clinic">Vertigo & Balance Disorder Clinic </a></li>
+                    </div>
+                </div>
             </div>
-            <!-- /.slider-four -->
+    </div>
+    </ul>
+    </li><li><a href="doctors">Our Doctors</a></li>
+    <li class="dropdown">
+        <a href="#">Associations </a>
+        <ul>
+            <li><a href="corporates">Corporates</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#">Cashless Services</a>
+        <ul>
+            <li><a href="insurance-companies">Insurance Companies</a></li>
+            <li><a href="tpas">TPAs</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#">Patient Corner </a>
+        <ul>
+            <li><a href="patients-care-&-services">Patient Care & Services</a></li>
+            <li><a href="patients-speaks">Patient Speaks</a></li>
+            <li><a href="miracles-of-care">Miracles of Care</a></li>
+            <li><a href="virtual-tour" target="_blank">Virtual Tour</a></li>
+            <li><a href="patient-information-leaflets">Patient Information Leaflets</a></li>
+            <li><a href="bmi-calculator">Body Mass Index Calculator </a></li>
+            <li><a href="bmr-calculator">Basal Metabolic Rate Calculator </a></li>
+            <li><a href="ovulation-calculator">Ovulation Calculator </a></li>
+        </ul>
+    </li>
+    <li><a href="international-patient-care">International Patient</a></li>
+    <li class="dropdown mega-menu">
+        <a href="#">More </a>
+        <ul class="medical_spec">
+            <div class="col-md-12 p0">
+                <div class="row m0">
+                    <div class="col-lg-4 pr15">
+                        <div class="box-brder">
+                            <h4>About</h4>
+            <li><a href="vision-mission">Vision and Mission</a></li>
+            <li><a href="multispeciality-hospital-ahmedabad">About Us</a></li>
+            <li><a href="kd-foundation">KD Foundation</a></li>
+            <li><a href="career">Career</a></li>
+            <li><a href="contact-us">Contact Us</a></li>
+            </div>
+            </div>
+            <div class="col-lg-4 pl0 pr15">
+                <div class="box-brder">
+                    <h4>Academics</h4>
+            <li><a href="https://www.kdiahs.com/" target="_blank">KDIAHS</a></li>
+            <li><a href="dnb-program">DNB Program</a></li>
+            <li><a href="cme">CME</a></li>
+            <li><a href="nursing-education">Nursing Education</a></li>
+            <li><a href="paramedical-programs"> Paramedical Programs</a></li>
+            <li><a href="kd-arthroplasty-fellowship-programme"> Fellowship Programs</a></li>
+            </div>
+            </div>
+            <div class="col-lg-4 pl0 pr15">
+                <div class="box-brder">
+                    <h4>Media</h4>
+            <li><a href="news">News</a></li>
+            <li><a href="events">Events</a></li>
+            <li><a href="gallery">Gallery</a></li>
+            <li><a href="certifications">Certifications</a></li>
+            <li><a href="https://www.kdmarathon.com/" target="_blank">KD Marathon</a></li>
+            <li><a href="hospital-based-ethical-committee">Committees</a></li>
+            </div>
+            </div>
+            </div>
+            </div>
+        </ul>
+    </li>
+    </ul>
+    <!-- /.main-nav__navigation-box -->
+    </div>
+    <!-- /.main-nav__main-navigation -->
+    <div class="main-nav__right">
+        <a href="kdcitycentre"> <img src="kdcitycentre/img/logo.png"> </a>
+        <!-- /.main-nav-one__cta -->
+    </div>
+
+    <!-- /.main-nav__right -->
+    </div>
+    <!-- /.inner-container -->
+    </div>
+    <!-- /.container -->
+    </nav><!-- /.main-nav-one -->
+
+    <section class="page-header" style="background-image: url(../Content/template/assets/images/inner-page-banner/Home-Healthcare.jpg);">
+        <div class="container">
+
+            <ul class="list-unstyled page-breadcrumb">
+                <li><a href="index"><i class="fa fa-home"></i></a></li>
+                <li>Medical Specialities </li>
+                <li><span>Home Healthcare </span></li>
+
+                <li><span>LD Niramaya 1</span></li>
+            </ul><!-- /.list-unstyled -->
+        </div><!-- /.container -->
+    </section><!-- /.page-header -->
+
+
+
+    <section class="sec_pad">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="block-title text-center">
+                        <h1>LiveDoc <span class="dark-title">Niramaya 1</span></h1>
+
+                        <span class="price-orange-font">@*<i class="fa fa-rupee-sign"></i>*@₹ 3,400/- </span>
+                    </div>
+                </div>
+
+
+                <div class="details-health-checkup">
+
+                    <div class="row">
+
+
+                        <div class="col-md-4 col-sm-4 col-xs-12 ">
+                            <div class="health-checkup-lists">
+
+                                <h6>Preliminary Tests </h6>
+
+
+
+                                <ul class="blog-details__list list-unstyled">
+
+                                    <li> CBC </li>
+                                    <li>Blood Group & RH</li>
+                                    <li>
+                                        Urine RM
+                                    </li>
+                                    <li><i class="fa fa-check-circle"></i>ESR</li>
+                                    <li>
+                                        <i class="fa fa-check-circle"></i>Vitamin b12
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 ">
+                            <div class="health-checkup-lists">
+                                <h6> Kidney Profile </h6>
+
+
+
+                                <ul class="blog-details__list list-unstyled">
+
+                                    <li>S.Creatinine</li>
+                                    <li><i class="fa fa-check-circle"></i>Urea</li>
+                                    <li><i class="fa fa-check-circle"></i>Sodium</li>
+                                    <li><i class="fa fa-check-circle"></i>Potassium</li>
+                                    <li><i class="fa fa-check-circle"></i>Chloride</li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 ">
+                            <div class="health-checkup-lists">
+                                <h6> Thyroid Profile </h6>
+
+
+
+                                <ul class="blog-details__list list-unstyled">
+
+                                    <li>TSH</li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 ">
+                            <div class="health-checkup-lists">
+                                <h6>
+                                    Liver Function Test
+
+                                </h6>
+
+
+
+                                <ul class="blog-details__list list-unstyled">
+
+                                    <li>
+                                        SGPT
+
+                                    </li>
+                                    <li> SGOT </li>
+                                    <li><i class="fa fa-check-circle"></i> S.Billirubin </li>
+                                    <li><i class="fa fa-check-circle"></i> Alkaline Phosphate </li>
+                                    <li><i class="fa fa-check-circle"></i> Total Protein </li>
+                                    <li><i class="fa fa-check-circle"></i> Albumin </li>
+                                    <li><i class="fa fa-check-circle"></i> GLobulin </li>
+                                    <li><i class="fa fa-check-circle"></i> A/G Ratio </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 ">
+
+
+                            <div class="health-checkup-lists">
+                                <h6>
+                                    Diabetic Profile
+
+                                </h6>
+
+
+
+                                <ul class="blog-details__list list-unstyled">
+
+                                    <li>
+                                        RBS
+
+                                    </li>
+                                    <!--<li>FBS</li>-->
+                                    <li><i class="fa fa-check-circle"></i>HBA1C</li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 ">
+
+                            <div class="health-checkup-lists">
+                                <h6>
+                                    Lipid Profile
+                                </h6>
+
+
+
+                                <ul class="blog-details__list list-unstyled">
+
+                                    <li> Total Cholesterol </li>
+                                    <li><i class="fa fa-check-circle"></i> Triglyceride </li>
+                                    <li><i class="fa fa-check-circle"></i>  HDL Cholesterol  </li>
+                                    <li><i class="fa fa-check-circle"></i>  VLDL Cholsterol </li>
+                                    <li><i class="fa fa-check-circle"></i> LDL Cholesterol </li>
+                                    <li><i class="fa fa-check-circle"></i>  LDLC3  </li>
+                                    <li><i class="fa fa-check-circle"></i>  Total Chol/HDL Ratio  </li>
+                                    <li><i class="fa fa-check-circle"></i>  LDL/HDL Ratio  </li>
+                                    <li><i class="fa fa-check-circle"></i> Total Lipid  </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 ">
+                            <div class="health-checkup-lists">
+                                <h6>
+                                    Artheritis Test
+
+                                </h6>
+
+
+
+                                <ul class="blog-details__list list-unstyled">
+
+                                    <li>
+                                        Calcium
+
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-check-circle"></i>Uric Acid
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-check-circle"></i>RA Factor
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.slider-four__wrapper -->
-        <section class="service-one service-one__about-one speci-icons" id="speciality">
-            <style>
-            </style>
-            <div class="container-fluid">
-                <div class="block-title text-center">
-                    <h3>Medical <span class="dark-title">Specialities</span></h3>
-                </div>
-                <!-- /.block-title -->
-                <div class="service-one__carousel owl-carousel thm__owl-carousel owl-theme" data-options='{
-                    "items": 5, "nav": true, "dots": false, "margin": 10, "loop": true, "smartSpeed": 700, "autoplay": true, "autoplayTimeout": 5000, "autoplayHoverPause": true, "responsive": {
-                        "0": {"items": 1, "margin": 0, "dots": false, "nav": true },
-                        "767": {"items": 1, "margin": 0, "dots": false, "nav": true },
-                        "768": {"items": 3, "margin": 30},
-                        "1199": {"items": 5}
-                    }
-                }'>
-                    <div class="item">
-                        <div class="service-one__single">
-                            <a href="#">
-                                <div class="service-one__image">
-                                    <img src="~/Content/template/assets/images/specialities-icon/Cardiology.png" alt="Best Multispeciality Hospital in Ahmedabad" title="Cardiology">
-                                    <p>01</p>
-                                </div>
-                                <!-- /.service-one__image -->
-                                <div class="service-one__content">
-                                    <h3>Cardiology</h3>
-                                </div>
-                                <!-- /.service-one__content -->
-                            </a>
-                        </div>
-                        <!-- /.service-one__single -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="item">
-                        <div class="service-one__single">
-                            <a href="#">
-                                <div class="service-one__image">
-                                    <img src="~/Content/template/assets/images/specialities-icon/Emergency-Care-CCU-&-ICU.png" alt="Best Multispeciality Hospital in Ahmedabad" title="Emergency Care CCU & ICU">
-                                    <p>02</p>
-                                </div>
-                                <!-- /.service-one__image -->
-                                <div class="service-one__content">
-                                    <h3>Emergency Care, CCU, & ICU </h3>
-                                </div>
-                                <!-- /.service-one__content -->
-                            </a>
-                        </div>
-                        <!-- /.service-one__single -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="item">
-                        <div class="service-one__single">
-                            <a href="#">
-                                <div class="service-one__image">
-                                    <img src="~/Content/template/assets/images/specialities-icon/Gastrosurgery.png" alt="Best Super Speciality Hospital in Ahmedabad" title="Gastrosurgery">
-                                    <p>03</p>
-                                </div>
-                                <!-- /.service-one__image -->
-                                <div class="service-one__content">
-                                    <h3>Gastrosurgery</h3>
-                                </div>
-                                <!-- /.service-one__content -->
-                            </a>
-                        </div>
-                        <!-- /.service-one__single -->
-                    </div>
-                    <!-- /.col-lg-4 -->
 
-                    <div class="item">
-                        <div class="service-one__single">
-                            <a href="#">
-                                <div class="service-one__image">
-                                    <img src="~/Content/template/assets/images/specialities-icon/Health-Checkup-Packages.png" alt="Best Super Speciality Hospital in Ahmedabad" title="Health Checkup Packages">
-                                    <p>04</p>
-                                </div>
-                                <!-- /.service-one__image -->
-                                <div class="service-one__content">
-                                    <h3>Health Checkup Packages </h3>
-                                </div>
-                                <!-- /.service-one__content -->
-                            </a>
-                        </div>
-                        <!-- /.service-one__single -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="item">
-                        <div class="service-one__single">
-                            <a href="#">
-                                <div class="service-one__image">
-                                    <img src="~/Content/template/assets/images/specialities-icon/Internal-Medicine.png" alt="Best Multispeciality Hospital in Ahmedabad" title="Internal Medicine">
-                                    <p>05</p>
-                                </div>
-                                <!-- /.service-one__image -->
-                                <div class="service-one__content">
-                                    <h3> Internal Medicine</h3>
-                                </div>
-                                <!-- /.service-one__content -->
-                            </a>
-                        </div>
-                    </div>
+    </section>
 
 
-                    <div class="item">
-                        <div class="service-one__single">
-                            <a href="#">
-                                <div class="service-one__image">
-                                    <img src="~/Content/template/assets/images/specialities-icon/Immigrants-Visa-Health-Checkup.png" alt="Best Multispeciality Hospital in Ahmedabad" title="Immigrants Visa Health Checkup">
-                                    <p>07</p>
-                                </div>
-                                <!-- /.service-one__image -->
-                                <div class="service-one__content">
-                                    <h3>Immigrants Visa Health Checkup</h3>
-                                </div>
-                                <!-- /.service-one__content -->
-                            </a>
-                        </div>
-                        <!-- /.service-one__single -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="item">
-                        <div class="service-one__single">
-                            <a href="#">
-                                <div class="service-one__image">
-                                    <img src="~/Content/template/assets/images/specialities-icon/Nephrology-&-Dialysis-Centre.png" alt="Best Super Speciality Hospital in Ahmedabad" title="Nephrology & Dialysis Centre">
-                                    <p>08</p>
-                                </div>
-                                <!-- /.service-one__image -->
-                                <div class="service-one__content">
-                                    <h3>Nephrology & Dialysis Centre</h3>
-                                </div>
-                                <!-- /.service-one__content -->
-                            </a>
-                        </div>
-                        <!-- /.service-one__single -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="item">
-                        <div class="service-one__single">
-                            <a href="#">
-                                <div class="service-one__image">
-                                    <img src="~/Content/template/assets/images/specialities-icon/Neurosurgery.png" alt="Best Super Speciality Hospital in Ahmedabad" title="Neurosurgery">
-                                    <p>09</p>
-                                </div>
-                                <!-- /.service-one__image -->
-                                <div class="service-one__content">
-                                    <h3>Neurosurgery</h3>
-                                </div>
-                                <!-- /.service-one__content -->
-                            </a>
-                        </div>
-                        <!-- /.service-one__single -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="item">
-                        <div class="service-one__single">
-                            <a href="#">
-                                <div class="service-one__image">
-                                    <img src="~/Content/template/assets/images/specialities-icon/Neurology.png" alt="Best Multispeciality Hospital in Ahmedabad" title="Neurology">
-                                    <p>10</p>
-                                </div>
-                                <!-- /.service-one__image -->
-                                <div class="service-one__content">
-                                    <h3>Neurology</h3>
-                                </div>
-                                <!-- /.service-one__content -->
-                            </a>
-                        </div>
-                        <!-- /.service-one__single -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="item">
-                        <div class="service-one__single">
-                            <a href="#">
-                                <div class="service-one__image">
-                                    <img src="~/Content/template/assets/images/specialities-icon/Ophthalmology.png" alt="Best Multispeciality Hospital in Ahmedabad" title="Ophthalmology">
-                                    <p>11</p>
-                                </div>
-                                <!-- /.service-one__image -->
-                                <div class="service-one__content">
-                                    <h3>Ophthalmology</h3>
-                                </div>
-                                <!-- /.service-one__content -->
-                            </a>
-                        </div>
-                        <!-- /.service-one__single -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="item">
-                        <div class="service-one__single">
-                            <a href="#">
-                                <div class="service-one__image">
-                                    <img src="~/Content/template/assets/images/specialities-icon/Orthopaedic.png" alt="Best Hospitals in Ahmedabad" title="Orthopaedic">
-                                    <p>12</p>
-                                </div>
-                                <!-- /.service-one__image -->
-                                <div class="service-one__content">
-                                    <h3>Orthopaedic & Joint Replacement </h3>
-                                </div>
-                                <!-- /.service-one__content -->
-                            </a>
-                        </div>
-                        <!-- /.service-one__single -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="item">
-                        <div class="service-one__single">
-                            <a href="#">
-                                <div class="service-one__image">
-                                    <img src="~/Content/template/assets/images/specialities-icon/Paediatrics.png" alt="Best Hospitals in Ahmedabad" title="Paediatrics">
-                                    <p>13</p>
-                                </div>
-                                <!-- /.service-one__image -->
-                                <div class="service-one__content">
-                                    <h3> Neonatology & Paediatrics </h3>
-                                </div>
-                                <!-- /.service-one__content -->
-                            </a>
-                        </div>
-                        <!-- /.service-one__single -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="item">
-                        <div class="service-one__single">
-                            <a href="#">
-                                <div class="service-one__image">
-                                    <img src="~/Content/template/assets/images/specialities-icon/Sleep-Clinic.png" alt="Best Hospitals in Ahmedabad" title="Sleep Clinic">
-                                    <p>14</p>
-                                </div>
-                                <!-- /.service-one__image -->
-                                <div class="service-one__content">
-                                    <h3>Sleep Clinic </h3>
-                                </div>
-                                <!-- /.service-one__content -->
-                            </a>
-                        </div>
-                        <!-- /.service-one__single -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="item">
-                        <div class="service-one__single">
-                            <a href="#">
-                                <div class="service-one__image">
-                                    <img src="~/Content/template/assets/images/specialities-icon/Urology.png" alt="Best Hospitals in Ahmedabad" title="Urology">
-                                    <p>15</p>
-                                </div>
-                                <!-- /.service-one__image -->
-                                <div class="service-one__content">
-                                    <h3>Urology </h3>
-                                </div>
-                                <!-- /.service-one__content -->
-                            </a>
-                        </div>
-                        <!-- /.service-one__single -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                </div>
-                <!-- /.service-one__carousel -->
-            </div>
-            <!-- /.container -->
 
-        </section>
-        <section class="team-one ">
-            <div class="container">
-                <div class="row high-gutter">
-                    <div class="col-lg-3 col-md-6 wow fadeInLeft" data-wow-duration="1500ms">
-                        <a href="our-specialities">
-                            <div class="team-one__single">
-                                <div class="team-one__image"> <img src="~/Content/template/assets/images/our_speciality.png" alt=""> </div>
-                                <!-- /.team-one__image -->
-                                <div class="team-one__content">
-                                    <div class="team-one__content-inner">
-                                        <h3>Our Speciality</h3>
-                                    </div>
-                                    <!-- /.team-one__content-inner -->
-                                </div>
-                                <!-- /.team-one__content -->
-                            </div>
-                            <!-- /.team-one__single -->
-                        </a>
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-duration="1500ms">
-                        <a href="health-package">
-                            <div class="team-one__single">
-                                <div class="team-one__image"> <img src="~/Content/template/assets/images/Health_Packages.png" alt=""> </div>
-                                <!-- /.team-one__image -->
-                                <div class="team-one__content">
-                                    <div class="team-one__content-inner">
-                                        <h3>Health Packages</h3>
-                                    </div>
-                                    <!-- /.team-one__content-inner -->
-                                </div>
-                                <!-- /.team-one__content -->
-                            </div>
-                            <!-- /.team-one__single -->
-                        </a>
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-duration="1500ms">
-                        <a href="miracles-of-care">
-                            <div class="team-one__single">
-                                <div class="team-one__image"> <img src="~/Content/template/assets/images/Patient_Speaks.png" alt=""> </div>
-                                <!-- /.team-one__image -->
-                                <div class="team-one__content">
-                                    <div class="team-one__content-inner">
-                                        <h3>Miracles of Care</h3>
-                                    </div>
-                                    <!-- /.team-one__content-inner -->
-                                </div>
-                                <!-- /.team-one__content -->
-                            </div>
-                            <!-- /.team-one__single -->
-                        </a>
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="col-lg-3 col-md-6 wow fadeInRight" data-wow-duration="1500ms">
-                        <a href="success-stories">
-                            <div class="team-one__single">
-                                <div class="team-one__image"> <img src="~/Content/template/assets/images/Success_Stories.png" alt=""> </div>
-                                <!-- /.team-one__image -->
-                                <div class="team-one__content">
-                                    <div class="team-one__content-inner">
-                                        <h3>Success Stories</h3>
-                                    </div>
-                                    <!-- /.team-one__content-inner -->
-                                </div>
-                                <!-- /.team-one__content -->
-                            </div>
-                            <!-- /.team-one__single -->
-                        </a>
-                    </div>
-                    <!-- /.col-lg-4 -->
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container -->
-        </section>
-        <section class="event-two Our-Specialities">
-            <div class="container">
-                <div class="block-title text-center">
-                    <h3><span class="dark-title">Transplant Services</span></h3>
-                </div>
-                <div class="row no-gutters">
-                    <div class="col-xl-6 col-md-6">
-                        <div class="event-two__single">
-                            <div class="event-two__image"> <img src="~/Content/template/assets/images/lung-transplant.png" alt="" title=""> </div>
-                            <div class="event-two__content d-flex">
-                                <div class="my-auto">
-                                    <h3>
-                                        <a href="lung_transplant">Lung Transplant</a><br>
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-md-6">
-                        <div class="event-two__single">
-                            <div class="event-two__image"> <img src="~/Content/template/assets/images/Organ-Donation.png" alt="" title=""> </div>
-                            <div class="event-two__content d-flex">
-                                <div class="my-auto">
-                                    <h3> <a href="heart-transplant">Heart Transplant</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-md-6">
-                        <div class="event-two__single">
-                            <div class="event-two__image"> <img src="~/Content/template/assets/images/Renal-Transplant.png" alt="" title=""> </div>
-                            <div class="event-two__content d-flex">
-                                <div class="my-auto">
-                                    <h3><a href="renal-transplant">Kidney Transplant</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- /.col-lg-6 -->
-                    <div class="col-xl-6 col-md-6">
-                        <div class="event-two__single">
-                            <div class="event-two__image"> <img src="~/Content/template/assets/images/Liver-Transplant.png" alt="" title=""> </div>
-                            <div class="event-two__content d-flex">
-                                <div class="my-auto">
-                                    <h3><a href="liver-transplant">Liver Transplant</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-1 col-md-1"></div>
-                    <div class="col-xl-1 col-md-1"></div>
-                    <div class="col-xl-1 col-md-1"></div>
-                    <div class="col-xl-6 col-md-6">
-                        <div class="event-two__single">
-                            <div class="event-two__image"> <img src="~/Content/template/assets/images/Cornea-Transplant.png" alt="" title=""> </div>
-                            <div class="event-two__content d-flex">
-                                <div class="my-auto">
-                                    <h3><a href="cornea-transplant">Cornea Transplant</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-        </section>
-        <section class="cta-one">
+
+
+    <footer class="site-footer">
+        <div class="site-footer__upper"> </div>
+        <div class="site-footer__main">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="funfact-two__single">
-                            <i class="fa fa-ambulance" /></i>
-                            <!-- /.counter -->
-                            <p>Emergency Service</p>
+                    <div class="col-xl-3 col-lg-6 col-md-5">
+                        <!-- /.footer-widget__title -->
+                        <div class="footer-widget footer-widget__about">
+                            <h3 class="footer-widget__title ">Kusum Dhirajlal Hospital</h3>
+                            <p class="mb-20">
+                                <i class="oberlin-icon-marker"></i> Vaishnodevi Circle, SG Road,<br>
+                                <span class="space-padding-right"></span> Ahmedabad - 382421
+                            </p>
+                            <ul class="list-unstyled footer-widget__links-list width-100">
+                                <li><a href="tel: +91 79 6677 0000"><i class="oberlin-icon-phone"></i>+91 79 6677 0000</a></li>
+                                <li><a href="mailto: contact@kdhospital.co.in"><i class="oberlin-icon-email"></i>contact@kdhospital.co.in</a></li>
+                                <li><a href="https://goo.gl/maps/ZjUjXtF5g34jQY6VA" target="_blank"><i class="oberlin-icon-marker"></i>Get Direction</a></li>
+                            </ul>
                         </div>
-                        <!-- /.funfact-two__single -->
                     </div>
-
-                    <!-- /.col-lg-3 col-md-6 -->
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="funfact-two__single">
-                            <i class="fa fa-clock" /></i>
-                            <!-- /.counter -->
-                            <p>Available 24/7</p>
+                    <!-- /.col-xl-4 col-lg-6 col-md-5 -->
+                    <div class="col-xl-3 col-lg-6 col-md-5">
+                        <!-- /.footer-widget__title -->
+                        <div class="footer-widget footer-widget__about">
+                            <h3 class="footer-widget__title ">KD City Centre</h3>
+                            <p class="mb-20">
+                                <i class="oberlin-icon-marker"></i>  Opp. ITC Narmada
+                                Vastrapur<br>
+                                <span class="space-padding-right"></span> Ahmedabad-380015
+                            </p>
+                            <ul class="list-unstyled footer-widget__links-list width-100">
+                                <li><a href="tel:  079 35353535"><i class="oberlin-icon-phone"></i> 079 35353535</a></li>
+                                <li><a href="mailto: kdcitycentre@kdhospital.co.in"><i class="oberlin-icon-email"></i>kdcitycentre@kdhospital.co.in</a></li>
+                                <li><a href="https://goo.gl/maps/8oSsnFBPSMgoZgkg9" target="_blank"><i class="oberlin-icon-marker"></i>Get Direction</a></li>
+                            </ul>
                         </div>
-                        <!-- /.funfact-two__single -->
                     </div>
+                    <!-- /.col-xl-4 col-lg-6 col-md-5 -->
+                    <!-- /.col-xl-2 col-lg-6 col-md-5 -->
+                    <div class="col-xl-3 col-lg-6 col-md-5">
+                        <div class="footer-widget footer-widget__post">
+                            <h3 class="footer-widget__title">Important</h3>
+                            <!-- /.footer-widget__title -->
 
-                    <!-- /.col-lg-3 col-md-6 -->
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="funfact-two__single">
-                            <i class="fa fa-certificate" /></i>
-                            <!-- /.counter -->
-                            <p>Licenced & Insured</p>
+                            <ul class="list-unstyled footer-widget__links-list  mb-30">
+                                <li><a href="doctors"><i class="fa fa-angle-right"></i>Doctors </a></li>
+                                <li><a href="multispeciality-hospital-ahmedabad"><i class="fa fa-angle-right"></i>About Us</a></li>
+                                <li><a href="https://www.kdmarathon.com/" target="_blank"><i class="fa fa-angle-right"></i>KD Marathon</a></li>
+
+                                <li><a href="patients-speaks"><i class="fa fa-angle-right"></i>Patient Speaks</a></li>
+                                <li><a href="https://www.kdblossom.co.in/" target="_blank"><i class="fa fa-angle-right"></i>Women & Child Care</a></li>
+                                <li><a href="kdcitycentre/" target="_blank"><i class="fa fa-angle-right"></i>KD City Centre</a></li>
+                                <li><a href="pdfs/quality-indicators.pdf" target="_blank"><i class="fa fa-angle-right"></i>Quality Indicators</a></li>
+                            </ul>
+                            <!--
+                                            <h3 class="footer-widget__title ">OPD Timings</h3>
+                                            <p>Monday - Saturday: 10 : 00 AM - 6 : 00 PM </p>
+                            -->
                         </div>
-                        <!-- /.funfact-two__single -->
+                        <!-- /.footer-widget footer-widget__post -->
                     </div>
+                    <!-- /.col-xl-3 col-lg-6 col-md-5 -->
 
-                    <!-- /.col-lg-3 col-md-6 -->
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <a href="bmw.html">
-                            <div class="funfact-two__single">
-                                <i class="ser-01" style="background: url(../Content/template/assets/images/bio_waste.png); background-size: 100% auto;"></i>
-                                <p class="bio-medical-data">Bio Medical Waste Management Data</p>
-                            </div>
-                            <!-- /.funfact-two__single -->
-                        </a>
+                    <div class="col-xl-3 col-lg-6 col-md-5">
+                        <div class="footer-widget footer-widget__contact">
+                            <!--              <h3 class="footer-widget__title">Contact Us</h3>-->
+                            <ul class="list-unstyled footer-widget__links-list width-100 mb-30">
+                                <!--
+                                                <li><a href="tel: +91 79 6677 0000"><i class="oberlin-icon-phone"></i>+91 79 6677 0000</a></li>
+                                                <li><a href="mailto: contact@kdhospital.co.in"><i class="oberlin-icon-email"></i>contact@kdhospital.co.in</a></li>
+                                                <li><a href="https://goo.gl/maps/ZjUjXtF5g34jQY6VA" target="_blank"><i class="oberlin-icon-marker"></i>Get Direction</a></li>
+                                -->
+                                <li>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3668.9480733071982!2d72.53958341495864!3d23.13557321790088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e8390ebc97b4f%3A0x4e01d19f2121e25c!2sKD%20Hospital!5e0!3m2!1sen!2sin!4v1676365125085!5m2!1sen!2sin" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.footer-widget footer-widget__contact -->
                     </div>
-
-
-                    <!-- /.col-lg-3 col-md-6 -->
+                    <!-- /.col-xl-3 col-lg-6 col-md-5 -->
                 </div>
                 <!-- /.row -->
             </div>
-        </section>
-        <section class="about-one">
-            <img src="~/Content/template/assets/images/shapes/living-option-dot-1-1.png" class="video-faq__block-dot" alt="Best Super Speciality Hospital in Ahmedabad" title="living option dot">
+            <!-- /.container -->
+        </div>
+        <!-- /.site-footer__main -->
+        <div class="site-footer__bottom">
             <div class="container">
-                <div class="row">
-                    <div class="col-xl-6 wow fadeInLeft" data-wow-duration="1500ms">
-                        <div class="about-one__image">
-                            <a href="https://www.youtube.com/watch?v=tbx1iASV6Ms" target="_blank"> <img src="~/Content/template/assets/images/about-kd.png" style="left: 50px;position:relative"> </a>
-
-                        </div>
-
-                    </div>
-                    <!-- /.col-lg-6 -->
-                    <div class="col-xl-6 d-flex wow fadeInRight" data-wow-duration="1500ms">
-                        <div class="my-auto">
-                            <div class="about-one__content">
-                                <div class="block-title text-left">
-                                    <h1 class="new-title-home">LiveDoc Hospital - <span class="dark-title">Multispeciality Hospital</span> in Ahmedabad</h1>
-                                </div>
-                                <!-- /.block-title -->
-                                <p>
-                                    LIVEDOC Hospital is a multi/super speciality hospital located at the prime location of Vaishnodevi Circle, SG Road, Ahmedabad; with state-of-the-art facilities & treatments at
-                                    an affordable cost, encompassing wide spectrum of accurate diagnostics and elegant therapeutics created on the philosophical edifice of patient and ethical centricity ensuring humanistic dispensation.
-                                </p>
-                                <p>
-                                    Under the aegis of Shri Harihar Maharaj Charitable Trust, LIVEDOC Hospital is spread over a massive 6 acre campus providing <strong>300+ beds</strong> and catering for nearly <strong>45 super-specialties</strong>, all under
-                                    one roof. A multispeciality approach enables each speciality to have the comfort of collaborating on complex cases thereby ensuring a comprehensive assessment/ treatment of the patient. Patients are provided with
-                                    multiple options for treatment, the most suitable of which are arrived at through a collaborative case assessment approach that decides the best course of treatment for the best outcomes.
-                                </p>
-                            </div>
-                            <!-- /.about-one__content -->
-                        </div>
-                        <!-- /.my-auto -->
-
-                    </div>
-                    <!-- /.col-lg-6 -->
-
-                    <div class="col-xl-0 margin-auto">
-
-                    </div>
-                </div>
-                <!-- /.row -->
+                <p>© <span class="currentyear"></span> KD Hospital is incorporated by SHRI HARIHAR MAHARAJ CHARITABLE TRUST. All Rights Reserved. <a href="https://compubrain.com/" target="_blank" title="Website Designed By CompuBrain" class="cb"><img src="assets/images/compubrain_monogram.png" alt="Designed by CompuBrain" title="Designed by CompuBrain"></a></p>
+                <div class="site-footer__social"> <a href="https://www.facebook.com/KDHospitalOfficial/" target="_blank"><i class="fab fa-facebook-f"></i></a> <a href="https://twitter.com/HospitalKd" target="_blank"><i class="fab fa-twitter"></i></a> <a href="https://www.instagram.com/kdhospitalofficial/" target="_blank"><i class="fab fa-instagram"></i></a> <a href="https://in.linkedin.com/company/kd-hospital" target="_blank"><i class="fab fa-linkedin"></i></a> <a href="https://social.kdhospital.co.in/" target="_blank" title="We're Social"><img src="assets/images/top_10_surgeons_in_india.png" alt="Best Super Speciality Hospital in Ahmedabad" title="Top 10 Surgeons in India"> </a> </div>
             </div>
             <!-- /.container -->
-        </section>
+        </div>
+        <!-- /.site-footer__bottom -->
+        <a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="fa fa-angle-up"></i></a>
+    </footer>
+    <!-- /.site-footer --> <!-- /.site-footer -->
+    </div>
+    <div class="side-menu__block">
 
-        <!-- /.about-one -->
-        <!-- /.about-one -->
-        <section class="about-one">
-            <img src="~/Content/template/assets/images/shapes/living-option-dot-1-1.png" class="video-faq__block-dot" alt="Best Super Speciality Hospital in Ahmedabad" title="living option dot">
-            <div class="container">
-                <div class="block-title text-center">
-                    <p></p>
-                    <h3>What Defines Livedoc Hospital ?</h3>
-                </div>
-                <div class="row">
+        <a href="#" class="side-menu__toggler side-menu__close-btn">
+            <i class="fa fa-times"></i>
+            <!-- /.fa fa-close -->
+        </a>
 
-                    <!-- /.col-lg-6 -->
-                    <div class="col-xl-6 d-flex wow fadeInRight" data-wow-duration="1500ms">
-                        <div class="my-auto">
-                            <div class="about-one__content">
-                                <p>
-                                    At Livedoc Hospital, we believe in providing the best medical facilities and surgical treatments with a team of expert consultants, experienced surgeons and veteran clinicians along with a well-trained and caring medical
-                                    staff at your disposal and committed to your humane well-being.
-                                </p>
-                                <p>
-                                    Livedoc Hospital is proud to have team of leading specialists in our arsenal who equipped with state of the art medical technology are capable of making your treatment journey as smooth and stress-free as possible in addition
-                                    to our care-giving nursing staff which makes us your preferred one-point healthcare destination.
-                                </p>
-                                <p>
-                                    Our Values of Excellence, Ethics & Ensuring Well-Being pervade all aspects of medical treatment from CCU, ICU trauma emergency services as well as in-patient super-specialities like general surgery, neurosurgery, bariatric
-                                    surgery, urosurgery, cardiothoracic surgery, joint replacement surgery, paediatric surgery, spine surgery, gynaecology and obstetric surgery, plastic and reconstructive surgery to name a few.
-                                </p>
-                                <p>
-                                    The Livedoc Family is committed to serving your medical health needs with the Best in class hospital treatment available in Ahmedabad,Gujarat. What makes us listed as the top ranked and yet economical
-                                    hospital is our patient centric approach to ethical treatment and holistic well being.
-                                </p>
-                                <p>
-                                    Livedoc Hospital has also been awarded as "The Best Multispecialty Hospital in Gujarat" ( Brands Impact Awards 2022)
-                                </p>
-                            </div>
-                            <!-- /.about-one__content -->
+        <div class="side-menu__block-overlay custom-cursor__overlay">
+
+        </div><!-- /.side-menu__block-overlay -->
+        <div class="side-menu__block-inner ">
+
+            <a href="index.html" class="side-menu__logo">
+                <img src="~/Content/template/assets/images/K_D_Hospital_Footer_Logo.png" alt=""
+                     width="190">
+            </a>
+            <nav class="mobile-nav__container">
+                <!-- content is loading via js -->
+            </nav>
+
+            <!--
+                        <div class="side-menu__social">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-google-plus"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-pinterest-p"></i></a>
                         </div>
-                        <!-- /.my-auto -->
+            -->
+        </div><!-- /.side-menu__block-inner -->
+    </div><!-- /.side-menu__block -->
+    <!-- template scripts -->
+    <script src="~/Content/template/assets/js/jquery.min.js"></script>
+    <script src="~/Content/template/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/template/assets/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Content/template/assets/js/bootstrap-select.min.js"></script>
+    <script src="~/Content/template/assets/js/isotope.js"></script>
+    <script src="~/Content/template/assets/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.circleType.js"></script>
+    <script src="~/Content/template/assets/js/waypoints.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.counterup.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.lettering.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.validate.min.js"></script>
+    <script src="~/Content/template/assets/js/owl.carousel.min.js"></script>
+    <script src="~/Content/template/assets/js/TweenMax.min.js"></script>
+    <script src="~/Content/template/assets/js/wow.min.js"></script>
+    <script src="~/Content/template/assets/js/theme.js"></script>
+    <script src="~/Content/template/assets/js/testimonial.js"></script>
+    <!--<script src="assets/js/mobile.js"></script>-->
+    <script>new WOW().init();</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-772875026"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-                    </div>
-                    <div class="col-xl-6 wow fadeInLeft" data-wow-duration="1500ms">
-                        <div class="about-one__image">
-                            <img src="~/Content/template/assets/images/Building.png" style="left: 50px;position:relative">
-                            <!-- /.about-one__image-content -->
-                        </div>
-                        <!-- /.about-one__image -->
-                    </div>
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container -->
-        </section>
-
-        <section class="service-one service-one__service-page box_block">
-            <div class="container">
-                <div class="block-title text-center mb-50">
-                    <h3>Why Prefer <span class="dark-title">Livedoc Hospital ?</span></h3>
-                </div>
-                <!-- /.block-title -->
-                <div class="row high-gutter">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="service-one__single mb-0">
-
-                            <div class="service-one__content">
-                                <div class="service-one__icon">
-                                    <img src="~/Content/template/assets/images/icons/staff.png" alt="" title="Mission">
-                                </div>
-
-                                <p>Transparent services<br> &amp; Friendly Staff.</p>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="service-one__single mb-0">
-
-                            <div class="service-one__content">
-                                <div class="service-one__icon">
-                                    <img src="~/Content/template/assets/images/icons/check-up.png" alt="" title="Vision">
-                                </div>
-
-                                <p>
-                                    Affordable prices &amp; Variety health check-up packages
-
-                                </p>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="service-one__single mb-0">
-
-                            <div class="service-one__content">
-                                <div class="service-one__icon">
-                                    <img src="~/Content/template/assets/images/icons/facilities.png" alt="" title="Core Values">
-                                </div>
+        gtag('config', 'AW-772875026');
+    </script>
 
 
-                                <p>
-                                    Timely diagnosis - treatment, and care facilities
 
-                                </p>
+    <script>
+        gtag('event', 'page_view', {
+            'send_to': 'AW-772875026',
+            'user_id': 'replace with value'
+        });
+    </script>
 
 
-                            </div>
-                        </div>
-                    </div>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HF6PKWGCCL"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-HF6PKWGCCL');</script>
 
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container -->
-        </section>
+</body>
 
-        <!-- /.about-one -->
-
-        <section class="cta-two-section" style="background-image: url(../Content/template/assets/images/Calculator.png);">
-            <div class="container text-center">
-                <div class="row  wow fadeInUp" data-wow-duration="1500ms">
-                    <h3>Take a second opinion from<br> the leading specialist</h3>
-                    <a href="second_opinion" class="thm-btn cta-one__btn">Book Now</a>
-                </div>
-            </div>
-            <!-- /.container -->
-        </section>
-        <section class="appointment-one">
-            <img src="~/Content/template/assets/images/book_an_appoinment.png" class="appointment-one__map-1" alt="Best Super Speciality Hospital in Ahmedabad" title="appointment map 1"> <img src="~/Content/template/assets/images/shapes/book_an_appoinment.png" class="appointment-one__map-2"
-                                                                                                                                                                                                alt="Best Super Speciality Hospital in Ahmedabad" title="appointment map 2"> <img src="~/Content/template/assets/images/best_hospitals_in_ahmedabad.png" class="appointment-one__moc  wow fadeInUp" data-wow-duration="4500ms" alt="Best Super Speciality Hospital in Ahmedabad"
-                                                                                                                                                                                                                                                                                  title="Feedback">
-            <div class="container">
-                <div class="row justify-content-end">
-                    <div class="col-lg-6">
-                        <div class="block-title text-left">
-                            <h3>Share your <span class="dark-title">Comments</span></h3>
-                        </div>
-                        <!-- /.block-title -->
-
-                        <form class="contact-one__form sky-form" id="Share_Comments" action="thankyou.php" method="post" autocomplete="off">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <i class="fa fa-user icon-prepend"></i>
-                                    <input type="text" id="name" name="name" maxlength="255" placeholder="Name*" />
-                                </div>
-                                <!-- /.col-md-6 -->
-                                <div class="col-md-6">
-                                    <i class="fa fa-envelope icon-prepend"></i>
-                                    <input type="text" id="email" name="email" maxlength="255" placeholder="Email ID*" />
-                                </div>
-                                <!-- /.col-md-6 -->
-                                <div class="col-md-12">
-                                    <i class="fa fa-mobile-alt icon-prepend"></i>
-                                    <input type="text" name="contact_no" onkeypress="contact_num_valid(event)" id="contact_no" minlength="10" maxlength="15" placeholder="Contact No.*" />
-                                </div>
-                                <!-- /.col-md-6 -->
-
-                                <div class="col-md-12">
-                                    <i class="fa fa-edit icon-prepend"></i>
-                                    <textarea id="message" name="message" class="message" placeholder="Message"></textarea>
-                                </div>
-                                <!-- /.col-md-12 -->
-                                <div class="col-md-12 text-left">
-                                    <p id="error_data"></p>
-                                    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response">
-                                    <button class="thm-btn contact-one__btn" type="submit" name="Share_Comments">Submit</button>
-                                    <input type="hidden" value="Share_Comments" name="type_of_form" />
-                                    <i class="fa fa-sync" id="form_process"></i>
-
-                                    <!-- /.thm-btn contact-one__btn -->
-                                </div>
-                                <!-- /.col-md-12 -->
-                            </div>
-                            <!-- /.row -->
-                        </form>
-                        <div class="result"></div>
-                        <!-- /.result -->
-
-                    </div>
-                    <!-- /.col-lg-6 -->
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container -->
-        </section>
+</html>
