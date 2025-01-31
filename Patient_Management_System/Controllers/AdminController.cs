@@ -133,7 +133,7 @@ namespace Patient_Management_System.Controllers
             }
             return View(doctorList);
         }
-
+      
         public ActionResult List_Patient(PatientsTbl patients)
         {
             List<PatientsTbl> patientList = new List<PatientsTbl>();
@@ -519,7 +519,7 @@ namespace Patient_Management_System.Controllers
 
             else
             {
-                // Log validation errors
+                
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
                     System.Diagnostics.Debug.WriteLine($"Validation Error: {error.ErrorMessage}");
@@ -534,16 +534,10 @@ namespace Patient_Management_System.Controllers
         {
             return View();
         }
-        [HttpPost]
-
-
 
         public ActionResult List_Contact()
         {
-       
             return View(db.ContactUsTbls.ToList());
-        
-
         }
 
 
@@ -559,6 +553,10 @@ namespace Patient_Management_System.Controllers
             return View(contactUsTbl);
         }
 
+
+
+        [HttpGet]
+
         public ActionResult Edit_Contact(int? id)
         {
             if (id == null)
@@ -572,6 +570,7 @@ namespace Patient_Management_System.Controllers
             }
             return View(contactUsTbl);
         }
+
 
         public ActionResult Edit_Contact([Bind(Include = "Feedback_Id,Name,Email,Message,Phone")] ContactUsTbl contactUsTbl)
         {
@@ -1068,5 +1067,35 @@ namespace Patient_Management_System.Controllers
             return RedirectToAction("Schedule");
         }
 
+
+
+
+
+
+       
+        public ActionResult Delete_Contact(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ContactUsTbl contactUsTbl = db.ContactUsTbls.Find(id);
+            if (contactUsTbl == null)
+            {
+                return HttpNotFound();
+            }
+            return View(contactUsTbl);
+        }
+
+       
+        [HttpPost]
+        
+        public ActionResult Delete_Contact(int id)
+        {
+            ContactUsTbl contactUsTbl = db.ContactUsTbls.Find(id);
+            db.ContactUsTbls.Remove(contactUsTbl);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
