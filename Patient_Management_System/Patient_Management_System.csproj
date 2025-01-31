@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AppointmentTblsController.cs" />
+    <Compile Include="Controllers\ContactUsTblsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PatientsTblController.cs" />
     <Compile Include="Controllers\ScheduleTblsController.cs" />
@@ -476,9 +477,11 @@
     <Content Include="Content\template\assets\images\Healthpackages\05.png" />
     <Content Include="Content\template\assets\images\Healthpackages\06.png" />
     <Content Include="Content\template\assets\images\Health_Packages.png" />
+    <Content Include="Content\template\assets\images\icons\Ahmedabad-Airport.png" />
     <Content Include="Content\template\assets\images\icons\Anaesthesiology.png" />
     <Content Include="Content\template\assets\images\icons\Bariatric-Surgery.png" />
     <Content Include="Content\template\assets\images\icons\Breast-Clinic.png" />
+    <Content Include="Content\template\assets\images\icons\Bus-Station.png" />
     <Content Include="Content\template\assets\images\icons\Cardiac-Surgery.png" />
     <Content Include="Content\template\assets\images\icons\check-up.png" />
     <Content Include="Content\template\assets\images\icons\Dermatology-Cosmetology.png" />
@@ -503,6 +506,7 @@
     <Content Include="Content\template\assets\images\icons\Psychiatry.png" />
     <Content Include="Content\template\assets\images\icons\Pulmonology.png" />
     <Content Include="Content\template\assets\images\icons\Radiology.png" />
+    <Content Include="Content\template\assets\images\icons\Railway-Station.png" />
     <Content Include="Content\template\assets\images\icons\Spine-Surgery.png" />
     <Content Include="Content\template\assets\images\icons\staff.png" />
     <Content Include="Content\template\assets\images\icons\Surgical-Oncology.png" />
@@ -510,6 +514,7 @@
     <Content Include="Content\template\assets\images\icons\Vascular.png" />
     <Content Include="Content\template\assets\images\img-3.jpg" />
     <Content Include="Content\template\assets\images\inner-page-banner\Certifications.jpg" />
+    <Content Include="Content\template\assets\images\inner-page-banner\Contact-Us.jpg" />
     <Content Include="Content\template\assets\images\inner-page-banner\Cornea-Transplant.jpg" />
     <Content Include="Content\template\assets\images\inner-page-banner\doctor_in_ahmedabad.jpg" />
     <Content Include="Content\template\assets\images\inner-page-banner\Home-Healthcare.jpg" />
@@ -2958,6 +2963,14 @@
     <Content Include="Views\Admin\List_Appointment.cshtml" />
     <Content Include="Views\Admin\Delete_Appointment.cshtml" />
     <Content Include="Views\Admin\Edit_Appointment.cshtml" />
+    <Content Include="Views\ContactUsTbls\Create.cshtml" />
+    <Content Include="Views\ContactUsTbls\Delete.cshtml" />
+    <Content Include="Views\ContactUsTbls\Details.cshtml" />
+    <Content Include="Views\ContactUsTbls\Edit.cshtml" />
+    <Content Include="Views\ContactUsTbls\Index.cshtml" />
+    <Content Include="Views\Admin\Add_Contact.cshtml" />
+    <Content Include="Views\Admin\Edit_Contact.cshtml" />
+    <Content Include="Views\Admin\List_Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

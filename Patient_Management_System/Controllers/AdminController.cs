@@ -528,6 +528,62 @@ namespace Patient_Management_System.Controllers
             return View(departmentVM);
         }
 
+
+        [HttpGet]
+        public ActionResult Add_Contact()
+        {
+            return View();
+        }
+        [HttpPost]
+
+
+
+        public ActionResult List_Contact()
+        {
+       
+            return View(db.ContactUsTbls.ToList());
+        
+
+        }
+
+
+        public ActionResult Add_Contact([Bind(Include = "Feedback_Id,Name,Email,Message,Phone")] ContactUsTbl contactUsTbl)
+        {
+            if (ModelState.IsValid)
+            {
+                db.ContactUsTbls.Add(contactUsTbl);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(contactUsTbl);
+        }
+
+        public ActionResult Edit_Contact(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ContactUsTbl contactUsTbl = db.ContactUsTbls.Find(id);
+            if (contactUsTbl == null)
+            {
+                return HttpNotFound();
+            }
+            return View(contactUsTbl);
+        }
+
+        public ActionResult Edit_Contact([Bind(Include = "Feedback_Id,Name,Email,Message,Phone")] ContactUsTbl contactUsTbl)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(contactUsTbl).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(contactUsTbl);
+        }
+
         [HttpGet]
         public ActionResult Edit_Doctor(int doctorId)
         {
