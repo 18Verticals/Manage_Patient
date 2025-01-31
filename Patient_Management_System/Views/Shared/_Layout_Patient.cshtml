@@ -65,10 +65,47 @@
     <link href="~/Content/template/fontawesome-free-6.7.2-web/css/v5-font-face.css" rel="stylesheet" />
     <link href="~/Content/template/fontawesome-free-6.7.2-web/css/v5-font-face.min.css" rel="stylesheet" />
     <!-- End FONT LINK -->
+    <!-- plugins styles -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Baloo+2:400,500,600,700,800%7CLato:100,300,400,700,900%7COpen+Sans:300,400,600,700,800%7CRoboto:300,400,500,700,900%7CRubik:300,400,500,700,900&amp;display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/template/assets/css/animate.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/hover-min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/swiper.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/icons.css">
+    <link rel="stylesheet" href="~/Content/template/assets/css/accordion.css">
+
     <!-- template styles -->
     <link rel="stylesheet" href="~/Content/template/assets/css/style.css">
     <link rel="stylesheet" href="~/Content/template/assets/css/responsive.css">
     <link rel="stylesheet" href="~/Content/template/assets/css/new-responsive.css">
+    <!-- Google Tag Manager -->
+
+
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-MGPDDCF');
+    </script>
 
     <style>
         .box_block .service-one__single {
@@ -85,6 +122,26 @@
 
     <div class="page-wrapper">
         <div class="page-wrapper">
+
+            <section class="topbar-one topbar-one__inner-page">
+                <div class="container">
+                    <div class="topbar-one__left">
+                        <a href="tel:+91 79 66770000"><i class="fa fa-phone"></i>Appointment: +91 79 6677 0000</a>
+                        <a href="tel:+91 7966770077" class="top-imigration-num"><i class="fa fa-phone"></i>Immigration: +91 79667 70077</a>
+                        <a href="tel:+91 9979153196"> +91 99791 53196 </a>
+                        <a href="https://kd.doctor9.com/default.htm" target="_blank"><i class="fa fa-list-alt"></i> Book an Appointment</a>
+                        <a href="http://111.93.87.226/OnlineLabReports/" target="_blank"><i class="fa fa-list-alt"></i> Patient Billing</a>
+                        <a href="virtual-tour" target="_blank" style="border-right: none;padding-right: 0;"><img src="~/Content/template/assets/images/weight_loss_surgery_in_ahmedabad.png" alt="Best Hospitals in Ahmedabad" title="Best Hospitals in Ahmedabad"></a>
+                        <a href="download" style="border-left: 1px solid rgba(255, 255, 255, .2);padding-left: 20px;"><i class="fa fa-download"></i></a>
+                        <a href="immigrants-visa-health-checkup" class="blink">Immigrants Visa Health checkup</a>
+                    </div>
+                    <!-- /.topbar-one__left -->
+                </div>
+                <!-- /.container -->
+            </section>
+
+
+
             <section class="topbar-one topbar-one__inner-page">
                 <div class="container">
 
@@ -239,7 +296,125 @@
     <!-- /.container -->
     </nav>
 
+    <style>
+        .slider-two__carousel {
+            width: 100%;
+            /*max-width: 945px;*/
+            position: relative;
+            z-index: 19;
+        }
 
+            .slider-two__carousel .owl-stage-outer {
+                overflow: visible;
+            }
+
+            .slider-two__carousel .owl-item {
+                opacity: 0;
+                visibility: hidden;
+                transition: all 500ms ease;
+            }
+
+                .slider-two__carousel .owl-item.active {
+                    opacity: 1;
+                    visibility: visible;
+                    padding-right: 30px
+                }
+
+        .slider-two__carousel-single img {
+            border-radius: 10px;
+        }
+
+        .slider-two__carousel-content {
+            -webkit-animation-duration: 3s;
+            animation-duration: 3s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            -webkit-backface-visibility: visible !important;
+            backface-visibility: visible !important;
+            background: #fff;
+            width: 100%;
+            max-width: 360px;
+            /*position: absolute;
+        bottom: -100px;*/
+            left: -130px;
+            z-index: 10;
+            /*background-color: #fff;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        box-shadow: -14.142px 14.142px 30px 0px rgba(67, 131, 99, 0.08);*/
+            padding-left: 25px;
+            padding-right: 25px;
+            padding-top: 25px;
+            padding-bottom: 25px;
+            border: 1px solid #ccc;
+            /*border-top-left-radius: 50px;
+        border-bottom-right-radius: 50px;*/
+        }
+
+            .slider-two__carousel-content img {
+                width: 80px !important;
+                margin: 0 auto;
+                margin-bottom: 20px;
+                display: block
+            }
+
+        .orange-font {
+            margin: 0 auto
+        }
+
+        .slider-two__carousel-content::after {
+            content: '';
+            width: 3px;
+            height: 30px;
+            background: linear-gradient(to right, #ed3437, #f89c32);
+            position: absolute;
+            top: 5%;
+            left: 15px;
+            transition: all 1s;
+        }
+
+        .slider-two__carousel-single:hover .slider-two__carousel-content::after {
+            top: 80%;
+        }
+
+        .slider-two__carousel-single:hover .slider-two__carousel-content::before {
+            top: 10%;
+        }
+
+        .slider-two__carousel-content::before {
+            content: '';
+            width: 3px;
+            height: 30px;
+            background: linear-gradient(to right, #ed3437, #f89c32);
+            position: absolute;
+            top: 80%;
+            right: 25px;
+            transition: all 1s;
+        }
+
+        .slider-two__carousel-content h3 {
+            margin: 0;
+            color: var(--thm-black);
+            font-weight: 550;
+            font-size: 20px;
+            margin-bottom: 20px;
+            line-height: 34px;
+            text-align: center
+        }
+
+        .slider-two__carousel-content p {
+            font-size: 16px;
+            line-height: 30px;
+            color: #93959e;
+            margin: 0;
+        }
+
+        /* animating on active */
+
+        .slider-two__carousel .active .slider-two__carousle-content {
+            animation-name: fadeInUp;
+        }
+    </style>
 
 
 
@@ -406,12 +581,12 @@
 
     <script>
 
-    if (screen.width <= 1024) {
-    document.location = "/m";
+        if (screen.width <= 1024) {
+            document.location = "/m";
 
-    }
+        }
     </script>
-  
+
     <script>
         new WOW().init();
     </script>
