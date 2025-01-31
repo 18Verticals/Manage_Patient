@@ -522,7 +522,7 @@ namespace Patient_Management_System.Controllers
 
             else
             {
-                // Log validation errors
+                
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
                     System.Diagnostics.Debug.WriteLine($"Validation Error: {error.ErrorMessage}");
@@ -537,15 +537,12 @@ namespace Patient_Management_System.Controllers
         {
             return View();
         }
-     
 
+        public ActionResult List_Contact()
+        {
+            return View(db.ContactUsTbls.ToList());
+        }
 
-
-      
-
-
-
-        [HttpPost]
         public ActionResult Add_Contact([Bind(Include = "Feedback_Id,Name,Email,Message,Phone")] ContactUsTbl contactUsTbl)
         {
             if (ModelState.IsValid)
@@ -557,7 +554,6 @@ namespace Patient_Management_System.Controllers
 
             return View(contactUsTbl);
         }
-
 
         [HttpGet]
         public ActionResult Edit_Contact(int? id)
@@ -573,8 +569,8 @@ namespace Patient_Management_System.Controllers
             }
             return View(contactUsTbl);
         }
-        [HttpPost]
 
+        [HttpPost]
         public ActionResult Edit_Contact([Bind(Include = "Feedback_Id,Name,Email,Message,Phone")] ContactUsTbl contactUsTbl)
         {
             if (ModelState.IsValid)

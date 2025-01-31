@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 
+
+
 @using (Html.BeginForm("Add_Contact", "Admin"))
 {
     @Html.AntiForgeryToken()
@@ -18,20 +20,16 @@
 
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
-
-          
-
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
+                      
                         <label>Name</label>
                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 </div>
-
-
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -66,13 +64,6 @@
                             <div class="m-t-20 text-center">
                                 <button class="btn btn-primary submit-btn" style="margin-left:230px; ">Add Contact</button>
                             </div>
-
-
                         </div>
-                  
-
-   
-
-
-
+                 
 }

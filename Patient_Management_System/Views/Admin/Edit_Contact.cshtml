@@ -1,12 +1,10 @@
 ﻿@model Patient_Management_System.Models.ContactUsTbl
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit_Contact";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
-
 <h2>Edit</h2>
-
 @using (Html.BeginForm("Edit_Contact", "Admin"))
 {
     @Html.AntiForgeryToken()
@@ -67,7 +65,6 @@
             </div>
         </div>
     </div>
-            
-            }
+}
 
 
