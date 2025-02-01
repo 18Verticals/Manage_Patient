@@ -467,6 +467,7 @@ namespace Patient_Management_System.Controllers
        }), "Doctor_ID", "FullName", scheduleTbl.Doctor_ID
    ); return View(scheduleTbl);
         }
+
         [HttpGet]
         public ActionResult Add_Department()
         {
@@ -492,8 +493,6 @@ namespace Patient_Management_System.Controllers
                         }
                     }
                     return RedirectToAction("Index", "Admin");
-
-
                 }
                 catch (Exception ex)
                 {
@@ -502,7 +501,7 @@ namespace Patient_Management_System.Controllers
                 }
             }
             else
-        
+            {
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
                     System.Diagnostics.Debug.WriteLine($"Validation Error: {error.ErrorMessage}");
@@ -604,6 +603,7 @@ namespace Patient_Management_System.Controllers
                     string extension = Path.GetExtension(Dr_ImagePath.FileName);
                     string newImagePath = "~/Content/UploadedImages/" + fileName + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
                     try
+
                     {                      
                         Dr_ImagePath.SaveAs(Server.MapPath(newImagePath));
                         doctor.Dr_ImagePath = newImagePath; // Update the doctor object with the new image path
@@ -643,6 +643,9 @@ namespace Patient_Management_System.Controllers
 
                 TempData["Message"] = "Doctor record updated successfully.";
                 return RedirectToAction("Index");
+
+            }
+
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
