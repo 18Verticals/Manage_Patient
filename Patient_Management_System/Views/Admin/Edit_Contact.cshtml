@@ -1,5 +1,4 @@
 ﻿@model Patient_Management_System.Models.ContactUsTbl
-
 @{
 
     ViewBag.Title = "Edit_Contact";
@@ -33,7 +32,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Email<label>
+                        <label>Email<label>                
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
@@ -58,7 +57,10 @@
                 <div class="m-t-20 text-center">
                     <button class="btn btn-primary submit-btn" style="margin-right:100px; ">Edit Contact</button>
                 </div>
+
          </div>   
       </div>
    </div>
 }
+
+
