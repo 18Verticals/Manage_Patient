@@ -134,6 +134,12 @@ namespace Patient_Management_System.Controllers
             return View(doctorList);
         }
 
+
+      
+      
+
+
+
         public ActionResult List_Patient(PatientsTbl patients)
         {
             List<PatientsTbl> patientList = new List<PatientsTbl>();
@@ -535,7 +541,6 @@ namespace Patient_Management_System.Controllers
             return View(db.ContactUsTbls.ToList());
         }
 
-
         public ActionResult Add_Contact([Bind(Include = "Feedback_Id,Name,Email,Message,Phone")] ContactUsTbl contactUsTbl)
         {
             if (ModelState.IsValid)
@@ -549,6 +554,10 @@ namespace Patient_Management_System.Controllers
         }
 
         [HttpGet]
+
+
+
+
         public ActionResult Edit_Contact(int? id)
         {
             if (id == null)
@@ -562,8 +571,14 @@ namespace Patient_Management_System.Controllers
             }
             return View(contactUsTbl);
         }
+
+
+
+        [HttpPost]
+
         
         [HttpPost]
+
         public ActionResult Edit_Contact([Bind(Include = "Feedback_Id,Name,Email,Message,Phone")] ContactUsTbl contactUsTbl)
         {
             if (ModelState.IsValid)
