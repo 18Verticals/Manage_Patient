@@ -1,5 +1,4 @@
 ﻿@model Patient_Management_System.Models.ContactUsTbl
-
 @{
 
     ViewBag.Title = "Edit_Contact";
@@ -25,11 +24,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-
-                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-
                         <label>Name<label>
-
                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     </div>
@@ -37,11 +32,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-
-                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                        <label>Email<label>
-
+                        <label>Email<label>                
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
@@ -67,15 +58,9 @@
                     <button class="btn btn-primary submit-btn" style="margin-right:100px; ">Edit Contact</button>
                 </div>
 
-              
-            </div>
-             </div>
-        </div>
-  
-}
-
-
          </div>   
       </div>
    </div>
 }
+
+
