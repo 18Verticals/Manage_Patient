@@ -19,6 +19,7 @@ namespace Patient_Management_System.Models
         {
             this.AppointmentTbls = new HashSet<AppointmentTbl>();
             this.ScheduleTbls = new HashSet<ScheduleTbl>();
+            this.PrescriptionTbls = new HashSet<PrescriptionTbl>();
         }
     
         public int Doctor_ID { get; set; }
@@ -44,5 +45,7 @@ namespace Patient_Management_System.Models
         public virtual DepartmentTbl DepartmentTbl { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScheduleTbl> ScheduleTbls { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PrescriptionTbl> PrescriptionTbls { get; set; }
     }
 }

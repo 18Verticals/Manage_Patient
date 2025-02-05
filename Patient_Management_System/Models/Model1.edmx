@@ -100,6 +100,30 @@
           <Property Name="P_Image" Type="nvarchar(max)" />
           <Property Name="P_Password" Type="nvarchar" MaxLength="25" />
         </EntityType>
+        <EntityType Name="PaymentTbl">
+          <Key>
+            <PropertyRef Name="Payment_ID" />
+          </Key>
+          <Property Name="Payment_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Patient_ID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PaymentMethod" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PaymentDate" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PrescriptionTbl">
+          <Key>
+            <PropertyRef Name="Presc_ID" />
+          </Key>
+          <Property Name="Presc_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Patient_ID" Type="int" Nullable="false" />
+          <Property Name="Doctor_ID" Type="int" Nullable="false" />
+          <Property Name="DateIssued" Type="datetime" Nullable="false" />
+          <Property Name="Medication" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Dosage" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Instructions" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="ScheduleTbl">
           <Key>
             <PropertyRef Name="Schedule_ID" />
@@ -208,6 +232,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Payment_Patient">
+          <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PaymentTbl" Type="Self.PaymentTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientsTbl">
+              <PropertyRef Name="Patient_Id" />
+            </Principal>
+            <Dependent Role="PaymentTbl">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Prescription_Doctor">
+          <End Role="DoctorTbl" Type="Self.DoctorTbl" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PrescriptionTbl" Type="Self.PrescriptionTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorTbl">
+              <PropertyRef Name="Doctor_ID" />
+            </Principal>
+            <Dependent Role="PrescriptionTbl">
+              <PropertyRef Name="Doctor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Prescription_Patient">
+          <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PrescriptionTbl" Type="Self.PrescriptionTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientsTbl">
+              <PropertyRef Name="Patient_Id" />
+            </Principal>
+            <Dependent Role="PrescriptionTbl">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Patient_Management_SystemModelStoreContainer">
           <EntitySet Name="AdminTbl" EntityType="Self.AdminTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppointmentTbl" EntityType="Self.AppointmentTbl" Schema="dbo" store:Type="Tables" />
@@ -216,6 +282,8 @@
           <EntitySet Name="DoctorTbl" EntityType="Self.DoctorTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginInfo" EntityType="Self.LoginInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientsTbl" EntityType="Self.PatientsTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentTbl" EntityType="Self.PaymentTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrescriptionTbl" EntityType="Self.PrescriptionTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScheduleTbl" EntityType="Self.ScheduleTbl" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__LoginInfo__Patie__6D0D32F4" Association="Self.FK__LoginInfo__Patie__6D0D32F4">
             <End Role="PatientsTbl" EntitySet="PatientsTbl" />
@@ -248,6 +316,18 @@
           <AssociationSet Name="FK_Doctor_Department" Association="Self.FK_Doctor_Department">
             <End Role="DepartmentTbl" EntitySet="DepartmentTbl" />
             <End Role="DoctorTbl" EntitySet="DoctorTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Patient" Association="Self.FK_Payment_Patient">
+            <End Role="PatientsTbl" EntitySet="PatientsTbl" />
+            <End Role="PaymentTbl" EntitySet="PaymentTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prescription_Doctor" Association="Self.FK_Prescription_Doctor">
+            <End Role="DoctorTbl" EntitySet="DoctorTbl" />
+            <End Role="PrescriptionTbl" EntitySet="PrescriptionTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prescription_Patient" Association="Self.FK_Prescription_Patient">
+            <End Role="PatientsTbl" EntitySet="PatientsTbl" />
+            <End Role="PrescriptionTbl" EntitySet="PrescriptionTbl" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -326,6 +406,7 @@
           <NavigationProperty Name="AppointmentTbls" Relationship="Self.FK_Appointments_Doctor" FromRole="DoctorTbl" ToRole="AppointmentTbl" />
           <NavigationProperty Name="DepartmentTbl" Relationship="Self.FK_Doctor_Department" FromRole="DoctorTbl" ToRole="DepartmentTbl" />
           <NavigationProperty Name="ScheduleTbls" Relationship="Self.FK__ScheduleT__Docto__6E01572D" FromRole="DoctorTbl" ToRole="ScheduleTbl" />
+          <NavigationProperty Name="PrescriptionTbls" Relationship="Self.FK_Prescription_Doctor" FromRole="DoctorTbl" ToRole="PrescriptionTbl" />
         </EntityType>
         <EntityType Name="LoginInfo">
           <Key>
@@ -362,6 +443,35 @@
           <Property Name="P_Password" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AppointmentTbls" Relationship="Self.FK_Appointments_Patient" FromRole="PatientsTbl" ToRole="AppointmentTbl" />
           <NavigationProperty Name="LoginInfoes" Relationship="Self.FK__LoginInfo__Patie__6D0D32F4" FromRole="PatientsTbl" ToRole="LoginInfo" />
+          <NavigationProperty Name="PaymentTbls" Relationship="Self.FK_Payment_Patient" FromRole="PatientsTbl" ToRole="PaymentTbl" />
+          <NavigationProperty Name="PrescriptionTbls" Relationship="Self.FK_Prescription_Patient" FromRole="PatientsTbl" ToRole="PrescriptionTbl" />
+        </EntityType>
+        <EntityType Name="PaymentTbl">
+          <Key>
+            <PropertyRef Name="Payment_ID" />
+          </Key>
+          <Property Name="Payment_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Patient_ID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PaymentMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PatientsTbl" Relationship="Self.FK_Payment_Patient" FromRole="PaymentTbl" ToRole="PatientsTbl" />
+        </EntityType>
+        <EntityType Name="PrescriptionTbl">
+          <Key>
+            <PropertyRef Name="Presc_ID" />
+          </Key>
+          <Property Name="Presc_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Patient_ID" Type="Int32" Nullable="false" />
+          <Property Name="Doctor_ID" Type="Int32" Nullable="false" />
+          <Property Name="DateIssued" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Medication" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dosage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Instructions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DoctorTbl" Relationship="Self.FK_Prescription_Doctor" FromRole="PrescriptionTbl" ToRole="DoctorTbl" />
+          <NavigationProperty Name="PatientsTbl" Relationship="Self.FK_Prescription_Patient" FromRole="PrescriptionTbl" ToRole="PatientsTbl" />
         </EntityType>
         <EntityType Name="ScheduleTbl">
           <Key>
@@ -462,6 +572,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Prescription_Doctor">
+          <End Role="DoctorTbl" Type="Self.DoctorTbl" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PrescriptionTbl" Type="Self.PrescriptionTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorTbl">
+              <PropertyRef Name="Doctor_ID" />
+            </Principal>
+            <Dependent Role="PrescriptionTbl">
+              <PropertyRef Name="Doctor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__LoginInfo__Patie__6D0D32F4">
           <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="1" />
           <End Role="LoginInfo" Type="Self.LoginInfo" Multiplicity="*" />
@@ -474,6 +598,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Payment_Patient">
+          <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PaymentTbl" Type="Self.PaymentTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientsTbl">
+              <PropertyRef Name="Patient_Id" />
+            </Principal>
+            <Dependent Role="PaymentTbl">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Prescription_Patient">
+          <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PrescriptionTbl" Type="Self.PrescriptionTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientsTbl">
+              <PropertyRef Name="Patient_Id" />
+            </Principal>
+            <Dependent Role="PrescriptionTbl">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Patient_Management_SystemEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AdminTbls" EntityType="Self.AdminTbl" />
           <EntitySet Name="AppointmentTbls" EntityType="Self.AppointmentTbl" />
@@ -482,6 +634,8 @@
           <EntitySet Name="DoctorTbls" EntityType="Self.DoctorTbl" />
           <EntitySet Name="LoginInfoes" EntityType="Self.LoginInfo" />
           <EntitySet Name="PatientsTbls" EntityType="Self.PatientsTbl" />
+          <EntitySet Name="PaymentTbls" EntityType="Self.PaymentTbl" />
+          <EntitySet Name="PrescriptionTbls" EntityType="Self.PrescriptionTbl" />
           <EntitySet Name="ScheduleTbls" EntityType="Self.ScheduleTbl" />
           <AssociationSet Name="FK_Appointments_Department" Association="Self.FK_Appointments_Department">
             <End Role="DepartmentTbl" EntitySet="DepartmentTbls" />
@@ -511,9 +665,21 @@
             <End Role="DoctorTbl" EntitySet="DoctorTbls" />
             <End Role="ScheduleTbl" EntitySet="ScheduleTbls" />
           </AssociationSet>
+          <AssociationSet Name="FK_Prescription_Doctor" Association="Self.FK_Prescription_Doctor">
+            <End Role="DoctorTbl" EntitySet="DoctorTbls" />
+            <End Role="PrescriptionTbl" EntitySet="PrescriptionTbls" />
+          </AssociationSet>
           <AssociationSet Name="FK__LoginInfo__Patie__6D0D32F4" Association="Self.FK__LoginInfo__Patie__6D0D32F4">
             <End Role="PatientsTbl" EntitySet="PatientsTbls" />
             <End Role="LoginInfo" EntitySet="LoginInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Patient" Association="Self.FK_Payment_Patient">
+            <End Role="PatientsTbl" EntitySet="PatientsTbls" />
+            <End Role="PaymentTbl" EntitySet="PaymentTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prescription_Patient" Association="Self.FK_Prescription_Patient">
+            <End Role="PatientsTbl" EntitySet="PatientsTbls" />
+            <End Role="PrescriptionTbl" EntitySet="PrescriptionTbls" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -621,6 +787,32 @@
                 <ScalarProperty Name="P_Message" ColumnName="P_Message" />
                 <ScalarProperty Name="P_Image" ColumnName="P_Image" />
                 <ScalarProperty Name="P_Password" ColumnName="P_Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentTbls">
+            <EntityTypeMapping TypeName="Patient_Management_SystemModel.PaymentTbl">
+              <MappingFragment StoreEntitySet="PaymentTbl">
+                <ScalarProperty Name="Payment_ID" ColumnName="Payment_ID" />
+                <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrescriptionTbls">
+            <EntityTypeMapping TypeName="Patient_Management_SystemModel.PrescriptionTbl">
+              <MappingFragment StoreEntitySet="PrescriptionTbl">
+                <ScalarProperty Name="Presc_ID" ColumnName="Presc_ID" />
+                <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+                <ScalarProperty Name="Doctor_ID" ColumnName="Doctor_ID" />
+                <ScalarProperty Name="DateIssued" ColumnName="DateIssued" />
+                <ScalarProperty Name="Medication" ColumnName="Medication" />
+                <ScalarProperty Name="Dosage" ColumnName="Dosage" />
+                <ScalarProperty Name="Instructions" ColumnName="Instructions" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
