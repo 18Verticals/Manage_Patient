@@ -13,7 +13,6 @@ namespace Patient_Management_System.ViewModel
         public string PaymentMethod { get; set; }
         public DateTime PaymentDate { get; set; } = DateTime.Now;
         public string Status { get; set; }
-
         public string Remarks { get; set; }
     }
 }

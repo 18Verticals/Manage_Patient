@@ -510,17 +510,106 @@ namespace Patient_Management_System.Controllers
             }
             return View(departmentVM);
         }
-        [HttpGet]
-        public ActionResult Add_Contact()
-        {
-            return View();
-        }
+      
+
 
         public ActionResult List_Contact()
         {
             return View(db.ContactUsTbls.ToList());
         }
 
+        public ActionResult List_Payment(int? paymentId = null)
+        {
+            List<PaymentVM> PaymentList = new List<PaymentVM>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("sp_Get_Payment", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    PaymentVM payment = new PaymentVM
+                    {
+                        Payment_ID = Convert.ToInt32(reader["Payment_ID"]),
+                        Patient_ID = Convert.ToInt32(reader["Patient_ID"]),
+                        Amount = Convert.ToInt32(reader["Amount"]),
+                        PaymentMethod = reader["PaymentMethod"].ToString(),
+                        PaymentDate = Convert.ToDateTime(reader["PaymentDate"]),
+                        Status = reader["Status"].ToString(),
+                        Remarks = reader["Remarks"].ToString(),
+                    };
+                    PaymentList.Add(payment);
+                }
+            }
+            return View(PaymentList);
+        }
+
+
+
+        [HttpGet]
+        public ActionResult Add_Payment()
+        {
+            ViewBag.Patient_Id = new SelectList(db.PatientsTbls, "Patient_Id ", "P_FirstName");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add_Payment(PaymentVM paymentVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Patient_Id = new SelectList(db.PatientsTbls, "Patient_Id", "P_FirstName", paymentVM.Patient_ID);
+                return View(paymentVM);
+            }
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("[sp_Add_Payment]", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@Patient_ID", paymentVM.Patient_ID);
+                        cmd.Parameters.AddWithValue("@Amount", paymentVM.Amount);
+                        cmd.Parameters.AddWithValue("@PaymentMethod", paymentVM.PaymentMethod);
+                        cmd.Parameters.AddWithValue("@PaymentDate", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@Status", paymentVM.Status);
+                        cmd.Parameters.AddWithValue("@Remarks", paymentVM.Remarks);
+
+                        cmd.ExecuteNonQuery(); // Executes the stored procedure
+                    }
+                    conn.Close(); 
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                ViewBag.Error = "SQL Error: " + sqlEx.Message;
+                System.Diagnostics.Debug.WriteLine("SQL Error: " + sqlEx.Message);
+                return View(paymentVM);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "An error occurred: " + ex.Message;
+                System.Diagnostics.Debug.WriteLine("General Error: " + ex.Message);
+                return View(paymentVM);
+            }
+
+            return RedirectToAction("List_Payment"); 
+        }
+
+
+        [HttpGet]
+        public ActionResult Add_Contact()
+        {
+            return View();
+        }
+
+        [HttpPost]
 
         public ActionResult Add_Contact([Bind(Include = "Feedback_Id,Name,Email,Message,Phone")] ContactUsTbl contactUsTbl)
         {
@@ -549,9 +638,6 @@ namespace Patient_Management_System.Controllers
             }
             return View(contactUsTbl);
         }
-
-
-
         
         [HttpPost]
 
@@ -928,6 +1014,59 @@ namespace Patient_Management_System.Controllers
             }
             return RedirectToAction("List_Patient", "Admin");
         }
+
+
+
+
+
+        public ActionResult Delete_Payment(int PaymentId)
+        {
+            SqlConnection conn = new SqlConnection(connectionString);
+            try
+            {
+                using (conn)
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("sp_Delete_Payment", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Payment_ID", PaymentId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                return RedirectToAction("List_Payment", "Admin");
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Error = "An error occurred while deleting the doctor: " + ex.Message;
+                System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
+            }
+            return RedirectToAction("List_Payment", "Admin");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public ActionResult Delete_Appointment(int aptId)
         {
