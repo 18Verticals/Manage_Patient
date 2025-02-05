@@ -5,10 +5,10 @@
 }
 
 @using (Html.BeginForm("Add_Payment", "Admin", FormMethod.Post))
-{ 
+{
     @Html.AntiForgeryToken()
 
-    
+
 
 
     <div class="row">
@@ -31,49 +31,49 @@
 
 
                     <!-- Amount -->
-                
-                        <div class="form-group">
-                            <label>Amount</label>
-                            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
-                        </div>
-                    
+
+                    <div class="form-group">
+                        <label>Amount</label>
+                        @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                    </div>
+
 
                     <!-- Payment Method -->
-                   
-                        <div class="form-group">
-                            <label>Payment Method</label>
-                            @Html.EditorFor(model => model.PaymentMethod, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                            @Html.ValidationMessageFor(model => model.PaymentMethod, "", new { @class = "text-danger" })
-                        </div>
 
-                        <!-- Status -->
-                        <div class="form-group">
-                            <label>Status</label>
-                            @Html.DropDownListFor(model => model.Status, new List<SelectListItem>
-                            {
-                                new SelectListItem { Text = "Active", Value = "Active" },
-                                new SelectListItem { Text = "Inactive", Value = "Inactive" }
-                            }, "Select Status", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                        </div>
-
-                        <!-- Remarks -->
-                        <div class="form-group">
-                            <label>Remarks</label>
-                            @Html.TextAreaFor(model => model.Remarks, new { @class = "form-control", required = "required", rows = "3" })
-                            @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
-                        </div>
-
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        @Html.EditorFor(model => model.PaymentMethod, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.PaymentMethod, "", new { @class = "text-danger" })
                     </div>
-                    <!-- Submit Button -->
-                    <div class="m-t-20 text-center">
-                        <button class="btn btn-primary submit-btn" style="margin-left:180px;">Add Payment</button>
+
+                    <!-- Status -->
+                    <div class="form-group">
+                        <label>Status</label>
+                        @Html.DropDownListFor(model => model.Status, new List<SelectListItem>
+                        {
+                            new SelectListItem { Text = "Active", Value = "Active" },
+                            new SelectListItem { Text = "Inactive", Value = "Inactive" }
+                        }, "Select Status", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Remarks -->
+                    <div class="form-group">
+                        <label>Remarks</label>
+                        @Html.TextAreaFor(model => model.Remarks, new { @class = "form-control", required = "required", rows = "3" })
+                        @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
                     </div>
 
                 </div>
+                <!-- Submit Button -->
+                <div class="m-t-20 text-center">
+                    <button class="btn btn-primary submit-btn" style="margin-left:180px;">Add Payment</button>
+                </div>
+
+            </div>
         </div>
-      </div>
+    </div>
 }
 
 
