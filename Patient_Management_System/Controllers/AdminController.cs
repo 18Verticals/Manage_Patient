@@ -652,6 +652,81 @@ namespace Patient_Management_System.Controllers
             return View(contactUsTbl);
         }
 
+
+        [HttpGet]
+        public ActionResult Edit_Payment(int paymentId)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("[sp_Edit_Payment]", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Payment_ID ", paymentId);
+                    con.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            PaymentVM paymentVM = new PaymentVM
+                            {
+                                Payment_ID = Convert.ToInt32(reader["Payment_ID"]),
+                                Patient_ID = Convert.ToInt32(reader["Patient_ID"]),
+                                Amount = Convert.ToDecimal(reader["Amount"]),
+                                PaymentMethod = reader["PaymentMethod"].ToString(),
+                                PaymentDate = Convert.ToDateTime(reader["PaymentDate"]),
+                                Status = reader["Status"].ToString(),
+                                Remarks = reader["Remarks"]?.ToString()
+                            };
+                            return View(paymentVM);
+                        }
+                    }
+                }
+            }
+            TempData["Error"] = "Payment record not found.";
+            return RedirectToAction("List_Payments");
+        }
+
+        [HttpPost]
+        public ActionResult Edit_Payment(PaymentVM paymentVM)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    using (SqlConnection con = new SqlConnection(connectionString))
+                    {
+                        using (SqlCommand cmd = new SqlCommand("sp_Edit_Payment", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            cmd.Parameters.AddWithValue("@Payment_ID", paymentVM.Payment_ID);
+                            cmd.Parameters.AddWithValue("@Patient_ID", paymentVM.Patient_ID);
+                            cmd.Parameters.AddWithValue("@Amount", paymentVM.Amount);
+                            cmd.Parameters.AddWithValue("@PaymentMethod", paymentVM.PaymentMethod);
+                            cmd.Parameters.AddWithValue("@PaymentDate", paymentVM.PaymentDate);
+                            cmd.Parameters.AddWithValue("@Status", paymentVM.Status);
+                            cmd.Parameters.AddWithValue("@Remarks", paymentVM.Remarks ?? (object)DBNull.Value);
+
+
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    TempData["Message"] = "Payment record updated successfully.";
+                    return RedirectToAction("List_Payments");
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "An error occurred: " + ex.Message;
+            }
+            return View(paymentVM);
+        }
+
+
+
+
         [HttpGet]
         public ActionResult Edit_Doctor(int doctorId)
         {
@@ -1015,10 +1090,6 @@ namespace Patient_Management_System.Controllers
             return RedirectToAction("List_Patient", "Admin");
         }
 
-
-
-
-
         public ActionResult Delete_Payment(int PaymentId)
         {
             SqlConnection conn = new SqlConnection(connectionString);
@@ -1044,30 +1115,6 @@ namespace Patient_Management_System.Controllers
             }
             return RedirectToAction("List_Payment", "Admin");
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public ActionResult Delete_Appointment(int aptId)
         {
             SqlConnection conn = new SqlConnection(connectionString);
@@ -1164,3 +1211,8 @@ namespace Patient_Management_System.Controllers
         }
     }
 }
+
+
+
+
+
