@@ -201,17 +201,14 @@ namespace Patient_Management_System.Controllers
             {
                 SqlCommand cmd = new SqlCommand("sp_Get_Dept", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
-
                 while (reader.Read())
                 {
                     DepartmentVM department = new DepartmentVM
                     {
                         Dept_ID = Convert.ToInt32(reader["Dept_ID"]),
                         Dept_Name = reader["Dept_Name"].ToString(),
-
                     };
                     departmentList.Add(department);
                 }
@@ -473,6 +470,7 @@ namespace Patient_Management_System.Controllers
         {
             return View();
         }
+        
         public ActionResult Add_Patient(PatientVM patients, HttpPostedFileBase P_Image)
         { 
             SqlConnection conn = new SqlConnection(connectionString);
@@ -507,7 +505,6 @@ namespace Patient_Management_System.Controllers
                         using (SqlCommand cmd = new SqlCommand("sp_Add_Patients", conn))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
-
                             cmd.Parameters.AddWithValue("@P_FirstName", patients.P_FirstName);
                             cmd.Parameters.AddWithValue("@P_MiddleName", patients.P_MiddleName);
                             cmd.Parameters.AddWithValue("@P_LastName", patients.P_LastName);
@@ -783,7 +780,7 @@ namespace Patient_Management_System.Controllers
                 TempData["Error"] = "An error occurred: " + ex.Message;
             }
             return View(paymentVM);
-        }
+
         
         [HttpGet]
         public ActionResult Edit_Doctor(int doctorId)
@@ -868,7 +865,6 @@ namespace Patient_Management_System.Controllers
                 TempData["Message"] = "Doctor record updated successfully.";
                 return RedirectToAction("Index");
             }
-
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
@@ -904,7 +900,7 @@ namespace Patient_Management_System.Controllers
             ViewBag.TimeSlots = GetTimeSlots();
             return View(aptVM);
         }
-
+        
         [HttpPost]
         public ActionResult Edit_Appointment(AppointmentVM aptVM)
         {
@@ -1096,7 +1092,6 @@ namespace Patient_Management_System.Controllers
             }
         }
 
-
         [HttpGet]
         public ActionResult Edit_Prescription(int PrescId)
         {
@@ -1119,7 +1114,6 @@ namespace Patient_Management_System.Controllers
                 
             return View(prescVM);
         }
-
 
         [HttpPost]
         public ActionResult Edit_Prescription(PrescriptionVM prescVM)
@@ -1261,7 +1255,6 @@ namespace Patient_Management_System.Controllers
             return RedirectToAction("List_Payment", "Admin");
         }
 
-
         public ActionResult Delete_Appointment(int aptId)
         {
             SqlConnection conn = new SqlConnection(connectionString);
@@ -1358,8 +1351,3 @@ namespace Patient_Management_System.Controllers
         }
     }
 }
-
-
-
-
-
