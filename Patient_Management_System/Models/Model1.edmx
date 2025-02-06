@@ -136,6 +136,16 @@
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="Available_Date" Type="date" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <Association Name="FK__LoginInfo__Patie__6D0D32F4">
           <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="1" />
           <End Role="LoginInfo" Type="Self.LoginInfo" Multiplicity="*" />
@@ -285,6 +295,7 @@
           <EntitySet Name="PaymentTbl" EntityType="Self.PaymentTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrescriptionTbl" EntityType="Self.PrescriptionTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScheduleTbl" EntityType="Self.ScheduleTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__LoginInfo__Patie__6D0D32F4" Association="Self.FK__LoginInfo__Patie__6D0D32F4">
             <End Role="PatientsTbl" EntitySet="PatientsTbl" />
             <End Role="LoginInfo" EntitySet="LoginInfo" />
@@ -488,6 +499,16 @@
           <NavigationProperty Name="DepartmentTbl" Relationship="Self.FK__ScheduleT__Dept___6EF57B66" FromRole="ScheduleTbl" ToRole="DepartmentTbl" />
           <NavigationProperty Name="DoctorTbl" Relationship="Self.FK__ScheduleT__Docto__6E01572D" FromRole="ScheduleTbl" ToRole="DoctorTbl" />
         </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <Association Name="FK_Appointments_Department">
           <End Role="DepartmentTbl" Type="Self.DepartmentTbl" Multiplicity="0..1" />
           <End Role="AppointmentTbl" Type="Self.AppointmentTbl" Multiplicity="*" />
@@ -637,6 +658,7 @@
           <EntitySet Name="PaymentTbls" EntityType="Self.PaymentTbl" />
           <EntitySet Name="PrescriptionTbls" EntityType="Self.PrescriptionTbl" />
           <EntitySet Name="ScheduleTbls" EntityType="Self.ScheduleTbl" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <AssociationSet Name="FK_Appointments_Department" Association="Self.FK_Appointments_Department">
             <End Role="DepartmentTbl" EntitySet="DepartmentTbls" />
             <End Role="AppointmentTbl" EntitySet="AppointmentTbls" />
@@ -826,6 +848,17 @@
                 <ScalarProperty Name="End_Time" ColumnName="End_Time" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Available_Date" ColumnName="Available_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Patient_Management_SystemModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

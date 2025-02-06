@@ -10,7 +10,6 @@
 namespace Patient_Management_System.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
@@ -36,6 +35,6 @@ namespace Patient_Management_System.Models
         public virtual DbSet<PaymentTbl> PaymentTbls { get; set; }
         public virtual DbSet<PrescriptionTbl> PrescriptionTbls { get; set; }
         public virtual DbSet<ScheduleTbl> ScheduleTbls { get; set; }
-        public IEnumerable<object> PaymentTbls { get; internal set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }
