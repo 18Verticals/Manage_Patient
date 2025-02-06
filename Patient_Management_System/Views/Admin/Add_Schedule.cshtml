@@ -20,6 +20,7 @@
 
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
+            <form>
 
                 <div class="row">
                     <div class="col-md-6">
@@ -45,11 +46,12 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Available Date</label>
-                            @Html.EditorFor(model => model.Available_Date, "{0:yyyy-MM-dd}", new { htmlAttributes = new { @class = "form-control" ,type= "date", min = DateTime.Now.ToString("yyyy-MM-dd") } })
+                            @Html.EditorFor(model => model.Available_Date, "{0:yyyy-MM-dd}", new { htmlAttributes = new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd") } })
                             @Html.ValidationMessageFor(model => model.Available_Date, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
+
 
                 <div class="row">
                     <div class="col-md-6">
@@ -77,7 +79,7 @@
                         <div class="form-group">
                             <label>Status:</label>
                             @Html.DropDownListFor(model => model.Status, new List<SelectListItem>
-                            {
+                           {
                                 new SelectListItem { Text = "Active", Value = "Active" },
                                 new SelectListItem { Text = "Inactive", Value = "Inactive" }
                             }, "Select Status", new { @class = "form-control", @id = "Dr_Status" })
@@ -90,12 +92,10 @@
                         <button class="btn btn-primary submit-btn" style="margin-left:230px; ">Add Schedule</button>
                     </div>
                 </div>
-</div>
+        </div>
     </div>
 
 
 
 
 }
-
-

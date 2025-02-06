@@ -32,9 +32,10 @@
                     {
                         <tr>
                             <td class="text-right">
-                              
+
                                         <a class="dropdown-item"  href="@Url.Action("Edit_Appointment","Admin", new { aptId =aptVM.Appointment_ID })">
                                             <i class="fa fa-pencil m-r-5"></i> 
+
                                         </a>
 
                                         <a class="dropdown-item" href="@Url.Action("Delete_Appointment","Admin", new { aptId =aptVM.Appointment_ID })">
@@ -43,6 +44,8 @@
                             </td>
                             <td>@aptVM.Appointment_ID</td>
                             <td>@aptVM.Doctor_ID</td>
+                            <td>@aptVM.Dr_FirstName</td>
+                            <td>@aptVM.Dr_LastName</td>
                             <td>@aptVM.Dept_ID</td>
                             <td>@aptVM.Apt_Date</td>
                             <td>@aptVM.Apt_Time</td>

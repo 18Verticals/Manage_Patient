@@ -1,17 +1,19 @@
-﻿
-
-
-@{
+﻿@{
     ViewBag.Title = "List Department";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
-<a href="~/Views/Admin/List_Department.cshtml"></a>
+
 
 
 @using (Html.BeginForm("List_Department", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-   
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/bootstrap-datetimepicker.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="row">
@@ -19,16 +21,14 @@
             <h4 class="page-title">Departments</h4>
         </div>
         <div class="col-sm-7 col-7 text-right m-b-30">
-            <a href="Add_Department" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Add Department</a>
+            <a href="Add_Department " class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Add Department</a>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
                 <table class="table table-border table-striped custom-table datatable mb-0">
                     <thead>
-
                         <tr>
                             <th>ACTION</th>
                             <th>ID</th>
@@ -43,7 +43,6 @@
                         {
 
                             <tr>
-                                
                                 <td >                                   
                                             <a class="dropdown-item" href="@Url.Action("Edit_Department", new { deptId = departmentVM.Dept_ID })">
                                                 <i class="fa fa-pencil m-r-5"></i> 
