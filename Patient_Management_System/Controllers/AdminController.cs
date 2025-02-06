@@ -616,7 +616,6 @@ namespace Patient_Management_System.Controllers
             }
             return View(departmentVM);
         }
-      
        
         [HttpGet]
         public ActionResult Add_Payment()
@@ -715,7 +714,6 @@ namespace Patient_Management_System.Controllers
             return View(contactUsTbl);
         }
 
-
         [HttpGet]
         public ActionResult Edit_Payment(int paymentId)
         {
@@ -786,10 +784,7 @@ namespace Patient_Management_System.Controllers
             }
             return View(paymentVM);
         }
-
-
-
-
+        
         [HttpGet]
         public ActionResult Edit_Doctor(int doctorId)
         {
@@ -909,9 +904,6 @@ namespace Patient_Management_System.Controllers
             ViewBag.TimeSlots = GetTimeSlots();
             return View(aptVM);
         }
-
-
-       
 
         [HttpPost]
         public ActionResult Edit_Appointment(AppointmentVM aptVM)
