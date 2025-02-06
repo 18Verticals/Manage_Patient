@@ -613,7 +613,6 @@ namespace Patient_Management_System.Controllers
             }
             return View(departmentVM);
         }
-      
        
         [HttpGet]
         public ActionResult Add_Payment()
@@ -712,7 +711,6 @@ namespace Patient_Management_System.Controllers
             return View(contactUsTbl);
         }
 
-
         [HttpGet]
         public ActionResult Edit_Payment(int paymentId)
         {
@@ -782,7 +780,7 @@ namespace Patient_Management_System.Controllers
                 TempData["Error"] = "An error occurred: " + ex.Message;
             }
             return View(paymentVM);
-        } 
+
         
         [HttpGet]
         public ActionResult Edit_Doctor(int doctorId)
