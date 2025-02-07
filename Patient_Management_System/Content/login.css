@@ -1,3 +1,4 @@
+
 /* General Styling */
 body {
     font-family: 'Arial', sans-serif;
@@ -10,25 +11,25 @@ body {
 }
 
 button {
-    font-size: 18px;
+    font-size: 15px;
     letter-spacing: 2px;
     text-transform: uppercase;
     display: inline-block;
     text-align: center;
     font-weight: bold;
     padding: 0.7em 2em;
-    border-radius: 5px;
+    border-radius: 30px;
     position: relative;
-    color: #000000f7;
+    color: #fffffff7;
     text-decoration: none;
     transition: 0.3s ease all;
     z-index: 1;
-    background: #ffffff;
-    padding-left: 20px;
+    background: #000000;
+    padding-left: 25px;
     margin-inline-start: 45px;
-    width: 75%;
+    width: 40%;
+    margin-left: 110px;
 }
-
     button:before {
         transition: 0.5s all ease;
         position: absolute;
@@ -42,19 +43,16 @@ button {
         background: linear-gradient(110deg, #ffa556,#ff3d3df7);
         z-index: -1;
     }
-
     button:hover, button:focus {
         color: white;
     }
-
         button:hover:before, button:focus:before {
             transition: 0.5s all ease;
             left: 0;
             right: 0;
             opacity: 1;
-            border-radius: 5px;
+            border-radius: 30px;
         }
-
     button:active {
         transform: scale(0.9);
     }
@@ -68,7 +66,7 @@ button {
     padding-bottom: 8px;
     background: linear-gradient(110deg, #ff3d3df7, #ffa556);
     border-radius: 5px;
-    box-shadow: 0 10px 20px #6e6c6c;
+    box-shadow: 0 10px 20px #d5cece;
     width: 100%;
 }
 .form-group {
@@ -106,7 +104,7 @@ button {
 
     .form__field:focus {
         border-color: #151414;
-        box-shadow: 0 0 10px rgba(79, 172, 254, 0.7);
+        box-shadow: 0 0 10px rgba(223, 240, 255, 0.7);
     }
 
 /* Floating Labels */
@@ -122,28 +120,17 @@ button {
     background-color: linear-gradient(110deg, #ff3d3df7, #ffa556);
     padding: 0 5px;
 }
-
 .form__field:focus + .form__label,
 .form__field:not(:placeholder-shown) + .form__label {
     top: -10px;
     font-size: 15px;
     color: #000000f7;
 }
-
-
-
-
-
-
-
-
-
 /* Validation Messages */
 .text-danger {
     color: #dc3545;
     font-size: 12px;
 }
-
 
 /* For tablets (screen width between 600px and 768px) */
 @media (max-width: 768px) {

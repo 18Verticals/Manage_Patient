@@ -1,6 +1,6 @@
 ﻿@model Patient_Management_System.Models.PatientsTbl
 @{
-    Layout = "~/Views/Shared/_Layout_Patient.cshtml";
+//Layout = "~/Views/Shared/_Layout_Patient.cshtml";
 }
 
 <div class="page-wrapper">
@@ -29,8 +29,8 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <div class="form__group field">
-                                    @Html.EditorFor(model => model.P_FirstName, new { htmlAttributes = new { @class = "form__field", required = "required" } })
-                                    <label for="FirstName" class="form__label">First Name</label>
+                                    @Html.EditorFor(model => model.P_FirstName, new { htmlAttributes = new { @class = "form__field", required = "required",placeholder="First Name" } })
+                                  
                                     @Html.ValidationMessageFor(model => model.P_FirstName, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -39,16 +39,16 @@
 
                         <div class="form-group col-md-4">
                             <div class="form__group field">
-                                @Html.EditorFor(model => model.P_MiddleName, new { htmlAttributes = new { @class = "form__field", required = "required" } })
-                                <label for="MiddleName" class="form__label">Middle Name</label>
+                                @Html.EditorFor(model => model.P_MiddleName, new { htmlAttributes = new { @class = "form__field", required = "required" , placeholder = "Middle Name" } })
+                               
                                 @Html.ValidationMessageFor(model => model.P_MiddleName, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group col-md-4">
                             <div class="form__group field">
-                                @Html.EditorFor(model => model.P_LastName, new { htmlAttributes = new { @class = "form__field", required = "required" } })
-                                <label for="LastName" class="form__label">Last Name</label>
+                                @Html.EditorFor(model => model.P_LastName, new { htmlAttributes = new { @class = "form__field", required = "required", placeholder = "Last Name" } })
+                              
                                 @Html.ValidationMessageFor(model => model.P_LastName, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -59,16 +59,16 @@
                         <div class="form-group col-md-4">
                             <div class="form__group field">
                                 @Html.DropDownListFor(model => model.P_Gender, new SelectList(new List<string>
-                                                                                {  "Male", "Female", "Other"}), "Select",
+                                                                                {  "Male", "Female", "Other"}), "--Select Gender--",
                                                    new { @class = "form__field", id = "Gender", required = "required" })
-                                <label for="Gender" class="form__label">Gender</label>
+                               
                                 @Html.ValidationMessageFor(model => model.P_Gender, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group col-md-4">
                             <div class="form__group field">
-                                @Html.TextBoxFor(model => model.P_DOB, "{0:yyyy-MM-dd}", new { @class = "form__field", type = "date", required = "required" })
+                                @Html.TextBoxFor(model => model.P_DOB, new { @class = "form__field", type = "date", required = "required"  })
                                 <label for="DOB" class="form__label">Date of Birth</label>
                                 @Html.ValidationMessageFor(model => model.P_DOB, "", new { @class = "text-danger" })
                             </div>
@@ -87,7 +87,7 @@
 
                         <div class="form-group col-md-4">
                             <div class="form__group field">
-                                @Html.EditorFor(model => model.P_Email, new { htmlAttributes = new { @class = "form__field", required = "required" } })
+                                @Html.EditorFor(model => model.P_Email, new { htmlAttributes = new { @class = "form__field", required = "required",type="email" } })
                                 <label for="Email" class="form__label">Email</label>
                                 @Html.ValidationMessageFor(model => model.P_Email, "", new { @class = "text-danger" })
                             </div>
@@ -131,7 +131,7 @@
 
                         <div class="form-group col-md-4">
                             <div class="form__group field">
-                                @Html.EditorFor(model => model.P_Pincode, new { htmlAttributes = new { @class = "form__field", required = "required", } })
+                                @Html.EditorFor(model => model.P_Pincode, new { htmlAttributes = new { @class = "form__field", required = "required", type="pincode" } })
                                 <label for="Pincode" class="form__label">Pincode</label>
                                 @Html.ValidationMessageFor(model => model.P_Pincode, "", new { @class = "text-danger" })
                             </div>
@@ -178,5 +178,5 @@
                 </div>
             </div>
         </div>
-                    }
+                    
                 }

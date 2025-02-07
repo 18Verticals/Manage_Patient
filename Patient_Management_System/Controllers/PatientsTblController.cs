@@ -13,7 +13,7 @@ namespace Patient_Management_System.Controllers
 {
     public class PatientsTblController : Controller
     {
-        // GET: PatientsTbl
+     
         public ActionResult Index()
         {
             return View();
@@ -23,7 +23,7 @@ namespace Patient_Management_System.Controllers
         {
             return View();
         }
-        // This Action method is Display doctors 
+      
         public ActionResult Doctors()
         {
             return View();
@@ -39,18 +39,14 @@ namespace Patient_Management_System.Controllers
             {
                 string imagePath = null;
 
-                // Handle image upload
+              
                 if (P_Image != null && P_Image.ContentLength > 0)
                 {
                     string uploadPath = Server.MapPath("~/Content/UploadedImages/");
-
-
                     string fileName = Path.GetFileNameWithoutExtension(P_Image.FileName);
                     string extension = Path.GetExtension(P_Image.FileName);
                    imagePath = "~/Content/UploadedImages/" + fileName +DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
-
                     System.Diagnostics.Debug.WriteLine("Image Path: " + imagePath); // Log image path
-
                     try
                     {
                         P_Image.SaveAs(Server.MapPath(imagePath));
@@ -58,7 +54,6 @@ namespace Patient_Management_System.Controllers
                     }
                     catch (Exception ex)
                     {
-                      
                         System.Diagnostics.Debug.WriteLine("Error saving image: " + ex.Message);
                         return View(patients);
                     }
@@ -81,7 +76,6 @@ namespace Patient_Management_System.Controllers
                                 return View(patients);
                             }
                         }
-
                         using (SqlCommand cmd = new SqlCommand("sp_Add_Patients", conn))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
@@ -116,7 +110,7 @@ namespace Patient_Management_System.Controllers
             }
             else
             {
-                // Log validation errors
+              
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
                     System.Diagnostics.Debug.WriteLine($"Validation Error: {error.ErrorMessage}");
@@ -124,6 +118,8 @@ namespace Patient_Management_System.Controllers
             }
             return View(patients);
         }
+
+
         public ActionResult Login()
         {
             return View();
@@ -141,15 +137,12 @@ namespace Patient_Management_System.Controllers
                     using (conn)
                     {
                         conn.Open();
-
                         using (SqlCommand cmd = new SqlCommand("sp_LoginInfo", conn))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@Email", patients.P_Email);
-                            cmd.Parameters.AddWithValue("@Password", patients.P_Password); // You should ideally hash the password before sending it
-
+                            cmd.Parameters.AddWithValue("@Password", patients.P_Password); 
                             int rowsAffected = cmd.ExecuteNonQuery();
-
                             if (rowsAffected > 0)
                             {
 
@@ -168,13 +161,8 @@ namespace Patient_Management_System.Controllers
                     System.Diagnostics.Debug.WriteLine("Login error: " + ex.Message);
                 }
             }
-
             return View(patients);
         }
-
-
-
-
 
     }
 }
