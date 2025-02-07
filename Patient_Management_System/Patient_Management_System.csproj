@@ -3068,6 +3068,7 @@
     <Content Include="Views\Admin\List_Prescription.cshtml" />
     <Content Include="Views\Doctor\Login.cshtml" />
     <Content Include="Views\Admin\Edit_Prescription.cshtml" />
+    <Content Include="Views\Admin\Delete_Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

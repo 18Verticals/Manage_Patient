@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Patient_Management_System
+/Patient_Management_System/obj/Debug
+/.vs/Manage_Patient/v17
