@@ -297,6 +297,7 @@
     <Content Include="Content\Admin\assets\img\doctor-thumb-12.jpg" />
     <Content Include="Content\Admin\assets\img\favicon.ico" />
     <Content Include="Content\Admin\assets\img\login.png" />
+    <Content Include="Content\Admin\assets\img\login_patient.png" />
     <Content Include="Content\Admin\assets\img\logo-dark.png" />
     <Content Include="Content\Admin\assets\img\logo.png" />
     <Content Include="Content\Admin\assets\img\patient-thumb-01.jpg" />
@@ -624,6 +625,7 @@
     <Content Include="Content\template\assets\images\second_opinion.png" />
     <Content Include="Content\template\assets\images\shapes\appointment-map-1-2.png" />
     <Content Include="Content\template\assets\images\shapes\living-option-dot-1-1.png" />
+    <Content Include="Content\template\assets\images\sign up.png" />
     <Content Include="Content\template\assets\images\specialities-icon\Cardiology.png" />
     <Content Include="Content\template\assets\images\specialities-icon\Emergency-Care-CCU-&amp;-ICU.png" />
     <Content Include="Content\template\assets\images\specialities-icon\Gastrosurgery.png" />
