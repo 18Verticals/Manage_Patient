@@ -2,7 +2,7 @@
 /* General Styling */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;  
+    background-color: #f9f9f9;
 }
 /* Centering the button on the page */
 
@@ -25,9 +25,10 @@ button {
     transition: 0.3s ease all;
     z-index: 1;
     background: #000000;
-    padding-left: 25px;
+
+    padding-left: 35px;
     margin-inline-start: 45px;
-    width: 40%;
+    width: 35%;
     margin-left: 110px;
 }
     button:before {
@@ -69,6 +70,7 @@ button {
     box-shadow: 0 10px 20px #d5cece;
     width: 100%;
 }
+
 .form-group {
     margin-bottom: 20px;
 }
@@ -120,12 +122,15 @@ button {
     background-color: linear-gradient(110deg, #ff3d3df7, #ffa556);
     padding: 0 5px;
 }
+
 .form__field:focus + .form__label,
 .form__field:not(:placeholder-shown) + .form__label {
+
     top: -10px;
     font-size: 15px;
     color: #000000f7;
 }
+
 /* Validation Messages */
 .text-danger {
     color: #dc3545;
@@ -150,9 +155,7 @@ button {
     .form-group.col-md-4 {
         flex: 1 1 100%;
     }
-
-  
-} 
+}
 
 /* For mobile devices (screen width below 600px) */
 @media (max-width: 600px) {
@@ -176,4 +179,37 @@ button {
     /* button {
         font-size: 14px;
     } */
+    .login-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .login-box {
+        display: flex;
+        width: 800px;
+        background: #fff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .login-image {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f7f7f7;
+    }
+
+        .login-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+    .login-form {
+        width: 50%;
+        padding: 30px;
+    }
 }

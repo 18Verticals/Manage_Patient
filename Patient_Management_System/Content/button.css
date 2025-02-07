@@ -53,3 +53,59 @@ button {
     button:active {
         transform: scale(0.9);
     }
+
+
+.button-container {
+    text-align: center;
+}
+
+button {
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+    padding: 0.7em 2em;
+    border-radius: 30px;
+    position: relative;
+    color: #fffffff7;
+    text-decoration: none;
+    transition: 0.3s ease all;
+    z-index: 1;
+    background: #000000;
+    padding-left: 25px;
+    margin-inline-start: 45px;
+    width: 40%;
+    margin-left: 110px;
+}
+
+    button:before {
+        transition: 0.5s all ease;
+        position: absolute;
+        top: 0;
+        filter: blur(1px);
+        left: 50%;
+        right: 50%;
+        bottom: 0;
+        opacity: 0;
+        content: '';
+        background: linear-gradient(110deg, #ffa556,#ff3d3df7);
+        z-index: -1;
+    }
+
+    button:hover, button:focus {
+        color: white;
+    }
+
+        button:hover:before, button:focus:before {
+            transition: 0.5s all ease;
+            left: 0;
+            right: 0;
+            opacity: 1;
+            border-radius: 30px;
+        }
+
+    button:active {
+        transform: scale(0.9);
+    }
