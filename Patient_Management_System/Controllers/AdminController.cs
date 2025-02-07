@@ -1,4 +1,4 @@
-﻿using Microsoft.Ajax.Utilities;
+using Microsoft.Ajax.Utilities;
 using Patient_Management_System.Models;
 using Patient_Management_System.ViewModel;
 using System;
@@ -20,9 +20,9 @@ namespace Patient_Management_System.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly Patient_Management_SystemEntities db = new Patient_Management_SystemEntities();
+        private readonly Patient_Management_SystemEntities  db = new Patient_Management_SystemEntities();
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
-
+      
         public ActionResult Index()
         {
             return View();
@@ -61,7 +61,7 @@ namespace Patient_Management_System.Controllers
             }
             return View();
         }
-        public ActionResult List_Appointment(AppointmentVM aptVM)
+        public ActionResult List_Appointment(AppointmentVM aptVM)//Changes
         {
             List<AppointmentVM> aptList = new List<AppointmentVM>();
 
@@ -71,39 +71,52 @@ namespace Patient_Management_System.Controllers
                 cmd.CommandType = CommandType.StoredProcedure;
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
+
                 while (reader.Read())
                 {
                     AppointmentVM apt = new AppointmentVM
                     {
 
+
                         Doctor_ID = reader["Doctor_ID"] != DBNull.Value ? Convert.ToInt32(reader["Doctor_ID"]) : (int?)null,
                         Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : (int?)null,
                         Dept_ID = reader["Dept_ID"] != DBNull.Value ? Convert.ToInt32(reader["Dept_ID"]) : (int?)null,
 
-                        Appointment_ID = Convert.ToInt32(reader["Appointment_ID"]),
-
+                        Appointment_ID =  Convert.ToInt32(reader["Appointment_ID"]) ,
+                        
                         Dr_FirstName = reader["Dr_FirstName"].ToString(),
                         Dr_LastName = reader["Dr_LastName"].ToString(),
 
                         Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
+
+                       // Appointment_ID = reader["Appointment_ID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Appointment_ID"]),
+
+                       // Doctor_ID = reader["Doctor_ID"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["Doctor_ID"]),
+                      //  Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : (DateTime?)null,
+
                         Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
                         Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : string.Empty,
-
-
-
+                       
+                        
+                   
                         Dept_Name = reader["Dept_Name"].ToString(),
 
 
                         Diseases = reader["Diseases"] != DBNull.Value ? reader["Diseases"].ToString() : string.Empty,
 
+                       
                         P_FirstName = reader["P_FirstName"].ToString(),
                         P_LastName = reader["P_LastName"].ToString(),
+
+
+                       // Patient_ID = reader["Patient_ID"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["Patient_ID"]),
 
                         Email = reader["Email"] != DBNull.Value ? reader["Email"].ToString() : string.Empty,
                     };
                     aptList.Add(apt);
                 }
             }
+
             return View(aptList);
         }
         public ActionResult List_Prescription(PrescriptionVM prescVM)
@@ -179,7 +192,7 @@ namespace Patient_Management_System.Controllers
         {
             List<PatientsTbl> patientList = new List<PatientsTbl>();
 
-
+           
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("sp_GetPatients", conn);
@@ -236,7 +249,7 @@ namespace Patient_Management_System.Controllers
             return View(departmentList);
         }
 
-
+      
         public ActionResult List_Contact()
         {
             return View(db.ContactUsTbls.ToList());
@@ -333,7 +346,7 @@ namespace Patient_Management_System.Controllers
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@Doctor_ID", aptVM.Doctor_ID);
                             cmd.Parameters.AddWithValue("@Dept_ID", aptVM.Dept_ID);
-                            
+                           // cmd.Parameters.AddWithValue("@Schedule_ID", aptVM.Schedule_ID);
                             cmd.Parameters.AddWithValue("@Apt_Date", aptVM.Apt_Date);
                             cmd.Parameters.AddWithValue("@Apt_Time", aptVM.Apt_Time);
                             cmd.Parameters.AddWithValue("@Description", aptVM.Description);
@@ -486,7 +499,7 @@ namespace Patient_Management_System.Controllers
                 }
             }
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", doctorVM.Dept_ID);
-
+           
             return View(doctorVM);
         }
 
@@ -495,9 +508,9 @@ namespace Patient_Management_System.Controllers
         {
             return View();
         }
-
+        
         public ActionResult Add_Patient(PatientVM patients, HttpPostedFileBase P_Image)
-        {
+        { 
             SqlConnection conn = new SqlConnection(connectionString);
             if (ModelState.IsValid)
             {
@@ -558,7 +571,7 @@ namespace Patient_Management_System.Controllers
             }
             else
             {
-                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+             foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
                     System.Diagnostics.Debug.WriteLine($"Validation Error: {error.ErrorMessage}");
                 }
@@ -593,9 +606,7 @@ namespace Patient_Management_System.Controllers
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", scheduleTbl.Dept_ID);
             ViewBag.Doctor_ID = new SelectList(
             db.DoctorTbls.Select(d => new {
-                Doctor_ID = d.Doctor_ID,
-                FullName = d.Dr_FirstName + " " + d.Dr_LastName
-            }), "Doctor_ID", "FullName", scheduleTbl.Doctor_ID);
+           Doctor_ID = d.Doctor_ID,FullName = d.Dr_FirstName + " " + d.Dr_LastName }),"Doctor_ID", "FullName", scheduleTbl.Doctor_ID); 
             return View(scheduleTbl);
         }
 
@@ -640,7 +651,7 @@ namespace Patient_Management_System.Controllers
             }
             return View(departmentVM);
         }
-
+       
         [HttpGet]
         public ActionResult Add_Payment()
         {
@@ -674,7 +685,7 @@ namespace Patient_Management_System.Controllers
 
                         cmd.ExecuteNonQuery();
                     }
-                    conn.Close();
+                    conn.Close(); 
                 }
             }
             catch (SqlException sqlEx)
@@ -690,7 +701,7 @@ namespace Patient_Management_System.Controllers
                 return View(paymentVM);
             }
 
-            return RedirectToAction("List_Payment");
+            return RedirectToAction("List_Payment"); 
         }
 
         [HttpGet]
@@ -725,7 +736,7 @@ namespace Patient_Management_System.Controllers
             }
             return View(contactUsTbl);
         }
-
+        
         [HttpPost]
         public ActionResult Edit_Contact([Bind(Include = "Feedback_Id,Name,Email,Message,Phone")] ContactUsTbl contactUsTbl)
         {
@@ -812,98 +823,98 @@ namespace Patient_Management_System.Controllers
         }
 
 
+         
 
-
-        public ActionResult Edit_Doctor(int doctorId)
-        {
-            var doctor = db.DoctorTbls.Where(d => d.Doctor_ID == doctorId).FirstOrDefault();
-            if (doctor == null)
+            public ActionResult Edit_Doctor(int doctorId)
             {
-                TempData["Error"] = "Doctor not found.";
-                return RedirectToAction("List_Doctor");
-            }
-            DoctorVM doctorVM = new DoctorVM
-            {
-                Doctor_ID = doctor.Doctor_ID,
-                Dr_FirstName = doctor.Dr_FirstName,
-                Dr_LastName = doctor.Dr_LastName,
-                Dr_Email = doctor.Dr_Email,
-                Dr_DOB = doctor.Dr_DOB,
-                Dr_Gender = doctor.Dr_Gender,
-                Dr_Phone = doctor.Dr_Phone,
-                Dr_Qualification = doctor.Dr_Qualification,
-                Dr_Address = doctor.Dr_Address,
-                Dr_City = doctor.Dr_City,
-                Dr_State = doctor.Dr_State,
-                Dr_Pincode = doctor.Dr_Pincode.HasValue ? (int)doctor.Dr_Pincode.Value : 0,
-                Dr_ImagePath = doctor.Dr_ImagePath,
-                Dr_Status = doctor.Dr_Status,
-                Fees = doctor.Fees.HasValue ? (int)doctor.Fees.Value : 0,
-                Dept_ID = doctor.Dept_ID.HasValue ? (int)doctor.Dept_ID.Value : 0,
-            };
-            ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", doctor.Dept_ID);
-            return View(doctorVM);
-        }
-
-        [HttpPost]
-        public ActionResult Edit_Doctor(DoctorVM doctor, HttpPostedFileBase Dr_ImagePath)
-        {
-            try
-            {
-                if (Dr_ImagePath != null && Dr_ImagePath.ContentLength > 0)
+                var doctor = db.DoctorTbls.Where(d => d.Doctor_ID == doctorId).FirstOrDefault();
+                if (doctor == null)
                 {
-                    string uploadPath = Server.MapPath("~/Content/UploadedImages/");
-                    string fileName = Path.GetFileNameWithoutExtension(Dr_ImagePath.FileName);
-                    string extension = Path.GetExtension(Dr_ImagePath.FileName);
-                    string newImagePath = "~/Content/UploadedImages/" + fileName + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
-                    try
-                    {
-                        Dr_ImagePath.SaveAs(Server.MapPath(newImagePath));
-                        doctor.Dr_ImagePath = newImagePath; // Update the doctor object with the new image path
-                    }
-                    catch (Exception ex)
-                    {
-                        TempData["Error"] = "Error saving image: " + ex.Message;
-                        return View(doctor);
-                    }
+                    TempData["Error"] = "Doctor not found.";
+                    return RedirectToAction("List_Doctor");
                 }
-                using (SqlConnection con = new SqlConnection(connectionString))
+                DoctorVM doctorVM = new DoctorVM
                 {
-                    using (SqlCommand cmd = new SqlCommand("sp_Edit_Doctor", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@Doctor_ID", doctor.Doctor_ID);
-                        cmd.Parameters.AddWithValue("@Dr_FirstName", doctor.Dr_FirstName);
-                        cmd.Parameters.AddWithValue("@Dr_LastName", doctor.Dr_LastName);
-                        cmd.Parameters.AddWithValue("@Dr_Email", doctor.Dr_Email);
-                        cmd.Parameters.AddWithValue("@Dr_Password", doctor.Dr_Password);
-                        cmd.Parameters.AddWithValue("@Dr_DOB", (object)doctor.Dr_DOB ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@Dr_Gender", doctor.Dr_Gender ?? (object)DBNull.Value);
-                        cmd.Parameters.AddWithValue("@Dr_Phone", doctor.Dr_Phone ?? (object)DBNull.Value);
-                        cmd.Parameters.AddWithValue("@Dr_Qualification", doctor.Dr_Qualification);
-                        cmd.Parameters.AddWithValue("@Dr_Address", doctor.Dr_Address ?? (object)DBNull.Value);
-                        cmd.Parameters.AddWithValue("@Dr_City", doctor.Dr_City ?? (object)DBNull.Value);
-                        cmd.Parameters.AddWithValue("@Dr_State", doctor.Dr_State ?? (object)DBNull.Value);
-                        cmd.Parameters.AddWithValue("@Dr_Pincode", doctor.Dr_Pincode);
-                        cmd.Parameters.AddWithValue("@Dr_ImagePath", doctor.Dr_ImagePath);
-                        cmd.Parameters.AddWithValue("@Dr_Status", doctor.Dr_Status ?? (object)DBNull.Value);
-                        cmd.Parameters.AddWithValue("@Fees", doctor.Fees);
-                        cmd.Parameters.AddWithValue("@Dept_ID", doctor.Dept_ID);
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                TempData["Message"] = "Doctor record updated successfully.";
-                return RedirectToAction("Index");
+                    Doctor_ID = doctor.Doctor_ID,
+                    Dr_FirstName = doctor.Dr_FirstName,
+                    Dr_LastName = doctor.Dr_LastName,
+                    Dr_Email = doctor.Dr_Email,
+                    Dr_DOB = doctor.Dr_DOB,
+                    Dr_Gender = doctor.Dr_Gender,
+                    Dr_Phone = doctor.Dr_Phone,
+                    Dr_Qualification = doctor.Dr_Qualification,
+                    Dr_Address = doctor.Dr_Address,
+                    Dr_City = doctor.Dr_City,
+                    Dr_State = doctor.Dr_State,
+                    Dr_Pincode = doctor.Dr_Pincode.HasValue ? (int)doctor.Dr_Pincode.Value : 0,
+                    Dr_ImagePath = doctor.Dr_ImagePath,
+                    Dr_Status = doctor.Dr_Status,
+                    Fees = doctor.Fees.HasValue ? (int)doctor.Fees.Value : 0,
+                    Dept_ID = doctor.Dept_ID.HasValue ? (int)doctor.Dept_ID.Value : 0,
+                };
+                ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", doctor.Dept_ID);
+                return View(doctorVM);
             }
-            catch (Exception ex)
+
+            [HttpPost]
+            public ActionResult Edit_Doctor(DoctorVM doctor, HttpPostedFileBase Dr_ImagePath)
             {
-                TempData["Error"] = ex.Message;
+                try
+                {
+                    if (Dr_ImagePath != null && Dr_ImagePath.ContentLength > 0)
+                    {
+                        string uploadPath = Server.MapPath("~/Content/UploadedImages/");
+                        string fileName = Path.GetFileNameWithoutExtension(Dr_ImagePath.FileName);
+                        string extension = Path.GetExtension(Dr_ImagePath.FileName);
+                        string newImagePath = "~/Content/UploadedImages/" + fileName + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
+                        try
+                        {
+                            Dr_ImagePath.SaveAs(Server.MapPath(newImagePath));
+                            doctor.Dr_ImagePath = newImagePath; // Update the doctor object with the new image path
+                        }
+                        catch (Exception ex)
+                        {
+                            TempData["Error"] = "Error saving image: " + ex.Message;
+                            return View(doctor);
+                        }
+                    }
+                    using (SqlConnection con = new SqlConnection(connectionString))
+                    {
+                        using (SqlCommand cmd = new SqlCommand("sp_Edit_Doctor", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@Doctor_ID", doctor.Doctor_ID);
+                            cmd.Parameters.AddWithValue("@Dr_FirstName", doctor.Dr_FirstName);
+                            cmd.Parameters.AddWithValue("@Dr_LastName", doctor.Dr_LastName);
+                            cmd.Parameters.AddWithValue("@Dr_Email", doctor.Dr_Email);
+                            cmd.Parameters.AddWithValue("@Dr_Password", doctor.Dr_Password);
+                            cmd.Parameters.AddWithValue("@Dr_DOB", (object)doctor.Dr_DOB ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@Dr_Gender", doctor.Dr_Gender ?? (object)DBNull.Value);
+                            cmd.Parameters.AddWithValue("@Dr_Phone", doctor.Dr_Phone ?? (object)DBNull.Value);
+                            cmd.Parameters.AddWithValue("@Dr_Qualification", doctor.Dr_Qualification);
+                            cmd.Parameters.AddWithValue("@Dr_Address", doctor.Dr_Address ?? (object)DBNull.Value);
+                            cmd.Parameters.AddWithValue("@Dr_City", doctor.Dr_City ?? (object)DBNull.Value);
+                            cmd.Parameters.AddWithValue("@Dr_State", doctor.Dr_State ?? (object)DBNull.Value);
+                            cmd.Parameters.AddWithValue("@Dr_Pincode", doctor.Dr_Pincode);
+                            cmd.Parameters.AddWithValue("@Dr_ImagePath", doctor.Dr_ImagePath);
+                            cmd.Parameters.AddWithValue("@Dr_Status", doctor.Dr_Status ?? (object)DBNull.Value);
+                            cmd.Parameters.AddWithValue("@Fees", doctor.Fees);
+                            cmd.Parameters.AddWithValue("@Dept_ID", doctor.Dept_ID);
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    TempData["Message"] = "Doctor record updated successfully.";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    TempData["Error"] = ex.Message;
+                    return View(doctor);
+                }
+                ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", doctor.Dept_ID);
                 return View(doctor);
             }
-            ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", doctor.Dept_ID);
-            return View(doctor);
-        }
 
         [HttpGet]
         public ActionResult Edit_Appointment(int aptId)
@@ -930,7 +941,7 @@ namespace Patient_Management_System.Controllers
 
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", aptVM.Dept_ID);
             ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", aptVM.Doctor_ID);
-           
+            // ViewBag.Schedule_ID = new SelectList(db.ScheduleTbls, "Schedule_ID", "Available_Date", aptVM.Schedule_ID);
             ViewBag.TimeSlots = GetTimeSlots();
 
             return View(aptVM);
@@ -971,10 +982,10 @@ namespace Patient_Management_System.Controllers
                 TempData["Error"] = ex.Message;
             }
 
-          
+            // Ensure ViewBag is set before returning the view
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", aptVM.Dept_ID);
             ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", aptVM.Doctor_ID);
-           
+        //    ViewBag.Schedule_ID = new SelectList(db.ScheduleTbls, "Schedule_ID", "Available_Date", aptVM.Schedule_ID);
             ViewBag.TimeSlots = GetTimeSlots();
 
             return View(aptVM);
@@ -1159,8 +1170,8 @@ namespace Patient_Management_System.Controllers
                 return HttpNotFound();
             }
 
-
-
+           
+         
             ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName");
             ViewBag.Patient_ID = new SelectList(db.PatientsTbls, "Patient_Id", "P_FirstName");
 
@@ -1428,8 +1439,8 @@ namespace Patient_Management_System.Controllers
             }
             return View(contactUsTbl);
         }
-
-        [HttpPost]
+       
+        [HttpPost]        
         public ActionResult Delete_Contact(int id)
         {
             ContactUsTbl contactUsTbl = db.ContactUsTbls.Find(id);
