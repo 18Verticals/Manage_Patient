@@ -10,60 +10,39 @@
     @Html.AntiForgeryToken()
 
     <link href="~/Content/login.css" rel="stylesheet" />
+    if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="text-danger">@ViewBag.Message</div>
+    }
 
-    
-  
-
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>LiveDoc</title>
-        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/style.css">
-       
-    </head>
-  
-        <div class="login-container">
-            <div class="login-box">
-                <!-- Image Section -->
-                <div class="login-image">
-                    <img src="~/Content/Admin/assets/img/login_patient.png" alt="Login Image">
-                </div>
-                <!-- Login Form Section -->
-                <div class="login-form">
-                    <form method="post">
-                        @*<div class="account-logo text-center">
-                            <a href="Login"><img src="~/Content/Admin/assets/img/logo.png" alt=""></a>
-                        </div>*@
-                        @if (!string.IsNullOrEmpty(ViewBag.Message))
-                        {
-                            <div class="text-danger">@ViewBag.Message</div>
-                        }
-
-                        <div class="form-group">
-                            <div class="form__group field">
-                                @Html.EditorFor(model => model.P_Email, new { htmlAttributes = new { @class = "form__field", required = "required", placeholder = "Enter your Email" } })
-                                @Html.ValidationMessageFor(model => model.P_Email, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="form__group field">
-                                @Html.PasswordFor(model => model.P_Password, htmlAttributes: new { @class = "form__field", required = "required", placeholder = "Enter your Password" })
-                                @Html.ValidationMessageFor(model => model.P_Password, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary"><b>Submit</b></button>
-                            <br><br>
-                            <p style="font-size: 14px;">
-                                Don't have an Account? <a href="Register" style="text-decoration: none; color: black;"><b>Register</b></a>
-                            </p>
-                        </div>
-                </div>
+    <div class="form-horizontal">
+        <div class="form-group col-md-4">
+            <div class="form__group field">
+                @Html.EditorFor(model => model.P_Email, new { htmlAttributes = new { @class = "form__field", required = "required", placeholder = "Enter your Email" } })
+                @*<label for="Email" class="form__label">Email</label>*@
+                @Html.ValidationMessageFor(model => model.P_Email, "", new { @class = "text-danger" })
             </div>
         </div>
-      
-    }
+
+        <div class="form-group col-md-4">
+            <div class="form__group field">
+                @Html.PasswordFor(model => model.P_Password, htmlAttributes: new { @class = "form__field", required = "required", placeholder = "Enter your Password" })
+                @*<label for="Password" class="form__label">Password</label>*@
+                @Html.ValidationMessageFor(model => model.P_Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button value="Login"><b>Submit</b></button>
+
+                <br><br>
+                <p style="margin-left: 75px; font-size: 14px;">
+                    Don't have an Accunt'? <a href="Register" style="text-decoration: none; color: black;"><b>Register</b></a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+}
+
