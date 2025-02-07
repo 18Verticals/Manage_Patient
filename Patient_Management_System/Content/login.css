@@ -1,7 +1,7 @@
 /* General Styling */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;  
+    background-color: #f9f9f9;
 }
 /* Centering the button on the page */
 
@@ -10,23 +10,24 @@ body {
 }
 
 button {
-    font-size: 18px;
+    font-size: 15px;
     letter-spacing: 2px;
     text-transform: uppercase;
     display: inline-block;
     text-align: center;
     font-weight: bold;
     padding: 0.7em 2em;
-    border-radius: 5px;
+    border-radius: 30px;
     position: relative;
-    color: #000000f7;
+    color: #fffffff7;
     text-decoration: none;
     transition: 0.3s ease all;
     z-index: 1;
-    background: #ffffff;
-    padding-left: 20px;
+    background: #000000;
+    padding-left: 35px;
     margin-inline-start: 45px;
-    width: 75%;
+    width: 35%;
+    margin-left: 110px;
 }
 
     button:before {
@@ -52,7 +53,7 @@ button {
             left: 0;
             right: 0;
             opacity: 1;
-            border-radius: 5px;
+            border-radius: 30px;
         }
 
     button:active {
@@ -71,6 +72,7 @@ button {
     box-shadow: 0 10px 20px #6e6c6c;
     width: 100%;
 }
+
 .form-group {
     margin-bottom: 20px;
 }
@@ -123,27 +125,18 @@ button {
     padding: 0 5px;
 }
 
-.form__field:focus + .form__label,
-.form__field:not(:placeholder-shown) + .form__label {
+.form_field:focus + .form_label,
+.form_field:not(:placeholder-shown) + .form_label {
     top: -10px;
     font-size: 15px;
     color: #000000f7;
 }
-
-
-
-
-
-
-
-
 
 /* Validation Messages */
 .text-danger {
     color: #dc3545;
     font-size: 12px;
 }
-
 
 /* For tablets (screen width between 600px and 768px) */
 @media (max-width: 768px) {
@@ -163,9 +156,7 @@ button {
     .form-group.col-md-4 {
         flex: 1 1 100%;
     }
-
-  
-} 
+}
 
 /* For mobile devices (screen width below 600px) */
 @media (max-width: 600px) {
