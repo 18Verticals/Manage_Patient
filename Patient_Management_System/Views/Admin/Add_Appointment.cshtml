@@ -29,7 +29,14 @@
                     </div>
                 </div>
 
-               
+                <!-- Schdule Dropdown -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Schdule</label>
+                        @Html.DropDownList("Schedule_ID", (IEnumerable<SelectListItem>)ViewBag.Schedule_ID, "-- Select Doctor --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Schedule_ID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
                 <!-- Department Dropdown -->
                 <div class="col-sm-6">
@@ -48,13 +55,19 @@
                     </div>
                 </div>
 
-              
+                <!-- Time Slot Dropdown -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Time Slot</label>
+                        @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control" })
+                    </div>
+                </div>
 
                 <!-- Description -->
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Description</label>
-                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 1 })
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 3 })
                     </div>
                 </div>
 
@@ -76,7 +89,7 @@
 
                 <!-- Submit Button -->
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary"  style="margin-top:95px; margin-left:-80px;" >Add Appointment</button>
+                    <button type="submit" class="btn btn-primary">Add Appointment</button>
                 </div>
             </div>
         </div>
