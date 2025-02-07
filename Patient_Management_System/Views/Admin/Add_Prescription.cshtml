@@ -1,0 +1,85 @@
+﻿@model Patient_Management_System.ViewModel.PrescriptionVM
+
+@{
+    ViewBag.Title = "Add Prescription";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@using (Html.BeginForm("Add_Prescription", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <h4 class="page-title">Add Prescription</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="row">
+
+                <!-- Doctor Dropdown -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Doctor</label>
+                        @Html.DropDownList("Doctor_ID", (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "-- Select Doctor --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <!-- Department Dropdown -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Patient</label>
+                        @Html.DropDownList("Patient_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Department --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Patient_ID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <!-- Appointment Date -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Date</label>
+                        @Html.EditorFor(model => model.DateIssued, new { htmlAttributes = new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd") } })
+                    </div>
+                </div>
+
+               
+                <!-- Description -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Medication </label>
+                        @Html.TextAreaFor(model => model.Medication, new { @class = "form-control", rows = 1 })
+                    </div>
+                </div>
+
+           
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Dosage</label>
+                        @Html.TextBoxFor(model => model.Dosage, new { @class = "form-control"})
+                    </div>
+                </div>
+
+                <!-- Diseases -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Instructions</label>
+                        @Html.TextBoxFor(model => model.Instructions, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" style="margin-top:95px; margin-left:-80px;">Add Prescription</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,13 @@
+﻿@model Patient_Management_System.Models.PrescriptionTbl
+
+@{
+    ViewBag.Title = "Delete Prescription";
+}
+
+<h2>Are you sure you want to delete the doctor?</h2>
+<form method="post" action="@Url.Action("Delete_Prescription", "Admin")">
+
+    <input type="hidden" name="PrescId" value="@Model.Presc_ID" />
+    <button type="submit">Yes, Delete</button>
+    <a href="@Url.Action("List_Prescription", "Admin")">Cancel</a>
+</form>

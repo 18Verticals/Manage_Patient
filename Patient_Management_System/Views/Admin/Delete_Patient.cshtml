@@ -1,0 +1,13 @@
+﻿@model Patient_Management_System.Models.PatientsTbl
+
+@{
+    ViewBag.Title = "Delete Patient";
+}
+
+<h2>Are you sure you want to delete the doctor?</h2>
+<form method="post" action="@Url.Action("Delete_Patient", "Admin")">
+
+    <input type="hidden" name="patientId" value="@Model.Patient_Id" />
+    <button type="submit">Yes, Delete</button>
+    <a href="@Url.Action("List_Patient", "Admin")">Cancel</a>
+</form>
