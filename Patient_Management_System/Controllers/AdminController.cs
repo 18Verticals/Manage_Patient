@@ -61,7 +61,7 @@ namespace Patient_Management_System.Controllers
             }
             return View();
         }
-        public ActionResult List_Appointment(AppointmentVM aptVM)
+        public ActionResult List_Appointment(AppointmentVM aptVM)//Changes
         {
             List<AppointmentVM> aptList = new List<AppointmentVM>();
 
@@ -71,10 +71,12 @@ namespace Patient_Management_System.Controllers
                 cmd.CommandType = CommandType.StoredProcedure;
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
+
                 while (reader.Read())
                 {
                     AppointmentVM apt = new AppointmentVM
                     {
+
 
                         Doctor_ID = reader["Doctor_ID"] != DBNull.Value ? Convert.ToInt32(reader["Doctor_ID"]) : (int?)null,
                         Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : (int?)null,
@@ -86,6 +88,12 @@ namespace Patient_Management_System.Controllers
                         Dr_LastName = reader["Dr_LastName"].ToString(),
 
                         Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
+
+                        Appointment_ID = reader["Appointment_ID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Appointment_ID"]),
+
+                        Doctor_ID = reader["Doctor_ID"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["Doctor_ID"]),
+                        Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : (DateTime?)null,
+
                         Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
                         Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : string.Empty,
                        
@@ -95,15 +103,20 @@ namespace Patient_Management_System.Controllers
 
 
                         Diseases = reader["Diseases"] != DBNull.Value ? reader["Diseases"].ToString() : string.Empty,
+
                        
                         P_FirstName = reader["P_FirstName"].ToString(),
                         P_LastName = reader["P_LastName"].ToString(),
+
+
+                        Patient_ID = reader["Patient_ID"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["Patient_ID"]),
 
                         Email = reader["Email"] != DBNull.Value ? reader["Email"].ToString() : string.Empty,
                     };
                     aptList.Add(apt);
                 }
             }
+
             return View(aptList);
         }
         public ActionResult List_Prescription(PrescriptionVM prescVM)
