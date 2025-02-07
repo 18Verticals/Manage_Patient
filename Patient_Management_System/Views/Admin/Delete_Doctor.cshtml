@@ -1,9 +1,0 @@
-﻿﻿@model Patient_Management_System.Models.DoctorTbl
-
-@{
-    ViewBag.Title = "Delete Doctor";
-}
-<form method="post" action="@Url.Action("Delete_Doctor", "Admin")">
-    <input type="hidden" name="doctorId" value="@Model.Doctor_ID" />
-    <a href="@Url.Action("List_Doctor", "Admin")">Cancel</a>
-</form>
