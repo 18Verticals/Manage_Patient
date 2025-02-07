@@ -1,0 +1,131 @@
+﻿@model IEnumerable<Patient_Management_System.Models.DoctorTbl>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Dr_FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dr_LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dr_Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dr_Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dr_DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dr_Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dr_Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dr_Qualification)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dr_Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dr_City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dr_State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dr_Pincode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dr_ImagePath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dr_Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fees)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentTbl.Dept_Name)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dr_FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dr_LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dr_Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dr_Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dr_DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dr_Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dr_Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dr_Qualification)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dr_Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dr_City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dr_State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dr_Pincode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dr_ImagePath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dr_Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fees)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentTbl.Dept_Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Doctor_ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Doctor_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Doctor_ID })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

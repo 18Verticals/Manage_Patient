@@ -1,0 +1,347 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Patient.cshtml";
+}
+
+<div class="page-wrapper">
+
+
+
+    <section class="page-header" style="background-image: url(../Content/template/assets/images/inner-page-banner/Contact-Us.jpg);">
+        <div class="container">
+
+            <ul class="list-unstyled page-breadcrumb">
+                <li><a href="index"><i class="fa fa-home"></i></a></li>
+                <li>More </li>
+                <li><span> About </span></li>
+                <li><span> Contact Us </span></li>
+            </ul>
+            <!-- /.list-unstyled -->
+        </div>
+        <!-- /.container -->
+    </section>
+    <!-- /.page-header -->
+
+    <section class="event-details">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+
+                    <div class="event-details__sidebar">
+
+                        <div class="event-details__sidebar-single event-details__sidebar-dark-bg">
+                            <h3>Contact <span class="dark-title">Info</span></h3>
+
+
+                            <ul class="event-details__sidebar-list list-unstyled">
+                                <li class="cnt-page-address">
+                                    <i class="oberlin-icon-marker contact-page-map-icon"></i>
+                                    <h4>KUSUM DHIRAJLAL HOSPITAL </h4>
+                                    <p>
+                                        <a href="https://goo.gl/maps/ZC6buVcxRoiL32fq9" target="_blank">
+                                            Vaishnodevi Circle, SG Road,
+                                            Ahmedabad - 382421
+                                        </a>
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <i class="far fa-envelope contact-page-mail-icon"></i>
+                                    <h4>REACH US</h4>
+                                    <p><a href="mailto: contact@kdhospital.co.in">contact@kdhospital.co.in</a></p>
+                                </li>
+                                <li>
+                                    <i class="far fa-phone"></i>
+                                    <h4>OPERATOR</h4>
+                                    <p><a href="tel:+91 79 6677 0000">+91 79 6677 0000</a></p>
+                                </li>
+                                <li>
+                                    <i class="far fa-phone"></i>
+                                    <h4>EMERGENCY</h4>
+                                    <p><a href="tel:  +91 79 6677 0001"> +91 79 6677 0001</a></p>
+                                </li>
+                                <li>
+                                    <i class="far fa-phone"></i>
+                                    <h4>AMBULANCE</h4>
+                                    <p><a href="tel:  +91 79 6677 0002"> +91 79 6677 0002</a></p>
+                                </li>
+                                <li>
+                                    <i class="far fa-phone"></i>
+                                    <h4>OP APPOINTMENT</h4>
+                                    <p><a href="tel: +91 79 6677 0003">  +91 79 6677 0003</a></p>
+                                </li>
+                                <li>
+                                    <i class="far fa-phone"></i>
+                                    <h4>ADMISSIONS</h4>
+                                    <p><a href="tel: +91 79 6677 0004"> +91 79 6677 0004</a></p>
+                                </li>
+                                <li>
+                                    <i class="far fa-phone"></i>
+                                    <h4>HEALTH CHECKUP</h4>
+                                    <p><a href="tel: +91 79 6677 0005"> +91 79 6677 0005</a></p>
+                                </li>
+                                <li>
+                                    <i class="far fa-phone"></i>
+                                    <h4>PATHOLOGY</h4>
+                                    <p><a href="tel:+91 79 6677 0006"> +91 79 6677 0006</a></p>
+                                </li>
+                                <li>
+                                    <i class="far fa-phone"></i>
+                                    <h4>RADIOLOGY</h4>
+                                    <p><a href="tel: +91 79 6677 0007"> +91 79 6677 0007</a></p>
+                                </li>
+                                <li>
+                                    <i class="far fa-phone"></i>
+                                    <h4>VISA-CHECKUP</h4>
+                                    <p><a href="tel: +91 79667 70077"> +91 79667 70077</a></p>
+                                    <!--<p class="mt-0"><a href="tel:  +91 99791 53196"> +91 98240 53196</a></p>-->
+                                    <p class="mt-0"><a href="tel:  +91 99791 53196">  +91 99791 53196</a></p>
+                                </li>
+                            </ul>
+                            <!-- /.event-details__sidebar-list list-unstyled -->
+                        </div>
+                        <!-- /.event-details__sidebar-single -->
+                    </div>
+                    <!-- /.event-details__sidebar -->
+
+
+
+
+
+                </div>
+                <!-- /.col-lg-4 -->
+                <div class="col-lg-8">
+                    <div class="event-details__main mb-50">
+                        <div class="block-title">
+                            <h1>Contact Us</h1>
+                        </div>
+
+                        <form action="thankyou.php" class="contact-one__form sky-form" id="Contact_Us" name="contact-form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <i class="fa fa-user icon-prepend"></i>
+                                    <input type="text" name="name" id="name" placeholder="Name*" />
+                                </div>
+                                <!-- /.col-md-6 -->
+                                <div class="col-md-6">
+                                    <i class="fa fa-envelope icon-prepend"></i>
+                                    <input type="email" name="email" id="email" placeholder="Email ID*" />
+                                </div>
+                                <!-- /.col-md-6 -->
+                                <div class="col-md-12">
+                                    <i class="fa fa-mobile-alt icon-prepend"></i>
+                                    <input type="text" name="contact_no" id="contact_no" onkeypress="contact_num_valid(event)" minlength="10" maxlength="15" placeholder="Contact No*" />
+
+                                </div>
+                                <!-- /.col-md-6 -->
+
+                                <div class="col-md-12">
+                                    <i class="fa fa-edit icon-prepend"></i>
+                                    <textarea name="message" id="message" class="" placeholder="Message" rows="2"></textarea>
+
+                                </div>
+                                <!-- /.col-md-12 -->
+                                <div class="col-md-12 text-left">
+                                    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response">
+                                    <p id="error_data"></p>
+                                    <input type="hidden" value="Contact_Us" name="type_of_form">
+
+
+
+                                    <button type="submit" class="thm-btn contact-one__btn" id="contactBtn">Submit</button><i class="fa fa-sync" id="form_process"></i>
+
+
+                                    <!-- /.thm-btn contact-one__btn -->
+                                </div>
+                                <!-- /.col-md-12 -->
+                            </div>
+                            <!-- /.row -->
+                        </form>
+
+
+
+
+                    </div>
+                    <!-- /.event-details__main -->
+
+
+                    <div class="event-details__main distance-from-details">
+                        <div class="block-title">
+                            <h3>Distance From</h3>
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-4">
+
+                                <div class="funfact-one__single">
+                                    <div class="funfact-one__counter">
+                                        <img src="~/Content/template/assets/images/icons/Railway-Station.png" alt="Railway Station" title="Railway Station" class="icon1">
+                                    </div>
+                                    <!-- /.funfact-one__counter -->
+                                    <h4>Ahmedabad Railway Station </h4>
+                                    <span class="oth-txt">17 km </span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-sm-12 col-md-4">
+
+                                <div class="funfact-one__single">
+                                    <div class="funfact-one__counter">
+                                        <img src="~/Content/template/assets/images/icons/Ahmedabad-Airport.png" alt="Ahmedabad Airport" title="Ahmedabad Airport" class="icon1">
+                                    </div>
+                                    <!-- /.funfact-one__counter -->
+                                    <h4>Ahmedabad<br> Airport </h4>
+                                    <span class="oth-txt">16.5 km </span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-12 col-md-4">
+
+                                <div class="funfact-one__single">
+                                    <div class="funfact-one__counter">
+                                        <img src="~/Content/template/assets/images/icons/Bus-Station.png" alt="Bus Station" title="Bus Station" class="icon1">
+                                    </div>
+                                    <!-- /.funfact-one__counter -->
+                                    <h4> Geeta Mandir Bus Station </h4>
+                                    <span class="oth-txt">21 km </span>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+            <!-- /.col-lg-8 -->
+
+
+        </div>
+        <!-- /.row -->
+
+    </section>
+    <!-- /.event-details -->
+    <!-- /.footer-widget__title -->
+    <!-- /.side-menu__block -->
+    <!-- template scripts -->
+    <script src="~/Content/template/assets/js/jquery.min.js"></script>
+    <script src="~/Content/template/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/template/assets/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Content/template/assets/js/bootstrap-select.min.js"></script>
+    <script src="~/Content/template/assets/js/isotope.js"></script>
+    <script src="~/Content/template/assets/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.circleType.js"></script>
+    <script src="~/Content/template/assets/js/waypoints.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.counterup.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.lettering.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.validate.min.js"></script>
+    <script src="~/Content/template/assets/js/owl.carousel.min.js"></script>
+    <script src="~/Content/template/assets/js/TweenMax.min.js"></script>
+    <script src="~/Content/template/assets/js/wow.min.js"></script>
+    <script src="~/Content/template/assets/js/theme.js"></script>
+    <script type='text/javascript' src='https://maps.google.com/maps/api/js?key=AIzaSyBele9_sVj2V8yDQAHcaz9ndX3YZLAzISc'></script>
+    <script src="~/Content/template/assets/js/google-map.js"></script>
+    <script src="~/Content/template/assets/js/Contact_Us.js"></script>
+    <!--<script src="assets/js/mobile.js"></script>-->
+    <script>
+                        new WOW().init();
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lfl29sZAAAAAIjjJTzAiVRlDtyXzYkq5cBPoilq"></script>
+    <script>
+                        function googleCaptcha() {
+                            grecaptcha.ready(function () {
+                                grecaptcha.execute('6Lfl29sZAAAAAIjjJTzAiVRlDtyXzYkq5cBPoilq', {
+                                    action: 'homepage'
+                                }).then(function (token) {
+                                    var recaptchaEls = document.getElementsByClassName('g-recaptcha-response');
+                                    for (var i = 0; i < recaptchaEls.length; i++) {
+                                        recaptchaEls[i].value = token;
+                                    }
+                                    document.getElementsByClassName('grecaptcha-badge')[0].style.display = 'none';
+                                });
+                            });
+                        }
+                        document.addEventListener("DOMContentLoaded", function (event) {
+                            googleCaptcha();
+
+                            function addXMLRequestCallback(callback) {
+                                var oldSend, i;
+                                if (XMLHttpRequest.callbacks) {
+                                    XMLHttpRequest.callbacks.push(callback);
+                                } else {
+                                    XMLHttpRequest.callbacks = [callback];
+                                    oldSend = XMLHttpRequest.prototype.send;
+                                    XMLHttpRequest.prototype.send = function () {
+                                        for (i = 0; i < XMLHttpRequest.callbacks.length; i++) {
+                                            XMLHttpRequest.callbacks[i](this);
+                                        }
+                                        oldSend.apply(this, arguments);
+                                    }
+                                }
+                            }
+                            addXMLRequestCallback(function (xhr) {
+                                setTimeout(function () {
+                                    googleCaptcha();
+                                }, 1800);
+                            });
+
+                            var currentPage = location.href;
+                            setInterval(function () {
+                                if (currentPage != location.href) {
+                                    currentPage = location.href;
+                                    setTimeout(function () {
+                                        googleCaptcha();
+                                    }, 1800);
+                                }
+                            }, 500);
+                        });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-772875026"></script>
+    <script>
+                        window.dataLayer = window.dataLayer || [];
+
+                        function gtag() {
+                            dataLayer.push(arguments);
+                        }
+                        gtag('js', new Date());
+
+                        gtag('config', 'AW-772875026');
+    </script>
+
+
+
+    <script>
+                        gtag('event', 'page_view', {
+                            'send_to': 'AW-772875026',
+                            'user_id': 'replace with value'
+                        });
+    </script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HF6PKWGCCL"></script>
+    <script>
+                        window.dataLayer = window.dataLayer || [];
+
+                        function gtag() {
+                            dataLayer.push(arguments);
+                        }
+                        gtag('js', new Date());
+                        gtag('config', 'G-HF6PKWGCCL');
+    </script>
+
+    </body>
+
+    </html>

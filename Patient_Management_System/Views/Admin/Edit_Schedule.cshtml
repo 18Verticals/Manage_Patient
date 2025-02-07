@@ -1,0 +1,106 @@
+﻿@model Patient_Management_System.Models.ScheduleTbl
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <h4 class="page-title">Edit Schedule</h4>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <form>
+                <div class="row">
+
+                    @Html.HiddenFor(model => model.Schedule_ID)
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Doctor Name</label>
+                            @Html.DropDownList("Doctor_ID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Department</label>
+                            @Html.DropDownList("Dept_ID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Available Days</label>
+                            @Html.EditorFor(model => model.Available_Date, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Available_Date, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Start Time</label>
+                            @Html.EditorFor(model => model.Start_Time, new { htmlAttributes = new { @class = "form-control", type = "time", min = "09:30" } })
+                            @Html.ValidationMessageFor(model => model.Start_Time, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label>End Time</label>
+
+
+                            @Html.EditorFor(model => model.End_Time, new { htmlAttributes = new { @class = "form-control", type = "time", max = "18:30" } })
+
+                            @Html.ValidationMessageFor(model => model.End_Time, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <!-- Status -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Status:</label>
+                            @Html.DropDownListFor(model => model.Status, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Active", Value = "Active" },
+                                new SelectListItem { Text = "Inactive", Value = "Inactive" }
+                            }, "Select Status", new { @class = "form-control", @id = "Dr_Status" })
+                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- Submit Button -->
+                    <div class="m-t-20 text-center">
+                        <button class="btn btn-primary submit-btn" style="margin-left:130px; ">Edit Schedule</button>
+                    </div>
+                </div>
+        </div>
+    </div>
+}
+
+

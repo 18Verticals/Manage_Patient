@@ -1,0 +1,192 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;  
+}
+/* Centering the button on the page */
+
+.button-container {
+    text-align: center;
+}
+
+button {
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+    padding: 0.7em 2em;
+    border-radius: 5px;
+    position: relative;
+    color: #000000f7;
+    text-decoration: none;
+    transition: 0.3s ease all;
+    z-index: 1;
+    background: #ffffff;
+    padding-left: 20px;
+    margin-inline-start: 45px;
+    width: 75%;
+}
+
+    button:before {
+        transition: 0.5s all ease;
+        position: absolute;
+        top: 0;
+        filter: blur(1px);
+        left: 50%;
+        right: 50%;
+        bottom: 0;
+        opacity: 0;
+        content: '';
+        background: linear-gradient(110deg, #ffa556,#ff3d3df7);
+        z-index: -1;
+    }
+
+    button:hover, button:focus {
+        color: white;
+    }
+
+        button:hover:before, button:focus:before {
+            transition: 0.5s all ease;
+            left: 0;
+            right: 0;
+            opacity: 1;
+            border-radius: 5px;
+        }
+
+    button:active {
+        transform: scale(0.9);
+    }
+
+/* Form Container */
+.form-horizontal {
+    max-width: 350px;
+    margin: 14% auto;
+    padding: 30px 30px;
+    padding-top: 35px;
+    padding-bottom: 8px;
+    background: linear-gradient(110deg, #ff3d3df7, #ffa556);
+    border-radius: 5px;
+    box-shadow: 0 10px 20px #6e6c6c;
+    width: 100%;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.form-group.col-md-4 {
+    flex: 1 1 calc(33.333% - 20px);
+    box-sizing: border-box;
+}
+
+/* Form Fields */
+.form__group.field {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.form__field {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fdfdfd;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+    .form__field:focus {
+        border-color: #151414;
+        box-shadow: 0 0 10px rgba(79, 172, 254, 0.7);
+    }
+
+/* Floating Labels */
+.form__label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #ff3d3df7;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: linear-gradient(110deg, #ff3d3df7, #ffa556);
+    padding: 0 5px;
+}
+
+.form__field:focus + .form__label,
+.form__field:not(:placeholder-shown) + .form__label {
+    top: -10px;
+    font-size: 15px;
+    color: #000000f7;
+}
+
+
+
+
+
+
+
+
+
+/* Validation Messages */
+.text-danger {
+    color: #dc3545;
+    font-size: 12px;
+}
+
+
+/* For tablets (screen width between 600px and 768px) */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+        padding: 15px;
+    }
+
+    .form-horizontal {
+        padding: 30px 20px;
+    }
+
+    .form-row {
+        display: block;
+    }
+
+    .form-group.col-md-4 {
+        flex: 1 1 100%;
+    }
+
+  
+} 
+
+/* For mobile devices (screen width below 600px) */
+@media (max-width: 600px) {
+    body {
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .form-horizontal {
+        padding: 20px 10px;
+    }
+
+    .form__label {
+        font-size: 12px;
+    }
+
+    .form__field {
+        font-size: 12px;
+    }
+
+    /* button {
+        font-size: 14px;
+    } */
+}

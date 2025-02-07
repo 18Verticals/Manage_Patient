@@ -1,0 +1,92 @@
+﻿@model Patient_Management_System.ViewModel.AdminVM
+
+@using (Html.BeginForm("Login", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <title>LiveDoc</title>
+        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/style.css">
+        <style>
+            .login-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+            }
+
+            .login-box {
+                display: flex;
+                width: 800px;
+                background: #fff;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .login-image {
+                width: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #f7f7f7;
+            }
+
+                .login-image img {
+                    max-width: 100%;
+                    height: auto;
+                }
+
+            .login-form {
+                width: 50%;
+                padding: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="login-container">
+            <div class="login-box">
+                <!-- Image Section -->
+                <div class="login-image">
+                    <img src="~/Content/Admin/assets/img/login.png" alt="Login Image">
+                </div>
+                <!-- Login Form Section -->
+                <div class="login-form">
+                    <form method="post">
+                        <div class="account-logo text-center">
+                            <a href="Login"><img src="~/Content/Admin/assets/img/logo.png" alt=""></a>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary account-btn">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="~/Content/Admin/assets/js/jquery-3.2.1.min.js"></script>
+        <script src="~/Content/Admin/assets/js/popper.min.js"></script>
+        <script src="~/Content/Admin/assets/js/bootstrap.min.js"></script>
+        <script src="~/Content/Admin/assets/js/app.js"></script>
+    </body>
+</html>
+}
