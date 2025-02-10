@@ -634,7 +634,7 @@ namespace Patient_Management_System.Controllers
                             cmd.ExecuteNonQuery();
                         }
                     }
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("List_Department", "Admin");
                 }
                 catch (Exception ex)
                 {

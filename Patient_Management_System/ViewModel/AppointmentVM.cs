@@ -12,13 +12,13 @@ namespace Patient_Management_System.ViewModel
         public int Appointment_ID { get; set; }
         public Nullable<int> Doctor_ID { get; set; }
 
-        public string Dr_FirstName { get; set; } 
-        public string Dr_LastName { get; set; } 
+        //public string Dr_FirstName { get; set; } 
+        //public string Dr_LastName { get; set; } 
 
 
         public Nullable<int> Patient_ID { get; set; }
-        public string P_FirstName { get; set; }
-        public string P_LastName { get; set; }
+        //public string P_FirstName { get; set; }
+        //public string P_LastName { get; set; }
 
         public Nullable<int> Dept_ID { get; set; }
 
