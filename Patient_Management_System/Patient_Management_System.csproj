@@ -617,6 +617,7 @@
     <Content Include="Content\template\assets\images\our_speciality.png" />
     <Content Include="Content\template\assets\images\overview_2.png" />
     <Content Include="Content\template\assets\images\overview_3.png" />
+    <Content Include="Content\template\assets\images\p-login.png" />
     <Content Include="Content\template\assets\images\Patient_Speaks.png" />
     <Content Include="Content\template\assets\images\Renal-Transplant.jpg" />
     <Content Include="Content\template\assets\images\Renal-Transplant.png" />
