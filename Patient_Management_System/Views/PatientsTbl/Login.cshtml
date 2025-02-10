@@ -10,6 +10,94 @@
     @Html.AntiForgeryToken()
 
     <link href="~/Content/login.css" rel="stylesheet" />
+<<<<<<< HEAD
+<style>
+    .login-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .login-box {
+        display: flex;
+        width: 800px;
+        background: #fff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .login-image {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f7f7f7;
+    }
+
+        .login-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+    .login-form {
+        width: 50%;
+        padding: 30px;
+    }
+</style>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <title>LiveDoc</title>
+        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/style.css">
+        <style>
+           
+        </style>
+    </head>
+  
+        <div class="login-container">
+            <div class="login-box">
+                <!-- Image Section -->
+                <div class="login-image">
+                    <img src="~/Content/Admin/assets/img/login_patient.png" alt="Login Image">
+                </div>
+                <!-- Login Form Section -->
+                <div class="login-form">
+                    <form method="post">
+                        @*<div class="account-logo text-center">
+                            <a href="Login"><img src="~/Content/Admin/assets/img/logo.png" alt=""></a>
+                        </div>*@
+                        @if (!string.IsNullOrEmpty(ViewBag.Message))
+                        {
+                            <div class="text-danger">@ViewBag.Message</div>
+                        }
+
+                        <div class="form-group">
+                            <div class="form__group field">
+                                @Html.EditorFor(model => model.P_Email, new { htmlAttributes = new { @class = "form__field", required = "required", placeholder = "Enter your Email" } })
+                                @Html.ValidationMessageFor(model => model.P_Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form__group field">
+                                @Html.PasswordFor(model => model.P_Password, htmlAttributes: new { @class = "form__field", required = "required", placeholder = "Enter your Password" })
+                                @Html.ValidationMessageFor(model => model.P_Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary"><b>Submit</b></button>
+                            <br><br>
+                            <p style="font-size: 14px;">
+                                Don't have an Account? <a href="Register" style="text-decoration: none; color: black;"><b>Register</b></a>
+                            </p>
+                        </div>
+                </div>
+=======
     if (!string.IsNullOrEmpty(ViewBag.Message))
     {
         <div class="text-danger">@ViewBag.Message</div>
@@ -21,6 +109,7 @@
                 @Html.EditorFor(model => model.P_Email, new { htmlAttributes = new { @class = "form__field", required = "required", placeholder = "Enter your Email" } })
                 @*<label for="Email" class="form__label">Email</label>*@
                 @Html.ValidationMessageFor(model => model.P_Email, "", new { @class = "text-danger" })
+>>>>>>> 10042e997441def27dea85f67047981681468cba
             </div>
         </div>
 
