@@ -1,4 +1,4 @@
-﻿@model Patient_Management_System.Models.PatientsTbl
+@model Patient_Management_System.Models.PatientsTbl
 @{
     ViewBag.Title = "Login";
 }
@@ -9,40 +9,53 @@
 
     <link href="~/Content/login.css" rel="stylesheet" />
 
-<style>
-    .login-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-    }
-    .login-box {
-        display: flex;
-        width: 800px;
-        background: #fff;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .login-image {
-        width: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #f7f7f7;
-    }
-
-        .login-image img {
-            max-width: 100%;
-            height: auto;
+    <style>
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
 
-    .login-form {
-        width: 50%;
-        padding: 30px;
-    }
-</style>
+        .login-box {
+            display: flex;
+            width: 700px;
+            background: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .login-image {
+            width: 300px;
+            padding-top: 15px;
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f7f7f7;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+            .login-image img {
+                max-width: 100%;
+                height: auto;
+            }
+
+        .login-form {
+            width: 50%;
+            padding: 30px;
+        }
+    </style>
 
     <head>
         <meta charset="utf-8">
@@ -53,47 +66,53 @@
         <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/style.css">
         <style>
-           
         </style>
     </head>
-        <div class="login-container">
-            <div class="login-box">
-                <div class="login-image">
-                    <img src="~/Content/Admin/assets/img/login_patient.png" alt="Login Image">
-                </div>
-                <div class="login-form">
-                    <form method="post">
-                      
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-image">
+                <img src="~/Content/template/assets/images/patient_Login.png" alt="Login Image">
+            </div>
+            <div class="login-form">
+                <form method="post">
 
 
-                        @if (!string.IsNullOrEmpty(ViewBag.Message))
-                        {
-                            <div class="text-danger">@ViewBag.Message</div>
-                        }
 
-                        <div class="form-group">
-                            <div class="form__group field">
-                                @Html.EditorFor(model => model.P_Email, new { htmlAttributes = new { @class = "form__field", required = "required", placeholder = "Enter your Email" } })
-                                @Html.ValidationMessageFor(model => model.P_Email, "", new { @class = "text-danger" })
-                            </div>
+                    @if (!string.IsNullOrEmpty(ViewBag.Message))
+                    {
+                        <div class="text-danger">@ViewBag.Message</div>
+                    }
+
+                    <div class="form-group">
+                        <div class="form__group field">
+                            @Html.EditorFor(model => model.P_Email, new { htmlAttributes = new { @class = "form__field", required = "required", placeholder = "Enter your Email" } })
+                            @Html.ValidationMessageFor(model => model.P_Email, "", new { @class = "text-danger" })
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="form__group field">
-                                @Html.PasswordFor(model => model.P_Password, htmlAttributes: new { @class = "form__field", required = "required", placeholder = "Enter your Password" })
-                                @Html.ValidationMessageFor(model => model.P_Password, "", new { @class = "text-danger" })
-                            </div>
+                    <div class="form-group">
+                        <div class="form__group field">
+                            @Html.PasswordFor(model => model.P_Password, htmlAttributes: new { @class = "form__field", required = "required", placeholder = "Enter your Password" })
+                            @Html.ValidationMessageFor(model => model.P_Password, "", new { @class = "text-danger" })
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary"><b>Submit</b></button>
-                            <br><br>
-                            <p style="font-size: 14px;">
-                                Don't have an Account? <a href="Register" style="text-decoration: none; color: black;"><b>Register</b></a>
-                            </p>
-                        </div>
-                </div>
-                </div>
-                </div>
+                    @*<div class="form-group">
+            <button type="submit" class="btn btn-primary"><b>Submit</b></button>
+            <br><br>
+            <p style="font-size: 16px;">
+                Don't have an Account? <a href="Register" style="text-decoration: none; color: black;"><b>Register</b></a>
+            </p>
+        </div>*@
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary"><b>Submit</b></button>
+                        <br><br>
+                        <p style="font-size: 16px;">
+                            Don't have an Account? <a href="Register" style="text-decoration: none; color: black;"><b>Register</b></a>
+                        </p>
+                    </div>
+               </div>
+        </div>
+    </div>
 }
-
