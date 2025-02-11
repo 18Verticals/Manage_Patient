@@ -20,10 +20,56 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+
+        <style>
+            .login-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 80vh;
+            }
+
+            .login-box {
+                display: flex;
+                width: 800px;
+                background: #fff;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .login-image {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #f7f7f7;
+            }
+
+                .login-image img {
+                    max-width: 100%;
+                    height: auto;
+                }
+
+            .login-form {
+                width: 50%;
+                padding: 30px;
+            }
+        </style>
+
+        <div class="login-container">
+            <div class="login-box">
+                <!-- Image Section -->
+                <div class="login-image">
+                    <img src="~/Content/template/assets/images/sign_up.png" alt="Login Image">
+                </div>
+            </div>
+        </div>
+
         <!-- 3-column layout -->
 
         <div class="form-row">
-
+            <!-- First Name -->
             <div class="form-group col-md-4">
                 <div class="form__group field">
                     @Html.EditorFor(model => model.P_FirstName, new { htmlAttributes = new { @class = "form__field", required = "required" } })
@@ -33,6 +79,7 @@
             </div>
 
 
+            <!-- MiddleName -->
             <div class="form-group col-md-4">
                 <div class="form__group field">
                     @Html.EditorFor(model => model.P_MiddleName, new { htmlAttributes = new { @class = "form__field", required = "required" } })
@@ -41,6 +88,8 @@
                 </div>
             </div>
 
+
+            <!-- LastName -->
             <div class="form-group col-md-4">
                 <div class="form__group field">
                     @Html.EditorFor(model => model.P_LastName, new { htmlAttributes = new { @class = "form__field", required = "required" } })
@@ -171,5 +220,4 @@
             </div>
         </div>
     </div>
-}
-
+            }

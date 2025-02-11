@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AppointmentTblsController.cs" />
+    <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PatientsTblController.cs" />
     <Compile Include="Controllers\ScheduleTblsController.cs" />
@@ -411,6 +412,7 @@
     <Content Include="Content\template\assets\images\compubrain_monogram.png" />
     <Content Include="Content\template\assets\images\Cornea-Transplant.jpg" />
     <Content Include="Content\template\assets\images\Cornea-Transplant.png" />
+    <Content Include="Content\template\assets\images\doctor-new.png" />
     <Content Include="Content\template\assets\images\doctors\cardiologist-in-ahmedabad-kd-hospital.jpg" />
     <Content Include="Content\template\assets\images\doctors\dr-aakash-patel.jpg" />
     <Content Include="Content\template\assets\images\doctors\dr-abhishek-gohel.jpg" />
@@ -620,13 +622,14 @@
     <Content Include="Content\template\assets\images\overview_2.png" />
     <Content Include="Content\template\assets\images\overview_3.png" />
     <Content Include="Content\template\assets\images\p-login.png" />
+    <Content Include="Content\template\assets\images\patient_Login.png" />
     <Content Include="Content\template\assets\images\Patient_Speaks.png" />
     <Content Include="Content\template\assets\images\Renal-Transplant.jpg" />
     <Content Include="Content\template\assets\images\Renal-Transplant.png" />
     <Content Include="Content\template\assets\images\second_opinion.png" />
     <Content Include="Content\template\assets\images\shapes\appointment-map-1-2.png" />
     <Content Include="Content\template\assets\images\shapes\living-option-dot-1-1.png" />
-    <Content Include="Content\template\assets\images\sign up.png" />
+    <Content Include="Content\template\assets\images\sign_up.png" />
     <Content Include="Content\template\assets\images\specialities-icon\Cardiology.png" />
     <Content Include="Content\template\assets\images\specialities-icon\Emergency-Care-CCU-&amp;-ICU.png" />
     <Content Include="Content\template\assets\images\specialities-icon\Gastrosurgery.png" />
