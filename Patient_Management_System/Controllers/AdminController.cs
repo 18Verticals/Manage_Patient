@@ -81,8 +81,8 @@ namespace Patient_Management_System.Controllers
 
                         Doctor_ID = reader["Doctor_ID"] != DBNull.Value ? Convert.ToInt32(reader["Doctor_ID"]) : (int?)null,
                         Dr_FirstName = reader["Dr_FirstName"].ToString(),
-                        Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : (int?)null,
-                        P_FirstName = reader["P_FirstName"].ToString(),
+                       // Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : (int?)null,
+                        Patient_Name = reader["Patient_Name"].ToString(),
                         Dept_ID = reader["Dept_ID"] != DBNull.Value ? Convert.ToInt32(reader["Dept_ID"]) : (int?)null,
                         Dept_Name = reader["Dept_Name"].ToString(),
                         Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,

@@ -66,9 +66,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="banner_taital"><span style="color: #fc8004;"> We care Of You</span></h1>
+                        <h1 class="banner_taital"><span style="color: #fc8004;"> We Care Of You</span></h1>
                         <p class="banner_text">ABCD ABCD ABCD ABCD ABCD ABCD ABCD  </p>
-
                     </div>
                 </div>
             </div>
@@ -91,11 +90,11 @@
                 <div class="formbold-main-wrapper">
 
                     <div class="row">
-                        @*<div class="col-sm-6">
+                        <div class="col-sm-6">
                             <label>Patient Name</label>
-                            @Html.EditorFor(model => model.Patient_ID, new { htmlAttributes = new { @class = "form-control", style = "height:51.5px;" } })
-                            @Html.ValidationMessageFor(model => model.Patient_ID, "", new { @class = "text-danger" })
-                        </div>*@
+                            @Html.EditorFor(model => model.Patient_Name, new { htmlAttributes = new { @class = "form-control", style = "height:51.5px;" } })
+                            @Html.ValidationMessageFor(model => model.Patient_Name, "", new { @class = "text-danger" })
+                        </div>
 
                         <div class="col-sm-6">
                             <label>Doctor</label>

@@ -21,12 +21,12 @@
           <Property Name="Doctor_ID" Type="int" />
           <Property Name="Patient_ID" Type="int" />
           <Property Name="Dept_ID" Type="int" />
-          <Property Name="Schedule_ID" Type="int" />
           <Property Name="Apt_Date" Type="date" />
           <Property Name="Apt_Time" Type="time" Precision="0" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="Diseases" Type="nvarchar" MaxLength="50" />
+          <Property Name="Schedule_ID" Type="int" />
         </EntityType>
         <EntityType Name="ContactUsTbl">
           <Key>
@@ -43,7 +43,7 @@
             <PropertyRef Name="Dept_ID" />
           </Key>
           <Property Name="Dept_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Dept_Name" Type="nchar" MaxLength="10" />
+          <Property Name="Dept_Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="DoctorTbl">
           <Key>
@@ -66,6 +66,17 @@
           <Property Name="Dr_Status" Type="nvarchar" MaxLength="10" />
           <Property Name="Dept_ID" Type="int" />
           <Property Name="Fees" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Dr_LoginInfo">
+          <Key>
+            <PropertyRef Name="Login_Id" />
+          </Key>
+          <Property Name="Login_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Doctor_ID" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="15" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Login_Details" Type="datetime" />
         </EntityType>
         <EntityType Name="LoginInfo">
           <Key>
@@ -136,7 +147,19 @@
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="Available_Date" Type="date" />
         </EntityType>
-        <Association Name="FK__LoginInfo__Patie__619B8048">
+        <Association Name="FK__Dr_LoginI__Docto__01142BA1">
+          <End Role="DoctorTbl" Type="Self.DoctorTbl" Multiplicity="1" />
+          <End Role="Dr_LoginInfo" Type="Self.Dr_LoginInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorTbl">
+              <PropertyRef Name="Doctor_ID" />
+            </Principal>
+            <Dependent Role="Dr_LoginInfo">
+              <PropertyRef Name="Doctor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LoginInfo__Patie__02084FDA">
           <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="1" />
           <End Role="LoginInfo" Type="Self.LoginInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -148,7 +171,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ScheduleT__Dept___6477ECF3">
+        <Association Name="FK__ScheduleT__Dept___06CD04F7">
           <End Role="DepartmentTbl" Type="Self.DepartmentTbl" Multiplicity="1" />
           <End Role="ScheduleTbl" Type="Self.ScheduleTbl" Multiplicity="*" />
           <ReferentialConstraint>
@@ -160,7 +183,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ScheduleT__Docto__6383C8BA">
+        <Association Name="FK__ScheduleT__Docto__05D8E0BE">
           <End Role="DoctorTbl" Type="Self.DoctorTbl" Multiplicity="1" />
           <End Role="ScheduleTbl" Type="Self.ScheduleTbl" Multiplicity="*" />
           <ReferentialConstraint>
@@ -196,19 +219,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Appointments_Patient">
-          <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="0..1" />
-          <End Role="AppointmentTbl" Type="Self.AppointmentTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PatientsTbl">
-              <PropertyRef Name="Patient_Id" />
-            </Principal>
-            <Dependent Role="AppointmentTbl">
-              <PropertyRef Name="Patient_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Appointments_Schedule">
+        <Association Name="FK_AppointmentTbl_ScheduleTbl">
           <End Role="ScheduleTbl" Type="Self.ScheduleTbl" Multiplicity="0..1" />
           <End Role="AppointmentTbl" Type="Self.AppointmentTbl" Multiplicity="*" />
           <ReferentialConstraint>
@@ -217,6 +228,18 @@
             </Principal>
             <Dependent Role="AppointmentTbl">
               <PropertyRef Name="Schedule_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AppointTable_PatientTbl">
+          <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="0..1" />
+          <End Role="AppointmentTbl" Type="Self.AppointmentTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientsTbl">
+              <PropertyRef Name="Patient_Id" />
+            </Principal>
+            <Dependent Role="AppointmentTbl">
+              <PropertyRef Name="Patient_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -229,30 +252,6 @@
             </Principal>
             <Dependent Role="DoctorTbl">
               <PropertyRef Name="Dept_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DoctorPrescription">
-          <End Role="DoctorTbl" Type="Self.DoctorTbl" Multiplicity="1" />
-          <End Role="PrescriptionTbl" Type="Self.PrescriptionTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DoctorTbl">
-              <PropertyRef Name="Doctor_ID" />
-            </Principal>
-            <Dependent Role="PrescriptionTbl">
-              <PropertyRef Name="Doctor_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PatientPrescription">
-          <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="1" />
-          <End Role="PrescriptionTbl" Type="Self.PrescriptionTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PatientsTbl">
-              <PropertyRef Name="Patient_Id" />
-            </Principal>
-            <Dependent Role="PrescriptionTbl">
-              <PropertyRef Name="Patient_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -270,26 +269,59 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Prescription_Doctor">
+          <End Role="DoctorTbl" Type="Self.DoctorTbl" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PrescriptionTbl" Type="Self.PrescriptionTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorTbl">
+              <PropertyRef Name="Doctor_ID" />
+            </Principal>
+            <Dependent Role="PrescriptionTbl">
+              <PropertyRef Name="Doctor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Prescription_Patient">
+          <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PrescriptionTbl" Type="Self.PrescriptionTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientsTbl">
+              <PropertyRef Name="Patient_Id" />
+            </Principal>
+            <Dependent Role="PrescriptionTbl">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Patient_Management_SystemModelStoreContainer">
           <EntitySet Name="AdminTbl" EntityType="Self.AdminTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppointmentTbl" EntityType="Self.AppointmentTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactUsTbl" EntityType="Self.ContactUsTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DepartmentTbl" EntityType="Self.DepartmentTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DoctorTbl" EntityType="Self.DoctorTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dr_LoginInfo" EntityType="Self.Dr_LoginInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginInfo" EntityType="Self.LoginInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientsTbl" EntityType="Self.PatientsTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentTbl" EntityType="Self.PaymentTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrescriptionTbl" EntityType="Self.PrescriptionTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScheduleTbl" EntityType="Self.ScheduleTbl" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__LoginInfo__Patie__619B8048" Association="Self.FK__LoginInfo__Patie__619B8048">
+          <AssociationSet Name="FK__Dr_LoginI__Docto__01142BA1" Association="Self.FK__Dr_LoginI__Docto__01142BA1">
+            <End Role="DoctorTbl" EntitySet="DoctorTbl" />
+            <End Role="Dr_LoginInfo" EntitySet="Dr_LoginInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LoginInfo__Patie__02084FDA" Association="Self.FK__LoginInfo__Patie__02084FDA">
             <End Role="PatientsTbl" EntitySet="PatientsTbl" />
             <End Role="LoginInfo" EntitySet="LoginInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__ScheduleT__Dept___6477ECF3" Association="Self.FK__ScheduleT__Dept___6477ECF3">
+          <AssociationSet Name="FK__ScheduleT__Dept___06CD04F7" Association="Self.FK__ScheduleT__Dept___06CD04F7">
             <End Role="DepartmentTbl" EntitySet="DepartmentTbl" />
             <End Role="ScheduleTbl" EntitySet="ScheduleTbl" />
           </AssociationSet>
-          <AssociationSet Name="FK__ScheduleT__Docto__6383C8BA" Association="Self.FK__ScheduleT__Docto__6383C8BA">
+          <AssociationSet Name="FK__ScheduleT__Docto__05D8E0BE" Association="Self.FK__ScheduleT__Docto__05D8E0BE">
             <End Role="DoctorTbl" EntitySet="DoctorTbl" />
             <End Role="ScheduleTbl" EntitySet="ScheduleTbl" />
           </AssociationSet>
@@ -301,29 +333,29 @@
             <End Role="DoctorTbl" EntitySet="DoctorTbl" />
             <End Role="AppointmentTbl" EntitySet="AppointmentTbl" />
           </AssociationSet>
-          <AssociationSet Name="FK_Appointments_Patient" Association="Self.FK_Appointments_Patient">
-            <End Role="PatientsTbl" EntitySet="PatientsTbl" />
+          <AssociationSet Name="FK_AppointmentTbl_ScheduleTbl" Association="Self.FK_AppointmentTbl_ScheduleTbl">
+            <End Role="ScheduleTbl" EntitySet="ScheduleTbl" />
             <End Role="AppointmentTbl" EntitySet="AppointmentTbl" />
           </AssociationSet>
-          <AssociationSet Name="FK_Appointments_Schedule" Association="Self.FK_Appointments_Schedule">
-            <End Role="ScheduleTbl" EntitySet="ScheduleTbl" />
+          <AssociationSet Name="FK_AppointTable_PatientTbl" Association="Self.FK_AppointTable_PatientTbl">
+            <End Role="PatientsTbl" EntitySet="PatientsTbl" />
             <End Role="AppointmentTbl" EntitySet="AppointmentTbl" />
           </AssociationSet>
           <AssociationSet Name="FK_Doctor_Department" Association="Self.FK_Doctor_Department">
             <End Role="DepartmentTbl" EntitySet="DepartmentTbl" />
             <End Role="DoctorTbl" EntitySet="DoctorTbl" />
           </AssociationSet>
-          <AssociationSet Name="FK_DoctorPrescription" Association="Self.FK_DoctorPrescription">
-            <End Role="DoctorTbl" EntitySet="DoctorTbl" />
-            <End Role="PrescriptionTbl" EntitySet="PrescriptionTbl" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PatientPrescription" Association="Self.FK_PatientPrescription">
-            <End Role="PatientsTbl" EntitySet="PatientsTbl" />
-            <End Role="PrescriptionTbl" EntitySet="PrescriptionTbl" />
-          </AssociationSet>
           <AssociationSet Name="FK_Payment_Patient" Association="Self.FK_Payment_Patient">
             <End Role="PatientsTbl" EntitySet="PatientsTbl" />
             <End Role="PaymentTbl" EntitySet="PaymentTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prescription_Doctor" Association="Self.FK_Prescription_Doctor">
+            <End Role="DoctorTbl" EntitySet="DoctorTbl" />
+            <End Role="PrescriptionTbl" EntitySet="PrescriptionTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prescription_Patient" Association="Self.FK_Prescription_Patient">
+            <End Role="PatientsTbl" EntitySet="PatientsTbl" />
+            <End Role="PrescriptionTbl" EntitySet="PrescriptionTbl" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -347,16 +379,16 @@
           <Property Name="Doctor_ID" Type="Int32" />
           <Property Name="Patient_ID" Type="Int32" />
           <Property Name="Dept_ID" Type="Int32" />
-          <Property Name="Schedule_ID" Type="Int32" />
           <Property Name="Apt_Date" Type="DateTime" Precision="0" />
           <Property Name="Apt_Time" Type="Time" Precision="0" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Diseases" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Schedule_ID" Type="Int32" />
           <NavigationProperty Name="DepartmentTbl" Relationship="Self.FK_Appointments_Department" FromRole="AppointmentTbl" ToRole="DepartmentTbl" />
           <NavigationProperty Name="DoctorTbl" Relationship="Self.FK_Appointments_Doctor" FromRole="AppointmentTbl" ToRole="DoctorTbl" />
-          <NavigationProperty Name="PatientsTbl" Relationship="Self.FK_Appointments_Patient" FromRole="AppointmentTbl" ToRole="PatientsTbl" />
-          <NavigationProperty Name="ScheduleTbl" Relationship="Self.FK_Appointments_Schedule" FromRole="AppointmentTbl" ToRole="ScheduleTbl" />
+          <NavigationProperty Name="ScheduleTbl" Relationship="Self.FK_AppointmentTbl_ScheduleTbl" FromRole="AppointmentTbl" ToRole="ScheduleTbl" />
+          <NavigationProperty Name="PatientsTbl" Relationship="Self.FK_AppointTable_PatientTbl" FromRole="AppointmentTbl" ToRole="PatientsTbl" />
         </EntityType>
         <EntityType Name="ContactUsTbl">
           <Key>
@@ -373,9 +405,9 @@
             <PropertyRef Name="Dept_ID" />
           </Key>
           <Property Name="Dept_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Dept_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Dept_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AppointmentTbls" Relationship="Self.FK_Appointments_Department" FromRole="DepartmentTbl" ToRole="AppointmentTbl" />
-          <NavigationProperty Name="ScheduleTbls" Relationship="Self.FK__ScheduleT__Dept___6477ECF3" FromRole="DepartmentTbl" ToRole="ScheduleTbl" />
+          <NavigationProperty Name="ScheduleTbls" Relationship="Self.FK__ScheduleT__Dept___06CD04F7" FromRole="DepartmentTbl" ToRole="ScheduleTbl" />
           <NavigationProperty Name="DoctorTbls" Relationship="Self.FK_Doctor_Department" FromRole="DepartmentTbl" ToRole="DoctorTbl" />
         </EntityType>
         <EntityType Name="DoctorTbl">
@@ -401,8 +433,21 @@
           <Property Name="Fees" Type="Decimal" Precision="10" Scale="2" />
           <NavigationProperty Name="AppointmentTbls" Relationship="Self.FK_Appointments_Doctor" FromRole="DoctorTbl" ToRole="AppointmentTbl" />
           <NavigationProperty Name="DepartmentTbl" Relationship="Self.FK_Doctor_Department" FromRole="DoctorTbl" ToRole="DepartmentTbl" />
-          <NavigationProperty Name="ScheduleTbls" Relationship="Self.FK__ScheduleT__Docto__6383C8BA" FromRole="DoctorTbl" ToRole="ScheduleTbl" />
-          <NavigationProperty Name="PrescriptionTbls" Relationship="Self.FK_DoctorPrescription" FromRole="DoctorTbl" ToRole="PrescriptionTbl" />
+          <NavigationProperty Name="Dr_LoginInfo" Relationship="Self.FK__Dr_LoginI__Docto__01142BA1" FromRole="DoctorTbl" ToRole="Dr_LoginInfo" />
+          <NavigationProperty Name="ScheduleTbls" Relationship="Self.FK__ScheduleT__Docto__05D8E0BE" FromRole="DoctorTbl" ToRole="ScheduleTbl" />
+          <NavigationProperty Name="PrescriptionTbls" Relationship="Self.FK_Prescription_Doctor" FromRole="DoctorTbl" ToRole="PrescriptionTbl" />
+        </EntityType>
+        <EntityType Name="Dr_LoginInfo">
+          <Key>
+            <PropertyRef Name="Login_Id" />
+          </Key>
+          <Property Name="Login_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Doctor_ID" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Login_Details" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DoctorTbl" Relationship="Self.FK__Dr_LoginI__Docto__01142BA1" FromRole="Dr_LoginInfo" ToRole="DoctorTbl" />
         </EntityType>
         <EntityType Name="LoginInfo">
           <Key>
@@ -415,7 +460,7 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Login_Details" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="PatientsTbl" Relationship="Self.FK__LoginInfo__Patie__619B8048" FromRole="LoginInfo" ToRole="PatientsTbl" />
+          <NavigationProperty Name="PatientsTbl" Relationship="Self.FK__LoginInfo__Patie__02084FDA" FromRole="LoginInfo" ToRole="PatientsTbl" />
         </EntityType>
         <EntityType Name="PatientsTbl">
           <Key>
@@ -437,10 +482,10 @@
           <Property Name="P_Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="P_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="P_Password" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AppointmentTbls" Relationship="Self.FK_Appointments_Patient" FromRole="PatientsTbl" ToRole="AppointmentTbl" />
-          <NavigationProperty Name="LoginInfoes" Relationship="Self.FK__LoginInfo__Patie__619B8048" FromRole="PatientsTbl" ToRole="LoginInfo" />
-          <NavigationProperty Name="PrescriptionTbls" Relationship="Self.FK_PatientPrescription" FromRole="PatientsTbl" ToRole="PrescriptionTbl" />
+          <NavigationProperty Name="AppointmentTbls" Relationship="Self.FK_AppointTable_PatientTbl" FromRole="PatientsTbl" ToRole="AppointmentTbl" />
+          <NavigationProperty Name="LoginInfoes" Relationship="Self.FK__LoginInfo__Patie__02084FDA" FromRole="PatientsTbl" ToRole="LoginInfo" />
           <NavigationProperty Name="PaymentTbls" Relationship="Self.FK_Payment_Patient" FromRole="PatientsTbl" ToRole="PaymentTbl" />
+          <NavigationProperty Name="PrescriptionTbls" Relationship="Self.FK_Prescription_Patient" FromRole="PatientsTbl" ToRole="PrescriptionTbl" />
         </EntityType>
         <EntityType Name="PaymentTbl">
           <Key>
@@ -466,8 +511,8 @@
           <Property Name="Medication" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Dosage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Instructions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DoctorTbl" Relationship="Self.FK_DoctorPrescription" FromRole="PrescriptionTbl" ToRole="DoctorTbl" />
-          <NavigationProperty Name="PatientsTbl" Relationship="Self.FK_PatientPrescription" FromRole="PrescriptionTbl" ToRole="PatientsTbl" />
+          <NavigationProperty Name="DoctorTbl" Relationship="Self.FK_Prescription_Doctor" FromRole="PrescriptionTbl" ToRole="DoctorTbl" />
+          <NavigationProperty Name="PatientsTbl" Relationship="Self.FK_Prescription_Patient" FromRole="PrescriptionTbl" ToRole="PatientsTbl" />
         </EntityType>
         <EntityType Name="ScheduleTbl">
           <Key>
@@ -480,9 +525,9 @@
           <Property Name="End_Time" Type="Time" Nullable="false" Precision="7" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Available_Date" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="AppointmentTbls" Relationship="Self.FK_Appointments_Schedule" FromRole="ScheduleTbl" ToRole="AppointmentTbl" />
-          <NavigationProperty Name="DepartmentTbl" Relationship="Self.FK__ScheduleT__Dept___6477ECF3" FromRole="ScheduleTbl" ToRole="DepartmentTbl" />
-          <NavigationProperty Name="DoctorTbl" Relationship="Self.FK__ScheduleT__Docto__6383C8BA" FromRole="ScheduleTbl" ToRole="DoctorTbl" />
+          <NavigationProperty Name="AppointmentTbls" Relationship="Self.FK_AppointmentTbl_ScheduleTbl" FromRole="ScheduleTbl" ToRole="AppointmentTbl" />
+          <NavigationProperty Name="DepartmentTbl" Relationship="Self.FK__ScheduleT__Dept___06CD04F7" FromRole="ScheduleTbl" ToRole="DepartmentTbl" />
+          <NavigationProperty Name="DoctorTbl" Relationship="Self.FK__ScheduleT__Docto__05D8E0BE" FromRole="ScheduleTbl" ToRole="DoctorTbl" />
         </EntityType>
         <Association Name="FK_Appointments_Department">
           <End Role="DepartmentTbl" Type="Self.DepartmentTbl" Multiplicity="0..1" />
@@ -508,19 +553,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Appointments_Patient">
-          <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="0..1" />
-          <End Role="AppointmentTbl" Type="Self.AppointmentTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PatientsTbl">
-              <PropertyRef Name="Patient_Id" />
-            </Principal>
-            <Dependent Role="AppointmentTbl">
-              <PropertyRef Name="Patient_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Appointments_Schedule">
+        <Association Name="FK_AppointmentTbl_ScheduleTbl">
           <End Role="ScheduleTbl" Type="Self.ScheduleTbl" Multiplicity="0..1" />
           <End Role="AppointmentTbl" Type="Self.AppointmentTbl" Multiplicity="*" />
           <ReferentialConstraint>
@@ -532,7 +565,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ScheduleT__Dept___6477ECF3">
+        <Association Name="FK_AppointTable_PatientTbl">
+          <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="0..1" />
+          <End Role="AppointmentTbl" Type="Self.AppointmentTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientsTbl">
+              <PropertyRef Name="Patient_Id" />
+            </Principal>
+            <Dependent Role="AppointmentTbl">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ScheduleT__Dept___06CD04F7">
           <End Role="DepartmentTbl" Type="Self.DepartmentTbl" Multiplicity="1" />
           <End Role="ScheduleTbl" Type="Self.ScheduleTbl" Multiplicity="*" />
           <ReferentialConstraint>
@@ -556,7 +601,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ScheduleT__Docto__6383C8BA">
+        <Association Name="FK__Dr_LoginI__Docto__01142BA1">
+          <End Role="DoctorTbl" Type="Self.DoctorTbl" Multiplicity="1" />
+          <End Role="Dr_LoginInfo" Type="Self.Dr_LoginInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorTbl">
+              <PropertyRef Name="Doctor_ID" />
+            </Principal>
+            <Dependent Role="Dr_LoginInfo">
+              <PropertyRef Name="Doctor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ScheduleT__Docto__05D8E0BE">
           <End Role="DoctorTbl" Type="Self.DoctorTbl" Multiplicity="1" />
           <End Role="ScheduleTbl" Type="Self.ScheduleTbl" Multiplicity="*" />
           <ReferentialConstraint>
@@ -568,8 +625,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DoctorPrescription">
-          <End Role="DoctorTbl" Type="Self.DoctorTbl" Multiplicity="1" />
+        <Association Name="FK_Prescription_Doctor">
+          <End Role="DoctorTbl" Type="Self.DoctorTbl" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PrescriptionTbl" Type="Self.PrescriptionTbl" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DoctorTbl">
@@ -580,7 +639,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LoginInfo__Patie__619B8048">
+        <Association Name="FK__LoginInfo__Patie__02084FDA">
           <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="1" />
           <End Role="LoginInfo" Type="Self.LoginInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -589,18 +648,6 @@
             </Principal>
             <Dependent Role="LoginInfo">
               <PropertyRef Name="Patient_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PatientPrescription">
-          <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="1" />
-          <End Role="PrescriptionTbl" Type="Self.PrescriptionTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PatientsTbl">
-              <PropertyRef Name="Patient_Id" />
-            </Principal>
-            <Dependent Role="PrescriptionTbl">
-              <PropertyRef Name="Patient_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -618,12 +665,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Prescription_Patient">
+          <End Role="PatientsTbl" Type="Self.PatientsTbl" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PrescriptionTbl" Type="Self.PrescriptionTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientsTbl">
+              <PropertyRef Name="Patient_Id" />
+            </Principal>
+            <Dependent Role="PrescriptionTbl">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Patient_Management_SystemEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AdminTbls" EntityType="Self.AdminTbl" />
           <EntitySet Name="AppointmentTbls" EntityType="Self.AppointmentTbl" />
           <EntitySet Name="ContactUsTbls" EntityType="Self.ContactUsTbl" />
           <EntitySet Name="DepartmentTbls" EntityType="Self.DepartmentTbl" />
           <EntitySet Name="DoctorTbls" EntityType="Self.DoctorTbl" />
+          <EntitySet Name="Dr_LoginInfo" EntityType="Self.Dr_LoginInfo" />
           <EntitySet Name="LoginInfoes" EntityType="Self.LoginInfo" />
           <EntitySet Name="PatientsTbls" EntityType="Self.PatientsTbl" />
           <EntitySet Name="PaymentTbls" EntityType="Self.PaymentTbl" />
@@ -637,15 +699,15 @@
             <End Role="DoctorTbl" EntitySet="DoctorTbls" />
             <End Role="AppointmentTbl" EntitySet="AppointmentTbls" />
           </AssociationSet>
-          <AssociationSet Name="FK_Appointments_Patient" Association="Self.FK_Appointments_Patient">
-            <End Role="PatientsTbl" EntitySet="PatientsTbls" />
-            <End Role="AppointmentTbl" EntitySet="AppointmentTbls" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Appointments_Schedule" Association="Self.FK_Appointments_Schedule">
+          <AssociationSet Name="FK_AppointmentTbl_ScheduleTbl" Association="Self.FK_AppointmentTbl_ScheduleTbl">
             <End Role="ScheduleTbl" EntitySet="ScheduleTbls" />
             <End Role="AppointmentTbl" EntitySet="AppointmentTbls" />
           </AssociationSet>
-          <AssociationSet Name="FK__ScheduleT__Dept___6477ECF3" Association="Self.FK__ScheduleT__Dept___6477ECF3">
+          <AssociationSet Name="FK_AppointTable_PatientTbl" Association="Self.FK_AppointTable_PatientTbl">
+            <End Role="PatientsTbl" EntitySet="PatientsTbls" />
+            <End Role="AppointmentTbl" EntitySet="AppointmentTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ScheduleT__Dept___06CD04F7" Association="Self.FK__ScheduleT__Dept___06CD04F7">
             <End Role="DepartmentTbl" EntitySet="DepartmentTbls" />
             <End Role="ScheduleTbl" EntitySet="ScheduleTbls" />
           </AssociationSet>
@@ -653,25 +715,29 @@
             <End Role="DepartmentTbl" EntitySet="DepartmentTbls" />
             <End Role="DoctorTbl" EntitySet="DoctorTbls" />
           </AssociationSet>
-          <AssociationSet Name="FK__ScheduleT__Docto__6383C8BA" Association="Self.FK__ScheduleT__Docto__6383C8BA">
+          <AssociationSet Name="FK__Dr_LoginI__Docto__01142BA1" Association="Self.FK__Dr_LoginI__Docto__01142BA1">
+            <End Role="DoctorTbl" EntitySet="DoctorTbls" />
+            <End Role="Dr_LoginInfo" EntitySet="Dr_LoginInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ScheduleT__Docto__05D8E0BE" Association="Self.FK__ScheduleT__Docto__05D8E0BE">
             <End Role="DoctorTbl" EntitySet="DoctorTbls" />
             <End Role="ScheduleTbl" EntitySet="ScheduleTbls" />
           </AssociationSet>
-          <AssociationSet Name="FK_DoctorPrescription" Association="Self.FK_DoctorPrescription">
+          <AssociationSet Name="FK_Prescription_Doctor" Association="Self.FK_Prescription_Doctor">
             <End Role="DoctorTbl" EntitySet="DoctorTbls" />
             <End Role="PrescriptionTbl" EntitySet="PrescriptionTbls" />
           </AssociationSet>
-          <AssociationSet Name="FK__LoginInfo__Patie__619B8048" Association="Self.FK__LoginInfo__Patie__619B8048">
+          <AssociationSet Name="FK__LoginInfo__Patie__02084FDA" Association="Self.FK__LoginInfo__Patie__02084FDA">
             <End Role="PatientsTbl" EntitySet="PatientsTbls" />
             <End Role="LoginInfo" EntitySet="LoginInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PatientPrescription" Association="Self.FK_PatientPrescription">
-            <End Role="PatientsTbl" EntitySet="PatientsTbls" />
-            <End Role="PrescriptionTbl" EntitySet="PrescriptionTbls" />
           </AssociationSet>
           <AssociationSet Name="FK_Payment_Patient" Association="Self.FK_Payment_Patient">
             <End Role="PatientsTbl" EntitySet="PatientsTbls" />
             <End Role="PaymentTbl" EntitySet="PaymentTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prescription_Patient" Association="Self.FK_Prescription_Patient">
+            <End Role="PatientsTbl" EntitySet="PatientsTbls" />
+            <End Role="PrescriptionTbl" EntitySet="PrescriptionTbls" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -696,12 +762,12 @@
                 <ScalarProperty Name="Doctor_ID" ColumnName="Doctor_ID" />
                 <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
                 <ScalarProperty Name="Dept_ID" ColumnName="Dept_ID" />
-                <ScalarProperty Name="Schedule_ID" ColumnName="Schedule_ID" />
                 <ScalarProperty Name="Apt_Date" ColumnName="Apt_Date" />
                 <ScalarProperty Name="Apt_Time" ColumnName="Apt_Time" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Diseases" ColumnName="Diseases" />
+                <ScalarProperty Name="Schedule_ID" ColumnName="Schedule_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -744,6 +810,18 @@
                 <ScalarProperty Name="Dr_Status" ColumnName="Dr_Status" />
                 <ScalarProperty Name="Dept_ID" ColumnName="Dept_ID" />
                 <ScalarProperty Name="Fees" ColumnName="Fees" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dr_LoginInfo">
+            <EntityTypeMapping TypeName="Patient_Management_SystemModel.Dr_LoginInfo">
+              <MappingFragment StoreEntitySet="Dr_LoginInfo">
+                <ScalarProperty Name="Login_Id" ColumnName="Login_Id" />
+                <ScalarProperty Name="Doctor_ID" ColumnName="Doctor_ID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login_Details" ColumnName="Login_Details" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

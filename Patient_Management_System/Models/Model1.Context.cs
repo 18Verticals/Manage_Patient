@@ -30,6 +30,7 @@ namespace Patient_Management_System.Models
         public virtual DbSet<ContactUsTbl> ContactUsTbls { get; set; }
         public virtual DbSet<DepartmentTbl> DepartmentTbls { get; set; }
         public virtual DbSet<DoctorTbl> DoctorTbls { get; set; }
+        public virtual DbSet<Dr_LoginInfo> Dr_LoginInfo { get; set; }
         public virtual DbSet<LoginInfo> LoginInfoes { get; set; }
         public virtual DbSet<PatientsTbl> PatientsTbls { get; set; }
         public virtual DbSet<PaymentTbl> PaymentTbls { get; set; }

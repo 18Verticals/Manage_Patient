@@ -18,6 +18,7 @@ namespace Patient_Management_System.Models
         public DoctorTbl()
         {
             this.AppointmentTbls = new HashSet<AppointmentTbl>();
+            this.Dr_LoginInfo = new HashSet<Dr_LoginInfo>();
             this.ScheduleTbls = new HashSet<ScheduleTbl>();
             this.PrescriptionTbls = new HashSet<PrescriptionTbl>();
         }
@@ -43,6 +44,8 @@ namespace Patient_Management_System.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppointmentTbl> AppointmentTbls { get; set; }
         public virtual DepartmentTbl DepartmentTbl { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Dr_LoginInfo> Dr_LoginInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScheduleTbl> ScheduleTbls { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

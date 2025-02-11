@@ -30,7 +30,54 @@ namespace Patient_Management_System.Controllers
             ViewBag.TimeSlots = GetTimeSlots();
             return View();
         }
-      
+
+        [HttpGet]
+        public ActionResult Contact_Us()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Contact_Us(ContactVM contact)
+        {
+            SqlConnection conn = new SqlConnection(connectionString);
+            if (ModelState.IsValid)
+            {
+
+                try
+                {
+                    using (conn)
+                    {
+                        conn.Open();
+                        using (SqlCommand cmd = new SqlCommand("sp_Add_Contact", conn))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@Name", contact.Name);
+                            cmd.Parameters.AddWithValue("@Email", contact.Email);
+                            cmd.Parameters.AddWithValue("@Message", contact.Message);
+                            cmd.Parameters.AddWithValue("@Phone", contact.Phone);
+                     
+                        }
+                    }
+                    return RedirectToAction("Index", "Admin");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "An error occurred: " + ex.Message;
+                    System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
+                }
+            }
+            else
+            {
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    System.Diagnostics.Debug.WriteLine($"Validation Error: {error.ErrorMessage}");
+                }
+            }
+            return View(contact);
+        }
+
+
         private List<SelectListItem> GetTimeSlots()
         {
             List<SelectListItem> timeSlots = new List<SelectListItem>();
