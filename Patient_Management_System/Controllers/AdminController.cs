@@ -77,40 +77,18 @@ namespace Patient_Management_System.Controllers
                     AppointmentVM apt = new AppointmentVM
                     {
 
+                        Appointment_ID = reader["Appointment_ID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Appointment_ID"]),
 
                         Doctor_ID = reader["Doctor_ID"] != DBNull.Value ? Convert.ToInt32(reader["Doctor_ID"]) : (int?)null,
-                        Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : (int?)null,
-                        Dept_ID = reader["Dept_ID"] != DBNull.Value ? Convert.ToInt32(reader["Dept_ID"]) : (int?)null,
-
-                        Appointment_ID =  Convert.ToInt32(reader["Appointment_ID"]) ,
-                        
                         Dr_FirstName = reader["Dr_FirstName"].ToString(),
-                        Dr_LastName = reader["Dr_LastName"].ToString(),
-
-                        Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
-
-                       // Appointment_ID = reader["Appointment_ID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Appointment_ID"]),
-
-                       // Doctor_ID = reader["Doctor_ID"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["Doctor_ID"]),
-                      //  Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : (DateTime?)null,
-
-                        Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
-                        Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : string.Empty,
-                       
-                        
-                   
+                       // Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : (int?)null,
+                        Patient_Name = reader["Patient_Name"].ToString(),
+                        Dept_ID = reader["Dept_ID"] != DBNull.Value ? Convert.ToInt32(reader["Dept_ID"]) : (int?)null,
                         Dept_Name = reader["Dept_Name"].ToString(),
-
-
+                        Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
+                        Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
+                        Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : string.Empty,  
                         Diseases = reader["Diseases"] != DBNull.Value ? reader["Diseases"].ToString() : string.Empty,
-
-                       
-                        P_FirstName = reader["P_FirstName"].ToString(),
-                        P_LastName = reader["P_LastName"].ToString(),
-
-
-                       // Patient_ID = reader["Patient_ID"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["Patient_ID"]),
-
                         Email = reader["Email"] != DBNull.Value ? reader["Email"].ToString() : string.Empty,
                     };
                     aptList.Add(apt);
@@ -135,7 +113,9 @@ namespace Patient_Management_System.Controllers
                     {
                         Presc_ID = Convert.ToInt32(reader["Presc_ID"]),
                         Doctor_ID = Convert.ToInt32(reader["Doctor_ID"]),
+                        Dr_FirstName = reader["Dr_FirstName"].ToString(),
                         Patient_ID = Convert.ToInt32(reader["Patient_ID"]),
+                        P_FirstName = reader["P_FirstName"].ToString(),
                         DateIssued = Convert.ToDateTime(reader["DateIssued"]),
                         Medication = reader["Medication"].ToString(),
                         Dosage = reader["Dosage"].ToString(),
