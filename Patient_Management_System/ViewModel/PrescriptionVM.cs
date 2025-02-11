@@ -10,7 +10,9 @@ namespace Patient_Management_System.ViewModel
     {
         public int Presc_ID { get; set; }
         public int Patient_ID { get; set; }
+        public string P_FirstName { get; set; }
         public int Doctor_ID { get; set; }
+        public string Dr_FirstName { get; set; }
         public System.DateTime DateIssued { get; set; }
         public string Medication { get; set; }
         public string Dosage { get; set; }

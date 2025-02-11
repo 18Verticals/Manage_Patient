@@ -31,7 +31,6 @@ namespace Patient_Management_System.Controllers
             return View();
         }
       
-       
         private List<SelectListItem> GetTimeSlots()
         {
             List<SelectListItem> timeSlots = new List<SelectListItem>();
@@ -61,7 +60,7 @@ namespace Patient_Management_System.Controllers
                         using (SqlCommand cmd = new SqlCommand("sp_Add_Appointment", conn))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@Patient_ID", aptVM.Patient_ID);
+                            //cmd.Parameters.AddWithValue("@Patient_ID", aptVM.Patient_ID);
                             cmd.Parameters.AddWithValue("@Doctor_ID", aptVM.Doctor_ID);
                             cmd.Parameters.AddWithValue("@Dept_ID", aptVM.Dept_ID);
                             cmd.Parameters.AddWithValue("@Apt_Date", aptVM.Apt_Date);
@@ -69,8 +68,7 @@ namespace Patient_Management_System.Controllers
                             cmd.Parameters.AddWithValue("@Description", aptVM.Description);
                             cmd.Parameters.AddWithValue("@Email", aptVM.Email);
                             cmd.Parameters.AddWithValue("@Diseases", aptVM.Diseases);
-
-                            cmd.ExecuteNonQuery(); // Ensure the command is executed
+                            cmd.ExecuteNonQuery(); 
                         }
                     }
                     return RedirectToAction("Index", "Admin");
@@ -87,13 +85,9 @@ namespace Patient_Management_System.Controllers
                 {
                     System.Diagnostics.Debug.WriteLine($"Validation Error: {error.ErrorMessage}");
                 }
-            }
-
-            // Repopulating dropdowns before returning the view
+            }           
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", aptVM.Dept_ID);
-            ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", aptVM.Doctor_ID);
-
-            //ViewBag.Schedule_ID = new SelectList(db.ScheduleTbls, "Schedule_ID", "Available_Date", aptVM.Schedule_ID);
+            ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", aptVM.Doctor_ID);            
             ViewBag.TimeSlots = GetTimeSlots();
 
             return View(aptVM);
