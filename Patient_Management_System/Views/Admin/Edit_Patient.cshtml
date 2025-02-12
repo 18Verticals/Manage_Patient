@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 
-
-
 @using (Html.BeginForm("Edit_Patient", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()

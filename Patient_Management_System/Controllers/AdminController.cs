@@ -81,8 +81,8 @@ namespace Patient_Management_System.Controllers
 
                         Doctor_ID = reader["Doctor_ID"] != DBNull.Value ? Convert.ToInt32(reader["Doctor_ID"]) : (int?)null,
                         Dr_FirstName = reader["Dr_FirstName"].ToString(),
-                       // Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : (int?)null,
-                        Patient_Name = reader["Patient_Name"].ToString(),
+
+                        Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : (int?)null,
                         Dept_ID = reader["Dept_ID"] != DBNull.Value ? Convert.ToInt32(reader["Dept_ID"]) : (int?)null,
                         Dept_Name = reader["Dept_Name"].ToString(),
                         Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
@@ -97,6 +97,7 @@ namespace Patient_Management_System.Controllers
 
             return View(aptList);
         }
+
         public ActionResult List_Prescription(PrescriptionVM prescVM)
         {
             List<PrescriptionVM> PrescList = new List<PrescriptionVM>();
@@ -139,33 +140,38 @@ namespace Patient_Management_System.Controllers
                 {
                     DoctorVM doctor = new DoctorVM
                     {
-                        Doctor_ID = Convert.ToInt32(reader["Doctor_ID"]),
-                        Dr_FirstName = reader["Dr_FirstName"].ToString(),
-                        Dr_LastName = reader["Dr_LastName"].ToString(),
+                        Doctor_ID = reader["Doctor_ID"] != DBNull.Value ? Convert.ToInt32(reader["Doctor_ID"]) : 0,
+                        Dr_FirstName = reader["Dr_FirstName"] != DBNull.Value ? reader["Dr_FirstName"].ToString() : "",
+                        Dr_LastName = reader["Dr_LastName"] != DBNull.Value ? reader["Dr_LastName"].ToString() : "",
 
-                        Dept_ID = Convert.ToInt32(reader["Dept_ID"]),
-                        Dept_Name = reader["Dept_Name"].ToString(),
+                        Dept_ID = reader["Dept_ID"] != DBNull.Value ? Convert.ToInt32(reader["Dept_ID"]) : 0,
+                        Dept_Name = reader["Dept_Name"] != DBNull.Value ? reader["Dept_Name"].ToString() : "",
 
-                        Dr_Email = reader["Dr_Email"].ToString(),
-                        Dr_Password = reader["Dr_Password"].ToString(),
-                        Dr_DOB = Convert.ToDateTime(reader["Dr_DOB"]),
-                        Dr_Gender = reader["Dr_Gender"].ToString(),
-                        Dr_Phone = reader["Dr_Phone"].ToString(),
-                        Dr_Qualification = reader["Dr_Qualification"].ToString(),
-                        Dr_Address = reader["Dr_Address"].ToString(),
-                        Dr_City = reader["Dr_City"].ToString(),
-                        Dr_State = reader["Dr_State"].ToString(),
-                        Dr_Pincode = Convert.ToInt32(reader["Dr_Pincode"]),
-                        Dr_ImagePath = reader["Dr_ImagePath"].ToString(),
-                        Fees = reader["Dr_Pincode"] != DBNull.Value ? Convert.ToInt32(reader["Dr_Pincode"]) : 0,
-                        Dr_Status = reader["Dr_Status"].ToString(),
+                        Dr_Email = reader["Dr_Email"] != DBNull.Value ? reader["Dr_Email"].ToString() : "",
+                        Dr_Password = reader["Dr_Password"] != DBNull.Value ? reader["Dr_Password"].ToString() : "",
+
+                        Dr_DOB = reader["Dr_DOB"] != DBNull.Value ? Convert.ToDateTime(reader["Dr_DOB"]) : DateTime.MinValue,
+
+
+                        Dr_Gender = reader["Dr_Gender"] != DBNull.Value ? reader["Dr_Gender"].ToString() : "",
+                        Dr_Phone = reader["Dr_Phone"] != DBNull.Value ? reader["Dr_Phone"].ToString() : "",
+                        Dr_Qualification = reader["Dr_Qualification"] != DBNull.Value ? reader["Dr_Qualification"].ToString() : "",
+                        Dr_Address = reader["Dr_Address"] != DBNull.Value ? reader["Dr_Address"].ToString() : "",
+                        Dr_City = reader["Dr_City"] != DBNull.Value ? reader["Dr_City"].ToString() : "",
+                        Dr_State = reader["Dr_State"] != DBNull.Value ? reader["Dr_State"].ToString() : "",
+
+                        Dr_Pincode = reader["Dr_Pincode"] != DBNull.Value ? Convert.ToInt32(reader["Dr_Pincode"]) : 0,
+                        Dr_ImagePath = reader["Dr_ImagePath"] != DBNull.Value ? reader["Dr_ImagePath"].ToString() : "",
+
+                        Fees = reader["Fees"] != DBNull.Value ? Convert.ToInt32(reader["Fees"]) : 0,  // Ensure correct field
+
+                        Dr_Status = reader["Dr_Status"] != DBNull.Value ? reader["Dr_Status"].ToString() : "",
                     };
                     doctorList.Add(doctor);
                 }
             }
             return View(doctorList);
         }
-
 
 
         public ActionResult List_Patient(PatientsTbl patients)
