@@ -24,7 +24,7 @@
           <Property Name="Apt_Date" Type="date" />
           <Property Name="Apt_Time" Type="time" Precision="0" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Diseases" Type="nvarchar" MaxLength="50" />
           <Property Name="Schedule_ID" Type="int" />
         </EntityType>
@@ -382,7 +382,7 @@
           <Property Name="Apt_Date" Type="DateTime" Precision="0" />
           <Property Name="Apt_Time" Type="Time" Precision="0" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Diseases" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Schedule_ID" Type="Int32" />
           <NavigationProperty Name="DepartmentTbl" Relationship="Self.FK_Appointments_Department" FromRole="AppointmentTbl" ToRole="DepartmentTbl" />
@@ -765,7 +765,7 @@
                 <ScalarProperty Name="Apt_Date" ColumnName="Apt_Date" />
                 <ScalarProperty Name="Apt_Time" ColumnName="Apt_Time" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Diseases" ColumnName="Diseases" />
                 <ScalarProperty Name="Schedule_ID" ColumnName="Schedule_ID" />
               </MappingFragment>

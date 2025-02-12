@@ -135,6 +135,7 @@
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\PatientsTblController.cs" />
     <Compile Include="Controllers\ScheduleTblsController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -3141,6 +3142,10 @@
     <Content Include="Views\Patient\Appointment.cshtml" />
     <Content Include="Views\Doctor\Get_Appointment.cshtml" />
     <Content Include="Views\Doctor\D_Login.cshtml" />
+    <Content Include="Views\Test\Login.cshtml" />
+    <Content Include="Views\Test\Appointments.cshtml" />
+    <Content Include="Views\Doctor\Appointments.cshtml" />
+    <Content Include="Views\Test\BookAppointment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

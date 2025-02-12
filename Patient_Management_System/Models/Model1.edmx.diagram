@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d218f5551b4e47b7a3fdc3e9b595dd10" Name="Diagram1">
-        <EntityTypeShape EntityType="Patient_Management_SystemModel.AdminTbl" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Patient_Management_SystemModel.AppointmentTbl" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Patient_Management_SystemModel.ContactUsTbl" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Patient_Management_SystemModel.DepartmentTbl" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Patient_Management_SystemModel.DoctorTbl" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Patient_Management_SystemModel.Dr_LoginInfo" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Patient_Management_SystemModel.LoginInfo" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Patient_Management_SystemModel.PatientsTbl" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Patient_Management_SystemModel.PaymentTbl" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="Patient_Management_SystemModel.PrescriptionTbl" Width="1.5" PointX="8.25" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Patient_Management_SystemModel.ScheduleTbl" Width="1.5" PointX="8.25" PointY="7.125" IsExpanded="true" />
+      <Diagram DiagramId="4bcbbd28a2354ddf87a6b609a0d1d1dd" Name="Diagram1">
+        <EntityTypeShape EntityType="Patient_Management_SystemModel.AdminTbl" Width="1.5" PointX="7.625" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Patient_Management_SystemModel.AppointmentTbl" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Patient_Management_SystemModel.ContactUsTbl" Width="1.5" PointX="7.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Patient_Management_SystemModel.DepartmentTbl" Width="1.5" PointX="0.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Patient_Management_SystemModel.DoctorTbl" Width="1.5" PointX="2.375" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Patient_Management_SystemModel.Dr_LoginInfo" Width="1.5" PointX="5.875" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Patient_Management_SystemModel.LoginInfo" Width="1.5" PointX="4.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Patient_Management_SystemModel.PatientsTbl" Width="1.5" PointX="2.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Patient_Management_SystemModel.PaymentTbl" Width="1.5" PointX="4.125" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Patient_Management_SystemModel.PrescriptionTbl" Width="1.5" PointX="5.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Patient_Management_SystemModel.ScheduleTbl" Width="1.5" PointX="4.125" PointY="3.25" IsExpanded="true" />
         <AssociationConnector Association="Patient_Management_SystemModel.FK_Appointments_Department" ManuallyRouted="false" />
         <AssociationConnector Association="Patient_Management_SystemModel.FK_Appointments_Doctor" ManuallyRouted="false" />
         <AssociationConnector Association="Patient_Management_SystemModel.FK_AppointmentTbl_ScheduleTbl" ManuallyRouted="false" />

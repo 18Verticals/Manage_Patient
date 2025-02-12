@@ -81,15 +81,15 @@ namespace Patient_Management_System.Controllers
 
                         Doctor_ID = reader["Doctor_ID"] != DBNull.Value ? Convert.ToInt32(reader["Doctor_ID"]) : (int?)null,
                         Dr_FirstName = reader["Dr_FirstName"].ToString(),
-                       // Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : (int?)null,
-                        Patient_Name = reader["Patient_Name"].ToString(),
+                        Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : (int?)null,
+                       
                         Dept_ID = reader["Dept_ID"] != DBNull.Value ? Convert.ToInt32(reader["Dept_ID"]) : (int?)null,
                         Dept_Name = reader["Dept_Name"].ToString(),
                         Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
                         Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
                         Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : string.Empty,  
                         Diseases = reader["Diseases"] != DBNull.Value ? reader["Diseases"].ToString() : string.Empty,
-                        Email = reader["Email"] != DBNull.Value ? reader["Email"].ToString() : string.Empty,
+                        Phone= reader["Phone"] != DBNull.Value ? reader["Phone"].ToString() : string.Empty,
                     };
                     aptList.Add(apt);
                 }
@@ -330,7 +330,7 @@ namespace Patient_Management_System.Controllers
                             cmd.Parameters.AddWithValue("@Apt_Date", aptVM.Apt_Date);
                             cmd.Parameters.AddWithValue("@Apt_Time", aptVM.Apt_Time);
                             cmd.Parameters.AddWithValue("@Description", aptVM.Description);
-                            cmd.Parameters.AddWithValue("@Email", aptVM.Email);
+                            cmd.Parameters.AddWithValue("@Phone", aptVM.Phone);
                             cmd.Parameters.AddWithValue("@Diseases", aptVM.Diseases);
 
                             cmd.ExecuteNonQuery(); // Ensure the command is executed
@@ -850,7 +850,7 @@ namespace Patient_Management_System.Controllers
                         try
                         {
                             Dr_ImagePath.SaveAs(Server.MapPath(newImagePath));
-                            doctor.Dr_ImagePath = newImagePath; // Update the doctor object with the new image path
+                            doctor.Dr_ImagePath = newImagePath; 
                         }
                         catch (Exception ex)
                         {
@@ -912,7 +912,7 @@ namespace Patient_Management_System.Controllers
                 Doctor_ID = appointment.Doctor_ID,
                 Description = appointment.Description,
                 Dept_ID = appointment.Dept_ID,
-                Email = appointment.Email,
+                Phone = appointment.Phone,
                 Diseases = appointment.Diseases,
                 Apt_Date = appointment.Apt_Date,
                 Apt_Time = appointment.Apt_Time,
@@ -943,31 +943,25 @@ namespace Patient_Management_System.Controllers
                         cmd.Parameters.AddWithValue("@Doctor_ID", aptVM.Doctor_ID);
                         cmd.Parameters.AddWithValue("@Description", aptVM.Description);
                         cmd.Parameters.AddWithValue("@Dept_ID", aptVM.Dept_ID);
-                        cmd.Parameters.AddWithValue("@Email", aptVM.Email);
+                        cmd.Parameters.AddWithValue("@Phone", aptVM.Phone);
                         cmd.Parameters.AddWithValue("@Diseases", aptVM.Diseases);
                         cmd.Parameters.AddWithValue("@Apt_Time", aptVM.Apt_Time);
                         cmd.Parameters.AddWithValue("@Apt_Date", aptVM.Apt_Date);
-
-
                         con.Open();
                         cmd.ExecuteNonQuery();
                     }
                 }
 
                 TempData["Message"] = "Doctor record updated successfully.";
-                return RedirectToAction("List_Appointment"); // Redirect to index or any other action
+                return RedirectToAction("List_Appointment"); 
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
             }
-
-            // Ensure ViewBag is set before returning the view
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", aptVM.Dept_ID);
             ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", aptVM.Doctor_ID);
-        //    ViewBag.Schedule_ID = new SelectList(db.ScheduleTbls, "Schedule_ID", "Available_Date", aptVM.Schedule_ID);
             ViewBag.TimeSlots = GetTimeSlots();
-
             return View(aptVM);
         }
 

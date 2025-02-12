@@ -1,0 +1,30 @@
+﻿@model List<Patient_Management_System.ViewModel.AppointmentVM>
+
+@{
+    ViewBag.Title = "Doctor Appointments";
+}
+
+<h2>Appointments for Dr. @Session["Dr_FirstName"]</h2>
+
+<table border="1">
+    <tr>
+        <th>Patient Name</th>
+        <th>Appointment Date</th>
+        <th>Description</th>
+
+
+
+    </tr>
+    @foreach (var appointment in Model)
+    {
+        <tr>
+            <td>@appointment.P_FirstName</td>
+            
+            <td>@(appointment.Apt_Date.HasValue ? appointment.Apt_Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
+
+            <td>@appointment.Description</td>
+        </tr>
+    }
+</table>
+
+<a href="@Url.Action("Logout", "Doctor")">Logout</a>

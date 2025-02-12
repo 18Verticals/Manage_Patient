@@ -21,7 +21,6 @@
         <meta name="keywords" content="">
         <meta name="description" content="">
         <meta name="author" content="">
-
         <!-- bootstrap css -->
         <link rel="stylesheet" type="text/css" href="~/Content/Appointment/css/bootstrap.min.css">
         <!-- style css -->
@@ -91,59 +90,86 @@
 
                     <div class="row">
                         <div class="col-sm-6">
-                            <label>Patient Name</label>
-                            @Html.EditorFor(model => model.Patient_Name, new { htmlAttributes = new { @class = "form-control", style = "height:51.5px;" } })
-                            @Html.ValidationMessageFor(model => model.Patient_Name, "", new { @class = "text-danger" })
+                            
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                @Html.EditorFor(model => model.P_FirstName, new { htmlAttributes = new { @class = "form-control uniform-input", style="height:49px",placeholder = "Enter Your Name" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.P_FirstName, "", new { @class = "text-danger" })
                         </div>
 
-                        <div class="col-sm-6">
-                            <label>Doctor</label>
-                            @Html.DropDownList("Doctor_ID", (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "-- Select Doctor --", new { @class = "form-control" })
+                        <div class="col-sm-6">                          
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-user-md"></i></span>
+                                @Html.DropDownList("Doctor_ID", (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "-- Select Doctor --", new { @class = "form-control uniform-input" })
+                            </div>
                             @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
                         </div>
 
+                        <!-- Department -->
                         <div class="col-sm-6">
-                            <label>Department</label>
-                            @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Department --", new { @class = "form-control" })
+                           
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-hospital-o"></i></span>
+                                @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Department --", new { @class = "form-control uniform-input" })
+                            </div>
                             @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col-sm-6">
-                            <label>Date</label>
-                            @Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control", style = "height:49px", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd") } })
+                          
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                @Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control uniform-input", type = "date", style = "height:49px;" ,min = DateTime.Now.ToString("yyyy-MM-dd") } })
+                            </div>
                             @Html.ValidationMessageFor(model => model.Apt_Date, "", new { @class = "text-danger" })
                         </div>
 
-                        <div class="col-sm-6 w-full">
-                            <label>Time Slot</label>
-                            @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control" })
+                        <!-- Time Slot -->
+                        <div class="col-sm-6">                          
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
+                                @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control uniform-input" })
+                            </div>
                             @Html.ValidationMessageFor(model => model.Apt_Time, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col-sm-6">
-                            <label>Description</label>
-                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 2 })
+                           
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fa fa-align-left"></i> 
+                                </span>
+                                @Html.TextBoxFor(model => model.Description, new { @class = "form-control", rows = 1, style = "height:49px; resize: none;", placeholder = "Description" })
+                            </div>
                             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col-sm-6">
-                            <label>Email</label>
-                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", style = "height:51px;", type = "email" })
-                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                           
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fa fa-phone"></i> <!-- Font Awesome icon -->
+                                </span>
+                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", style = "height:49px;" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col-sm-6">
-                            <label>Diseases</label>
-                            @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:51px;" })
+                           
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fa fa-stethoscope"></i> <!-- Icon for diseases -->
+                                </span>
+                                @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;" })
+                            </div>
                             @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col-sm-12 text-center mt-4">
                             <button type="submit" class="formbold-btn">Make Appointment</button>
                         </div>
-
-
-
 
                     </div>
                 </div>
