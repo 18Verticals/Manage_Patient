@@ -97,10 +97,6 @@ namespace Patient_Management_System.Controllers
                             Diseases = reader["Diseases"] as string ?? string.Empty,
                             Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
                             Description = reader["Description"] as string ?? string.Empty,
-
-
-
-
                         });
                     }
 
@@ -117,14 +113,48 @@ namespace Patient_Management_System.Controllers
             Session.Clear();
             return RedirectToAction("Login");
         }
-    
-
-        public ActionResult Test()
+               
+        public ActionResult Prescription()
         {
-            return View();
+            if (Session["Doctor_ID"] == null)
+                return RedirectToAction("Login");
+
+            int doctorId = Convert.ToInt32(Session["Doctor_ID"]);
+            List<PrescriptionVM> prescriptions = new List<PrescriptionVM>();
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_GetDrPrescription", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Doctor_ID", doctorId);
+
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        prescriptions.Add(new PrescriptionVM
+                        {
+                            Presc_ID = reader["Presc_ID"] != DBNull.Value ? Convert.ToInt32(reader["Presc_ID"]) : 0,
+                            Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : 0,
+                            P_FirstName = reader["P_FirstName"] as string ?? string.Empty,
+
+                            DateIssued = reader["DateIssued"] != DBNull.Value ? Convert.ToDateTime(reader["DateIssued"]) : DateTime.MinValue,
+                            Medication = reader["Medication"] as string ?? string.Empty,
+                            Dosage = reader["Dosage"] as string ?? string.Empty,
+                            Instructions = reader["Instructions"] as string ?? string.Empty,
+                        });
+                    }
+                    reader.Close();
+                }
+            }
+            return View(prescriptions);
         }
     }
 }
-  
+
+
+
 
 

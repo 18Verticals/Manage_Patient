@@ -4,43 +4,16 @@
     ViewBag.Title = "Doctor Appointments";
 }
 
-<h2>Appointments for Dr. @Session["Dr_FirstName"]</h2>
+@*<h2>Appointments for Dr. @Session["Dr_FirstName"]</h2>*@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Container</title>
-    <style>
-        .image-container {
-            width: 1000px;
-            height: 150px;
-            border: 2px solid #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-
-            .image-container img {
-                width: 80%;
-                height: auto;
-                object-fit: cover;
-            }
-    </style>
-</head>
-<body>
-
-    <div class="image-container">
-        <img src="https://via.placeholder.com/300" alt="Sample Image">
+<div class="container">
+    <div class="image-textbox-container">
+        <img src="~/Content/Doctor/img/p1.png" alt="Doctor Image" class="doctor-image">
+        <input type="text" placeholder="Search Patient..." class="textbox" />
     </div>
+</div>
 
-</body>
-</html>
-
-<table border="1">
+<table border="3">
     <tr>
         <th>Patient Name</th>
         <th>Appointment Date</th>
@@ -48,20 +21,43 @@
         <th>Diseases</th>
         <th>Apt_Time</th>
         <th>Description</th>
-
     </tr>
     @foreach (var appointment in Model)
     {
         <tr>
             <td>@appointment.P_FirstName</td>
-
             <td>@(appointment.Apt_Date.HasValue ? appointment.Apt_Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
             <td>@appointment.Email</td>
             <td>@appointment.Diseases</td>
             <td>@appointment.Apt_Time</td>
             <td>@appointment.Description</td>
-
         </tr>
     }
 </table>
 
+<style>
+    .container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .image-textbox-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .doctor-image {
+        width: 150px;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .textbox {
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+</style>

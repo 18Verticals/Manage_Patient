@@ -136,7 +136,6 @@
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\PatientsTblController.cs" />
     <Compile Include="Controllers\ScheduleTblsController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -415,6 +414,11 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\button.css" />
     <Content Include="Content\Doctor\Doctor_Style.css" />
+    <Content Include="Content\Doctor\img\p1.png" />
+    <Content Include="Content\Doctor\img\p2.png" />
+    <Content Include="Content\Doctor\img\p3.png" />
+    <Content Include="Content\Doctor\img\p4.png" />
+    <Content Include="Content\Doctor\img\pre.png" />
     <Content Include="Content\Label.css" />
     <Content Include="Content\loader.css" />
     <Content Include="Content\login.css" />
@@ -3153,6 +3157,7 @@
     <Content Include="Views\Shared\_Layout_Doctor.cshtml" />
     <Content Include="Views\Doctor\Test.cshtml" />
     <Content Include="Views\Doctor\Appointments.cshtml" />
+    <Content Include="Views\Doctor\Prescription.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
