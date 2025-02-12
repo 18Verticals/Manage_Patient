@@ -1,4 +1,4 @@
-﻿using Patient_Management_System.Models;
+using Patient_Management_System.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -97,10 +97,6 @@ namespace Patient_Management_System.Controllers
                             Diseases = reader["Diseases"] as string ?? string.Empty,
                             Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
                             Description = reader["Description"] as string ?? string.Empty,
-
-
-
-
                         });
                     }
 
@@ -125,6 +121,3 @@ namespace Patient_Management_System.Controllers
         }
     }
 }
-  
-
-

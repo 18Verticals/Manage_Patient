@@ -81,13 +81,13 @@ namespace Patient_Management_System.Controllers
 
                         Doctor_ID = reader["Doctor_ID"] != DBNull.Value ? Convert.ToInt32(reader["Doctor_ID"]) : (int?)null,
                         Dr_FirstName = reader["Dr_FirstName"].ToString(),
-                        Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : (int?)null,
 
+                        Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : (int?)null,
                         Dept_ID = reader["Dept_ID"] != DBNull.Value ? Convert.ToInt32(reader["Dept_ID"]) : (int?)null,
                         Dept_Name = reader["Dept_Name"].ToString(),
                         Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
                         Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
-                        Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : string.Empty,
+                        Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : string.Empty,  
                         Diseases = reader["Diseases"] != DBNull.Value ? reader["Diseases"].ToString() : string.Empty,
                         Email = reader["Email"] != DBNull.Value ? reader["Email"].ToString() : string.Empty,
                     };
@@ -114,7 +114,9 @@ namespace Patient_Management_System.Controllers
                     {
                         Presc_ID = Convert.ToInt32(reader["Presc_ID"]),
                         Doctor_ID = Convert.ToInt32(reader["Doctor_ID"]),
+                        Dr_FirstName = reader["Dr_FirstName"].ToString(),
                         Patient_ID = Convert.ToInt32(reader["Patient_ID"]),
+                        P_FirstName = reader["P_FirstName"].ToString(),
                         DateIssued = Convert.ToDateTime(reader["DateIssued"]),
                         Medication = reader["Medication"].ToString(),
                         Dosage = reader["Dosage"].ToString(),

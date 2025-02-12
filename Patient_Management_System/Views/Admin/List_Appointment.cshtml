@@ -34,6 +34,7 @@
                 <tbody>
                     @foreach (var aptVM in Model)
                     {
+
                         <tr>
                             <td class="text-right">
                                 <a class="dropdown-item" href="@Url.Action("Edit_Appointment","Admin", new { aptId =aptVM.Appointment_ID })"><i class="fa fa-pencil m-r-5"></i></a>
@@ -64,3 +65,4 @@
         </div>
     </div>
 </div>
+
