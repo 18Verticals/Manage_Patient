@@ -1,0 +1,27 @@
+﻿@model YourProject.Models.DoctorLoginModel
+
+@{
+    ViewBag.Title = "Doctor Login";
+}
+
+<h2>Doctor Login</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.Error))
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+@using (Html.BeginForm("Login", "Doctor", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+}

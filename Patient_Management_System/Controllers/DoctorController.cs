@@ -1,4 +1,4 @@
-﻿using Patient_Management_System.Models;
+using Patient_Management_System.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -152,9 +152,13 @@ namespace Patient_Management_System.Controllers
             return View(prescriptions);
         }
     }
+<<<<<<< HEAD
 }
 
 
 
 
 
+=======
+}
+>>>>>>> bae7160c80405ae01298de880b99e5adb1d39b21

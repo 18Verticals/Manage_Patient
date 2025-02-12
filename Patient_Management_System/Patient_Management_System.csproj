@@ -130,7 +130,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\AppointmentTblsController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
@@ -152,6 +151,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DoctorTbl.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Dr_LoginInfo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginInfo.cs">
@@ -188,6 +190,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AdminVM.cs" />
     <Compile Include="ViewModel\AppointmentVM.cs" />
+    <Compile Include="ViewModel\ContactVM.cs" />
     <Compile Include="ViewModel\DepartmentVM.cs" />
     <Compile Include="ViewModel\DoctorVM.cs" />
     <Compile Include="ViewModel\PatientVM.cs" />
@@ -3021,13 +3024,6 @@
     <Content Include="Content\Admin\assets\plugins\summernote\dist\font\summernoted41d.eot" />
     <Content Include="Content\template\assets\images\book_an_appoinment.webp" />
     <Content Include="Content\template\assets\images\kd-logo.webp" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="bin\Patient_Management_System.dll.config" />
     <Content Include="bin\roslyn\csc.exe.config" />
     <Content Include="bin\roslyn\csc.rsp" />
@@ -3051,6 +3047,13 @@
     <Content Include="Content\Appointment\js\bootstrap.bundle.min.js.map" />
     <Content Include="Content\Appointment\js\bootstrap.js.map" />
     <Content Include="Content\Appointment\js\bootstrap.min.js.map" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -3103,11 +3106,6 @@
     <Content Include="Views\Home\Aboutus.cshtml" />
     <Content Include="Views\Admin\Add_Patient.cshtml" />
     <Content Include="Views\Admin\List_Patient.cshtml" />
-    <Content Include="Views\ScheduleTbls\Create.cshtml" />
-    <Content Include="Views\ScheduleTbls\Delete.cshtml" />
-    <Content Include="Views\ScheduleTbls\Details.cshtml" />
-    <Content Include="Views\ScheduleTbls\Edit.cshtml" />
-    <Content Include="Views\ScheduleTbls\Index.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Admin\Edit_Patient.cshtml" />
     <Content Include="Views\Admin\Edit_Doctor.cshtml" />
@@ -3124,11 +3122,6 @@
     <Content Include="Views\Admin\List_Department.cshtml" />
     <Content Include="Views\Admin\Edit_Department.cshtml" />
     <Content Include="Views\Admin\Delete_Department.cshtml" />
-    <Content Include="Views\AppointmentTbls\Create.cshtml" />
-    <Content Include="Views\AppointmentTbls\Delete.cshtml" />
-    <Content Include="Views\AppointmentTbls\Details.cshtml" />
-    <Content Include="Views\AppointmentTbls\Edit.cshtml" />
-    <Content Include="Views\AppointmentTbls\Index.cshtml" />
     <Content Include="Views\Admin\Add_Appointment.cshtml" />
     <Content Include="Views\Admin\List_Appointment.cshtml" />
     <Content Include="Views\Admin\Delete_Appointment.cshtml" />
@@ -3152,12 +3145,17 @@
     <Content Include="Views\Admin\Edit_Prescription.cshtml" />
     <Content Include="Views\Admin\Delete_Contact.cshtml" />
     <Content Include="Views\Patient\Appointment.cshtml" />
+
     <Content Include="Views\Test\Login.cshtml" />
     <Content Include="Views\Test\Appointments.cshtml" />
     <Content Include="Views\Shared\_Layout_Doctor.cshtml" />
     <Content Include="Views\Doctor\Test.cshtml" />
     <Content Include="Views\Doctor\Appointments.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Doctor\Prescription.cshtml" />
+=======
+ 
+>>>>>>> bae7160c80405ae01298de880b99e5adb1d39b21
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

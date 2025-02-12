@@ -4,17 +4,18 @@
 }
 
 @using (Html.BeginForm("Appointment", "Patient", FormMethod.Post))
-{
 
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <div class="page-wrapper">
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
         <!-- site metas -->
         <title>Appointment</title>
         <meta name="keywords" content="">
@@ -42,241 +43,238 @@
         <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     </div>
 
-        <!-- header section start -->
-        <div class="header_section">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <!-- <a class="navbar-brand"href="index.html"><img src="images/logo.png"></a> -->
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+    <!-- header section start -->
+    <div class="header_section">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <!-- <a class="navbar-brand"href="index.html"><img src="images/logo.png"></a> -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                </nav>
-                <div class="custom_bg">
+            </nav>
+            @*<div class="custom_bg">
                     <div class="custom_menu">
 
                     </div>
-                    <form class="form-inline my-2 my-lg-0">
-                        <div class="search_btn">
-                            <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i><span class="signup_text">Login</span></a></li>
-                            <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i><span class="signup_text">Sign Up</span></a></li>
-                            <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- header section end -->
-            <!-- banner section start -->
-            <div class="banner_section layout_padding">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="banner_taital"><span style="color: #fc8004;"> We care Of You</span></h1>
-                            <p class="banner_text">ABCD ABCD ABCD ABCD ABCD ABCD ABCD  </p>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- banner section end -->
+                </div>*@
         </div>
         <!-- header section end -->
-
-        <!-- appointment section start -->
-        <div class="appointment_section">
+        <!-- banner section start -->
+        <div class="banner_section layout_padding">
             <div class="container">
-                <div class="appointment_box">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="appointment_taital">Book <span style="color: #fc8004;">Appointment</span></h1>
-                        </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="banner_taital"><span style="color: #fc8004;"> We Care Of You</span></h1>
+                        <p class="banner_text">ABCD ABCD ABCD ABCD ABCD ABCD ABCD  </p>
                     </div>
-                   
-                        <div class="formbold-main-wrapper">
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label>Patient Name</label>
-                                    @Html.EditorFor(model => model.Patient_ID, new { htmlAttributes = new { @class = "form-control", style = "height:51.5px;" } })
-                                    @Html.ValidationMessageFor(model => model.Patient_ID, "", new { @class = "text-danger" })
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label>Doctor</label>
-                                    @Html.DropDownList("Doctor_ID", (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "-- Select Doctor --", new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label>Department</label>
-                                    @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Department --", new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label>Date</label>
-                                    @Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control",  style="height:49px",type = "date", min = DateTime.Now.ToString("yyyy-MM-dd") } })
-                                    @Html.ValidationMessageFor(model => model.Apt_Date, "", new { @class = "text-danger" })
-                                </div>
-
-                                <div class="col-sm-6 w-full">
-                                    <label>Time Slot</label>
-                                    @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Apt_Time, "", new { @class = "text-danger" })
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label>Description</label>
-                                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 2 })
-                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label>Email</label>
-                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", style = "height:51px;", type = "email" })
-                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label>Diseases</label>
-                                    @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:51px;" })
-                                    @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
-                                </div>
-
-                                <div>
-                                    <button class="formbold-btn" style="margin-top:20px;">Book Appointment</button>
-                                </div>
-                            </div>
-                            </div>
-                            </div>
-                            </div>
-                            </div>
-           
-        <script src="~/Content/Appointment/js/jquery.min.js"></script>
-        <script src="~/Content/Appointment/js/popper.min.js"></script>
-        <script src="~/Content/Appointment/js/bootstrap.bundle.min.js"></script>
-        <script src="~/Content/Appointment/js/jquery-3.0.0.min.js"></script>
-        <script src="~/Content/Appointment/js/plugin.js"></script>
-        <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="js/custom.js"></script>
-        <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-        <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-        <script>
-            $('#datepicker').datepicker({
-                uiLibrary: 'bootstrap'
-            });
-        </script>
+                </div>
+            </div>
+        </div>
+        <!-- banner section end -->
+    </div>
+    <!-- header section end -->
 
 
-        <script>
-            $('#timepicker').timepicker({
-                uiLibrary: 'bootstrap'
-            });
-        </script>
+    <!-- appointment section start -->
+    <div class="appointment_section">
+        <div class="container">
+            <div class="appointment_box">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="appointment_taital">Book <span style="color: #fc8004;">Appointment</span></h1>
+                    </div>
+                </div>
 
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
+                <div class="formbold-main-wrapper">
 
-            body {
-                font-family: "Inter", Arial, Helvetica, sans-serif;
-            }
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Patient Name</label>
+                            @Html.EditorFor(model => model.Patient_Name, new { htmlAttributes = new { @class = "form-control", style = "height:51.5px;" } })
+                            @Html.ValidationMessageFor(model => model.Patient_Name, "", new { @class = "text-danger" })
+                        </div>
 
-            .formbold-mb-5 {
-                margin-bottom: 20px;
-            }
+                        <div class="col-sm-6">
+                            <label>Doctor</label>
+                            @Html.DropDownList("Doctor_ID", (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "-- Select Doctor --", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
+                        </div>
 
-            .formbold-pt-3 {
-                padding-top: 12px;
-            }
+                        <div class="col-sm-6">
+                            <label>Department</label>
+                            @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Department --", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
+                        </div>
 
-            .formbold-main-wrapper {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 48px;
-            }
+                        <div class="col-sm-6">
+                            <label>Date</label>
+                            @Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control", style = "height:49px", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd") } })
+                            @Html.ValidationMessageFor(model => model.Apt_Date, "", new { @class = "text-danger" })
+                        </div>
 
-            .formbold-form-wrapper {
-                margin: 0 auto;
-                max-width: 550px;
-                width: 100%;
-                background: white;
-            }
+                        <div class="col-sm-6 w-full">
+                            <label>Time Slot</label>
+                            @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Apt_Time, "", new { @class = "text-danger" })
+                        </div>
 
-            .formbold-form-label {
-                display: block;
-                font-weight: 500;
-                font-size: 16px;
-                color: #07074d;
-                margin-bottom: 12px;
-            }
+                        <div class="col-sm-6">
+                            <label>Description</label>
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 2 })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
 
-            .formbold-form-label-2 {
-                font-weight: 600;
-                font-size: 20px;
-                margin-bottom: 20px;
-            }
+                        <div class="col-sm-6">
+                            <label>Email</label>
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", style = "height:51px;", type = "email" })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
 
-            .formbold-form-input {
-                width: 100%;
-                padding: 12px 24px;
-                border-radius: 6px;
-                border: 1px solid #e0e0e0;
-                background: white;
-                font-weight: 500;
-                font-size: 16px;
-                color: #6b7280;
-                outline: none;
-                resize: none;
-            }
+                        <div class="col-sm-6">
+                            <label>Diseases</label>
+                            @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:51px;" })
+                            @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
+                        </div>
 
-                .formbold-form-input:focus {
-                    border-color: #6a64f1;
-                    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
-                }
+                        <div class="col-sm-12 text-center mt-4">
+                            <button type="submit" class="formbold-btn">Make Appointment</button>
+                        </div>
 
-            .formbold-btn {
-                text-align: center;
-                font-size: 16px;
-                border-radius: 6px;
-                padding: 14px 32px;
-                border: none;
-                font-weight: 600;
-                background-color: #6a64f1;
-                color: white;
-                width: 100%;
-                cursor: pointer;
-            }
 
-                .formbold-btn:hover {
-                    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
-                }
 
-            .formbold--mx-3 {
-                margin-left: -12px;
-                margin-right: -12px;
-            }
 
-            .formbold-px-3 {
-                padding-left: 12px;
-                padding-right: 12px;
-            }
-
-            .flex {
-                display: flex;
-            }
-
-            .flex-wrap {
-                flex-wrap: wrap;
-            }
-
-            .w-full {
-                width: 100%;
-            }
-        </style>
-
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
+<script src="~/Content/Appointment/js/jquery.min.js"></script>
+<script src="~/Content/Appointment/js/popper.min.js"></script>
+<script src="~/Content/Appointment/js/bootstrap.bundle.min.js"></script>
+<script src="~/Content/Appointment/js/jquery-3.0.0.min.js"></script>
+<script src="~/Content/Appointment/js/plugin.js"></script>
+<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<script>
+    $('#datepicker').datepicker({
+        uiLibrary: 'bootstrap'
+    });
+</script>
+
+
+<script>
+    $('#timepicker').timepicker({
+        uiLibrary: 'bootstrap'
+    });
+</script>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Inter", Arial, Helvetica, sans-serif;
+    }
+
+    .formbold-mb-5 {
+        margin-bottom: 20px;
+    }
+
+    .formbold-pt-3 {
+        padding-top: 12px;
+    }
+
+    .formbold-main-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px;
+    }
+
+    .formbold-form-wrapper {
+        margin: 0 auto;
+        max-width: 550px;
+        width: 100%;
+        background: white;
+    }
+
+    .formbold-form-label {
+        display: block;
+        font-weight: 500;
+        font-size: 16px;
+        color: #07074d;
+        margin-bottom: 12px;
+    }
+
+    .formbold-form-label-2 {
+        font-weight: 600;
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .formbold-form-input {
+        width: 100%;
+        padding: 12px 24px;
+        border-radius: 6px;
+        border: 1px solid #e0e0e0;
+        background: white;
+        font-weight: 500;
+        font-size: 16px;
+        color: #6b7280;
+        outline: none;
+        resize: none;
+    }
+
+        .formbold-form-input:focus {
+            border-color: #6a64f1;
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+    .formbold-btn {
+        text-align: center;
+        font-size: 16px;
+        border-radius: 6px;
+        padding: 14px 32px;
+        border: none;
+        font-weight: 600;
+        background-color: #6a64f1;
+        color: white;
+        width: 100%;
+        cursor: pointer;
+    }
+
+        .formbold-btn:hover {
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+    .formbold--mx-3 {
+        margin-left: -12px;
+        margin-right: -12px;
+    }
+
+    .formbold-px-3 {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .flex {
+        display: flex;
+    }
+
+    .flex-wrap {
+        flex-wrap: wrap;
+    }
+
+    .w-full {
+        width: 100%;
+    }
+</style>
+
