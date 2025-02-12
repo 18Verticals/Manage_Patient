@@ -21,8 +21,6 @@
             <div class="row">
                 @Html.HiddenFor(m => m.Presc_ID)
 
-
-
                 <div class="form-group">
                     <label>Patient</label>
                     
@@ -36,17 +34,7 @@
                     <label>Doctor</label>
                     @Html.DropDownList("Doctor_ID", ViewBag.Doctor_ID as SelectList, "Select a Doctor", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
-                </div>
-
-
-
-
-
-
-
-           
-
-
+                </div>  
 
                         <div class="form-group">
                             <label>Medication</label>
@@ -81,8 +69,6 @@
                                 @Html.EditorFor(model => model.DateIssued, new { htmlAttributes = new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd") } })
                             </div>
                         </div>
-
-
 
                     </div>
                     <!-- Submit Button -->

@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 <div class="row">
@@ -29,12 +28,14 @@
                         <th>Slot</th>
                         <th>Description</th>
                         <th>Diseases</th>
+
                         <th>Contact</th>                                              
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var aptVM in Model)
                     {
+
                       <tr>
                          <td class="text-right">
                             <a class="dropdown-item" href="@Url.Action("Edit_Appointment","Admin", new { aptId =aptVM.Appointment_ID })"><i class="fa fa-pencil m-r-5"></i></a>
@@ -49,6 +50,22 @@
                          <td>@aptVM.Description</td>
                          <td>@aptVM.Diseases</td>
                          <td>@aptVM.Phone</td>
+
+                        <tr>
+                            <td class="text-right">
+                                <a class="dropdown-item" href="@Url.Action("Edit_Appointment","Admin", new { aptId =aptVM.Appointment_ID })"><i class="fa fa-pencil m-r-5"></i></a>
+                                <a class="dropdown-item" href="@Url.Action("Delete_Appointment","Admin", new { aptId =aptVM.Appointment_ID })"><i class="fa fa-trash-o m-r-5"></i> </a>
+                            </td>
+                            <td>@aptVM.Appointment_ID</td>
+                            <td>@aptVM.Dr_FirstName</td>
+                            <td>@aptVM.Dept_Name</td>
+                            <td>@aptVM.P_FirstName</td>
+                            <td>@aptVM.Apt_Date.ToString("dd-MM-yyyy")</td>
+                            <td>@aptVM.Apt_Time</td>
+                            <td>@aptVM.Description</td>
+                            <td>@aptVM.Diseases</td>
+                            <td>@aptVM.Phone</td>
+
                         </tr>
                     }
                 </tbody>
@@ -65,4 +82,4 @@
         </div>
     </div>
 </div>
-        
+

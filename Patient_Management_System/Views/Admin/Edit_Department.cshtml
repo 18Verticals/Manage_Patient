@@ -5,14 +5,14 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
-@using (Html.BeginForm("Edit_Department", "Admin"))
+@using (Html.BeginForm("Edit_Specialities", "Admin"))
 {
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.AntiForgeryToken()
 
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
-            <h4 class="page-title">Edit Department</h4>
+            <h4 class="page-title">Edit Specialities</h4>
         </div>
     </div>
 
@@ -40,6 +40,6 @@
 
     <!-- Submit Button -->
     <div class="m-t-20 text-center">
-        <button class="btn btn-primary submit-btn" style="margin-left:130px; ">Edit Department</button>
+        <button class="btn btn-primary submit-btn" style="margin-left:130px; ">Edit Specialities</button>
     </div>
 }

@@ -19,7 +19,7 @@
     <div class="row">
 
         <div class="col-lg-8 offset-lg-2">
-            <h4 class="page-title">Add Department</h4>
+            <h4 class="page-title">Add Specialities</h4>
         </div>
     </div>
 
@@ -31,7 +31,7 @@
                 <!-- Dept Name -->
                 <div class="col-sm-9">
                     <div class="form-group">
-                        <label>Department Name</label>
+                        <label>Specialities Name</label>
                         @Html.EditorFor(model => model.Dept_Name, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Dept_Name, "", new { @class = "text-danger" })
 
@@ -40,7 +40,7 @@
 
                 <!-- Submit Button -->
                 <div class="m-t-20 text-center">
-                    <button class="btn btn-primary submit-btn" style="margin-left:180px;">Add Department</button>
+                    <button class="btn btn-primary submit-btn" style="margin-left:180px;">Add Specialities</button>
                 </div>
 
             </div>

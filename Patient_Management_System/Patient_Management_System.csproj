@@ -417,6 +417,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\button.css" />
+    <Content Include="Content\Doctor\Doctor_Style.css" />
     <Content Include="Content\Label.css" />
     <Content Include="Content\loader.css" />
     <Content Include="Content\login.css" />
@@ -3140,12 +3141,11 @@
     <Content Include="Views\Admin\Edit_Prescription.cshtml" />
     <Content Include="Views\Admin\Delete_Contact.cshtml" />
     <Content Include="Views\Patient\Appointment.cshtml" />
-    <Content Include="Views\Doctor\Get_Appointment.cshtml" />
-    <Content Include="Views\Doctor\D_Login.cshtml" />
-    <Content Include="Views\Test\Login.cshtml" />
-    <Content Include="Views\Test\Appointments.cshtml" />
     <Content Include="Views\Doctor\Appointments.cshtml" />
     <Content Include="Views\Test\BookAppointment.cshtml" />
+    <Content Include="Views\Shared\_Layout_Doctor.cshtml" />
+    <Content Include="Views\Doctor\Appointments.cshtml" />
+ 
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
