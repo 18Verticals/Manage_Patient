@@ -21,7 +21,7 @@ namespace Patient_Management_System.Models
         public Nullable<System.DateTime> Apt_Date { get; set; }
         public Nullable<System.TimeSpan> Apt_Time { get; set; }
         public string Description { get; set; }
-        public string Email { get; set; }
+        public string Phone { get; set; }
         public string Diseases { get; set; }
         public Nullable<int> Schedule_ID { get; set; }
     

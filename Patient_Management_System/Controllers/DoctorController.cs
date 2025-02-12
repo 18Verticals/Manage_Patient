@@ -43,6 +43,7 @@ namespace Patient_Management_System.Controllers
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.Read())
+
                     {
                         doctor = new DoctorVM
                         {
@@ -98,11 +99,13 @@ namespace Patient_Management_System.Controllers
                             Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
                             Description = reader["Description"] as string ?? string.Empty,
                         });
+
                     }
 
                     reader.Close();
                 }
             }
+
 
             return View(appointments);
         }
@@ -115,16 +118,39 @@ namespace Patient_Management_System.Controllers
         }
                
         public ActionResult Prescription()
+
+            if (doctor != null)
+            {
+                Session["Doctor_ID"] = doctor.Doctor_ID;
+                Session["Dr_FirstName"] = doctor.Dr_FirstName;
+                return RedirectToAction("Appointments");
+            }
+
+            ViewBag.Error = "Invalid email or password!";
+            return View();
+        }
+
+        // GET: Doctor/Appointments
+        public ActionResult Appointments()
+
         {
             if (Session["Doctor_ID"] == null)
                 return RedirectToAction("Login");
 
             int doctorId = Convert.ToInt32(Session["Doctor_ID"]);
+
             List<PrescriptionVM> prescriptions = new List<PrescriptionVM>();
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("sp_GetDrPrescription", con))
+
+            List<AppointmentVM> appointments = new List<AppointmentVM>();
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_GetDrAppointments", con))
+
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Doctor_ID", doctorId);
@@ -134,6 +160,7 @@ namespace Patient_Management_System.Controllers
 
                     while (reader.Read())
                     {
+
                         prescriptions.Add(new PrescriptionVM
                         {
                             Presc_ID = reader["Presc_ID"] != DBNull.Value ? Convert.ToInt32(reader["Presc_ID"]) : 0,
@@ -150,15 +177,47 @@ namespace Patient_Management_System.Controllers
                 }
             }
             return View(prescriptions);
+
+                        appointments.Add(new AppointmentVM
+                        {
+                            Appointment_ID = reader["Appointment_ID"] != DBNull.Value ? Convert.ToInt32(reader["Appointment_ID"]) : 0,
+                            Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : 0,
+                            Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
+                            Email = reader["Email"] as string ?? string.Empty,
+                            Diseases = reader["Diseases"] as string ?? string.Empty,
+                            Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
+                            Description = reader["Description"] as string ?? string.Empty,
+                        });
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            return View(appointments);
+        }
+
+        // GET: Doctor/Logout
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Login");
+        }
+    
+
+        public ActionResult Test()
+        {
+            return View();
+
         }
     }
-<<<<<<< HEAD
+
 }
 
 
 
 
 
-=======
+
 }
->>>>>>> bae7160c80405ae01298de880b99e5adb1d39b21
+
