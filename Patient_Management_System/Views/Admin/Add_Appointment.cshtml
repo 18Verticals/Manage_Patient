@@ -20,6 +20,15 @@
         <div class="col-lg-8 offset-lg-2">
             <div class="row">
 
+                <!-- Department Dropdown -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Specialities</label>
+                        @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Specialities --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
                 <!-- Doctor Dropdown -->
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -29,14 +38,6 @@
                     </div>
                 </div>
 
-                <!-- Department Dropdown -->
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Department</label>
-                        @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Department --", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
-                    </div>
-                </div>
 
                 <!-- Appointment Date -->
                 <div class="col-sm-6">
