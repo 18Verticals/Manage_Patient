@@ -1,0 +1,57 @@
+﻿@model List<Patient_Management_System.ViewModel.PrescriptionVM>
+
+@{
+    Layout = "~/Views/Shared/_Layout_Doctor.cshtml";
+    ViewBag.Title = "Doctor Prescription";
+}
+
+<!-- Web Banner Section with Custom Color -->
+<div class="container p-4 mb-3 rounded" style="background: linear-gradient(to right, #5e87e6, #d5e3c3); color: white;">
+    <div class="row align-items-center">
+        <!-- Left Side - Image -->
+        <div class="col-md-3 text-center">
+            <img src="~/Content/Doctor/img/p1.png" alt="Doctor Prescription"
+                 class="img-fluid rounded-circle"
+                 style="width: 150px; height: 150px; max-width: 100%;">
+        </div>
+        <!-- Right Side - Text -->
+        <div class="col-md-9">
+            <h1 class="display-6"> Prescription</h1>
+        </div>
+    </div>
+</div>
+
+
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Prescription ID</th>
+                <th>Patient Name</th>
+                <th>Date Issued</th>
+                <th>Medication</th>
+                <th>Dosage</th>
+                <th>Instructions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prescription in Model)
+            {
+                <tr>
+                    <td>@prescription.Presc_ID</td>
+                    <td>@prescription.P_FirstName</td>
+                    <td>@prescription.DateIssued.ToShortDateString()</td>
+                    <td>@prescription.Medication</td>
+                    <td>@prescription.Dosage</td>
+                    <td>@prescription.Instructions</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No prescriptions found.</p>
+}

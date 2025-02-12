@@ -17,7 +17,7 @@ namespace Patient_Management_System.ViewModel
         public string Medication { get; set; }
         public string Dosage { get; set; }
         public string Instructions { get; set; }
-
+        public string P_FirstName { get; set; }
         public virtual DoctorTbl DoctorTbl { get; set; }
         public virtual PatientsTbl PatientsTbl { get; set; }
     }
