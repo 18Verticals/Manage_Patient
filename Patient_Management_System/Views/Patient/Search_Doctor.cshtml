@@ -1,0 +1,157 @@
+﻿@model List<Patient_Management_System.ViewModel.DoctorVM>
+
+@{
+    ViewBag.Title = "Search Doctors";
+}
+
+<!-- Bootstrap & FontAwesome -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        background: #e3f8e6;
+        border-radius: 50px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        max-width: 600px;
+        width: 100%;
+        padding: 5px;
+    }
+
+        .search-container i {
+            padding: 15px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .search-container input {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        .search-container button {
+            background: #f35d00;
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 50px;
+        }
+
+            .search-container button:hover {
+                background: #0d0e0e;
+            }
+
+    .table-container {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .alert-custom {
+        background: #ffeeba;
+        color: #856404;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .table {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    thead {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    tbody tr {
+        transition: 0.3s;
+    }
+
+    .doctor-row:hover {
+        background-color: #e3f8e6;
+        transform: scale(1.02);
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">🔍 Search Doctors</h2>
+
+    <div class="d-flex justify-content-center">
+        @using (Html.BeginForm("Search_Doctor", "Default", FormMethod.Get, new { @class = "search-container" }))
+        {
+            <i class="fas fa-search"></i>
+            <input type="text" name="searchTerm" id="searchTerm" placeholder="Search by Doctor or Department">
+            <button type="submit">Search</button>
+        }
+    </div>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="table-container mt-4">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered align-middle">
+                    <thead class="table-success text-center">
+                        <tr>
+                            <th>             </th>
+                            <th>👨‍⚕️ Doctor Name</th>
+                            <th>🏥 Department</th>
+                            <th> Qualification</th>
+                            <th> Fees</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        @foreach (var doctor in Model)
+                        {
+                            <tr class="doctor-row">
+                                <td>
+                                    @if (!string.IsNullOrEmpty(doctor.Dr_ImagePath))
+                                    {
+                                        <img src="@Url.Content(doctor.Dr_ImagePath)" alt="Doctor Image"
+                                             style="width: 80px; height: 80px; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);" />
+                                    }
+                                    else
+                                    {
+                                        <span>No Image</span>
+                                    }
+                                </td>
+                                <td><i class="fas fa-user-md me-2"></i>@doctor.Dr_FirstName</td>
+                                <td><i class="fas fa-hospital me-2"></i>@doctor.Dept_Name</td>
+                                <td>@doctor.Dr_Qualification</td>
+                                <td>@doctor.Fees</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert-custom mt-4">
+            <strong>@ViewBag.Message</strong>
+        </div>
+    }
+</div>

@@ -94,7 +94,6 @@ namespace Patient_Management_System.Controllers
                     aptList.Add(apt);
                 }
             }
-
             return View(aptList);
         }
 
@@ -116,7 +115,7 @@ namespace Patient_Management_System.Controllers
                         Doctor_ID = Convert.ToInt32(reader["Doctor_ID"]),
                         Dr_FirstName = reader["Dr_FirstName"].ToString(),
                         Patient_ID = Convert.ToInt32(reader["Patient_ID"]),
-                        P_FirstName = reader["P_FirstName"].ToString(),
+                       // P_FirstName = reader["P_FirstName"].ToString(),
                         DateIssued = Convert.ToDateTime(reader["DateIssued"]),
                         Medication = reader["Medication"].ToString(),
                         Dosage = reader["Dosage"].ToString(),
@@ -332,7 +331,7 @@ namespace Patient_Management_System.Controllers
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@Doctor_ID", aptVM.Doctor_ID);
                             cmd.Parameters.AddWithValue("@Dept_ID", aptVM.Dept_ID);
-                           // cmd.Parameters.AddWithValue("@Schedule_ID", aptVM.Schedule_ID);
+                           
                             cmd.Parameters.AddWithValue("@Apt_Date", aptVM.Apt_Date);
                             cmd.Parameters.AddWithValue("@Apt_Time", aptVM.Apt_Time);
                             cmd.Parameters.AddWithValue("@Description", aptVM.Description);

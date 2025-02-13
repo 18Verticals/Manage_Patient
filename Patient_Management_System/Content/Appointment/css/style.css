@@ -471,7 +471,8 @@ button {
 }
 
 .appointment_box {
-    width: 100%;
+    width: 75%;
+    margin-left: 135px;
     float: left;
     background-color: #ffffff;
     padding: 40px;

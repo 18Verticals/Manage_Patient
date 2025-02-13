@@ -4,10 +4,20 @@
 }
 
 @using (Html.BeginForm("Appointment", "Patient", FormMethod.Post))
-
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-success alert-dismissible fade show text-center" role="alert" style="font-size: 18px; font-weight: 600;">
+            <i class="fa fa-check-circle" style="color: green; margin-right: 8px;"></i>
+            @ViewBag.Message
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
 
 
     <meta charset="utf-8">
@@ -52,22 +62,20 @@
                 </button>
 
             </nav>
-            @*<div class="custom_bg">
-                    <div class="custom_menu">
 
-                    </div>
-
-                </div>*@
         </div>
         <!-- header section end -->
         <!-- banner section start -->
         <div class="banner_section layout_padding">
             <div class="container">
                 <div class="row">
+
+
+
                     <div class="col-md-12">
-                        <h1 class="banner_taital"><span style="color: #fc8004;"> We Care Of You</span></h1>
-                        <p class="banner_text">ABCD ABCD ABCD ABCD ABCD ABCD ABCD  </p>
+                        <h1 class="banner_taital">Book <span style="color: #fc8004;">Appointment</span></h1>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -80,65 +88,63 @@
     <div class="appointment_section">
         <div class="container">
             <div class="appointment_box">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="appointment_taital">Book <span style="color: #fc8004;">Appointment</span></h1>
-                    </div>
-                </div>
 
                 <div class="formbold-main-wrapper">
 
                     <div class="row">
                         <div class="col-sm-6">
-                            
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                @Html.EditorFor(model => model.P_FirstName, new { htmlAttributes = new { @class = "form-control uniform-input", style="height:49px",placeholder = "Enter Your Name" } })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.P_FirstName, "", new { @class = "text-danger" })
-                        </div>
 
-                        <div class="col-sm-6">                          
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fa fa-user-md"></i></span>
-                                @Html.DropDownList("Doctor_ID", (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "-- Select Doctor --", new { @class = "form-control uniform-input" })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
+                            @*<div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                    @Html.EditorFor(model => model.P_FirstName, new { htmlAttributes = new { @class = "form-control uniform-input", style="height:49px",placeholder = "Enter Your Name" } })
+                                </div>*@
+                            @Html.ValidationMessageFor(model => model.P_FirstName, "", new { @class = "text-danger" })
                         </div>
 
                         <!-- Department -->
                         <div class="col-sm-6">
-                           
+
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-hospital-o"></i></span>
-                                @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Department --", new { @class = "form-control uniform-input" })
+                                @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "--Department--", new { @class = "form-control uniform-input", required = "required" })
                             </div>
                             @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                         </div>
 
+
                         <div class="col-sm-6">
-                          
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-user-md"></i></span>
+                                @Html.DropDownList("Doctor_ID", (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "--Doctor--", new { @class = "form-control uniform-input", required = "required" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+                        <div class="col-sm-6">
+
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                @Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control uniform-input", type = "date", style = "height:49px;" ,min = DateTime.Now.ToString("yyyy-MM-dd") } })
+                                @Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control uniform-input", type = "date", style = "height:49px;", min = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.Apt_Date, "", new { @class = "text-danger" })
                         </div>
 
                         <!-- Time Slot -->
-                        <div class="col-sm-6">                          
+                        <div class="col-sm-6">
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
-                                @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control uniform-input" })
+                                @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control uniform-input", required = "required" })
                             </div>
                             @Html.ValidationMessageFor(model => model.Apt_Time, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col-sm-6">
-                           
+
                             <div class="input-group">
                                 <span class="input-group-text">
-                                    <i class="fa fa-align-left"></i> 
+                                    <i class="fa fa-align-left"></i>
                                 </span>
                                 @Html.TextBoxFor(model => model.Description, new { @class = "form-control", rows = 1, style = "height:49px; resize: none;", placeholder = "Description" })
                             </div>
@@ -146,23 +152,23 @@
                         </div>
 
                         <div class="col-sm-6">
-                           
+
                             <div class="input-group">
                                 <span class="input-group-text">
                                     <i class="fa fa-phone"></i> <!-- Font Awesome icon -->
                                 </span>
-                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", style = "height:49px;" })
+                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", style = "height:49px;", required = "required", placeholder = "Contact Number" })
                             </div>
                             @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col-sm-6">
-                           
+
                             <div class="input-group">
                                 <span class="input-group-text">
                                     <i class="fa fa-stethoscope"></i> <!-- Icon for diseases -->
                                 </span>
-                                @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;" })
+                                @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;", placeholder = "Diseases" })
                             </div>
                             @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
                         </div>
@@ -176,6 +182,7 @@
             </div>
         </div>
     </div>
+
 }
 <script src="~/Content/Appointment/js/jquery.min.js"></script>
 <script src="~/Content/Appointment/js/popper.min.js"></script>
@@ -186,6 +193,29 @@
 <script src="js/custom.js"></script>
 <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#Doctor_ID, #Apt_Date").change(function () {
+            var doctorId = $("#Doctor_ID").val();
+            var date = $("#Apt_Date").val();
+
+            if (doctorId && date) {
+                $.getJSON('/Appointment/GetAvailableSlots', { doctorId: doctorId, date: date }, function (data) {
+                    var timeSlotDropdown = $("#TimeSlot");
+                    timeSlotDropdown.empty();
+                    $.each(data, function (index, item) {
+                        timeSlotDropdown.append($('<option>', { value: item, text: item }));
+                    });
+                });
+            }
+        });
+    });
+</script>
+
+
 <script>
     $('#datepicker').datepicker({
         uiLibrary: 'bootstrap'
