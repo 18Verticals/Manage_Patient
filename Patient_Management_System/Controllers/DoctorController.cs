@@ -9,7 +9,9 @@ using System.Web;
 using System.Web.Mvc;
 using Patient_Management_System.ViewModel;
 using static System.Collections.Specialized.BitVector32;
+
 using System.Data.Entity;
+
 
 namespace Patient_Management_System.Controllers
 {
@@ -71,12 +73,6 @@ namespace Patient_Management_System.Controllers
             return View();
         }
 
-
-       
-
-
-
-
         // GET: Doctor/Appointments
         public ActionResult Appointments()
         {
@@ -124,6 +120,7 @@ namespace Patient_Management_System.Controllers
             Session.Clear();
             return RedirectToAction("Login");
         }
+
 
 
 
@@ -219,6 +216,7 @@ namespace Patient_Management_System.Controllers
             return View(prescVM);
         }
 
+
         // GET: Doctor/Prescription
         public ActionResult Prescription()
         {
@@ -258,6 +256,4 @@ namespace Patient_Management_System.Controllers
         }
     }
 }
-        
-
-
+    

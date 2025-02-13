@@ -187,7 +187,6 @@
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\PatientsTblController.cs" />
     <Compile Include="Controllers\ScheduleTblsController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -3200,12 +3199,15 @@
     <Content Include="Views\Admin\Delete_Contact.cshtml" />
     <Content Include="Views\Patient\Appointment.cshtml" />
     <Content Include="Views\Doctor\Prescription.cshtml" />
-    <Content Include="Views\Test\BookAppointment.cshtml" />
     <Content Include="Views\Doctor\Appointments.cshtml" />
     <Content Include="Views\Shared\_Layout_Doctor.cshtml" />
     <Content Include="Views\Doctor\Add_Prescription.cshtml" />
     <Content Include="Views\Doctor\Add_Schedule.cshtml" />
     <Content Include="Views\Doctor\List_Schedule.cshtml" />
+    <Content Include="Views\Doctor\Appointments.cshtml" />
+    <Content Include="Views\Shared\_Layout_Doctor.cshtml" />
+    <Content Include="Views\Patient\Search_Doctor.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
