@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    @*<link rel="shortcut icon" type="image/x-icon" href="~/Content/Admin/assets/img/favicon.ico">*@
+    
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/Admin/assets/img/favicon.ico">
+    
     <title>LiveDoc</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/bootstrap.min.css">
@@ -32,7 +34,7 @@
                             <img class="rounded-circle" src="~/Content/Admin/assets/img/user.jpg" width="24" alt="Admin">
                             <span class="status online"></span>
                         </span>
-                        <span>Admin</span>
+                        <span> Dr.@Session["Dr_FirstName"]</span>
                     </a>
                     <div class="dropdown-menu">
 
@@ -62,15 +64,19 @@
                         <li>
                             <a href="@Url.Action("Prescription", "Doctor")"><i class="fa fa-sticky-note"></i> <span>Prescription</span></a>
                         </li>
+
+                        <li>
+                            <a href="@Url.Action("Schedule","Doctor")"><i class="fa fa-calendar-check-o"></i> <span>Schedule</span></a>
+                        </li>
+
+
                         @*<li>
             <a href="@Url.Action("List_Patient","Admin")"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
         </li>
         <li>
             <a href="@Url.Action("List_Appointment","Admin")"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
         </li>
-        <li>
-            <a href="@Url.Action("Schedule","Admin")"><i class="fa fa-calendar-check-o"></i> <span>Doctor Schedule</span></a>
-        </li>
+
         <li>
             <a href="@Url.Action("List_Department","Admin")"><i class="fa fa-hospital-o"></i> <span>Departments</span></a>
         </li>
@@ -127,4 +133,3 @@
 
 
 </html>
-

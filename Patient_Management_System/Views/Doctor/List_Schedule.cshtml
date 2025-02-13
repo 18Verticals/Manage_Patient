@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Patient_Management_System.Models.ScheduleTbl>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Doctor.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-4 col-3">
+        <h4 class="page-title">Schedule</h4>
+    </div>
+
+    <div class="col-sm-8 col-9 text-right m-b-20">
+        <a href="@Url.Action("Add_Schedule", "Doctor")" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Schedule</a>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>ID</th>
+        <th>Doctor</th>
+        <th>Specialities</th>
+        <th>Availabe Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Status</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-right">
+                <a class="dropdown-item" href="@Url.Action("Edit_Schedule", new { id = item.Schedule_ID })">
+                    <i class="fa fa-pencil m-r-5"></i>
+                </a>
+                <a class="dropdown-item" href="@Url.Action("Delete_Schedule", new { id = item.Schedule_ID })">
+                    <i class="fa fa-trash-o m-r-5"></i>
+                </a>
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Schedule_ID)
+            </td>
+            <td>
+                Dr. @(item.DoctorTbl.Dr_FirstName ?? "N/A") @(item.DoctorTbl.Dr_LastName ?? "N/A")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentTbl.Dept_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Available_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Start_Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.End_Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+
+        </tr>
+    }
+</table>

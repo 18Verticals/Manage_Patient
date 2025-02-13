@@ -573,7 +573,7 @@ namespace Patient_Management_System.Controllers
         {
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name");
             ViewBag.Doctor_ID = new SelectList(
-      db.DoctorTbls.Select(d => new {
+          db.DoctorTbls.Select(d => new {
           Doctor_ID = d.Doctor_ID,
           FullName = d.Dr_FirstName + " " + d.Dr_LastName
       }), "Doctor_ID", "FullName"); return View();

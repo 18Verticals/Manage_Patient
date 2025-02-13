@@ -9,6 +9,8 @@ namespace Patient_Management_System.ViewModel
 {
     public class AppointmentVM
     {
+        internal string Email;
+
         public int Appointment_ID { get; set; }
 
         public Nullable<int> Doctor_ID { get; set; }    

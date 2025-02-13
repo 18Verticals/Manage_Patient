@@ -135,7 +135,7 @@ a:focus {
 	border-radius: 0;
 	box-shadow: none;
 	padding: 0.469rem 0.75rem;
-	border-color: #eaeaea;
+	/*border-color: #eaeaea;*/
 	font-size: 14px;
 	min-height: 40px;
 }
@@ -242,8 +242,12 @@ textarea.form-control {
 
 	justify-content: center;
 	align-items: center;
-	margin-top: 20px;
+	margin-top: 40px;
 }
+
+
+
+
 
 /* Styling the table */
 table {

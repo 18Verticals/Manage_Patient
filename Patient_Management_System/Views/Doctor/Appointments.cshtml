@@ -13,27 +13,32 @@
     </div>
 </div>
 
-<table border="3">
-    <tr>
-        <th>Patient Name</th>
-        <th>Appointment Date</th>
-        <th>Email</th>
-        <th>Diseases</th>
-        <th>Apt_Time</th>
-        <th>Description</th>
-    </tr>
-    @foreach (var appointment in Model)
-    {
-        <tr>
-            <td>@appointment.P_FirstName</td>
-            <td>@(appointment.Apt_Date.HasValue ? appointment.Apt_Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
-            <td>@appointment.Email</td>
-            <td>@appointment.Diseases</td>
-            <td>@appointment.Apt_Time</td>
-            <td>@appointment.Description</td>
-        </tr>
-    }
-</table>
+<div class="table-container">
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Patient Name</th>
+                <th>Appointment Date</th>
+                <th>Phone</th>
+                <th>Diseases</th>
+                <th>Apt_Time</th>
+                <th>Description</th>
+            </tr>
+            @foreach (var appointment in Model)
+            {
+                <tr>
+                    <td>@appointment.P_FirstName</td>
+                    <td>@(appointment.Apt_Date.HasValue ? appointment.Apt_Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
+                    <td>@appointment.Phone</td>
+                    <td>@appointment.Diseases</td>
+                    <td>@appointment.Apt_Time</td>
+                    <td>@appointment.Description</td>
+                </tr>
+            }
+
+            </tbody>
+    </table>
+</div>
 
 <style>
     .container {

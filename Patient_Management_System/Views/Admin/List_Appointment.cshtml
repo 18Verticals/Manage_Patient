@@ -35,25 +35,26 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     @foreach (var aptVM in Model)
                     {
 
-           <tr>
-                         <td class="text-right">
-                            <a class="dropdown-item" href="@Url.Action("Edit_Appointment","Admin", new { aptId =aptVM.Appointment_ID })"><i class="fa fa-pencil m-r-5"></i></a>
-                            <a class="dropdown-item" href="@Url.Action("Delete_Appointment","Admin", new { aptId =aptVM.Appointment_ID })"><i class="fa fa-trash-o m-r-5"></i> </a>
-                         </td>
-                         <td>@aptVM.Appointment_ID</td>
-                         <td>@aptVM.Dr_FirstName</td>
-                         <td>@aptVM.Dept_Name</td>
-                         <td>@aptVM.P_FirstName</td>
-                         <td>@aptVM.Apt_Date.ToString("dd-MM-yyyy")</td>
-                         <td>@aptVM.Apt_Time</td>
-                         <td>@aptVM.Description</td>
-                         <td>@aptVM.Diseases</td>
-                         <td>@aptVM.Phone</td>
+                        <tr>
+                            <td class="text-right">
+                                <a class="dropdown-item" href="@Url.Action("Edit_Appointment","Admin", new { aptId =aptVM.Appointment_ID })"><i class="fa fa-pencil m-r-5"></i></a>
+                                <a class="dropdown-item" href="@Url.Action("Delete_Appointment","Admin", new { aptId =aptVM.Appointment_ID })"><i class="fa fa-trash-o m-r-5"></i> </a>
+                            </td>
+                            <td>@aptVM.Appointment_ID</td>
+                            <td>@aptVM.Dr_FirstName</td>
+                            <td>@aptVM.Dept_Name</td>
+                            <td>@aptVM.P_FirstName</td>
+                            <td>@aptVM.Apt_Date.ToString("dd-MM-yyyy")</td>
+                            <td>@aptVM.Apt_Time</td>
+                            <td>@aptVM.Description</td>
+                            <td>@aptVM.Diseases</td>
+                            <td>@aptVM.Phone</td>
 
-=
+                        </tr>
                         <tr>
                             <td class="text-right">
                                 <a class="dropdown-item" href="@Url.Action("Edit_Appointment","Admin", new { aptId =aptVM.Appointment_ID })"><i class="fa fa-pencil m-r-5"></i></a>
@@ -70,9 +71,9 @@
 
                             <td>@aptVM.Phone</td>
 
-         </tr>
-                    }
-                </tbody>
+                        </tr>
+                        }
+                    </tbody>
             </table>
         </div>
     </div>
