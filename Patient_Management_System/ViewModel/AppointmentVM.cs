@@ -21,9 +21,7 @@ namespace Patient_Management_System.ViewModel
         public Nullable<System.TimeSpan> Apt_Time { get; set; }
         public string Description { get; set; }
         public string Diseases { get; set; }
-
         public string Phone { get; set; }   
-
         public virtual DepartmentTbl DepartmentTbl { get; set; }
         public virtual DoctorTbl DoctorTbl { get; set; }
         public virtual PatientsTbl PatientsTbl { get; set; } 
