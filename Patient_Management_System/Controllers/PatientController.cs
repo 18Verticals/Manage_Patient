@@ -1,4 +1,4 @@
-﻿using Patient_Management_System.ViewModel;
+using Patient_Management_System.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;

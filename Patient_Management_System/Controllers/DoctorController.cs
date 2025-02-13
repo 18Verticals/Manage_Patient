@@ -10,6 +10,9 @@ using System.Web.Mvc;
 using Patient_Management_System.ViewModel;
 using static System.Collections.Specialized.BitVector32;
 
+using System.Data.Entity;
+
+
 namespace Patient_Management_System.Controllers
 {
     public class DoctorController : Controller
@@ -70,7 +73,6 @@ namespace Patient_Management_System.Controllers
             return View();
         }
 
-
         // GET: Doctor/Appointments
         public ActionResult Appointments()
         {
@@ -119,6 +121,102 @@ namespace Patient_Management_System.Controllers
             return RedirectToAction("Login");
         }
 
+
+
+
+        public ActionResult Add_Schedule()
+        {
+            ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name");
+            ViewBag.Doctor_ID = new SelectList(
+          db.DoctorTbls.Select(d => new {
+              Doctor_ID = d.Doctor_ID,
+              FullName = d.Dr_FirstName + " " + d.Dr_LastName
+          }), "Doctor_ID", "FullName"); return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add_Schedule([Bind(Include = "Schedule_ID,Doctor_ID,Dept_ID,Available_Date,Start_Time,End_Time,Status")] ScheduleTbl scheduleTbl)
+        {
+            if (ModelState.IsValid)
+            {
+                db.ScheduleTbls.Add(scheduleTbl);
+                db.SaveChanges();
+                return RedirectToAction("Schedule");
+            }
+
+            ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", scheduleTbl.Dept_ID);
+            ViewBag.Doctor_ID = new SelectList(
+            db.DoctorTbls.Select(d => new {
+                Doctor_ID = d.Doctor_ID,
+                FullName = d.Dr_FirstName + " " + d.Dr_LastName
+            }), "Doctor_ID", "FullName", scheduleTbl.Doctor_ID);
+            return View(scheduleTbl);
+        }
+
+
+        public ActionResult List_Schedule()
+        {
+            var scheduleTbls = db.ScheduleTbls.Include(s => s.DepartmentTbl).Include(s => s.DoctorTbl);
+            return View(scheduleTbls.ToList());
+        }
+
+
+
+
+
+        [HttpGet]
+        public ActionResult Add_Prescription()
+        {
+            ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName");
+            ViewBag.Patient_ID = new SelectList(db.PatientsTbls, "Patient_Id", "P_FirstName");
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Add_Prescription(PrescriptionVM prescVM)
+        {
+            SqlConnection conn = new SqlConnection(connectionString);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (conn)
+                    {
+                        conn.Open();
+                        using (SqlCommand cmd = new SqlCommand("sp_Add_Prescription", conn))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@Doctor_ID", prescVM.Doctor_ID);
+                            cmd.Parameters.AddWithValue("@Patient_ID", prescVM.Patient_ID);
+                            cmd.Parameters.AddWithValue("@DateIssued", prescVM.DateIssued);
+                            cmd.Parameters.AddWithValue("@Medication", prescVM.Medication);
+                            cmd.Parameters.AddWithValue("@Dosage", prescVM.Dosage);
+                            cmd.Parameters.AddWithValue("@Instructions", prescVM.Instructions);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    return RedirectToAction("Prescription", "Doctor");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "An error occurred: " + ex.Message;
+                    System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
+                }
+            }
+            else
+            {
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    System.Diagnostics.Debug.WriteLine($"Validation Error: {error.ErrorMessage}");
+                }
+            }
+            ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", prescVM.Doctor_ID);
+            ViewBag.Patient_ID = new SelectList(db.PatientsTbls, "Patient_ID", "P_FirstName", prescVM.Patient_ID);
+
+            return View(prescVM);
+        }
+
+
         // GET: Doctor/Prescription
         public ActionResult Prescription()
         {
@@ -153,20 +251,9 @@ namespace Patient_Management_System.Controllers
                     reader.Close();
                 }
             }
+
             return View(prescriptions);
         }
     }
 }
     
-
-
-
-
-
-
-
-
-
-
-
-
