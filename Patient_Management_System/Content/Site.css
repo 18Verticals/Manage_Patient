@@ -18,3 +18,15 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.sidebar-nav a,
+.nav-link {
+    text-decoration: none !important; /* Remove underline */
+    color: inherit; /* Keep text color */
+}
+
+    .sidebar-nav a:hover,
+    .nav-link:hover {
+        text-decoration: none !important; /* Ensure no underline on hover */
+    }
+
