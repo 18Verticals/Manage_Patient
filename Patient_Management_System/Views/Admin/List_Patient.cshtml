@@ -18,12 +18,14 @@
                     <tr>
                         <th class="text-right"></th>
                         <th>ID</th>
+                        <th>IMAGE</th>
                         <th>FIRST NAME</th>
                         <th>MIDDLE NAME</th>
                         <th>LAST NAME</th>
                         <th>GENDER</th>
                         <th>DOB</th>
                         <th>EMAIL</th>
+                        <th>PASSWORD</th>
                         <th>PHONE</th>
                         <th>BLOOD GRP</th>
                         <th>ADDRESS</th>
@@ -31,8 +33,8 @@
                         <th>STATE</th>
                         <th>PINCODE</th>
                         <th>MESSAGE</th>
-                        <th>IMAGE</th>
-                        <th>PASSWORD</th>
+
+
 
 
                     </tr>
@@ -50,19 +52,6 @@
                                 </a>
                             </td>
                             <td>@patientTbl.Patient_Id</td>
-                            <td>@patientTbl.P_FirstName</td>
-                            <td>@patientTbl.P_MiddleName</td>
-                            <td>@patientTbl.P_LastName</td>
-                            <td>@patientTbl.P_Gender</td>
-                            <td>@patientTbl.P_DOB.ToString("dd-MM-yyyy")</td>
-                            <td>@patientTbl.P_Email</td>
-                            <td>@patientTbl.P_Phone</td>
-                            <td>@patientTbl.P_BloodGrp</td>
-                            <td>@patientTbl.P_Address</td>
-                            <td>@patientTbl.P_City</td>
-                            <td>@patientTbl.P_State</td>
-                            <td>@patientTbl.P_Pincode</td>
-                            <td>@patientTbl.P_Message</td>
                             <td>
                                 @if (!string.IsNullOrEmpty(patientTbl.P_Image))
                                 {
@@ -73,7 +62,22 @@
                                     <span>No Image</span>
                                 }
                             </td>
+                            <td>@patientTbl.P_FirstName</td>
+                            <td>@patientTbl.P_MiddleName</td>
+                            <td>@patientTbl.P_LastName</td>
+                            <td>@patientTbl.P_Gender</td>
+                            <td>@patientTbl.P_DOB.ToString("dd-MM-yyyy")</td>
+                            <td>@patientTbl.P_Email</td>
                             <td>@patientTbl.P_Password</td>
+                            <td>@patientTbl.P_Phone</td>
+                            <td>@patientTbl.P_BloodGrp</td>
+                            <td>@patientTbl.P_Address</td>
+                            <td>@patientTbl.P_City</td>
+                            <td>@patientTbl.P_State</td>
+                            <td>@patientTbl.P_Pincode</td>
+                            <td>@patientTbl.P_Message</td>
+
+
                         </tr>
                     }
                 </tbody>

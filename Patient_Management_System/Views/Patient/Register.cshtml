@@ -1,9 +1,9 @@
-﻿@model Patient_Management_System.Models.PatientsTbl
+﻿@model Patient_Management_System.ViewModel.PatientVM
 @{
     ViewBag.Title = "Registration";
 }
 
-@using (Html.BeginForm("Register", "PatientsTbl", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Register", "Patient", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 
     <head>

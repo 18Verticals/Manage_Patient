@@ -5,9 +5,9 @@
 }
 
 <h2>Are you sure you want to delete the doctor?</h2>
-<form method="post" action="@Url.Action("Delete_Specialities", "Admin")">
+<form method="post" action="@Url.Action("Delete_Department", "Admin")">
 
     <input type="hidden" name="DeptId" value="@Model.Dept_ID" />
     <button type="submit">Yes, Delete</button>
-    <a href="@Url.Action("List_Specialities", "Admin")">Cancel</a>
+    <a href="@Url.Action("List_Department", "Admin")">Cancel</a>
 </form>
