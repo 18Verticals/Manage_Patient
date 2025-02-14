@@ -246,6 +246,17 @@ textarea.form-control {
 }
 
 
+.sidebar-nav a {
+	text-decoration: none !important; /* Remove underline */
+}
+
+	.sidebar-nav a:hover {
+		text-decoration: none !important; /* Ensure hover state does not add underline */
+	}
+
+.nav-link {
+	text-decoration: none !important;
+}
 
 
 

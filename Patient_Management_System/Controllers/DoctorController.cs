@@ -11,6 +11,7 @@ using Patient_Management_System.ViewModel;
 using static System.Collections.Specialized.BitVector32;
 
 using System.Data.Entity;
+using System.Net;
 
 
 namespace Patient_Management_System.Controllers
@@ -141,7 +142,7 @@ namespace Patient_Management_System.Controllers
             {
                 db.ScheduleTbls.Add(scheduleTbl);
                 db.SaveChanges();
-                return RedirectToAction("Schedule");
+                return RedirectToAction("List_Schedule");
             }
 
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", scheduleTbl.Dept_ID);
@@ -161,60 +162,133 @@ namespace Patient_Management_System.Controllers
         }
 
 
+        public ActionResult Edit_Schedule(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ScheduleTbl scheduleTbl = db.ScheduleTbls.Find(id);
+            if (scheduleTbl == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", scheduleTbl.Dept_ID);
+            ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", scheduleTbl.Doctor_ID);
+            return View(scheduleTbl);
+        }
+
+        [HttpPost]
+        public ActionResult Edit_Schedule([Bind(Include = "Schedule_ID,Doctor_ID,Dept_ID,Available_Date,Start_Time,End_Time,Status")] ScheduleTbl scheduleTbl)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(scheduleTbl).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("List_Schedule");
+            }
+            ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", scheduleTbl.Dept_ID);
+            ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", scheduleTbl.Doctor_ID);
+            return View(scheduleTbl);
+        }
+
 
 
 
         [HttpGet]
-        public ActionResult Add_Prescription()
+        public ActionResult Delete_Schedule(int id)
         {
-            ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName");
-            ViewBag.Patient_ID = new SelectList(db.PatientsTbls, "Patient_Id", "P_FirstName");
-
-            return View();
+            var schedule = db.ScheduleTbls.Find(id);
+            if (schedule == null)
+            {
+                return HttpNotFound();
+            }
+            return View(schedule);
         }
-        [HttpPost]
-        public ActionResult Add_Prescription(PrescriptionVM prescVM)
+
+        [HttpPost, ActionName("Delete_Schedule")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var schedule = db.ScheduleTbls.Find(id);
+            if (schedule != null)
+            {
+                db.ScheduleTbls.Remove(schedule);
+                db.SaveChanges();
+            }
+            return RedirectToAction("List_Schedule");
+        }
+
+
+        public ActionResult Delete_Prescription(int PrescId)
         {
             SqlConnection conn = new SqlConnection(connectionString);
+            try
+            {
+                using (conn)
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("sp_Delete_Prescription", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Presc_ID", PrescId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                // Correct controller name in Redirect
+                return RedirectToAction("Prescription", "Doctor");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "An error occurred while deleting the prescription: " + ex.Message;
+                System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
+
+                // Instead of redirecting to Admin Payment List, show the Prescription list again
+                return RedirectToAction("Prescription", "Doctor");
+            }
+        }
+      
+        // GET: Doctor/AddPrescription
+        public ActionResult Add_Prescription()
+        {
+            if (Session["Doctor_ID"] == null)
+                return RedirectToAction("Login");
+            ViewBag.Patient_ID = new SelectList(db.PatientsTbls, "Patient_Id", "P_FirstName");
+            return View();
+        }
+
+        // POST: Doctor/AddPrescription
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add_Prescription(PrescriptionVM model)
+        {
+            if (Session["Doctor_ID"] == null)
+                return RedirectToAction("Login");
+
             if (ModelState.IsValid)
             {
-                try
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    using (conn)
+                    using (SqlCommand cmd = new SqlCommand("[sp_AddDrPrescription]", con))
                     {
-                        conn.Open();
-                        using (SqlCommand cmd = new SqlCommand("sp_Add_Prescription", conn))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@Doctor_ID", prescVM.Doctor_ID);
-                            cmd.Parameters.AddWithValue("@Patient_ID", prescVM.Patient_ID);
-                            cmd.Parameters.AddWithValue("@DateIssued", prescVM.DateIssued);
-                            cmd.Parameters.AddWithValue("@Medication", prescVM.Medication);
-                            cmd.Parameters.AddWithValue("@Dosage", prescVM.Dosage);
-                            cmd.Parameters.AddWithValue("@Instructions", prescVM.Instructions);
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-                    return RedirectToAction("Prescription", "Doctor");
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.Error = "An error occurred: " + ex.Message;
-                    System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
-                }
-            }
-            else
-            {
-                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-                {
-                    System.Diagnostics.Debug.WriteLine($"Validation Error: {error.ErrorMessage}");
-                }
-            }
-            ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", prescVM.Doctor_ID);
-            ViewBag.Patient_ID = new SelectList(db.PatientsTbls, "Patient_ID", "P_FirstName", prescVM.Patient_ID);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Doctor_ID", Convert.ToInt32(Session["Doctor_ID"]));
+                        cmd.Parameters.AddWithValue("@Patient_ID", model.Patient_ID);
+                        cmd.Parameters.AddWithValue("@Medication", model.Medication);
+                        cmd.Parameters.AddWithValue("@Dosage", model.Dosage);
+                        cmd.Parameters.AddWithValue("@Instructions", model.Instructions);
+                        
 
-            return View(prescVM);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                return RedirectToAction("Prescription"); // Redirect to prescription list after adding
+            }
+            ViewBag.Patient_ID = new SelectList(db.PatientsTbls, "Patient_ID", "P_FirstName", model.Patient_ID);
+            return View(model);
         }
+
 
 
         // GET: Doctor/Prescription

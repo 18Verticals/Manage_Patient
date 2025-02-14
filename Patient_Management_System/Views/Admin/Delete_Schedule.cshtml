@@ -1,74 +1,76 @@
 ﻿@model Patient_Management_System.Models.ScheduleTbl
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Delete Schedule";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 
-<h2>Delete</h2>
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-danger text-center">Delete Schedule</h2>
+        <h4 class="text-center">Are you sure you want to delete this schedule?</h4>
+        <hr />
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>ScheduleTbl</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Available_Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Available_Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Start_Time)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Start_Time)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.End_Time)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.End_Time)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DepartmentTbl.Dept_Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DepartmentTbl.Dept_Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DoctorTbl.Dr_FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DoctorTbl.Dr_FirstName)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Schedule")
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Available Date</th>
+                        <td>@Html.DisplayFor(model => model.Available_Date)</td>
+                    </tr>
+                    <tr>
+                        <th>Start Time</th>
+                        <td>@Html.DisplayFor(model => model.Start_Time)</td>
+                    </tr>
+                    <tr>
+                        <th>End Time</th>
+                        <td>@Html.DisplayFor(model => model.End_Time)</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>@Html.DisplayFor(model => model.Status)</td>
+                    </tr>
+                    <tr>
+                        <th>Department</th>
+                        <td>@Html.DisplayFor(model => model.DepartmentTbl.Dept_Name)</td>
+                    </tr>
+                    <tr>
+                        <th>Doctor</th>
+                        <td>Dr. @Html.DisplayFor(model => model.DoctorTbl.Dr_FirstName)</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    }
+
+        <div class="text-center">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-danger btn-lg">
+                    <i class="fa fa-trash"></i> Delete
+                </button>
+                <a href="@Url.Action("Schedule", "Doctor")" class="btn btn-secondary btn-lg">
+                    <i class="fa fa-arrow-left"></i> Back to List
+                </a>
+            }
+        </div>
+    </div>
 </div>
+
+<style>
+    .card {
+        max-width: 600px;
+        margin: auto;
+        border-radius: 10px;
+    }
+
+    th {
+        background-color: #f8f9fa;
+        text-align: left;
+        padding: 10px;
+    }
+
+    td {
+        padding: 10px;
+    }
+</style>

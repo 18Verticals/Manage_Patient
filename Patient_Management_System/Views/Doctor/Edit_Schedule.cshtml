@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    Layout = "~/Views/Shared/_Layout_Doctor.cshtml";
 }
 @using (Html.BeginForm())
 {
@@ -36,7 +36,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Department</label>
+                            <label>Specialities</label>
                             @Html.DropDownList("Dept_ID", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                         </div>
@@ -47,8 +47,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Available Days</label>
-                            @Html.EditorFor(model => model.Available_Days, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Available_Days, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Available_Date, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Available_Date, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
@@ -99,8 +99,8 @@
                         <button class="btn btn-primary submit-btn" style="margin-left:130px; ">Edit Schedule</button>
                     </div>
                 </div>
-</div>
+        </div>
     </div>
-                    }
+}
 
-                   
+

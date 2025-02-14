@@ -8,13 +8,8 @@
 <!-- Web Banner Section with Custom Color -->
 <div class="container p-4 mb-3 rounded d-flex justify-content-center align-items-center"
      style="background: linear-gradient(to right, #5e87e6, #d5e3c3); color: white; height: 100px;">
-
     <h1 class="display-6 text-center">Prescription Details</h1>
-
-
 </div>
-
-
 
 @if (Model != null && Model.Any())
 {
@@ -22,6 +17,7 @@
         <table id="prescriptionTable" class="table table-bordered text-center">
             <thead>
                 <tr>
+                    <th>Actions</th>
                     <th>Prescription ID</th>
                     <th>Patient Name</th>
                     <th>Date Issued</th>
@@ -34,6 +30,16 @@
                 @foreach (var prescription in Model)
                 {
                     <tr>
+                        <td class="text-center">
+ 
+                            <a class="btn btn-sm btn-warning" href="@Url.Action("Edit_Prescription", "Doctor", new { PrescId = prescription.Presc_ID })">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <!-- Delete Link -->
+                            <a class="btn btn-sm btn-danger" href="@Url.Action("Delete_Prescription", "Doctor", new { PrescId = prescription.Presc_ID })">
+                                <i class="fa fa-trash-o"></i>
+                            </a>
+                        </td>
                         <td>@prescription.Presc_ID</td>
                         <td>@prescription.P_FirstName</td>
                         <td>@prescription.DateIssued.ToShortDateString()</td>
@@ -51,8 +57,10 @@ else
     <p class="text-center">No prescriptions found.</p>
 }
 
-<div class="text-center mt-3">
-    <a href="@Url.Action("Add_Prescription", "Doctor")" class="btn btn-primary">Add Prescription</a>
+<div class="d-flex justify-content-center mt-3">
+    <a href="@Url.Action("Add_Prescription", "Doctor")" class="btn btn-primary btn-rounded">
+        <i class="fa fa-plus"></i> Add Prescription
+    </a>
 </div>
 
 <!-- Include jQuery and DataTables (if not already included in layout) -->
@@ -67,5 +75,3 @@ else
         });
     });
 </script>
-
-
