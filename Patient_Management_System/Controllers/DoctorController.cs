@@ -44,12 +44,9 @@ namespace Patient_Management_System.Controllers
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Dr_Email", email);
                     cmd.Parameters.AddWithValue("@Dr_Password", password);
-
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
-
                     if (reader.Read())
-
                     {
                         doctor = new DoctorVM
                         {
@@ -62,18 +59,15 @@ namespace Patient_Management_System.Controllers
                     reader.Close();
                 }
             }
-
             if (doctor != null)
             {
                 Session["Doctor_ID"] = doctor.Doctor_ID;
                 Session["Dr_FirstName"] = doctor.Dr_FirstName;
                 return RedirectToAction("Appointments");
             }
-
             ViewBag.Error = "Invalid email or password!";
             return View();
         }
-
         // GET: Doctor/Appointments
         public ActionResult Appointments()
         {
@@ -121,9 +115,6 @@ namespace Patient_Management_System.Controllers
             Session.Clear();
             return RedirectToAction("Login");
         }
-
-
-
 
         public ActionResult Add_Schedule()
         {

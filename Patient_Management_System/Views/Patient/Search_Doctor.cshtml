@@ -10,25 +10,26 @@
 
 <style>
     body {
-        background-color: #f8f9fa;
+        background: #f9f9f9;
+        font-family: 'Poppins', sans-serif;
     }
 
     .search-container {
         display: flex;
         align-items: center;
-        background: #e3f8e6;
+        background: #fff;
         border-radius: 50px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
         max-width: 600px;
         width: 100%;
-        padding: 5px;
+        padding: 8px;
+        margin: 0 auto;
     }
 
         .search-container i {
             padding: 15px;
             font-size: 18px;
-            color: #333;
+            color: #555;
         }
 
         .search-container input {
@@ -36,69 +37,99 @@
             border: none;
             outline: none;
             background: transparent;
-            padding: 15px;
+            padding: 10px;
             font-size: 16px;
         }
 
         .search-container button {
-            background: #f35d00;
+            background: linear-gradient(120deg, #ff5722, #ff9800);
             border: none;
             color: white;
-            padding: 15px 30px;
+            padding: 12px 25px;
             font-size: 16px;
             cursor: pointer;
             border-radius: 50px;
         }
 
-            .search-container button:hover {
-                background: #0d0e0e;
-            }
-
-    .table-container {
+    /* Doctor Card */
+    .doctor-card {
         background: white;
-        padding: 20px;
         border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .alert-custom {
-        background: #ffeeba;
-        color: #856404;
         padding: 15px;
-        border-radius: 10px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
         text-align: center;
-        font-weight: bold;
+        margin: 10px auto;
+        width: 250px;
     }
 
-    .table {
-        border-radius: 10px;
-        overflow: hidden;
-    }
+        .doctor-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
 
-    thead {
+    .doctor-name {
         font-size: 18px;
         font-weight: bold;
+        color: #333;
     }
 
-    tbody tr {
-        transition: 0.3s;
+    .doctor-department {
+        color: #007bff;
+        font-size: 16px;
+        font-weight: bold;
     }
 
-    .doctor-row:hover {
-        background-color: #e3f8e6;
-        transform: scale(1.02);
+    .doctor-qualification {
+        font-size: 14px;
+        color: #777;
     }
 
-    .table-responsive {
-        overflow-x: auto;
+    .doctor-fees {
+        font-size: 16px;
+        font-weight: bold;
+        color: #28a745;
+    }
+
+    .doctor-actions a {
+        display: block;
+        margin-top: 8px;
+        padding: 8px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .btn-view-profile {
+        border: 1px solid #007bff;
+        color: #007bff;
+        background: white;
+    }
+
+    .btn-book {
+        background: #17a2b8;
+        color: white;
+    }
+
+    /* Slider */
+    .carousel-item {
+        display: flex;
+        justify-content: center;
     }
 </style>
 
 <div class="container mt-5">
-    <h2 class="text-center mb-4">🔍 Search Doctors</h2>
+    <h2 class="text-center mb-4">
+        <span style="color: #ff5722; font-weight: bold;">S</span>earch
+        <span style="color: #007bff; font-weight: bold;">D</span>octor,
+        <span style="color: #ff5722; font-weight: bold;">M</span>ake
+        <span style="color: #007bff; font-weight: bold;">A</span>ppointment
+    </h2>
 
     <div class="d-flex justify-content-center">
-        @using (Html.BeginForm("Search_Doctor", "Default", FormMethod.Get, new { @class = "search-container" }))
+        @using (Html.BeginForm("Search_Doctor", "Patient", FormMethod.Get, new { @class = "search-container" }))
         {
             <i class="fas fa-search"></i>
             <input type="text" name="searchTerm" id="searchTerm" placeholder="Search by Doctor or Department">
@@ -106,52 +137,71 @@
         }
     </div>
 
-    @if (Model != null && Model.Count > 0)
-    {
-        <div class="table-container mt-4">
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered align-middle">
-                    <thead class="table-success text-center">
-                        <tr>
-                            <th>             </th>
-                            <th>👨‍⚕️ Doctor Name</th>
-                            <th>🏥 Department</th>
-                            <th> Qualification</th>
-                            <th> Fees</th>
+    <div class="mt-4">
+        @if (Model != null && Model.Count > 0)
+        {
+            <div id="doctorCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        var doctor = Model[i];
+                        <div class="carousel-item @(i == 0 ? "active" : "")">
+                            <div class="doctor-card">
+                                <!-- Doctor Image -->
+                                @if (!string.IsNullOrEmpty(doctor.Dr_ImagePath))
+                                {
+                                    <img src="@Url.Content(doctor.Dr_ImagePath)" alt="Doctor Image">
+                                }
+                                else
+                                {
+                                    <img src="~/Images/default-doctor.png" alt="No Image">
+                                }
 
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        @foreach (var doctor in Model)
-                        {
-                            <tr class="doctor-row">
-                                <td>
-                                    @if (!string.IsNullOrEmpty(doctor.Dr_ImagePath))
-                                    {
-                                        <img src="@Url.Content(doctor.Dr_ImagePath)" alt="Doctor Image"
-                                             style="width: 80px; height: 80px; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);" />
-                                    }
-                                    else
-                                    {
-                                        <span>No Image</span>
-                                    }
-                                </td>
-                                <td><i class="fas fa-user-md me-2"></i>@doctor.Dr_FirstName</td>
-                                <td><i class="fas fa-hospital me-2"></i>@doctor.Dept_Name</td>
-                                <td>@doctor.Dr_Qualification</td>
-                                <td>@doctor.Fees</td>
+                                <!-- Doctor Details -->
+                                <div class="doctor-name">
+                                    <i class="fas fa-user-md me-2"></i>@doctor.Dr_FirstName
+                                </div>
+                                <div class="doctor-department">
+                                    <i class="fas fa-hospital me-2"></i>@doctor.Dept_Name
+                                </div>
+                                <div class="doctor-qualification">
+                                    <i class="fas fa-graduation-cap me-2"></i>@doctor.Dr_Qualification
+                                </div>
+                                <div class="doctor-fees">
+                                    <i class="fas fa-money-bill-wave me-2"></i>₹@doctor.Fees
+                                </div>
 
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                                <!-- Action Buttons -->
+                                <div class="doctor-actions">
+                                    <a href="@Url.Action("ViewProfile", "Doctor", new { id = doctor.Doctor_ID })" class="btn-view-profile">
+                                        View Profile
+                                    </a>
+                                    <a href="@Url.Action("BookAppointment", "Patient", new { id = doctor.Doctor_ID })" class="btn-book">
+                                        Book Appointment
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#doctorCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#doctorCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </button>
             </div>
-        </div>
-    }
-    else
-    {
-        <div class="alert-custom mt-4">
-            <strong>@ViewBag.Message</strong>
-        </div>
-    }
+        }
+        else
+        {
+            <div class="alert alert-warning text-center mt-4">
+                <strong>No doctors found.</strong>
+            </div>
+        }
+    </div>
 </div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
