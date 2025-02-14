@@ -20,6 +20,7 @@
                     <tr>
                         <th class="text-right">ACTION</th>
                         <th>ID</th>
+                        <th>IMAGE</th>
                         <th>FIRSTNAME</th>
                         <th>LASTNAME</th>
                         <th>SPECIALITIES</th>
@@ -34,7 +35,7 @@
                         <th>STATE</th>
                         <th>PINCODE</th>
                         <th>FEES</th>
-                        <th>IMAGE</th>
+
                         <th>STATUS</th>
 
 
@@ -46,14 +47,24 @@
 
                         <tr>
                             <td class="text-right">
-                                        <a class="dropdown-item" href="@Url.Action("Edit_Doctor", new { doctorId = doctorVM.Doctor_ID })">
-                                            <i class="fa fa-pencil m-r-5"></i>
-                                        </a>
-                                        <a class="dropdown-item" href="@Url.Action("Delete_Doctor","Admin", new { doctorId = doctorVM.Doctor_ID })">
-                                            <i class="fa fa-trash-o m-r-5"></i> 
+                                <a class="dropdown-item" href="@Url.Action("Edit_Doctor", new { doctorId = doctorVM.Doctor_ID })">
+                                    <i class="fa fa-pencil m-r-5"></i>
+                                </a>
+                                <a class="dropdown-item" href="@Url.Action("Delete_Doctor","Admin", new { doctorId = doctorVM.Doctor_ID })">
+                                    <i class="fa fa-trash-o m-r-5"></i>
                             </td>
 
                             <td>@doctorVM.Doctor_ID</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(doctorVM.Dr_ImagePath))
+                                {
+                                    <img src="@Url.Content(doctorVM.Dr_ImagePath)" alt="Doctor Image" width="50" height="50" />
+                                }
+                                else
+                                {
+                                    <span>No Image</span>
+                                }
+                            </td>
                             <td>Dr.@doctorVM.Dr_FirstName</td>
                             <td>@doctorVM.Dr_LastName</td>
                             <td>@doctorVM.Dept_Name</td>
@@ -68,16 +79,7 @@
                             <td>@doctorVM.Dr_State</td>
                             <td>@doctorVM.Dr_Pincode</td>
                             <td>@doctorVM.Fees</td>
-                            <td>
-                                @if (!string.IsNullOrEmpty(doctorVM.Dr_ImagePath))
-                                {
-                                    <img src="@Url.Content(doctorVM.Dr_ImagePath)" alt="Doctor Image" width="50" height="50" />
-                                }
-                                else
-                                {
-                                    <span>No Image</span>
-                                }
-                            </td>
+
                             <td>@doctorVM.Dr_Status</td>
                         </tr>
                     }

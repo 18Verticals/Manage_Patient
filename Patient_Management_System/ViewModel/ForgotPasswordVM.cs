@@ -5,9 +5,8 @@ using System.Web;
 
 namespace Patient_Management_System.ViewModel
 {
-    public class PatientLogin
+    public class ForgotPasswordVM
     {
         public string Email { get; set; }
-        public string Password { get; set; }
     }
 }
