@@ -28,7 +28,7 @@ namespace Patient_Management_System.Controllers
             return View();
         }
 
-            [HttpPost]
+        [HttpPost]
         public ActionResult Register(PatientVM patients, HttpPostedFileBase P_Image)
         {
             string str = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
@@ -186,7 +186,7 @@ namespace Patient_Management_System.Controllers
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    // Pass required parameters
+
                     cmd.Parameters.AddWithValue("@Doctor_ID", aptVM.Doctor_ID);
                     cmd.Parameters.AddWithValue("@Dept_ID", aptVM.Dept_ID);
                     cmd.Parameters.AddWithValue("@Apt_Date", aptVM.Apt_Date);
@@ -195,7 +195,7 @@ namespace Patient_Management_System.Controllers
                     cmd.Parameters.AddWithValue("@Phone", aptVM.Phone);
                     cmd.Parameters.AddWithValue("@Diseases", aptVM.Diseases);
 
-                    // Capture the return value
+
                     SqlParameter returnValue = new SqlParameter
                     {
                         Direction = ParameterDirection.ReturnValue
@@ -233,8 +233,8 @@ namespace Patient_Management_System.Controllers
         private List<SelectListItem> GetTimeSlots()
         {
             List<SelectListItem> timeSlots = new List<SelectListItem>();
-            TimeSpan startTime = new TimeSpan(9, 30, 0); 
-            TimeSpan endTime = new TimeSpan(18, 30, 0); 
+            TimeSpan startTime = new TimeSpan(9, 30, 0);
+            TimeSpan endTime = new TimeSpan(18, 30, 0);
 
             while (startTime <= endTime)
             {
@@ -322,13 +322,11 @@ namespace Patient_Management_System.Controllers
         [HttpPost]
         public ActionResult Contact_Us(ContactVM contact)
         {
-            SqlConnection conn = new SqlConnection(connectionString);
             if (ModelState.IsValid)
             {
-
                 try
                 {
-                    using (conn)
+                    using (SqlConnection conn = new SqlConnection(connectionString))
                     {
                         conn.Open();
                         using (SqlCommand cmd = new SqlCommand("sp_Add_Contact", conn))
@@ -338,10 +336,20 @@ namespace Patient_Management_System.Controllers
                             cmd.Parameters.AddWithValue("@Email", contact.Email);
                             cmd.Parameters.AddWithValue("@Message", contact.Message);
                             cmd.Parameters.AddWithValue("@Phone", contact.Phone);
-                     
+
+                         
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                return RedirectToAction("Index", "Admin");
+                            }
+                            else
+                            {
+                                ViewBag.Error = "No data was inserted.";
+                            }
                         }
                     }
-                    return RedirectToAction("Index", "Admin");
                 }
                 catch (Exception ex)
                 {
@@ -356,10 +364,8 @@ namespace Patient_Management_System.Controllers
                     System.Diagnostics.Debug.WriteLine($"Validation Error: {error.ErrorMessage}");
                 }
             }
+
             return View(contact);
         }
-
-
-       
     }
 }

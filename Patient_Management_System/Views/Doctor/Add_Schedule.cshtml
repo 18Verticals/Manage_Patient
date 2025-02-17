@@ -12,13 +12,17 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-  
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <h4 class="page-title">Add Schedule</h4>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
             <form>
 
-                <div class="row">
+                @*<div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Doctor Name</label>
@@ -26,9 +30,9 @@
                             @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>
+                </div>*@
 
-                <div class="row">
+                @*<div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Specialities</label>
@@ -36,7 +40,7 @@
                             @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>
+                </div>*@
 
                 <div class="row">
                     <div class="col-md-6">
@@ -90,8 +94,4 @@
                 </div>
         </div>
     </div>
-
-
-
-
 }

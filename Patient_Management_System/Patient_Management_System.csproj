@@ -186,7 +186,6 @@
     <Compile Include="Controllers\Forgot_PasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
-
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -3131,7 +3130,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_Patient.cshtml" />
     <Content Include="Views\Home\Doctors.cshtml" />
@@ -3198,7 +3196,6 @@
     <Content Include="Views\Doctor\Prescription.cshtml" />
     <Content Include="Views\Doctor\Appointments.cshtml" />
     <Content Include="Views\Doctor\Add_Prescription.cshtml" />
-    <Content Include="Views\Doctor\Add_Schedule.cshtml" />
     <Content Include="Views\Doctor\List_Schedule.cshtml" />
     <Content Include="Views\Doctor\Appointments.cshtml" />
     <Content Include="Views\Patient\Search_Doctor.cshtml" />
@@ -3210,12 +3207,16 @@
     <Content Include="Views\Forgot_Password\ForgotPassword.cshtml" />
     <Content Include="Views\Patient\Login.cshtml" />
     <Content Include="Views\Patient\Register.cshtml" />
-
+    <Content Include="Views\Doctor\Add_Schedule.cshtml" />
+    <Content Include="Views\Patient\Contact_Us.cshtml" />
+    <Content Include="Views\Doctor\Today_Appointments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\img_doctor\" />
     <Folder Include="Content\UploadedImages\" />
+    <Folder Include="Views\AppointmentEmails\" />
+    <Folder Include="Views\AppointmentSMS\" />
     <Folder Include="Views\Prescription\" />
   </ItemGroup>
   <ItemGroup>
