@@ -35,9 +35,13 @@
                                 <a class="btn btn-warning btn-sm mx-1" href="@Url.Action("Edit_Schedule", new { id = item.Schedule_ID })">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <a class="btn btn-danger btn-sm mx-1" href="@Url.Action("Delete_Schedule", new { id = item.Schedule_ID })">
+
+
+                                <a class="btn btn-danger btn-sm mx-1" href="@Url.Action("Delete_Schedule", new { Schedule_ID = item.Schedule_ID })">
                                     <i class="fa fa-trash"></i>
                                 </a>
+
+                               
                             </div>
                         </td>
 

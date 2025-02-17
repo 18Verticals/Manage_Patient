@@ -10,8 +10,8 @@ namespace Patient_Management_System.ViewModel
     {
         public int Schedule_ID { get; set; }
         public int Doctor_ID { get; set; }
-        public int Dept_ID { get; set; }
-        public string Available_Days { get; set; }
+        //public int Dept_ID { get; set; }
+        public string Available_Date { get; set; }
         public System.TimeSpan Start_Time { get; set; }
         public System.TimeSpan End_Time { get; set; }
         public string Status { get; set; }
@@ -19,3 +19,5 @@ namespace Patient_Management_System.ViewModel
         public virtual DoctorTbl DoctorTbl { get; set; }
     }
 }
+
+

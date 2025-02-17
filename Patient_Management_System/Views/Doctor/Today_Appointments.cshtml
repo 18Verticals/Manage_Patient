@@ -1,0 +1,122 @@
+﻿@model List<Patient_Management_System.ViewModel.AppointmentVM>
+@{
+    Layout = "~/Views/Shared/_Layout_Doctor.cshtml";
+    ViewBag.Title = "Today's Appointments";
+}
+
+<!-- Header Section with Gradient Background -->
+<div class="container p-4 mb-3 rounded d-flex justify-content-center align-items-center"
+     style="background: linear-gradient(to right, #5e87e6, #d5e3c3); color: white; height: 100px;">
+    <h1 class="display-6 text-center">Today's Appointments</h1>
+</div>
+
+<!-- Back Button -->
+<div class="container">
+    <div class="header-section">
+        <a href="@Url.Action("Appointments", "Doctor")" class="back-btn">← Back to All Appointments</a>
+    </div>
+</div>
+
+<!-- Table Container -->
+<div class="table-container">
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Patient Name</th>
+                <th>Appointment Date</th>
+                <th>Phone</th>
+                <th>Diseases</th>
+                <th>Apt_Time</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var appointment in Model)
+                {
+                    <tr>
+                        <td>@appointment.P_FirstName</td>
+                        <td>@(appointment.Apt_Date.HasValue ? appointment.Apt_Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
+                        <td>@appointment.Phone</td>
+                        <td>@appointment.Diseases</td>
+                        <td>@appointment.Apt_Time</td>
+                        <td>@appointment.Description</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="no-appointments">No Appointments for Today</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Styling -->
+<style>
+    .container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Back Button Styling */
+    .header-section {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .back-btn {
+        text-decoration: none;
+        padding: 10px 20px;
+        background-color: #000000;
+        color: white;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background 0.3s ease;
+    }
+
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+
+    /* Table Styling */
+    .table-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .styled-table {
+        width: 80%;
+        border-collapse: collapse;
+        margin: auto;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .styled-table th, .styled-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .styled-table th {
+            background-color: #b05bd7
+            color: white;
+            text-transform: uppercase;
+        }
+
+    /* No Appointments Message */
+    .no-appointments {
+        text-align: center;
+        color: red;
+        font-weight: bold;
+        font-size: 18px;
+    }
+</style>

@@ -4,15 +4,13 @@
     ViewBag.Title = "Doctor Appointments";
 }
 
-@*<h2>Appointments for Dr. @Session["Dr_FirstName"]</h2>*@
-
 <div class="container">
     <div class="image-textbox-container">
         <img src="~/Content/Doctor/img/p1.png" alt="Doctor Image" class="doctor-image">
-        <input type="text" placeholder="Search Patient..." class="textbox" />
+        @*<input type="text" placeholder="Search Patient..." class="textbox" />*@
+        <a href="@Url.Action("Today_Appointments", "Doctor")" class="today-btn">Today's Appointments</a>
     </div>
 </div>
-
 
 <div class="table-container">
     <table class="styled-table">
@@ -25,6 +23,8 @@
                 <th>Apt_Time</th>
                 <th>Description</th>
             </tr>
+        </thead>
+        <tbody>
             @foreach (var appointment in Model)
             {
                 <tr>
@@ -36,11 +36,9 @@
                     <td>@appointment.Description</td>
                 </tr>
             }
-
-            </tbody>
+        </tbody>
     </table>
 </div>
-
 
 <style>
     .container {
@@ -52,7 +50,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
+        gap: 15px;
     }
 
     .doctor-image {
@@ -67,4 +65,19 @@
         border: 1px solid #ccc;
         border-radius: 5px;
     }
+
+    .today-btn {
+        padding: 8px 15px;
+        font-size: 16px;
+        color: white;
+        background-color: #000000;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+        .today-btn:hover {
+            background-color: #218838;
+        }
 </style>

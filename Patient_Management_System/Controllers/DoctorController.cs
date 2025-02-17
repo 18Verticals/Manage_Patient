@@ -67,7 +67,7 @@ namespace Patient_Management_System.Controllers
             ViewBag.Error = "Invalid email or password!";
             return View();
         }
-        // GET: Doctor/Appointments
+
 
         public ActionResult Profile()
         {
@@ -117,6 +117,7 @@ namespace Patient_Management_System.Controllers
 
             return View(doctorList);
         }
+        
         [HttpGet]
         public ActionResult Edit_Profile(int doctorId)
         {
@@ -211,6 +212,11 @@ namespace Patient_Management_System.Controllers
 
 
 
+
+
+
+         //GET: Doctor/Appointments
+
         public ActionResult Appointments()
         {
             if (Session["Doctor_ID"] == null)
@@ -231,19 +237,63 @@ namespace Patient_Management_System.Controllers
 
                     while (reader.Read())
                     {
-                        appointments.Add(new AppointmentVM
+                      appointments.Add(new AppointmentVM
+                      {
+                           Appointment_ID = reader["Appointment_ID"] != DBNull.Value ? Convert.ToInt32(reader["Appointment_ID"]) : 0,
+                           Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : 0,
+                           Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
+                           Phone = reader["Phone"] as string ?? string.Empty,
+                           Diseases = reader["Diseases"] as string ?? string.Empty,
+                           Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
+                           Description = reader["Description"] as string ?? string.Empty,
+                           //P_FirstName = reader["P_FirstName"] != DBNull.Value ? reader["P_FirstName"].ToString() : string.Empty,
+                      });
+
+                  }
+
+                   reader.Close();
+               }
+            }
+
+          return View(appointments);
+       }
+
+        public ActionResult  Today_Appointments()
+        {
+            if (Session["Doctor_ID"] == null)
+                return RedirectToAction("Login");
+
+            int doctorId = Convert.ToInt32(Session["Doctor_ID"]);
+            List<AppointmentVM> appointments = new List<AppointmentVM>();
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_GetDrAppointments", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Doctor_ID", doctorId);
+
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        DateTime appointmentDate = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue;
+
+                        if (appointmentDate.Date == DateTime.Today)
                         {
-                            Appointment_ID = reader["Appointment_ID"] != DBNull.Value ? Convert.ToInt32(reader["Appointment_ID"]) : 0,
-                            Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : 0,
-                            Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
-                            Phone = reader["Phone"] as string ?? string.Empty,
-                            Diseases = reader["Diseases"] as string ?? string.Empty,
-                            Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
-                            Description = reader["Description"] as string ?? string.Empty,
-                        });
-
+                            appointments.Add(new AppointmentVM
+                            {
+                                Appointment_ID = reader["Appointment_ID"] != DBNull.Value ? Convert.ToInt32(reader["Appointment_ID"]) : 0,
+                                Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : 0,
+                                Apt_Date = appointmentDate,
+                                Phone = reader["Phone"] as string ?? string.Empty,
+                                Diseases = reader["Diseases"] as string ?? string.Empty,
+                                Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
+                                Description = reader["Description"] as string ?? string.Empty,
+                            });
+                        }
                     }
-
                     reader.Close();
                 }
             }
@@ -258,33 +308,47 @@ namespace Patient_Management_System.Controllers
             return RedirectToAction("Login");
         }
 
+
+
+        // GET: Doctor/AddSchedule
         public ActionResult Add_Schedule()
         {
-            ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name");
-            ViewBag.Doctor_ID = new SelectList(
-          db.DoctorTbls.Select(d => new {
-              Doctor_ID = d.Doctor_ID,
-              FullName = d.Dr_FirstName + " " + d.Dr_LastName
-          }), "Doctor_ID", "FullName"); return View();
+            if (Session["Doctor_ID"] == null)  
+                return RedirectToAction("Login");
+
+            return View();
         }
 
         [HttpPost]
-        public ActionResult Add_Schedule([Bind(Include = "Schedule_ID,Doctor_ID,Dept_ID,Available_Date,Start_Time,End_Time,Status")] ScheduleTbl scheduleTbl)
+        [ValidateAntiForgeryToken]
+        public ActionResult Add_Schedule(ScheduleVM model)
         {
+            if (Session["Doctor_ID"] == null)
+                return RedirectToAction("Login");
+
+            model.Doctor_ID = Convert.ToInt32(Session["Doctor_ID"]); // Ensure Doctor_ID comes from session
+
             if (ModelState.IsValid)
             {
-                db.ScheduleTbls.Add(scheduleTbl);
-                db.SaveChanges();
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_AddSchedule", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@Doctor_ID", model.Doctor_ID);
+                        cmd.Parameters.AddWithValue("@Start_Time", model.Start_Time);
+                        cmd.Parameters.AddWithValue("@End_Time", model.End_Time);
+                        cmd.Parameters.AddWithValue("@Status", model.Status);
+                        cmd.Parameters.AddWithValue("@Available_Date", model.Available_Date);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
                 return RedirectToAction("List_Schedule");
             }
-
-            ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", scheduleTbl.Dept_ID);
-            ViewBag.Doctor_ID = new SelectList(
-            db.DoctorTbls.Select(d => new {
-                Doctor_ID = d.Doctor_ID,
-                FullName = d.Dr_FirstName + " " + d.Dr_LastName
-            }), "Doctor_ID", "FullName", scheduleTbl.Doctor_ID);
-            return View(scheduleTbl);
+            return View(model);
         }
 
 
@@ -325,29 +389,34 @@ namespace Patient_Management_System.Controllers
             return View(scheduleTbl);
         }
 
-        [HttpGet]
-        public ActionResult Delete_Schedule(int id)
+
+        
+        public ActionResult Delete_Schedule(int Schedule_ID)
+
         {
-            var schedule = db.ScheduleTbls.Find(id);
-            if (schedule == null)
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                return HttpNotFound();
+                try
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("sp_Delete_Schedule", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Schedule_ID", Schedule_ID);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "An error occurred while deleting the schedule: " + ex.Message;
+                    System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
+                    return View("Delete_Schedule", Schedule_ID);
+                }
             }
-            return View(schedule);
+
+            return RedirectToAction("List_Schedule", "Doctor");
         }
 
-        [HttpPost, ActionName("Delete_Schedule")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            var schedule = db.ScheduleTbls.Find(id);
-            if (schedule != null)
-            {
-                db.ScheduleTbls.Remove(schedule);
-                db.SaveChanges();
-            }
-            return RedirectToAction("List_Schedule");
-        }
 
 
         public ActionResult Delete_Prescription(int PrescId)
@@ -365,7 +434,7 @@ namespace Patient_Management_System.Controllers
                         cmd.ExecuteNonQuery();
                     }
                 }
-                // Correct controller name in Redirect
+                
                 return RedirectToAction("Prescription", "Doctor");
             }
             catch (Exception ex)
