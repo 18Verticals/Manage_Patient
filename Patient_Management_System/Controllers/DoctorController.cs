@@ -12,6 +12,7 @@ using static System.Collections.Specialized.BitVector32;
 
 using System.Data.Entity;
 using System.Net;
+using System.IO;
 
 
 namespace Patient_Management_System.Controllers
@@ -22,10 +23,7 @@ namespace Patient_Management_System.Controllers
         private readonly Patient_Management_SystemEntities db = new Patient_Management_SystemEntities();
 
 
-        public ActionResult Index()
-        {
-            return View();
-        }
+      
         [HttpGet]
         public ActionResult Login()
         {
@@ -39,12 +37,13 @@ namespace Patient_Management_System.Controllers
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("sp_Dr_Login", con))
+                using (SqlCommand cmd = new SqlCommand("sp_Dr_LoginInfo", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Dr_Email", email);
                     cmd.Parameters.AddWithValue("@Dr_Password", password);
                     con.Open();
+
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
@@ -69,6 +68,149 @@ namespace Patient_Management_System.Controllers
             return View();
         }
         // GET: Doctor/Appointments
+
+        public ActionResult Profile()
+        {
+            if (Session["Doctor_ID"] == null)
+                return RedirectToAction("Login");
+
+            int doctorId = Convert.ToInt32(Session["Doctor_ID"]);
+            List<DoctorVM> doctorList = new List<DoctorVM>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("sp_Dr_Profile", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                
+                cmd.Parameters.AddWithValue("@Doctor_ID", doctorId);
+
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    DoctorVM doctor = new DoctorVM
+                    {
+                        Doctor_ID = reader["Doctor_ID"] != DBNull.Value ? Convert.ToInt32(reader["Doctor_ID"]) : 0,
+                        Dr_FirstName = reader["Dr_FirstName"] != DBNull.Value ? reader["Dr_FirstName"].ToString() : "",
+                        Dr_LastName = reader["Dr_LastName"] != DBNull.Value ? reader["Dr_LastName"].ToString() : "",
+                        Dept_ID = reader["Dept_ID"] != DBNull.Value ? Convert.ToInt32(reader["Dept_ID"]) : 0,
+                        Dept_Name = reader["Dept_Name"] != DBNull.Value ? reader["Dept_Name"].ToString() : "",
+                        Dr_Email = reader["Dr_Email"] != DBNull.Value ? reader["Dr_Email"].ToString() : "",
+                        Dr_Password = reader["Dr_Password"] != DBNull.Value ? reader["Dr_Password"].ToString() : "",
+                        Dr_DOB = reader["Dr_DOB"] != DBNull.Value ? Convert.ToDateTime(reader["Dr_DOB"]) : DateTime.MinValue,
+                        Dr_Gender = reader["Dr_Gender"] != DBNull.Value ? reader["Dr_Gender"].ToString() : "",
+                        Dr_Phone = reader["Dr_Phone"] != DBNull.Value ? reader["Dr_Phone"].ToString() : "",
+                        Dr_Qualification = reader["Dr_Qualification"] != DBNull.Value ? reader["Dr_Qualification"].ToString() : "",
+                        Dr_Address = reader["Dr_Address"] != DBNull.Value ? reader["Dr_Address"].ToString() : "",
+                        Dr_City = reader["Dr_City"] != DBNull.Value ? reader["Dr_City"].ToString() : "",
+                        Dr_State = reader["Dr_State"] != DBNull.Value ? reader["Dr_State"].ToString() : "",
+                        Dr_Pincode = reader["Dr_Pincode"] != DBNull.Value ? Convert.ToInt32(reader["Dr_Pincode"]) : 0,
+                        Dr_ImagePath = reader["Dr_ImagePath"] != DBNull.Value ? reader["Dr_ImagePath"].ToString() : "",
+                        Fees = reader["Fees"] != DBNull.Value ? Convert.ToInt32(reader["Fees"]) : 0,
+                        Dr_Status = reader["Dr_Status"] != DBNull.Value ? reader["Dr_Status"].ToString() : "",
+                    };
+                    doctorList.Add(doctor);
+                }
+            }
+
+            return View(doctorList);
+        }
+        [HttpGet]
+        public ActionResult Edit_Profile(int doctorId)
+        {
+            var doctor = db.DoctorTbls.Where(d => d.Doctor_ID == doctorId).FirstOrDefault();
+            if (doctor == null)
+            {
+                TempData["Error"] = "Doctor not found.";
+                return RedirectToAction("#");
+            }
+            DoctorVM doctorVM = new DoctorVM
+            {
+                Doctor_ID = doctor.Doctor_ID,
+                Dr_FirstName = doctor.Dr_FirstName,
+                Dr_LastName = doctor.Dr_LastName,
+                Dr_Email = doctor.Dr_Email,
+                Dr_DOB = doctor.Dr_DOB,
+                Dr_Gender = doctor.Dr_Gender,
+                Dr_Phone = doctor.Dr_Phone,
+                Dr_Qualification = doctor.Dr_Qualification,
+                Dr_Address = doctor.Dr_Address,
+                Dr_City = doctor.Dr_City,
+                Dr_State = doctor.Dr_State,
+                Dr_Pincode = doctor.Dr_Pincode.HasValue ? (int)doctor.Dr_Pincode.Value : 0,
+                Dr_ImagePath = doctor.Dr_ImagePath,
+                Dr_Status = doctor.Dr_Status,
+                Fees = doctor.Fees.HasValue ? (int)doctor.Fees.Value : 0,
+                Dept_ID = doctor.Dept_ID.HasValue ? (int)doctor.Dept_ID.Value : 0,
+            };
+            ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", doctor.Dept_ID);
+            return View(doctorVM);
+        }
+
+        [HttpPost]
+        public ActionResult Edit_Profile(DoctorVM doctor, HttpPostedFileBase Dr_ImagePath)
+        {
+            try
+            {
+                if (Dr_ImagePath != null && Dr_ImagePath.ContentLength > 0)
+                {
+                    string uploadPath = Server.MapPath("~/Content/UploadedImages/");
+                    string fileName = Path.GetFileNameWithoutExtension(Dr_ImagePath.FileName);
+                    string extension = Path.GetExtension(Dr_ImagePath.FileName);
+                    string newImagePath = "~/Content/UploadedImages/" + fileName + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
+                    try
+                    {
+                        Dr_ImagePath.SaveAs(Server.MapPath(newImagePath));
+                        doctor.Dr_ImagePath = newImagePath;
+                    }
+                    catch (Exception ex)
+                    {
+                        TempData["Error"] = "Error saving image: " + ex.Message;
+                        return View(doctor);
+                    }
+                }
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_Edit_Doctor", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Doctor_ID", doctor.Doctor_ID);
+                        cmd.Parameters.AddWithValue("@Dr_FirstName", doctor.Dr_FirstName);
+                        cmd.Parameters.AddWithValue("@Dr_LastName", doctor.Dr_LastName);
+                        cmd.Parameters.AddWithValue("@Dr_Email", doctor.Dr_Email);
+                        cmd.Parameters.AddWithValue("@Dr_DOB", (object)doctor.Dr_DOB ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Dr_Gender", doctor.Dr_Gender ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Dr_Phone", doctor.Dr_Phone ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Dr_Qualification", doctor.Dr_Qualification);
+                        cmd.Parameters.AddWithValue("@Dr_Address", doctor.Dr_Address ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Dr_City", doctor.Dr_City ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Dr_State", doctor.Dr_State ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Dr_Pincode", doctor.Dr_Pincode);
+                        cmd.Parameters.AddWithValue("@Dr_ImagePath", doctor.Dr_ImagePath);
+                        cmd.Parameters.AddWithValue("@Dr_Status", doctor.Dr_Status ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Fees", doctor.Fees);
+                        cmd.Parameters.AddWithValue("@Dept_ID", doctor.Dept_ID);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                TempData["Message"] = "Doctor record updated successfully.";
+                return RedirectToAction("Profile");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return View(doctor);
+            }
+        }
+
+
+
+
         public ActionResult Appointments()
         {
             if (Session["Doctor_ID"] == null)
@@ -183,9 +325,6 @@ namespace Patient_Management_System.Controllers
             return View(scheduleTbl);
         }
 
-
-
-
         [HttpGet]
         public ActionResult Delete_Schedule(int id)
         {
@@ -279,7 +418,6 @@ namespace Patient_Management_System.Controllers
             ViewBag.Patient_ID = new SelectList(db.PatientsTbls, "Patient_ID", "P_FirstName", model.Patient_ID);
             return View(model);
         }
-
 
 
         // GET: Doctor/Prescription

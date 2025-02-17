@@ -117,48 +117,46 @@ namespace Patient_Management_System.Controllers
             }
             return View(patients);
         }
-
         public ActionResult Login()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Login(PatientsTbl patients)
+        public ActionResult Login(string email, string password)
         {
-            if (ModelState.IsValid)
-            {
-                string str = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
-                SqlConnection conn = new SqlConnection(str);
-                try
-                {
-                    using (conn)
-                    {
-                        conn.Open();
-                        using (SqlCommand cmd = new SqlCommand("sp_LoginInfo", conn))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@Email", patients.P_Email);
-                            cmd.Parameters.AddWithValue("@Password", patients.P_Password);
-                            int rowsAffected = cmd.ExecuteNonQuery();
-                            if (rowsAffected > 0)
-                            {
+            PatientVM patient = null;
 
-                                return RedirectToAction("Index", "Home");
-                            }
-                            else
-                            {
-                                ModelState.AddModelError("", "Invalid email or password.");
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_LoginInfo", con))
                 {
-                    ViewBag.Error = "An error occurred: " + ex.Message;
-                    System.Diagnostics.Debug.WriteLine("Login error: " + ex.Message);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@Password", password);
+                    con.Open();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        patient = new PatientVM
+                        {
+                            Patient_Id = Convert.ToInt32(reader["Patient_Id"]),
+                           P_FirstName = reader["P_FirstName"].ToString(),
+                            P_Email = reader["P_Email"].ToString()
+                        };
+                    }
+
+                    reader.Close();
                 }
             }
-            return View(patients);
+            if (patient != null)
+            {
+                Session["Patient_Id"] = patient.Patient_Id;
+                Session["P_FirstName"] = patient.P_FirstName;
+                return RedirectToAction("Index","Home");
+            }
+            ViewBag.Error = "Invalid email or password!";
+            return View();
         }
 
         [HttpGet]
@@ -186,7 +184,7 @@ namespace Patient_Management_System.Controllers
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    // Pass required parameters
+                   
                     cmd.Parameters.AddWithValue("@Doctor_ID", aptVM.Doctor_ID);
                     cmd.Parameters.AddWithValue("@Dept_ID", aptVM.Dept_ID);
                     cmd.Parameters.AddWithValue("@Apt_Date", aptVM.Apt_Date);
@@ -195,7 +193,7 @@ namespace Patient_Management_System.Controllers
                     cmd.Parameters.AddWithValue("@Phone", aptVM.Phone);
                     cmd.Parameters.AddWithValue("@Diseases", aptVM.Diseases);
 
-                    // Capture the return value
+                    
                     SqlParameter returnValue = new SqlParameter
                     {
                         Direction = ParameterDirection.ReturnValue
@@ -357,9 +355,6 @@ namespace Patient_Management_System.Controllers
                 }
             }
             return View(contact);
-        }
-
-
-       
+        } 
     }
 }

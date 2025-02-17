@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="row">
@@ -69,9 +70,10 @@
                     <div class="form-group">
                         <label>Consultation Fees</label>
                         @Html.EditorFor(model => model.Fees, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Fees, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.Fees, "", new { @class = "text-danger", type = "digit" })
                     </div>
                 </div>
+
                 <!-- Gender -->
                 <div class="col-sm-4">
                     <div class="form-group gender-select">
@@ -201,6 +203,6 @@
                 </div>
 
             </div>
-            </div>
+        </div>
     </div>
 }

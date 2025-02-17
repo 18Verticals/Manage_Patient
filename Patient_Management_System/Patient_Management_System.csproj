@@ -160,9 +160,6 @@
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Twilio, Version=7.8.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Twilio.7.8.4\lib\net462\Twilio.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -182,11 +179,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\Forgot_PasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
-
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -3210,12 +3207,14 @@
     <Content Include="Views\Forgot_Password\ForgotPassword.cshtml" />
     <Content Include="Views\Patient\Login.cshtml" />
     <Content Include="Views\Patient\Register.cshtml" />
-
+    <Content Include="Views\Doctor\Profile.cshtml" />
+    <Content Include="Views\Doctor\Edit_Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\img_doctor\" />
     <Folder Include="Content\UploadedImages\" />
+    <Folder Include="Views\Default\" />
     <Folder Include="Views\Prescription\" />
   </ItemGroup>
   <ItemGroup>
