@@ -44,7 +44,6 @@
                 </div>
             </div>
 
-
             <!-- Qualification -->
             <div class="col-sm-4">
                 <div class="form-group">
@@ -58,7 +57,7 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label>Specialities</label>
-                    @Html.DropDownList("Dept_ID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                 </div>
             </div>

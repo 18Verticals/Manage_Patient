@@ -53,7 +53,6 @@ namespace Patient_Management_System.Controllers
             }
             return View();
         }
-
         private string ResetUserPassword(string email, string newPassword)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -72,12 +71,10 @@ namespace Patient_Management_System.Controllers
                 }
             }
         }
-
         private string GenerateRandomPassword()
         {
-            return Guid.NewGuid().ToString().Substring(0, 8); // Generates an 8-character random password
+            return Guid.NewGuid().ToString().Substring(0, 8); 
         }
-
         private void SendEmail(string toEmail, string subject, string body)
         {
             var fromAddress = new MailAddress("hemangkanzariya00@gmail.com", "LiveDoc Multispecialist Hospital");
@@ -93,7 +90,6 @@ namespace Patient_Management_System.Controllers
                 UseDefaultCredentials = false,
                 Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "sknt ivrj otjx hjvd") 
             };
-
 
             using (var message = new MailMessage(fromAddress, toAddress)
             {

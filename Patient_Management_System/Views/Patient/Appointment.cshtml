@@ -1,4 +1,4 @@
-﻿@model Patient_Management_System.ViewModel.AppointmentVM
+@model Patient_Management_System.ViewModel.AppointmentVM
 @{
     Layout = "~/Views/Shared/_Layout_Patient.cshtml";
 }
@@ -6,7 +6,7 @@
 @using (Html.BeginForm("Appointment", "Patient", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" }) 
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     if (!string.IsNullOrEmpty(ViewBag.Message))
     {
         <div class="alert alert-success alert-dismissible fade show text-center" role="alert" style="font-size: 18px; font-weight: 600;">
@@ -17,169 +17,124 @@
             </button>
         </div>
     }
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <div class="page-wrapper">
-        <!-- site metas -->
-        <title>Appointment</title>
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <!-- bootstrap css -->
-        <link rel="stylesheet" type="text/css" href="~/Content/Appointment/css/bootstrap.min.css">
-        <!-- style css -->
-        <link rel="stylesheet" type="text/css" href="~/Content/Appointment/css/style.css">
-        <!-- Responsive-->
-        <link rel="stylesheet" href="~/Content/Appointment/css/responsive.css">
-        <!-- fevicon -->
-        <link rel="icon" href="~/Content/Appointment/images/fevicon.png" type="image/gif" />
-        <!-- Scrollbar Custom CSS -->
-        <link rel="stylesheet" href="~/Content/Appointment/css/jquery.mCustomScrollbar.min.css">
-        <!-- Tweaks for older IEs-->
-        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-        <!-- fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700|Poppins:400,700&display=swap" rel="stylesheet">
-        <!-- owl stylesheets -->
-        <link rel="stylesheet" href="~/Content/Appointment/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="~/Content/Appointment/css/owl.theme.default.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-        <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-    </div>
+        <!-- header section start -->
+        <div class="header_section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <!-- <a class="navbar-brand"href="index.html"><img src="images/logo.png"></a> -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-    <!-- header section start -->
-    <div class="header_section">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand"href="index.html"><img src="images/logo.png"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                </nav>
+            </div>
+            <!-- header section end -->
+            <!-- banner section start -->
+            <div class="banner_section layout_padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="banner_taital">Book <span style="color: #fc8004;">Appointment</span></h1>
+                        </div>
 
-            </nav>
-
+                    </div>
+                </div>
+            </div>
+            <!-- banner section end -->
         </div>
         <!-- header section end -->
-        <!-- banner section start -->
-        <div class="banner_section layout_padding">
+        <!-- appointment section start -->
+        <div class="appointment_section">
             <div class="container">
-                <div class="row">
+                <div class="appointment_box">
+                    <h3><span style="color: #fc8004;">Note:  </span>      Use the same number entered during Login.</h3>
+                    <div class="formbold-main-wrapper">
 
-
-
-                    <div class="col-md-12">
-                        <h1 class="banner_taital">Book <span style="color: #fc8004;">Appointment</span></h1>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!-- banner section end -->
-    </div>
-    <!-- header section end -->
-
-
-    <!-- appointment section start -->
-    <div class="appointment_section">
-        <div class="container">
-            <div class="appointment_box">
-
-                <div class="formbold-main-wrapper">
-
-                    <div class="row">
-                        <div class="col-sm-6">
-
-                            @*<div class="input-group">
-                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                    @Html.EditorFor(model => model.P_FirstName, new { htmlAttributes = new { @class = "form-control uniform-input", style="height:49px",placeholder = "Enter Your Name" } })
-                                </div>*@
-                            @Html.ValidationMessageFor(model => model.P_FirstName, "", new { @class = "text-danger" })
-                        </div>
-
-                        <!-- Department -->
-                        <div class="col-sm-6">
-
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fa fa-hospital-o"></i></span>
-                                @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "--Department--", new { @class = "form-control uniform-input", required = "required" })
+                        <div class="row">
+                            <div class="col-sm-6">
+                                @Html.ValidationMessageFor(model => model.P_FirstName, "", new { @class = "text-danger" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
-                        </div>
+                            <!-- Department -->
+                            <div class="col-sm-6">
 
-
-                        <div class="col-sm-6">
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fa fa-user-md"></i></span>
-                                @Html.DropDownList("Doctor_ID", (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "--Doctor--", new { @class = "form-control uniform-input", required = "required" })
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-hospital-o"></i></span>
+                                    @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "--Department--", new { @class = "form-control uniform-input", required = "required" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
-                        </div>
 
 
-
-                        <div class="col-sm-6">
-
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                @Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control uniform-input", type = "date", style = "height:49px;", min = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-user-md"></i></span>
+                                    @Html.DropDownList("Doctor_ID", (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "--Doctor--", new { @class = "form-control uniform-input", required = "required" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.Apt_Date, "", new { @class = "text-danger" })
-                        </div>
 
-                        <!-- Time Slot -->
-                        <div class="col-sm-6">
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
-                                @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control uniform-input", required = "required" })
+                            <div class="col-sm-6">
+
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                    @Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control uniform-input", type = "date", style = "height:49px;", min = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Apt_Date, "", new { @class = "text-danger" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.Apt_Time, "", new { @class = "text-danger" })
-                        </div>
 
-                        <div class="col-sm-6">
-
-                            <div class="input-group">
-                                <span class="input-group-text">
-                                    <i class="fa fa-align-left"></i>
-                                </span>
-                                @Html.TextBoxFor(model => model.Description, new { @class = "form-control", rows = 1, style = "height:49px; resize: none;", placeholder = "Description" })
+                            <!-- Time Slot -->
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
+                                    @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control uniform-input", required = "required" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Apt_Time, "", new { @class = "text-danger" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                        </div>
 
-                        <div class="col-sm-6">
+                            <div class="col-sm-6">
 
-                            <div class="input-group">
-                                <span class="input-group-text">
-                                    <i class="fa fa-phone"></i> <!-- Font Awesome icon -->
-                                </span>
-                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", style = "height:49px;", required = "required", placeholder = "Contact Number" })
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-align-left"></i>
+                                    </span>
+                                    @Html.TextBoxFor(model => model.Description, new { @class = "form-control", rows = 1, style = "height:49px; resize: none;", placeholder = "Description" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-                        </div>
 
-                        <div class="col-sm-6">
+                            <div class="col-sm-6">
 
-                            <div class="input-group">
-                                <span class="input-group-text">
-                                    <i class="fa fa-stethoscope"></i> <!-- Icon for diseases -->
-                                </span>
-                                @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;", placeholder = "Diseases" })
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-phone"></i> <!-- Font Awesome icon -->
+                                    </span>
+                                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", style = "height:49px;", required = "required", placeholder = "Contact Number" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
-                        </div>
 
-                        <div class="col-sm-12 text-center mt-4">
-                            <button type="submit" class="formbold-btn">Make Appointment</button>
-                        </div>
+                            <div class="col-sm-6">
 
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-stethoscope"></i> <!-- Icon for diseases -->
+                                    </span>
+                                    @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;", placeholder = "Diseases" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-sm-12 text-center mt-4">
+                                <button type="submit" class="formbold-btn">Make Appointment</button>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 }
 <script src="~/Content/Appointment/js/jquery.min.js"></script>
 <script src="~/Content/Appointment/js/popper.min.js"></script>
