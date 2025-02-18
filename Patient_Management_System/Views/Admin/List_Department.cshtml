@@ -30,8 +30,8 @@
                 <table class="table table-border table-striped custom-table datatable mb-0">
                     <thead>
                         <tr>
-                            <th>ACTION</th>
-                            <th>ID</th>
+                            <th> </th>
+                           
                             <th>SPECIALITIES NAME</th>
 
                         </tr>
@@ -43,15 +43,24 @@
                         {
 
                             <tr>
-                                <td >                                   
-                                            <a class="dropdown-item" href="@Url.Action("Edit_Department", new { deptId = departmentVM.Dept_ID })">
-                                                <i class="fa fa-pencil m-r-5"></i> 
-                                            </a>
-                                            <a class="dropdown-item" href="@Url.Action("Delete_Department", new { deptId = departmentVM.Dept_ID })">
-                                                <i class="fa fa-trash-o m-r-5"></i> 
-                                            </a>                                       
+                                <td>
+                                    <a class="dropdown-item" href="@Url.Action("Edit_Department", new { deptId = departmentVM.Dept_ID })">
+                                        <i class="fa fa-pencil m-r-5"></i>
+                                    </a>
+
+                                    <script type="text/javascript">
+                                        function confirmDelete(url) {
+                                            if (confirm("Are you sure you want to delete this Department?")) {
+                                                window.location.href = url;
+                                            }
+                                        }
+                                    </script>
+
+                                    <a class="dropdown-item"  href="javascript:void(0);" onclick="confirmDelete('@Url.Action("Delete_Department", new { deptId = departmentVM.Dept_ID })')">
+                                        <i class="fa fa-trash-o m-r-5"></i>
+                                    </a>
                                 </td>
-                                <td>@departmentVM.Dept_ID</td>
+                              
                                 <td>@departmentVM.Dept_Name</td>
 
 

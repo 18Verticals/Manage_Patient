@@ -25,7 +25,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Patient</label>
-                        @Html.DropDownList("Patient_ID", ViewBag.Patient_Id as SelectList, "Select a Patient", new { @class = "form-control" })
+                        @Html.DropDownList("Patient_ID", ViewBag.Patient_Id as SelectList, "Select a Patient", new { @class = "form-control", required = "required" })
                         @Html.ValidationMessageFor(model => model.Patient_ID, "", new { @class = "text-danger" })
                     </div>
 
@@ -52,9 +52,9 @@
                         <label>Status</label>
                         @Html.DropDownListFor(model => model.Status, new List<SelectListItem>
                         {
-                            new SelectListItem { Text = "Active", Value = "Active" },
-                            new SelectListItem { Text = "Inactive", Value = "Inactive" }
-                        }, "Select Status", new { @class = "form-control" })
+                            new SelectListItem { Text = "Pending", Value = "Active" },
+                            new SelectListItem { Text = "Confirmed", Value = "Inactive" }
+                        }, "Select Status", new { @class = "form-control", required = "required" })
                         @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                     </div>
 

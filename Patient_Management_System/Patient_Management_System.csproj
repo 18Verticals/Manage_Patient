@@ -248,73 +248,6 @@
     <Compile Include="ViewModel\ScheduleVM.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\Antlr3.Runtime.pdb" />
-    <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.xml" />
-    <Content Include="bin\EntityFramework.xml" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Newtonsoft.Json.xml" />
-    <Content Include="bin\Patient_Management_System.dll" />
-    <Content Include="bin\Patient_Management_System.pdb" />
-    <Content Include="bin\roslyn\csc.exe" />
-    <Content Include="bin\roslyn\csi.exe" />
-    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
-    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
-    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
-    <Content Include="bin\roslyn\Microsoft.Win32.Primitives.dll" />
-    <Content Include="bin\roslyn\System.AppContext.dll" />
-    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
-    <Content Include="bin\roslyn\System.Console.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.DiagnosticSource.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.FileVersionInfo.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.StackTrace.dll" />
-    <Content Include="bin\roslyn\System.Globalization.Calendars.dll" />
-    <Content Include="bin\roslyn\System.IO.Compression.dll" />
-    <Content Include="bin\roslyn\System.IO.Compression.ZipFile.dll" />
-    <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
-    <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
-    <Content Include="bin\roslyn\System.Net.Http.dll" />
-    <Content Include="bin\roslyn\System.Net.Sockets.dll" />
-    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
-    <Content Include="bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Algorithms.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Encoding.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Primitives.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.X509Certificates.dll" />
-    <Content Include="bin\roslyn\System.Text.Encoding.CodePages.dll" />
-    <Content Include="bin\roslyn\System.Threading.Tasks.Extensions.dll" />
-    <Content Include="bin\roslyn\System.ValueTuple.dll" />
-    <Content Include="bin\roslyn\System.Xml.ReaderWriter.dll" />
-    <Content Include="bin\roslyn\System.Xml.XmlDocument.dll" />
-    <Content Include="bin\roslyn\System.Xml.XPath.dll" />
-    <Content Include="bin\roslyn\System.Xml.XPath.XDocument.dll" />
-    <Content Include="bin\roslyn\vbc.exe" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe" />
-    <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Helpers.xml" />
-    <Content Include="bin\System.Web.Mvc.dll" />
-    <Content Include="bin\System.Web.Mvc.xml" />
-    <Content Include="bin\System.Web.Optimization.dll" />
-    <Content Include="bin\System.Web.Optimization.xml" />
-    <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
-    <Content Include="bin\System.Web.WebPages.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.xml" />
-    <Content Include="bin\WebGrease.dll" />
     <Content Include="Content\Admin\assets\css\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\Admin\assets\css\bootstrap.min.css" />
     <Content Include="Content\Admin\assets\css\dataTables.bootstrap4.min.css" />
@@ -3074,17 +3007,6 @@
     <Content Include="Content\Admin\assets\plugins\summernote\dist\font\summernoted41d.eot" />
     <Content Include="Content\template\assets\images\book_an_appoinment.webp" />
     <Content Include="Content\template\assets\images\kd-logo.webp" />
-    <Content Include="bin\Patient_Management_System.dll.config" />
-    <Content Include="bin\roslyn\csc.exe.config" />
-    <Content Include="bin\roslyn\csc.rsp" />
-    <Content Include="bin\roslyn\csi.exe.config" />
-    <Content Include="bin\roslyn\csi.rsp" />
-    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
-    <Content Include="bin\roslyn\Microsoft.Managed.Core.targets" />
-    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
-    <Content Include="bin\roslyn\vbc.exe.config" />
-    <Content Include="bin\roslyn\vbc.rsp" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
     <Content Include="Content\Appointment\css\.DS_Store" />
     <Content Include="Content\Appointment\css\bootstrap-grid.css.map" />
     <Content Include="Content\Appointment\css\bootstrap-grid.min.css.map" />
@@ -3154,41 +3076,25 @@
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Admin\Edit_Patient.cshtml" />
     <Content Include="Views\Admin\Edit_Doctor.cshtml" />
-    <Content Include="Views\DoctorTbls\Index.cshtml" />
-    <Content Include="Views\DoctorTbls\Create.cshtml" />
-    <Content Include="Views\DoctorTbls\Delete.cshtml" />
-    <Content Include="Views\Admin\Delete_Doctor.cshtml" />
-    <Content Include="Views\Admin\Delete_Patient.cshtml" />
     <Content Include="Views\Admin\Schedule.cshtml" />
     <Content Include="Views\Admin\Add_Schedule.cshtml" />
     <Content Include="Views\Admin\Edit_Schedule.cshtml" />
-    <Content Include="Views\Admin\Delete_Schedule.cshtml" />
     <Content Include="Views\Admin\Add_Department.cshtml" />
     <Content Include="Views\Admin\List_Department.cshtml" />
     <Content Include="Views\Admin\Edit_Department.cshtml" />
-    <Content Include="Views\Admin\Delete_Department.cshtml" />
     <Content Include="Views\Admin\Add_Appointment.cshtml" />
     <Content Include="Views\Admin\List_Appointment.cshtml" />
-    <Content Include="Views\Admin\Delete_Appointment.cshtml" />
     <Content Include="Views\Admin\Edit_Appointment.cshtml" />
-    <Content Include="Views\ContactUsTbls\Create.cshtml" />
-    <Content Include="Views\ContactUsTbls\Delete.cshtml" />
-    <Content Include="Views\ContactUsTbls\Details.cshtml" />
-    <Content Include="Views\ContactUsTbls\Edit.cshtml" />
-    <Content Include="Views\ContactUsTbls\Index.cshtml" />
     <Content Include="Views\Admin\Add_Contact.cshtml" />
     <Content Include="Views\Admin\Edit_Contact.cshtml" />
     <Content Include="Views\Admin\List_Contact.cshtml" />
     <Content Include="Views\Admin\Add_Payment.cshtml" />
     <Content Include="Views\Admin\Edit_Payment.cshtml" />
-    <Content Include="Views\Admin\Delete_Payment.cshtml" />
     <Content Include="Views\Admin\List_Payment.cshtml" />
     <Content Include="Views\Admin\Add_Prescription.cshtml" />
-    <Content Include="Views\Admin\Delete_Prescription.cshtml" />
     <Content Include="Views\Admin\List_Prescription.cshtml" />
     <Content Include="Views\Doctor\Login.cshtml" />
     <Content Include="Views\Admin\Edit_Prescription.cshtml" />
-    <Content Include="Views\Admin\Delete_Contact.cshtml" />
     <Content Include="Views\Patient\Appointment.cshtml" />
     <Content Include="Views\Doctor\Prescription.cshtml" />
     <Content Include="Views\Doctor\Appointments.cshtml" />
@@ -3204,22 +3110,29 @@
     <Content Include="Views\Forgot_Password\ForgotPassword.cshtml" />
     <Content Include="Views\Patient\Login.cshtml" />
     <Content Include="Views\Patient\Register.cshtml" />
+    
+    
     <Content Include="Views\Doctor\Profile.cshtml" />
     <Content Include="Views\Doctor\Edit_Profile.cshtml" />
     <Content Include="Views\Doctor\Add_Schedule.cshtml" />
+    
     <Content Include="Views\Patient\Contact_Us.cshtml" />
     <Content Include="Views\Doctor\Today_Appointments.cshtml" />
     <Content Include="Views\Doctor\Edit_Prescription.cshtml" />
+
+    <Content Include="Views\Doctor\Add_Schedule.cshtml" />
+    <Content Include="Views\Patient\Contact_Us.cshtml" />
+    <Content Include="Views\Doctor\Today_Appointments.cshtml" />
+    <Content Include="Views\Doctor\Edit_Profile.cshtml" />    
+    <Content Include="Views\Doctor\Profile.cshtml" />
+    
+    
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\img_doctor\" />
     <Folder Include="Content\UploadedImages\" />
-    <Folder Include="Views\AppointmentEmails\" />
-    <Folder Include="Views\AppointmentSMS\" />
-    <Folder Include="Views\Default\" />
-    <Folder Include="Views\Prescription\" />
-    <Folder Include="Views\test\" />
+
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

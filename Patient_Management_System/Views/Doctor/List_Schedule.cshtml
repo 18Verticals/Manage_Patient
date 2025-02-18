@@ -16,8 +16,7 @@
         <table class="table table-bordered text-center">
             <thead class="table-primary">
                 <tr>
-                    <th></th>
-                    <th>ID</th>
+                    <th></th>                   
                     <th>Doctor</th>
                     <th>Specialities</th>
                     <th>Available Date</th>
@@ -53,9 +52,6 @@
                             </div>
                         </td>
 
-            
-
-                        <td>@Html.DisplayFor(modelItem => item.Schedule_ID)</td>
                         <td>Dr. @(item.DoctorTbl.Dr_FirstName ?? "N/A") @(item.DoctorTbl.Dr_LastName ?? "N/A")</td>
                         <td>@Html.DisplayFor(modelItem => item.DepartmentTbl.Dept_Name)</td>
                         <td>@Html.DisplayFor(modelItem => item.Available_Date)</td>
