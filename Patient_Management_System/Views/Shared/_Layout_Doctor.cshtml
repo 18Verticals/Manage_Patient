@@ -4,9 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-
     <link rel="shortcut icon" type="image/x-icon" href="~/Content/Admin/assets/img/favicon.ico">
-
     <title>LiveDoc</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/bootstrap.min.css">
@@ -38,14 +36,7 @@
                     </a>
                 </li>
             </ul>
-            @*<div class="dropdown mobile-user-menu float-right">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile.html">My Profile</a>
-
-                    <a class="dropdown-item" href="@Url.Action("Login","Admin")">Logout</a>
-                </div>
-            </div>*@
+            
         </div>
         <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
@@ -56,45 +47,17 @@
                             <a href="@Url.Action("Appointments", "Doctor")"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 
+                        <li>
+                            <a href="@Url.Action("List_Schedule","Doctor")"><i class="fa fa-calendar-check-o"></i> <span>Schedule</span></a>
+                        </li>
 
                         <li>
                             <a href="@Url.Action("Prescription", "Doctor")"><i class="fa fa-sticky-note"></i> <span>Prescription</span></a>
                         </li>
 
                         <li>
-                            <a href="@Url.Action("List_Schedule","Doctor")"><i class="fa fa-calendar-check-o"></i> <span>Schedule</span></a>
-                        </li>
-
-                        <li>
                             <a href="@Url.Action("Login","Doctor")"><i class="fa "></i> <span>Logout</span></a>
                         </li>
-
-
-                        @*<li>
-            <a href="@Url.Action("List_Patient","Admin")"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
-        </li>
-        <li>
-            <a href="@Url.Action("List_Appointment","Admin")"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
-        </li>
-
-        <li>
-            <a href="@Url.Action("List_Department","Admin")"><i class="fa fa-hospital-o"></i> <span>Departments</span></a>
-        </li>
-
-        <li>
-            <a href="@Url.Action("List_Contact","Admin")"><i class="fa fa-phone "></i> <span>Contact</span></a>
-        </li>*@
-
-                        @*<li>
-            <a href="@Url.Action("List_Payment","Admin")"><i class="fa fa-paypal"></i> <span>Payment</span></a>
-        </li>
-
-        <li>
-            <a href="@Url.Action("List_Prescription","Admin")"><i class="fa fa-sticky-note"></i> <span>Prescription</span></a>
-        </li>
-
-        <li class="submenu">
-            <a href="#"><i class="fa fa-envelope"></i> <span> Email</span></a>*@
 
                         </li>
                     </ul>
@@ -102,22 +65,14 @@
             </div>
         </div>
 
-
-
         <div class="page-wrapper">
             <div class="content">
                 <div>
                     @RenderBody()
                 </div>
-
-
-
-
             </div>
         </div>
     </div>
-
-
 
     <div class="sidebar-overlay" data-reff=""></div>
     <script src="~/Content/Admin/assets/js/jquery-3.2.1.min.js"></script>
@@ -129,8 +84,5 @@
     <script src="~/Content/Admin/assets/js/app.js"></script>
 
 </body>
-
-
-
 </html>
 

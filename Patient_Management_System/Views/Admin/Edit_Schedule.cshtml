@@ -27,7 +27,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Doctor Name</label>
-                            @Html.DropDownList("Doctor_ID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("Doctor_ID", null, htmlAttributes: new { @class = "form-control", required = "required" })
                             @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Specialities</label>
-                            @Html.DropDownList("Dept_ID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("Dept_ID", null, htmlAttributes: new { @class = "form-control", required = "required" })
                             @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Available Days</label>
-                            @Html.EditorFor(model => model.Available_Date, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.Available_Date, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                             @Html.ValidationMessageFor(model => model.Available_Date, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Start Time</label>
-                            @Html.EditorFor(model => model.Start_Time, new { htmlAttributes = new { @class = "form-control", type = "time", min = "09:30" } })
+                            @Html.EditorFor(model => model.Start_Time, new { htmlAttributes = new { @class = "form-control", type = "time", min = "09:30", required = "required" } })
                             @Html.ValidationMessageFor(model => model.Start_Time, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -65,17 +65,12 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-
                             <label>End Time</label>
-
-
-                            @Html.EditorFor(model => model.End_Time, new { htmlAttributes = new { @class = "form-control", type = "time", max = "18:30" } })
-
+                            @Html.EditorFor(model => model.End_Time, new { htmlAttributes = new { @class = "form-control", type = "time", max = "18:30", required = "required" } })
                             @Html.ValidationMessageFor(model => model.End_Time, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
-
 
                 <div class="row">
                     <!-- Status -->
@@ -86,13 +81,10 @@
                             {
                                 new SelectListItem { Text = "Active", Value = "Active" },
                                 new SelectListItem { Text = "Inactive", Value = "Inactive" }
-                            }, "Select Status", new { @class = "form-control", @id = "Dr_Status" })
+                            }, "Select Status", new { @class = "form-control", @id = "Dr_Status", required = "required" })
                             @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
-
-
 
                     <!-- Submit Button -->
                     <div class="m-t-20 text-center">
