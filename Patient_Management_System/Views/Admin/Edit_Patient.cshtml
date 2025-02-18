@@ -85,7 +85,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Date Of Birth</label>
-                        @Html.TextBoxFor(model => model.P_DOB, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                        @Html.TextBoxFor(model => model.P_DOB, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", required = "required" })
                         @Html.ValidationMessageFor(model => model.P_DOB, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                             new SelectListItem { Text = "AB-", Value = "AB-" },
                             new SelectListItem { Text = "O+", Value = "O+" },
                             new SelectListItem { Text = "O-", Value = "O-" }
-                        }, "Value", "Text"), new { @class = "form-control select" })
+                        }, "Value", "Text"), new { @class = "form-control select", required = "required" })
                         @Html.ValidationMessageFor(model => model.P_BloodGrp, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -185,7 +185,7 @@
                             </div>
 
                             <div class="upload-input">
-                                <input type="file" name="P_Image" id="P_Image" class="form-control" />
+                                <input type="file" name="P_Image" id="P_Image" class="form-control"  required/>
                             </div>
                             @Html.ValidationMessageFor(model => model.P_Image, "", new { @class = "text-danger" })
                         </div>
@@ -196,7 +196,7 @@
 
                 <!-- Submit Button -->
                 <div class="m-t-20 text-center">
-                    <button class="btn btn-primary submit-btn" style="margin-left:275px;">Edit Patient</button>
+                    <button class="btn btn-primary submit-btn" style="margin-left:275px;">Update Details</button>
                 </div>
 
             </div>

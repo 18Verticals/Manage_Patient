@@ -9,7 +9,6 @@ using System.Web.Mvc;
 using Patient_Management_System.Models;
 using System.Configuration;
 using System.IO;
-
 namespace Patient_Management_System.Controllers
 {
     public class PatientController : Controller
@@ -38,18 +37,16 @@ namespace Patient_Management_System.Controllers
             {
                 string imagePath = null;
 
-
                 if (P_Image != null && P_Image.ContentLength > 0)
                 {
                     string uploadPath = Server.MapPath("~/Content/UploadedImages/");
                     string fileName = Path.GetFileNameWithoutExtension(P_Image.FileName);
                     string extension = Path.GetExtension(P_Image.FileName);
                     imagePath = "~/Content/UploadedImages/" + fileName + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
-                    System.Diagnostics.Debug.WriteLine("Image Path: " + imagePath); // Log image path
+                    System.Diagnostics.Debug.WriteLine("Image Path: " + imagePath); 
                     try
                     {
                         P_Image.SaveAs(Server.MapPath(imagePath));
-
                     }
                     catch (Exception ex)
                     {
@@ -78,7 +75,6 @@ namespace Patient_Management_System.Controllers
                         using (SqlCommand cmd = new SqlCommand("sp_Add_Patients", conn))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
-
                             cmd.Parameters.AddWithValue("@P_FirstName", patients.P_FirstName);
                             cmd.Parameters.AddWithValue("@P_MiddleName", patients.P_MiddleName);
                             cmd.Parameters.AddWithValue("@P_LastName", patients.P_LastName);
@@ -94,11 +90,9 @@ namespace Patient_Management_System.Controllers
                             cmd.Parameters.AddWithValue("@P_Message", patients.P_Message);
                             cmd.Parameters.AddWithValue("@P_Image", imagePath ?? (object)DBNull.Value);
                             cmd.Parameters.AddWithValue("@P_Password", patients.P_Password);
-
                             cmd.ExecuteNonQuery();
                         }
                     }
-
                     return RedirectToAction("Login");
                 }
                 catch (Exception ex)
@@ -109,7 +103,6 @@ namespace Patient_Management_System.Controllers
             }
             else
             {
-
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
                     System.Diagnostics.Debug.WriteLine($"Validation Error: {error.ErrorMessage}");
@@ -117,10 +110,12 @@ namespace Patient_Management_System.Controllers
             }
             return View(patients);
         }
+
         public ActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
@@ -161,7 +156,7 @@ namespace Patient_Management_System.Controllers
 
         [HttpGet]
         public ActionResult Appointment()
-        {
+        {            
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name");
             ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName");
             ViewBag.TimeSlots = GetTimeSlots();
