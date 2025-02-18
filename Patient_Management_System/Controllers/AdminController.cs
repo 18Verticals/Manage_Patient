@@ -744,69 +744,6 @@ namespace Patient_Management_System.Controllers
             return RedirectToAction("List_Payment"); 
         }
 
-        //[HttpGet]
-        //public ActionResult Add_Contact()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public ActionResult Add_Contact([Bind(Include = "Feedback_Id,Name,Email,Message,Phone")] ContactUsTbl contactUsTbl)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.ContactUsTbls.Add(contactUsTbl);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(contactUsTbl);
-        //}
-        
-
-        
-     
-        //[HttpGet]
-        //public ActionResult Add_Contact()
-        //{
-        //    return View();
-        //}
-
-  
-        //[HttpPost]
-        //public ActionResult Add_Contact(string name, string email, string message, string phone)
-        //{
-        //    try
-        //    {
-        //        using (SqlConnection conn = new SqlConnection(connectionString))
-        //        {
-        //            using (SqlCommand cmd = new SqlCommand("sp_Add_Contact", conn))
-        //            {
-        //                cmd.CommandType = CommandType.StoredProcedure;
-        //                cmd.Parameters.AddWithValue("@Name", name);
-        //                cmd.Parameters.AddWithValue("@Email", email);
-        //                cmd.Parameters.AddWithValue("@Message", message);
-        //                cmd.Parameters.AddWithValue("@Phone", phone);
-
-        //                conn.Open();
-        //                cmd.ExecuteNonQuery();
-        //            }
-        //        }
-
-        //        ViewBag.Message = "Contact details added successfully!";
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.Message = "Error: " + ex.Message;
-        //    }
-
-        //    return View();
-        //}
-
-
-
-
-
-
 
         [HttpGet]
         public ActionResult Edit_Contact(int? id)
@@ -882,8 +819,6 @@ namespace Patient_Management_System.Controllers
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
 
-
-
                             cmd.Parameters.AddWithValue("@Payment_ID", paymentVM.Payment_ID);
                             cmd.Parameters.AddWithValue("@Patient_ID", paymentVM.Patient_ID);
                             cmd.Parameters.AddWithValue("@Amount", paymentVM.Amount);
@@ -891,7 +826,6 @@ namespace Patient_Management_System.Controllers
                             cmd.Parameters.AddWithValue("@PaymentDate", paymentVM.PaymentDate);
                             cmd.Parameters.AddWithValue("@Status", paymentVM.Status);
                             cmd.Parameters.AddWithValue("@Remarks", paymentVM.Remarks ?? (object)DBNull.Value);
-
 
                             con.Open();
                             cmd.ExecuteNonQuery();

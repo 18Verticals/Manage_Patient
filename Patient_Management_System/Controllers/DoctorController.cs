@@ -210,12 +210,7 @@ namespace Patient_Management_System.Controllers
         }
 
 
-
-
-
-
-
-         //GET: Doctor/Appointments
+        //GET: Doctor/Appointments
 
         public ActionResult Appointments()
         {
@@ -237,26 +232,27 @@ namespace Patient_Management_System.Controllers
 
                     while (reader.Read())
                     {
-                      appointments.Add(new AppointmentVM
-                      {
-                           Appointment_ID = reader["Appointment_ID"] != DBNull.Value ? Convert.ToInt32(reader["Appointment_ID"]) : 0,
-                           Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : 0,
-                           Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
-                           Phone = reader["Phone"] as string ?? string.Empty,
-                           Diseases = reader["Diseases"] as string ?? string.Empty,
-                           Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
-                           Description = reader["Description"] as string ?? string.Empty,
-                           //P_FirstName = reader["P_FirstName"] != DBNull.Value ? reader["P_FirstName"].ToString() : string.Empty,
-                      });
+                        appointments.Add(new AppointmentVM
+                        {
+                            Appointment_ID = reader["Appointment_ID"] != DBNull.Value ? Convert.ToInt32(reader["Appointment_ID"]) : 0,
+                            Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : 0,
+                            Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
+                            Phone = reader["Phone"] as string ?? string.Empty,
+                            Diseases = reader["Diseases"] as string ?? string.Empty,
+                            Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
+                            Description = reader["Description"] as string ?? string.Empty,
+                            P_FirstName = reader["P_FirstName"] != DBNull.Value ? reader["P_FirstName"].ToString() : string.Empty,
+                        });
 
-                  }
+                    }
 
-                   reader.Close();
-               }
+                    reader.Close();
+                }
             }
 
-          return View(appointments);
-       }
+            return View(appointments);
+        }
+
 
         public ActionResult  Today_Appointments()
         {
@@ -291,6 +287,7 @@ namespace Patient_Management_System.Controllers
                                 Diseases = reader["Diseases"] as string ?? string.Empty,
                                 Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
                                 Description = reader["Description"] as string ?? string.Empty,
+                                P_FirstName = reader["P_FirstName"] != DBNull.Value ? reader["P_FirstName"].ToString() : string.Empty,
                             });
                         }
                     }
@@ -307,8 +304,6 @@ namespace Patient_Management_System.Controllers
             Session.Clear();
             return RedirectToAction("Login");
         }
-
-
 
         // GET: Doctor/AddSchedule
         public ActionResult Add_Schedule()
@@ -388,8 +383,6 @@ namespace Patient_Management_System.Controllers
             ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", scheduleTbl.Doctor_ID);
             return View(scheduleTbl);
         }
-
-
         
         public ActionResult Delete_Schedule(int Schedule_ID)
 
@@ -418,6 +411,71 @@ namespace Patient_Management_System.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult Edit_Prescription(int PrescId)
+        {
+            var presc = db.PrescriptionTbls.Where(d => d.Presc_ID == PrescId).FirstOrDefault();
+            if (presc == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName");
+            ViewBag.Patient_ID = new SelectList(db.PatientsTbls, "Patient_Id", "P_FirstName");
+
+
+
+            PrescriptionVM prescVM = new PrescriptionVM
+            {
+                Presc_ID = presc.Presc_ID,
+                Patient_ID = presc.Patient_ID,
+                Doctor_ID = presc.Doctor_ID,
+                Medication = presc.Medication,
+                Instructions = presc.Instructions,
+                Dosage = presc.Dosage,
+                DateIssued = presc.DateIssued
+            };
+
+            return View(prescVM);
+        }
+
+        [HttpPost]
+        public ActionResult Edit_Prescription(PrescriptionVM prescVM)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    using (SqlConnection con = new SqlConnection(connectionString))
+                    {
+                        using (SqlCommand cmd = new SqlCommand("sp_Edit_Prescription", con)) 
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@Presc_ID", prescVM.Presc_ID);
+                            cmd.Parameters.AddWithValue("@Patient_ID", prescVM.Patient_ID);
+                            cmd.Parameters.AddWithValue("@Doctor_ID", prescVM.Doctor_ID);
+                            cmd.Parameters.AddWithValue("@Medication", prescVM.Medication);
+                            cmd.Parameters.AddWithValue("@Instructions", prescVM.Instructions);
+                            cmd.Parameters.AddWithValue("@Dosage", prescVM.Dosage);
+                            cmd.Parameters.AddWithValue("@DateIssued", prescVM.DateIssued);
+
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    TempData["Message"] = "Prescription record updated successfully.";
+                    return RedirectToAction("Prescription");
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "An error occurred: " + ex.Message;
+            }
+
+            ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", prescVM.Doctor_ID);
+            ViewBag.Patient_ID = new SelectList(db.PatientsTbls, "Patient_ID", "P_FirstName", prescVM.Patient_ID);
+
+            return View(prescVM);
+        }
 
         public ActionResult Delete_Prescription(int PrescId)
         {
@@ -518,6 +576,7 @@ namespace Patient_Management_System.Controllers
                             Medication = reader["Medication"] as string ?? string.Empty,
                             Dosage = reader["Dosage"] as string ?? string.Empty,
                             Instructions = reader["Instructions"] as string ?? string.Empty,
+                            P_FirstName = reader["P_FirstName"] as string ?? string.Empty,
                         });
                     }
                     reader.Close();
