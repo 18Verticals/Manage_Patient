@@ -750,6 +750,7 @@ namespace Patient_Management_System.Controllers
             return RedirectToAction("List_Payment"); 
         }
 
+
         [HttpGet]
         public ActionResult Add_Contact()
         {
@@ -879,6 +880,7 @@ namespace Patient_Management_System.Controllers
             }
             return View(patientVM);
         }
+
 
         [HttpGet]
         public ActionResult Edit_Contact(int? id)

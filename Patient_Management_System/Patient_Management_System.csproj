@@ -3110,16 +3110,29 @@
     <Content Include="Views\Forgot_Password\ForgotPassword.cshtml" />
     <Content Include="Views\Patient\Login.cshtml" />
     <Content Include="Views\Patient\Register.cshtml" />
+    
+    
+    <Content Include="Views\Doctor\Profile.cshtml" />
+    <Content Include="Views\Doctor\Edit_Profile.cshtml" />
+    <Content Include="Views\Doctor\Add_Schedule.cshtml" />
+    
+    <Content Include="Views\Patient\Contact_Us.cshtml" />
+    <Content Include="Views\Doctor\Today_Appointments.cshtml" />
+    <Content Include="Views\Doctor\Edit_Prescription.cshtml" />
+
     <Content Include="Views\Doctor\Add_Schedule.cshtml" />
     <Content Include="Views\Patient\Contact_Us.cshtml" />
     <Content Include="Views\Doctor\Today_Appointments.cshtml" />
-    <Content Include="Views\Doctor\Edit_Profile.cshtml" />
+    <Content Include="Views\Doctor\Edit_Profile.cshtml" />    
     <Content Include="Views\Doctor\Profile.cshtml" />
+    
+    
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\img_doctor\" />
     <Folder Include="Content\UploadedImages\" />
+
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
