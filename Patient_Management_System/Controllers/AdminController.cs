@@ -70,9 +70,8 @@ namespace Patient_Management_System.Controllers
                 }
             }
             return View(adminVM);
-        }
-
-        public ActionResult List_Appointment(AppointmentVM aptVM)//Changes
+        }     
+        public ActionResult List_Appointment(AppointmentVM aptVM)
         {
             List<AppointmentVM> aptList = new List<AppointmentVM>();
 
@@ -245,7 +244,6 @@ namespace Patient_Management_System.Controllers
             }
             return View(departmentList);
         }
-
       
         public ActionResult List_Contact()
         {
@@ -329,7 +327,7 @@ namespace Patient_Management_System.Controllers
                     if (result == 1)
                     {
                         TempData["Message"] = "Appointment booked successfully!";
-                        return RedirectToAction("List_Appointment");  // Redirect after successful booking
+                        return RedirectToAction("List_Appointment");  
                     }
                     else if (result == 0)
                     {
@@ -525,8 +523,7 @@ namespace Patient_Management_System.Controllers
                     return RedirectToAction("List_Doctor", "Admin");
                 }
                 catch (SqlException ex)
-                {
-                    // Check if it's the unique email error
+                {                   
                     if (ex.Message.Contains("Email already exists"))
                     {
                         ViewBag.Error = "The email you entered is already associated with another doctor. Please use a different email.";
@@ -624,37 +621,97 @@ namespace Patient_Management_System.Controllers
             }
             return View(patients);
         }
-        public ActionResult Schedule()
+
+
+        public ActionResult List_Schedule(ScheduleVM scheduleVM)
         {
-            var scheduleTbls = db.ScheduleTbls.Include(s => s.DepartmentTbl).Include(s => s.DoctorTbl);
-            return View(scheduleTbls.ToList());
+            List<ScheduleVM> ScheduleList = new List<ScheduleVM>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("sp_Get_Schedule", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ScheduleVM schedule = new ScheduleVM
+                    {
+                        Schedule_ID = reader["Schedule_ID"] != DBNull.Value ? Convert.ToInt32(reader["Schedule_ID"]) : 0,
+                        Doctor_ID = reader["Doctor_ID"] != DBNull.Value ? Convert.ToInt32(reader["Doctor_ID"]) : 0,
+                        Dept_ID = reader["Dept_ID"] != DBNull.Value ? Convert.ToInt32(reader["Doctor_ID"]) : 0,
+                        Dr_FirstName = reader["Dr_FirstName"].ToString(),
+                        Dept_Name = reader["Dept_Name"].ToString(),
+
+                        Start_Time = reader["Start_Time"] != DBNull.Value ? (TimeSpan)reader["Start_Time"] : TimeSpan.Zero,
+                        End_Time = reader["End_Time"] != DBNull.Value ? (TimeSpan)reader["End_Time"] : TimeSpan.Zero,
+
+                        
+                        Available_Date = reader["Available_Date"] != DBNull.Value
+                            ? DateTime.Parse(reader["Available_Date"].ToString())
+                            : (DateTime?)null,
+
+                        Status = reader["Status"].ToString(),
+                    };
+                    ScheduleList.Add(schedule);
+                }            
         }
+            return View(ScheduleList);
+        }
+      
+        [HttpGet]
         public ActionResult Add_Schedule()
         {
+            ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName");
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name");
-            ViewBag.Doctor_ID = new SelectList(
-          db.DoctorTbls.Select(d => new {
-          Doctor_ID = d.Doctor_ID,
-          FullName = d.Dr_FirstName + " " + d.Dr_LastName
-      }), "Doctor_ID", "FullName"); return View();
+            return View();
         }
-
         [HttpPost]
-        public ActionResult Add_Schedule([Bind(Include = "Schedule_ID,Doctor_ID,Dept_ID,Available_Date,Start_Time,End_Time,Status")] ScheduleTbl scheduleTbl)
+        public ActionResult Add_Schedule(ScheduleVM scheduleVM)
         {
+            SqlConnection conn = new SqlConnection(connectionString);
             if (ModelState.IsValid)
             {
-                db.ScheduleTbls.Add(scheduleTbl);
-                db.SaveChanges();
-                return RedirectToAction("Schedule");
+                try
+                {
+                    using (conn)
+                    {
+                        conn.Open();
+                        using (SqlCommand cmd = new SqlCommand("sp_Add_Schedule", conn))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@Doctor_ID", scheduleVM.Doctor_ID);
+                            cmd.Parameters.AddWithValue("@Dept_ID", scheduleVM.Dept_ID);
+                            cmd.Parameters.AddWithValue("@Start_Time", scheduleVM.Start_Time);
+                            cmd.Parameters.AddWithValue("@End_Time", scheduleVM.End_Time);
+                            cmd.Parameters.AddWithValue("@Status", scheduleVM.Status);
+                            cmd.Parameters.AddWithValue("@Available_Date", scheduleVM.Available_Date);
+                           
+                          
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    return RedirectToAction("List_Schedule", "Admin");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "An error occurred: " + ex.Message;
+                    System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
+                }
             }
+            else
+            {
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    System.Diagnostics.Debug.WriteLine($"Validation Error: {error.ErrorMessage}");
+                }
+            }
+            ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", scheduleVM.Doctor_ID);
+            ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", scheduleVM.Dept_ID);
 
-            ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", scheduleTbl.Dept_ID);
-            ViewBag.Doctor_ID = new SelectList(
-            db.DoctorTbls.Select(d => new {
-           Doctor_ID = d.Doctor_ID,FullName = d.Dr_FirstName + " " + d.Dr_LastName }),"Doctor_ID", "FullName", scheduleTbl.Doctor_ID); 
-            return View(scheduleTbl);
+            return View(scheduleVM);
         }
+
 
         [HttpGet]
         public ActionResult Add_Department()
@@ -1007,6 +1064,7 @@ namespace Patient_Management_System.Controllers
                 };
                 ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", doctor.Dept_ID);
                 return View(doctorVM);
+
                  return RedirectToAction("List_Doctor");
             }
 
@@ -1063,7 +1121,6 @@ namespace Patient_Management_System.Controllers
                 return View(doctor);
             }
         }
-
 
         [HttpGet]
         public ActionResult Edit_Appointment(int aptId)
@@ -1416,10 +1473,8 @@ namespace Patient_Management_System.Controllers
                 ViewBag.Error = "An error occurred while deleting the doctor: " + ex.Message;
                 System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
             }
-
             return RedirectToAction("List_Department", "Admin");
         }
-
         public ActionResult Delete_Schedule(int scheduleId)
         {
             SqlConnection conn = new SqlConnection(connectionString);
@@ -1435,7 +1490,7 @@ namespace Patient_Management_System.Controllers
                         cmd.ExecuteNonQuery();
                     }
                 }
-                return RedirectToAction("Schedule", "Admin");
+                return RedirectToAction("List_Schedule", "Admin");
             }
             catch (Exception ex)
             {
@@ -1443,7 +1498,7 @@ namespace Patient_Management_System.Controllers
                 ViewBag.Error = "An error occurred while deleting the doctor: " + ex.Message;
                 System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
             }
-            return RedirectToAction("Schedule", "Admin");
+            return RedirectToAction("List_Schedule", "Admin");
         }
 
         public ActionResult Delete_Contact(int id)

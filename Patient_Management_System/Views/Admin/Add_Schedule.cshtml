@@ -1,12 +1,9 @@
-﻿@model Patient_Management_System.Models.ScheduleTbl
+﻿@model Patient_Management_System.ViewModel.ScheduleVM
 
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
-
-
-
 @using (Html.BeginForm("Add_Schedule", "Admin"))
 {
     @Html.AntiForgeryToken()
