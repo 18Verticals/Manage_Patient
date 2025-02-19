@@ -11,6 +11,7 @@ namespace Patient_Management_System.ViewModel
         public int Schedule_ID { get; set; }
         public int Doctor_ID { get; set; }
         public string Dr_FirstName { get; set; }
+        
         public int Dept_ID { get; set; }
         public string Dept_Name { get; set; }
         public System.TimeSpan Start_Time { get; set; }

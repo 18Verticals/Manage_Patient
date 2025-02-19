@@ -1,4 +1,4 @@
-﻿@model Patient_Management_System.ViewModel.PatientVM
+﻿﻿@model Patient_Management_System.ViewModel.PatientVM
 
 @{
     ViewBag.Title = "Edit_Patient";
@@ -181,11 +181,11 @@
                         <div class="profile-upload">
 
                             <div class="upload-img">
-                                <img alt="" src="~/Content/Admin/assets/img/user.jpg"/>
+                                <img alt="" src="~/Content/Admin/assets/img/user.jpg" />
                             </div>
 
                             <div class="upload-input">
-                                <input type="file" name="P_Image" id="P_Image" class="form-control"  required/>
+                                <input type="file" name="P_Image" id="P_Image" class="form-control" required />
                             </div>
                             @Html.ValidationMessageFor(model => model.P_Image, "", new { @class = "text-danger" })
                         </div>

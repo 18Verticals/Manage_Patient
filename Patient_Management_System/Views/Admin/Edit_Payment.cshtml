@@ -6,6 +6,7 @@
 
 @using (Html.BeginForm("Edit_Payment", "Admin", FormMethod.Post))
 {@Html.AntiForgeryToken()
+
 <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/bootstrap-datetimepicker.min.css" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/bootstrap.min.css">
@@ -51,7 +52,7 @@
                     <label>Status</label>
                     @Html.DropDownListFor(model => model.Status, new List<SelectListItem>
                     {
-                        new SelectListItem { Text = "Active", Value = "Active" },
+                        new SelectListItem { Text = "Pending", Value = "Active" },
                         new SelectListItem { Text = "Inactive", Value = "Inactive" }
                     }, "Select Status", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
