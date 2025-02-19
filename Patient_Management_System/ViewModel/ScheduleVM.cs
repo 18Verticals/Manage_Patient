@@ -10,11 +10,16 @@ namespace Patient_Management_System.ViewModel
     {
         public int Schedule_ID { get; set; }
         public int Doctor_ID { get; set; }
-        //public int Dept_ID { get; set; }
-        public string Available_Date { get; set; }
+        public string Dr_FirstName { get; set; }
+        public int Dept_ID { get; set; }
+        public string Dept_Name { get; set; }
         public System.TimeSpan Start_Time { get; set; }
         public System.TimeSpan End_Time { get; set; }
         public string Status { get; set; }
+        public Nullable<System.DateTime> Available_Date { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AppointmentTbl> AppointmentTbls { get; set; }
         public virtual DepartmentTbl DepartmentTbl { get; set; }
         public virtual DoctorTbl DoctorTbl { get; set; }
     }
