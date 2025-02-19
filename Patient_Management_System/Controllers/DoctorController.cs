@@ -275,10 +275,7 @@ namespace Patient_Management_System.Controllers
             }
         }
 
-
-
-        //GET: Doctor/Appointments
-        public ActionResult Appointments()
+        public ActionResult Appointments(DateTime? selectedDate)
         {
             if (Session["Doctor_ID"] == null)
                 return RedirectToAction("Login");
@@ -292,32 +289,31 @@ namespace Patient_Management_System.Controllers
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Doctor_ID", doctorId);
+                    cmd.Parameters.AddWithValue("@Selected_Date", selectedDate.HasValue ? selectedDate.Value.Date : (object)DBNull.Value);
 
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
-
                         appointments.Add(new AppointmentVM
                         {
                             Appointment_ID = reader["Appointment_ID"] != DBNull.Value ? Convert.ToInt32(reader["Appointment_ID"]) : 0,
                             Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : 0,
+                            P_FirstName = reader["P_FirstName"] != DBNull.Value ? reader["P_FirstName"].ToString() : string.Empty,
                             Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
                             Phone = reader["Phone"] as string ?? string.Empty,
                             Diseases = reader["Diseases"] as string ?? string.Empty,
                             Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
-                            Description = reader["Description"] as string ?? string.Empty,
-                            P_FirstName = reader["P_FirstName"] != DBNull.Value ? reader["P_FirstName"].ToString() : string.Empty,
+                            Description = reader["Description"] as string ?? string.Empty
                         });
-
                     }
 
                     reader.Close();
                 }
-
             }
 
+            ViewBag.SelectedDate = selectedDate?.ToString("yyyy-MM-dd") ?? DateTime.Now.ToString("yyyy-MM-dd");
             return View(appointments);
         }
 
@@ -420,6 +416,10 @@ namespace Patient_Management_System.Controllers
             var scheduleTbls = db.ScheduleTbls.Include(s => s.DepartmentTbl).Include(s => s.DoctorTbl);
             return View(scheduleTbls.ToList());
         }
+
+      
+
+
 
         public ActionResult Edit_Schedule(int? id)
         {
