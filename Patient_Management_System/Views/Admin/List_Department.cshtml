@@ -30,12 +30,9 @@
                 <table class="table table-border table-striped custom-table datatable mb-0">
                     <thead>
                         <tr>
-                            <th> </th>
-                           
+                            <th> </th>                           
                             <th>SPECIALITIES NAME</th>
-
                         </tr>
-
                     </thead>
 
                     <tbody>
@@ -59,11 +56,8 @@
                                     <a class="dropdown-item"  href="javascript:void(0);" onclick="confirmDelete('@Url.Action("Delete_Department", new { deptId = departmentVM.Dept_ID })')">
                                         <i class="fa fa-trash-o m-r-5"></i>
                                     </a>
-                                </td>
-                              
+                                </td>                              
                                 <td>@departmentVM.Dept_Name</td>
-
-
                             </tr>
                         }
                     </tbody>
@@ -83,13 +77,5 @@
     <script src="assets/js/moment.min.js"></script>
     <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
     <script src="assets/js/app.js"></script>
-
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="see-all">
-                <a class="see-all-btn" href="javascript:void(0);">More</a>
-            </div>
-        </div>
-    </div>
+    
 }

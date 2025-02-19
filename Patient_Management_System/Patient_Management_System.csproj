@@ -69,6 +69,12 @@
     <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.34.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.34.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -408,6 +414,7 @@
     <Content Include="Content\Label.css" />
     <Content Include="Content\loader.css" />
     <Content Include="Content\login.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\sty.css" />
     <Content Include="Content\template\assets\css\accordion.css" />
     <Content Include="Content\template\assets\css\all.css" />
@@ -3122,6 +3129,7 @@
     <Content Include="Views\Doctor\Edit_Profile.cshtml" />
     <Content Include="Views\Doctor\Profile.cshtml" />
     <Content Include="Views\Admin\List_Schedule.cshtml" />
+    <Content Include="Views\Admin\Delete_Department.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
