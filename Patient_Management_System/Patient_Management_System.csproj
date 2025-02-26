@@ -2932,15 +2932,12 @@
     <Content Include="Content\template\assets\images\nabh-logo\NABH-MC-3264.webp" />
     <Content Include="Content\template\assets\images\nabh-logo\NABH-medical-imaging-services.webp" />
     <Content Include="Content\template\assets\images\nabh-logo\NABH-nursing-service.webp" />
-    <Content Include="Content\template\assets\images\our_speciality.webp" />
     <Content Include="Content\template\assets\images\Patient_Speaks.webp" />
     <Content Include="Content\template\assets\images\Renal-Transplant.webp" />
     <Content Include="Content\template\assets\images\specialities-icon\Ophthalmology.webp" />
     <Content Include="Content\template\assets\images\specialities-icon\Orthopaedic.webp" />
     <Content Include="Content\template\assets\images\specialities-icon\Paediatrics.webp" />
     <Content Include="Content\template\assets\images\specialities-icon\Urology.webp" />
-    <Content Include="Content\template\assets\images\Success_Stories.webp" />
-    <Content Include="Content\template\assets\images\women_child_care.webp" />
     <Content Include="Content\template\fontawesome-free-6.7.2-web\less\brands.less" />
     <Content Include="Content\template\fontawesome-free-6.7.2-web\less\fontawesome.less" />
     <Content Include="Content\template\fontawesome-free-6.7.2-web\less\regular.less" />
@@ -3012,8 +3009,6 @@
     <Content Include="Content\Admin\assets\plugins\summernote\dist\font\summernote4c4d.ttf" />
     <Content Include="Content\Admin\assets\plugins\summernote\dist\font\summernote4c4d.woff" />
     <Content Include="Content\Admin\assets\plugins\summernote\dist\font\summernoted41d.eot" />
-    <Content Include="Content\template\assets\images\book_an_appoinment.webp" />
-    <Content Include="Content\template\assets\images\kd-logo.webp" />
     <Content Include="Content\Appointment\css\.DS_Store" />
     <Content Include="Content\Appointment\css\bootstrap-grid.css.map" />
     <Content Include="Content\Appointment\css\bootstrap-grid.min.css.map" />
