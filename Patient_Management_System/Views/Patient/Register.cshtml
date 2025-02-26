@@ -5,6 +5,25 @@
 
 @using (Html.BeginForm("Register", "Patient", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    if (!string.IsNullOrEmpty(ViewBag.Message) || !string.IsNullOrEmpty(ViewBag.Error))
+    {
+        <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center justify-content-center" role="alert" style="border-left: 5px solid #856404; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); padding: 15px;">
+            <div>
+                <i class="fas fa-exclamation-triangle me-2" style="color:rgb(246, 2, 2); font-size: 1.5rem;"></i>
+            </div>
+            <div>
+                @if (!string.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <strong>@ViewBag.Message</strong><br>
+                }
+                @if (!string.IsNullOrEmpty(ViewBag.Error))
+                {
+                    <strong>@ViewBag.Error</strong>
+                }
+            </div>
+           
+        </div>
+    }
 
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,54 +36,6 @@
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-        <style>
-            .login-container {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 80vh;
-            }
-
-            .login-box {
-                display: flex;
-                width: 800px;
-                background: #fff;
-                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                border-radius: 10px;
-                overflow: hidden;
-            }
-
-            .login-image {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: #f7f7f7;
-            }
-
-                .login-image img {
-                    max-width: 100%;
-                    height: auto;
-                }
-
-            .login-form {
-                width: 50%;
-                padding: 30px;
-            }
-        </style>
-
-        <div class="login-container">
-            <div class="login-box">
-                <!-- Image Section -->
-                <div class="login-image">
-                    <img src="~/Content/template/assets/images/sign_up.png" alt="Login Image">
-                </div>
-            </div>
-        </div>
-
-        <!-- 3-column layout -->
 
         <div class="form-row">
             <!-- First Name -->
@@ -209,13 +180,13 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button value="Create"><b>Submit</b></button>
+                <button value="submit" ><b>Submit</b></button>
 
                 <br><br>
-                <p style="margin-left: 270px; font-size: 16px;">
+                <p style="margin-left: 270px; font-size: 18px;">
                     Already  have an Account'? <a href="Login" style="text-decoration: none; color: white;"><b>Login</b></a>
                 </p>
             </div>
         </div>
     </div>
- }
+}

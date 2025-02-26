@@ -9,6 +9,18 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.AntiForgeryToken()
 
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+            <strong>@ViewBag.Message</strong>
+            <strong>@ViewBag.Error</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
             <h4 class="page-title">Edit Schedule</h4>
@@ -20,7 +32,7 @@
             <div class="row">
 
                 @Html.HiddenFor(model => model.Schedule_ID)
-                <!-- Doctor -->            
+                <!-- Doctor -->
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Doctor Name</label>
@@ -68,7 +80,7 @@
                     <div class="form-group">
                         <label>Status:</label>
                         @Html.DropDownListFor(model => model.Status, new List<SelectListItem>
-                        {
+                                        {
                             new SelectListItem { Text = "Active", Value = "Active" },
                             new SelectListItem { Text = "Inactive", Value = "Inactive" }
                         }, "Select Status", new { @class = "form-control", @id = "Dr_Status", required = "required" })
@@ -81,6 +93,6 @@
                     </div>
                 </div>
             </div>
-            </div>
         </div>
+    </div>
 }

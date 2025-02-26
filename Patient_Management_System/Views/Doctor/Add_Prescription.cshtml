@@ -10,12 +10,16 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    @*<div class="row">
-            <div class="col-lg-8 offset-lg-2">
-                <h4 class="page-title">Add Prescription</h4>
-            </div>
-        </div>*@
-
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+            <strong>@ViewBag.Message</strong>
+            <strong>@ViewBag.Error</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
 
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
@@ -64,12 +68,9 @@
                         <label>Instructions</label>
                         @Html.TextBoxFor(model => model.Instructions, new { @class = "form-control", required = "required" })
                     </div>
-                </div>
-
-
-                <!-- Submit Button -->
-                <div class="container d-flex justify-content-center" style="margin-top: 95px;">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>               
+                <div class="m-t-20 text-center">
+                    <button class="btn btn-primary submit-btn" style="margin-left:130px; ">Add Prescription</button>
                 </div>
             </div>
         </div>

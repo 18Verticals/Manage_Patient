@@ -4,6 +4,18 @@
 }
 
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        <strong>@TempData["SuccessMessage"]</strong>
+        <strong style="color: red;">@TempData["ErrorMessage"]</strong>
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
 
 @using (Html.BeginForm("List_Department", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -30,7 +42,7 @@
                 <table class="table table-border table-striped custom-table datatable mb-0">
                     <thead>
                         <tr>
-                            <th> </th>                           
+                            <th> </th>
                             <th>SPECIALITIES NAME</th>
                         </tr>
                     </thead>
@@ -53,10 +65,10 @@
                                         }
                                     </script>
 
-                                    <a class="dropdown-item"  href="javascript:void(0);" onclick="confirmDelete('@Url.Action("Delete_Department", new { deptId = departmentVM.Dept_ID })')">
+                                    <a class="dropdown-item" href="javascript:void(0);" onclick="confirmDelete('@Url.Action("Delete_Department", new { deptId = departmentVM.Dept_ID })')">
                                         <i class="fa fa-trash-o m-r-5"></i>
                                     </a>
-                                </td>                              
+                                </td>
                                 <td>@departmentVM.Dept_Name</td>
                             </tr>
                         }
@@ -77,5 +89,5 @@
     <script src="assets/js/moment.min.js"></script>
     <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
     <script src="assets/js/app.js"></script>
-    
+
 }

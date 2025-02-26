@@ -40,7 +40,7 @@ namespace Patient_Management_System.Controllers
 
                 if (result == "Success")
                 {
-                    // Send new password via email
+                   
                     SendEmail(model.Email, "Password Reset"," Please Do Not Reply , Your  new password is: " + newPassword);
 
                     ViewBag.Message = "A new password has been sent to your email.";
@@ -79,7 +79,7 @@ namespace Patient_Management_System.Controllers
         {
             var fromAddress = new MailAddress("hemangkanzariya00@gmail.com", "LiveDoc Multispecialist Hospital");
             var toAddress = new MailAddress(toEmail);
-            const string fromPassword = "your-email-password";
+            const string fromPassword = "mali biwj ntwn oqye";
 
             var smtp = new SmtpClient
             {
@@ -88,7 +88,7 @@ namespace Patient_Management_System.Controllers
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "sknt ivrj otjx hjvd") 
+                Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "mali biwj ntwn oqye") 
             };
 
             using (var message = new MailMessage(fromAddress, toAddress)

@@ -4,7 +4,17 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        <strong>@TempData["SuccessMessage"]</strong>
+        <strong style="color: red;">@TempData["ErrorMessage"]</strong>
 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
 <div class="row">
     <div class="col-sm-4 col-3">
         <h4 class="page-title">Schedule</h4>
@@ -18,7 +28,7 @@
 <table class="table">
     <tr>
         <th></th>
-      
+
         <th>Doctor</th>
         <th>Specialities</th>
         <th>Availabe Date</th>
@@ -47,7 +57,7 @@
                     <i class="fa fa-trash-o m-r-5"></i>
                 </a>
             </td>
-  
+
             <td>
                 Dr. @(item.DoctorTbl.Dr_FirstName ?? "N/A") @(item.DoctorTbl.Dr_LastName ?? "N/A")
             </td>

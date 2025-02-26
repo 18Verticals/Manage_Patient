@@ -76,12 +76,14 @@
                         </li>
 
                         <li>
-                            <a href="@Url.Action("Logout","Admin")"><i class="fa fa-sticky-note"></i> <span>Logout</span></a>
+                            <a href="@Url.Action("List_Payment","Admin")"><i class="fa fa-paypal"></i> <span>Payment</span></a>
                         </li>
 
                         <li>
-                            <a href="@Url.Action("List_Payment","Admin")"><i class="fa fa-paypal"></i> <span>Payment</span></a>
+                            <a href="@Url.Action("Logout","Admin")"><i class="fa fa-sticky-note"></i> <span>Logout</span></a>
                         </li>
+
+
                     </ul>
                 </div>
             </div>
@@ -90,19 +92,14 @@
 
         <div class="page-wrapper">
             <div class="content">
+
                 <div>
                     @RenderBody()
                 </div>
 
-
-
-
             </div>
         </div>
     </div>
-
-
-
     <div class="sidebar-overlay" data-reff=""></div>
     <script src="~/Content/Admin/assets/js/jquery-3.2.1.min.js"></script>
     <script src="~/Content/Admin/assets/js/popper.min.js"></script>

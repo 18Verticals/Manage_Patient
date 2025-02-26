@@ -1,6 +1,7 @@
 ﻿using Patient_Management_System.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -11,12 +12,15 @@ namespace Patient_Management_System.ViewModel
         public int Schedule_ID { get; set; }
         public int Doctor_ID { get; set; }
         public string Dr_FirstName { get; set; }
+        public string Dr_LastName { get; set; }
         
         public int Dept_ID { get; set; }
         public string Dept_Name { get; set; }
-        public System.TimeSpan Start_Time { get; set; }
-        public System.TimeSpan End_Time { get; set; }
+        public TimeSpan? Start_Time { get; set; }
+        public TimeSpan? End_Time { get; set; }
         public string Status { get; set; }
+
+        
         public Nullable<System.DateTime> Available_Date { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

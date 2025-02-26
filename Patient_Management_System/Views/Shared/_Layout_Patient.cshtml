@@ -1,19 +1,18 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    @*<meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">*@
     <title>LiveDoc Multispecialist Hospital</title>
-    <meta name="description" content="KD Hospital is the best hospital in Ahmedabad, offering advanced care and treatment for various medical conditions. Contact us today to schedule your appointment." />
+    @*<meta name="description" content="KD Hospital is the best hospital in Ahmedabad, offering advanced care and treatment for various medical conditions. Contact us today to schedule your appointment." />
     <meta name="keyword" Content=" Best Super Speciality Hospital in Ahmedabad, Best Hospitals in Ahmedabad, Best Multispeciality Hospital in Ahmedabad, KD Hospital" />
     <meta name="robots" content="index,follow" />
     <meta name="contact" Content="+91 70465 90890 " />
     <meta name="distribution" Content="Global" />
     <meta name="rating" content="General" />
-    <!--<meta name="revisit-after" content="1 days" />-->
+  
     <meta name="geo.placename" content="Ahmedabad, India" />
     <meta name="geo.placename" content="Gujarat, India" />
     <meta name="author" content="KD Hospital, contact@kdhospital.co.in" />
@@ -22,13 +21,8 @@
     <meta property="og:image" content="https://template/assets/images/kd_hospital.jpg" />
     <meta name="og:email" content="contact@kdhospital.co.in" />
     <meta name="og:phone_number" content="+91 79 6677 0001" />
-    <meta name="og:url" content="https://template/" />
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="#">
-    <meta name="twitter:creator" content="#">
-    <meta name="twitter:title" content="KD Hospital - Best Multispeciality Hospital in Ahmedabad">
-    <meta name="twitter:description" content="KD Hospital is the best hospital in Ahmedabad, offering advanced care and treatment for various medical conditions. Contact us today to schedule your appointment.">
-    <link rel="shortcut icon" href="favicon.ico">
+    <meta name="og:url" content="https://template/" />*@
+     <link rel="shortcut icon" href="favicon.ico">
 
 
     <!-- Start For Appointment -->
@@ -57,9 +51,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <!-- End For Appointment -->
-
-
-
     <!-- plugins styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo+2:400,500,600,700,800%7CLato:100,300,400,700,900%7COpen+Sans:300,400,600,700,800%7CRoboto:300,400,500,700,900%7CRubik:300,400,500,700,900&amp;display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
@@ -177,107 +168,47 @@
                 <div class="container">
                     <div class="inner-container">
                         <div class="logo">
-                            <a href="Index" class=""> <img src="~/Content/template/assets/images/LiveDoc.png" class="main-nav-one__main-logo" alt="Best Super Speciality Hospital in Ahmedabad" title="Best Super Speciality Hospital in Ahmedabad"> <img src="~/Content/template/assets/images/LiveDoc.png" width="219" class="main-nav-one__mobile-logo" alt="Best Super Speciality Hospital in Ahmedabad" title="Best Super Speciality Hospital in Ahmedabad"> </a>
+                            <a href="Index" class=""> <img src="/Content/template/assets/images/LiveDoc.png" class="main-nav-one__main-logo" alt="Best Super Speciality Hospital in Ahmedabad" title="Best Super Speciality Hospital in Ahmedabad"> <img src="/Content/template/assets/images/LiveDoc.png" width="219" class="main-nav-one__mobile-logo" alt="Best Super Speciality Hospital in Ahmedabad" title="Best Super Speciality Hospital in Ahmedabad"> </a>
                             <span class="side-menu__toggler"><i class="fa fa-bars"></i></span>
                         </div>
+
                         <div class="main-nav__main-navigation">
                             <ul class="main-nav__navigation-box">
+
+                                <li>
+                                    <a href="@Url.Action("Search_Doctor","Patient")">Our Doctor</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Appointment","Patient")">Make Appointment</a>
+                                </li>
+
+                                <li>
+                                    <a    href="@Url.Action("contact","Patient")">contact Us</a>
+                                </li>
+
+                                <li>
+                                    <a href="@Url.Action("Aboutus","Home")">About Us</a>
+                                </li>
+
+
+
+
+
+
+
+
                                 <li class="dropdown mega-menu">
-                                    <a href="#">Specialities </a>
+                                    @*<a href="#">More </a>*@
                                     <ul class="medical_spec">
                                         <div class="col-md-12 p0">
                                             <div class="row m0">
-
-                                                <div class="col-lg-3 pr15">
+                                                <div class="col-lg-4 pr15">
                                                     <div class="box-brder">
+                                                        <h4>About</h4>
+                                        <li><a href="vision-mission">Vision and Mission</a></li>
 
-                                        <li><a href="emergencycare-trauma-and-icu" class="orange-color">Emergency Care, CCU, & ICU </a> </li>
-                                        <li><a href="home_healthcare" class="orange-color">Home Healthcare</a></li>
-                                        <li><a href="health_package" class="orange-color">Health Checkup Packages</a></li>
-                                        <li><a href="organ_donation" class="orange-color">Transplant Services</a></li>
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 pl0 pr15">
-                        <div class="box-brder">
-                            <li><a href="general-dentistry-and-implant-centre">General Dentistry & Implant Centre</a></li>
-                            <li><a href="liver-transplant">Liver Transplant</a></li>
-                            <li><a href="cardiologist-in-ahmedabad">Cardiology </a></li>
-                            <li><a href="gastroenterology">Gastroenterology </a> </li>
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 pl0 pr15">
-                        <div class="box-brder">
-                            <li><a href="neurology-hospital-near-me">Neurology</a></li>
-                            <li><a href="ophthalmology-clinic-near-me">Ophthalmology </a></li>
-                            <li><a href="orthopedic-hospital-ahmedabad">Orthopaedic & Joint Replacement </a></li>
-                            <li><a href="plastic-surgery">Plastic Surgery </a></li>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 pl0 pr15">
-                        <div class="box-brder">
-                            <li><a href="spine-surgery">Spine Surgery </a></li>
-                            <li><a href="radiology">Radiology </a></li>
-                            <li><a href="ent">ENT </a> </li>
-                        </div>
-                    </div>
-                </div>
-        </div>
-        </ul>
-        </li>
-         <li>
-            <a href="@Url.Action("Doctors","Home")">Our Doctors</a>
-        </li>
-
-        <li>
-            <a href="@Url.Action("Appointment","Patient")">Make Appointment</a>
-        </li>
-                              
-        <li><a href="Doctors" ,"Pa">Our Doctors</a></li>
-        <li class="dropdown">
-            <a href="#">Associations </a>
-            <ul>
-                <li><a href="corporates">Corporates</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="#">Cashless Services</a>
-            <ul>
-                <li><a href="insurance-companies">Insurance Companies</a></li>
-                <li><a href="tpas">TPAs</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="#">Patient Corner </a>
-            <ul>
-                <li><a href="patients-care-&-services">Patient Care & Services</a></li>
-                <li><a href="patients-speaks">Patient Speaks</a></li>
-                <li><a href="miracles-of-care">Miracles of Care</a></li>
-                <li><a href="virtual-tour" target="_blank">Virtual Tour</a></li>
-                <li><a href="patient-information-leaflets">Patient Information Leaflets</a></li>
-                <li><a href="bmi-calculator">Body Mass Index Calculator </a></li>
-                <li><a href="bmr-calculator">Basal Metabolic Rate Calculator </a></li>
-                <li><a href="ovulation-calculator">Ovulation Calculator </a></li>
-            </ul>
-        </li>
-        <li><a href="Contact_Us">contact us</a></li>
-
-        <li class="dropdown mega-menu">
-            <a href="#">More </a>
-            <ul class="medical_spec">
-                <div class="col-md-12 p0">
-                    <div class="row m0">
-                        <div class="col-lg-4 pr15">
-                            <div class="box-brder">
-                                <h4>About</h4>
-                <li><a href="vision-mission">Vision and Mission</a></li>
-                <li><a href="Aboutus">About Us</a></li>
-                <li><a href="contact-us">Contact Us</a></li>
-    </div>
+                                        <li><a href="Content">Contact</a></li>
+</div>
     </div>
 
     <div class="col-lg-4 pl0 pr15">
@@ -298,7 +229,7 @@
     </ul>
     </li>
     </ul>
-    
+
 
     <!-- /.main-nav__navigation-box -->
     </div>
@@ -318,8 +249,8 @@
     <style>
         .slider-two__carousel {
             width: 100%;
-            /*max-width: 945px;*/
-            position: relative;
+            /max-width: 945px;
+            / position: relative;
             z-index: 19;
         }
 
@@ -392,11 +323,11 @@
             transition: all 1s;
         }
 
-        .slider-two__carousel-single:hover .slider-two__carousel-content::after {
+        .slider-two_carousel-single:hover .slider-two_carousel-content::after {
             top: 80%;
         }
 
-        .slider-two__carousel-single:hover .slider-two__carousel-content::before {
+        .slider-two_carousel-single:hover .slider-two_carousel-content::before {
             top: 10%;
         }
 
@@ -430,18 +361,14 @@
 
         /* animating on active */
 
-        .slider-two__carousel .active .slider-two__carousle-content {
+        .slider-two_carousel .active .slider-two_carousle-content {
             animation-name: fadeInUp;
         }
     </style>
 
-
-
-
     <main>
         @RenderBody()
     </main>
-
 
     </section>
     <footer class="site-footer">
@@ -499,9 +426,6 @@
                                 <li><a href="pdfs/quality-indicators.pdf" target="_blank"><i class="fa fa-angle-right"></i>Quality Indicators</a></li>
 
                             </ul>
-
-
-
                         </div>
                         <!-- /.footer-widget footer-widget__post -->
                     </div>
@@ -511,8 +435,6 @@
                         <div class="footer-widget footer-widget__contact">
                             <!--              <h3 class="footer-widget__title">Contact Us</h3>-->
                             <ul class="list-unstyled footer-widget__links-list width-100 mb-30">
-
-
                             </ul>
                         </div>
                         <!-- /.footer-widget footer-widget__contact -->
@@ -538,12 +460,12 @@
 
     <div class="side-menu__block">
 
-        <a href="#" class="side-menu__toggler side-menu__close-btn">
+        <a href="#" class="side-menu_toggler side-menu_close-btn">
             <i class="fa fa-times"></i>
             <!-- /.fa fa-close -->
         </a>
 
-        <div class="side-menu__block-overlay custom-cursor__overlay">
+        <div class="side-menu_block-overlay custom-cursor_overlay">
 
         </div>
         <!-- /.side-menu__block-overlay -->
@@ -556,8 +478,6 @@
             <nav class="mobile-nav__container">
                 <!-- content is loading via js -->
             </nav>
-
-
         </div>
         <!-- /.side-menu__block-inner -->
     </div>
@@ -715,4 +635,3 @@
 </body>
 
 </html>
-

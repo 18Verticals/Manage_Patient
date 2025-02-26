@@ -5,11 +5,25 @@
     ViewBag.Title = "Doctor Prescription";
 }
 
-<!-- Web Banner Section with Custom Color -->
+
 <div class="container p-4 mb-3 rounded d-flex justify-content-center align-items-center"
      style="background: linear-gradient(to right, #5e87e6, #d5e3c3); color: white; height: 100px;">
     <h1 class="display-6 text-center">Prescription Details</h1>
 </div>
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        <strong>@TempData["SuccessMessage"]</strong>
+        <strong style="color: red;">@TempData["ErrorMessage"]</strong>
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
 
 @if (Model != null && Model.Any())
 {
@@ -17,8 +31,8 @@
         <table id="prescriptionTable" class="table table-bordered text-center">
             <thead>
                 <tr>
-                    <th>Actions</th>
-                 
+                    <th></th>
+
                     <th>Patient Name</th>
                     <th>Date Issued</th>
                     <th>Medication</th>
@@ -48,16 +62,9 @@
                             <a class="btn btn-sm btn-danger" href="javascript:void(0);" onclick="confirmDelete('@Url.Action("Delete_Prescription", "Doctor", new { PrescId = prescription.Presc_ID })')">
                                 <i class="fa fa-trash-o"></i>
                             </a>
-
-
-
-
-
-
-
                         </td>
-                       
-                        <td>@prescription.P_FirstName</td>
+
+                        <td>@prescription.P_FirstName @prescription.P_MiddleName</td>
                         <td>@prescription.DateIssued.ToShortDateString()</td>
                         <td>@prescription.Medication</td>
                         <td>@prescription.Dosage</td>
