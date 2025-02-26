@@ -37,13 +37,14 @@ namespace Patient_Management_System.Controllers
 
 
 
-        [HttpPost]
         public ActionResult Logout()
-        { 
-            Session.Clear(); 
+ {
+     Session.Clear();
+     FormsAuthentication.SignOut();
+     return RedirectToAction("Login");
+ }
 
-            return RedirectToAction("Login", "Admin"); 
-        }
+        
         [HttpGet]
         public ActionResult Login()
         {
