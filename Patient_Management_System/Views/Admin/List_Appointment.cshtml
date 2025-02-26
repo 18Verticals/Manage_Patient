@@ -1,10 +1,26 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
+
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        <strong>@TempData["SuccessMessage"]</strong>
+        <strong style="color: red;">@TempData["ErrorMessage"]</strong>
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+
 <div class="row">
 
     <div class="col-sm-4 col-3">
-        <h4 class="page-title">Appointment</h4>
+        <h4 class="page-title">Appointments</h4>
     </div>
 
     <div class="col-sm-8 col-9 text-right m-b-20">
@@ -29,7 +45,7 @@
                         <th>Diseases</th>
 
 
-                        <th>Contact</th>                                              
+                        <th>Contact</th>
 
                     </tr>
                 </thead>
@@ -54,33 +70,25 @@
                                 </script>
 
                                 <a class="dropdown-item" href="javascript:void(0);" onclick="confirmDelete('@Url.Action("Delete_Appointment","Admin", new { aptId =aptVM.Appointment_ID })')">
-                                  
+
                                     <i class="fa fa-trash-o m-r-5"></i>
                                 </a>
                             </td>
-                            <td>@aptVM.Dr_FirstName</td>
+                            <td>@aptVM.Dr_FirstName @aptVM.Dr_LastName</td>
                             <td>@aptVM.Dept_Name</td>
-                            <td>@aptVM.P_FirstName</td>
+                            <td>@aptVM.P_FirstName @aptVM.P_MiddleName </td>
                             <td>@aptVM.Apt_Date.ToString("dd-MM-yyyy")</td>
                             <td>@aptVM.Apt_Time</td>
                             <td>@aptVM.Description</td>
                             <td>@aptVM.Diseases</td>
                             <td>@aptVM.Phone</td>
-              
+
                         </tr>
 
-                       
-                  }
+
+                    }
                 </tbody>
 
             </table>
-   
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <div class="see-all">
-            <a class="see-all-btn" href="javascript:void(0);">More</a>
         </div>
-    </div>
-</div>
 

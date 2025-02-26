@@ -3104,15 +3104,11 @@
     <Content Include="Views\Admin\Edit_Prescription.cshtml" />
     <Content Include="Views\Patient\Appointment.cshtml" />
     <Content Include="Views\Doctor\Prescription.cshtml" />
-    <Content Include="Views\Doctor\Appointments.cshtml" />
     <Content Include="Views\Doctor\Add_Prescription.cshtml" />
     <Content Include="Views\Doctor\List_Schedule.cshtml" />
-    <Content Include="Views\Doctor\Appointments.cshtml" />
     <Content Include="Views\Patient\Search_Doctor.cshtml" />
     <Content Include="Views\Shared\_Layout_Doctor.cshtml" />
     <Content Include="Views\Doctor\Edit_Schedule.cshtml" />
-    <Content Include="Views\Doctor\Delete_Schedule.cshtml" />
-    <Content Include="Views\Doctor\Delete_Prescription.cshtml" />
     <Content Include="Views\Doctor\Forgot_Password.cshtml" />
     <Content Include="Views\Forgot_Password\ForgotPassword.cshtml" />
     <Content Include="Views\Patient\Login.cshtml" />
@@ -3130,6 +3126,7 @@
     <Content Include="Views\Doctor\Profile.cshtml" />
     <Content Include="Views\Admin\List_Schedule.cshtml" />
     <Content Include="Views\Admin\Delete_Department.cshtml" />
+    <Content Include="Views\Doctor\Appointments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,14 +7,30 @@
 
 @using (Html.BeginForm("Add_Appointment", "Admin", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+            <strong>@ViewBag.Message</strong>
+            <strong>@ViewBag.Error</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
 
     <div class="row">
-        <div class="col-lg-8 offset-lg-2">
-            <h4 class="page-title">Add Appointment</h4><span class=" fa fa-warning" style="color:black">Use the same number that was entered at the time of login.</span>
+
+        <div class="col-sm-4 col-3">
+            <h4 class="page-title">Add Appointment</h4>
         </div>
+
+
+
     </div>
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
@@ -24,12 +40,12 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Specialities</label>
-                        @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Specialities --", new { @class = "form-control"})
+                        @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Specialities --", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-               
+
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Doctor</label>
@@ -80,8 +96,8 @@
                 </div>
 
                 <!-- Submit Button -->
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Add Appointment</button>
+                <div class="m-t-20 text-center">
+                    <button class="btn btn-primary submit-btn" style="margin-left:180px;">Add Appointment</button>
                 </div>
             </div>
         </div>

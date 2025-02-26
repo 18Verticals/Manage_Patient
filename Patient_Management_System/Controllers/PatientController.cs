@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using Patient_Management_System.Models;
 using System.Configuration;
 using System.IO;
+using System.Net.Mail;
+using System.Net;
 namespace Patient_Management_System.Controllers
 {
     public class PatientController : Controller
@@ -60,18 +62,7 @@ namespace Patient_Management_System.Controllers
                     {
                         conn.Open();
 
-                        string checkEmailQuery = "SELECT COUNT(*) FROM PatientsTbl WHERE P_Email = @P_Email";
-                        using (SqlCommand cmdCheckEmail = new SqlCommand(checkEmailQuery, conn))
-                        {
-                            cmdCheckEmail.Parameters.AddWithValue("@P_Email", patients.P_Email);
-                            int emailExists = (int)cmdCheckEmail.ExecuteScalar();
-
-                            if (emailExists > 0)
-                            {
-                                ViewBag.Error = "The email address already exists. Please choose a different email.";
-                                return View(patients);
-                            }
-                        }
+                        
                         using (SqlCommand cmd = new SqlCommand("sp_Add_Patients", conn))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
@@ -95,9 +86,17 @@ namespace Patient_Management_System.Controllers
                     }
                     return RedirectToAction("Login");
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
-                    ViewBag.Error = "An error occurred: " + ex.Message;
+
+                    if (ex.Number == 2627 || ex.Number == 2601)
+                    {
+                        ViewBag.Message = "The Email you entered is already associated with another patient. Please use a different email.";
+                    }
+                    else
+                    {
+                        ViewBag.Message = "An error occurred: " + ex.Message;
+                    }
                     System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
                 }
             }
@@ -156,7 +155,7 @@ namespace Patient_Management_System.Controllers
 
         [HttpGet]
         public ActionResult Appointment()
-        {            
+        {
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name");
             ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName");
             ViewBag.TimeSlots = GetTimeSlots();
@@ -175,7 +174,7 @@ namespace Patient_Management_System.Controllers
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("[sp_Book_Appointment]", con))
+                using (SqlCommand cmd = new SqlCommand("[sp_Demo_Book_Appointment]", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -193,26 +192,39 @@ namespace Patient_Management_System.Controllers
                     };
                     cmd.Parameters.Add(returnValue);
 
+                    SqlParameter emailParam = new SqlParameter("@PatientEmail", SqlDbType.NVarChar, 100)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(emailParam);
+
                     con.Open();
                     cmd.ExecuteNonQuery();
 
                     int result = (returnValue.Value != DBNull.Value) ? Convert.ToInt32(returnValue.Value) : -2;
+                    string patientEmail = emailParam.Value.ToString();
 
                     if (result == 1)
                     {
                         ViewBag.Message = "Appointment booked successfully!";
+                        TempData["SuccessMessage"] = "Appointment booked successfully!";
+
+                        SendEmailNotification(patientEmail, aptVM);
                     }
                     else if (result == 0)
                     {
                         ViewBag.Message = "This time slot is already booked!";
+                        TempData["SuccessMessage"] = "This time slot is already booked!";
                     }
                     else if (result == -1)
                     {
                         ViewBag.Message = "No patient exists with this phone number.";
+                        TempData["SuccessMessage"] = "No patient exists with this phone number.";
                     }
                     else
                     {
                         ViewBag.Message = "An unexpected error occurred.";
+                        TempData["SuccessMessage"] = "An unexpected error occurred.";
                     }
                 }
             }
@@ -268,6 +280,42 @@ namespace Patient_Management_System.Controllers
             return Json(availableSlots, JsonRequestBehavior.AllowGet);
         }
 
+        private void SendEmailNotification(string email, AppointmentVM aptVM)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    Console.WriteLine("No email found for the patient.");
+                    return;
+                }
+
+                MailMessage mail = new MailMessage
+                {
+                    From = new MailAddress("hemangkanzariya00@gmail.com"),
+                    Subject = "Appointment Confirmation",
+                    Body = $"Dear Patient,\n\nYour appointment has been confirmed with Dr. {aptVM.Doctor_ID} on  {aptVM.Apt_Date:dd-MM-yyyy} at {aptVM.Apt_Time}.\n\nDescription: {aptVM.Description}\n\nThank you!\n\nBest Regards,\nLiveDoc Multispecialist Hospital\n\n Any Query? Please Contact Us:70465 90890",
+                    IsBodyHtml = false
+                };
+
+                mail.To.Add(email);
+
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "ylba zcnu rsmn nvro"), // Use App Password
+                    EnableSsl = true
+                };
+
+                smtp.Send(mail);
+                Console.WriteLine("Email sent successfully!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Email sending failed: " + ex.Message);
+            }
+        }
         public ActionResult Search_Doctor(string searchTerm)
         {
             List<DoctorVM> doctors = new List<DoctorVM>();
@@ -333,7 +381,8 @@ namespace Patient_Management_System.Controllers
 
                             if (rowsAffected > 0)
                             {
-                                return RedirectToAction("Index", "Admin");
+                                TempData["SuccessMessage"] = "Thank You";
+                                return RedirectToAction("Index", "Home");
                             }
                             else
                             {

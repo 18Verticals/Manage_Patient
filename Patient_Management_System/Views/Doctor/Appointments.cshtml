@@ -3,83 +3,121 @@
     Layout = "~/Views/Shared/_Layout_Doctor.cshtml";
     ViewBag.Title = "Doctor Appointments";
 }
+
 <div class="container">
-    <div class="image-textbox-container">
-        <img src="~/Content/Doctor/img/p1.png" alt="Doctor Image" class="doctor-image">
-        @*<input type="text" placeholder="Search Patient..." class="textbox" />*@
-        <a href="@Url.Action("Today_Appointments", "Doctor")" class="today-btn">Today's Appointments</a>
+    <h2>Appointments</h2>
+
+    <div class="date-picker-container">
+        <label for="appointmentDate">Select Date:</label>
+        <input type="date" id="appointmentDate" />
+        <button id="filterBtn">View Appointments</button>
+    </div>
+
+    <div class="table-container">
+        @if (Model != null && Model.Any())
+        {
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Appointment Date</th>
+                        <th>Phone</th>
+                        <th>Disease</th>
+                        <th>Time</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var appointment in Model)
+                    {
+                        <tr>
+                            <td>@appointment.P_FirstName</td>
+                            <td>@(appointment.Apt_Date.HasValue ? appointment.Apt_Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
+                            <td>@appointment.Phone</td>
+                            <td>@appointment.Diseases</td>
+                            <td>@(appointment.Apt_Time.HasValue ? appointment.Apt_Time.Value.ToString(@"hh\:mm") : "N/A")</td>
+                            <td>@appointment.Description</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="no-appointments">No appointments.</p>
+        }
     </div>
 </div>
 
-<div class="table-container">
-    <table class="styled-table">
-        <thead>
-            <tr>
-                <th>Patient Name</th>
-                <th>Appointment Date</th>
-                <th>Phone</th>
-                <th>Diseases</th>
-                <th>Apt_Time</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var appointment in Model)
-            {
-                <tr>
-                    <td>@appointment.P_FirstName</td>
-                    <td>@(appointment.Apt_Date.HasValue ? appointment.Apt_Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
-                    <td>@appointment.Phone</td>
-                    <td>@appointment.Diseases</td>
-                    <td>@appointment.Apt_Time</td>
-                    <td>@appointment.Description</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+<script>
+    document.getElementById("filterBtn").addEventListener("click", function () {
+        var selectedDate = document.getElementById("appointmentDate").value;
+        if (selectedDate) {
+            window.location.href = '@Url.Action("Appointments", "Doctor")' + '?selectedDate=' + selectedDate;
+        }
+    });
+</script>
 
 <style>
     .container {
         text-align: center;
-        margin-bottom: 20px;
+        margin: 20px auto;
     }
 
-    .image-textbox-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 15px;
+    .date-picker-container {
+        margin-bottom: 15px;
     }
 
-    .doctor-image {
-        width: 150px;
-        height: auto;
-        border-radius: 8px;
-    }
-
-    .textbox {
+    #appointmentDate {
         padding: 8px;
         font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+        border: 1px solid #000000;
+        border-radius: 6px;
     }
 
-    .today-btn {
+    #filterBtn {
         padding: 8px 15px;
         font-size: 16px;
         color: white;
         background-color: #000000;
         border: none;
         border-radius: 5px;
-        text-decoration: none;
         cursor: pointer;
     }
 
-        .today-btn:hover {
-            background-color: #218838;
+        #filterBtn:hover {
+            background-color: #007BFF;
         }
+
+    .table-container {
+        width: 90%;
+        margin: 20px auto;
+    }
+
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .styled-table th, .styled-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .styled-table th {
+            background-color: #b05bd7;
+            color: white;
+        }
+
+        .styled-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+    .no-appointments {
+        font-size: 18px;
+        color: red;
+        font-weight: bold;
+        margin-top: 20px;
+    }
 </style>
-
-
-

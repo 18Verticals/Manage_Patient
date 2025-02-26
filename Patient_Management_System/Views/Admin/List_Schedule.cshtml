@@ -4,12 +4,16 @@
 
 @if (TempData["SuccessMessage"] != null)
 {
-    <div style="color: green;">@TempData["SuccessMessage"]</div>
+    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        <strong>@TempData["SuccessMessage"]</strong>
+        <strong style="color: red;">@TempData["ErrorMessage"]</strong>
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 }
-@if (TempData["ErrorMessage"] != null)
-{
-    <div style="color: red;">@TempData["ErrorMessage"]</div>
-}
+
 
 <div class="row">
     <div class="col-sm-4 col-3">
@@ -28,11 +32,12 @@
                         <th class="text-right">ACTION</th>
 
                         <th>Doctor Name</th>
-                        <th>Department Name</th>                       
+                        <th>Department Name</th>
+                        <th>Available Date</th>
                         <th>Start Time</th>
                         <th>End Time</th>
-                        <th>Available Date</th>
-                        <th>Status</th>                        
+
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,8 +46,9 @@
 
                         <tr>
                             <td class="text-right">
-                                <a class="dropdown-item" href="@Url.Action("Edit_Schedule", new { scheduleId = scheduleVM.Schedule_ID })"><i class="fa fa-pencil m-r-5"></i>
-            </a>
+                                <a class="dropdown-item" href="@Url.Action("Edit_Schedule", new { scheduleId = scheduleVM.Schedule_ID })">
+                                    <i class="fa fa-pencil m-r-5"></i>
+                                </a>
 
                                 <!-- Add JavaScript confirmation for delete -->
                                 <script type="text/javascript">
@@ -54,10 +60,10 @@
                                 </script>
 
                                 <a class="dropdown-item" href="javascript:void(0);" onclick="confirmDelete('@Url.Action("Delete_Schedule", "Admin", new { scheduleId = scheduleVM.Schedule_ID })')">
-                <i class="fa fa-trash-o m-r-5"></i>
-            </a>
+                                    <i class="fa fa-trash-o m-r-5"></i>
+                                </a>
                             </td>
-                            <td>@scheduleVM.Dr_FirstName</td>
+                            <td>@scheduleVM.Dr_FirstName @scheduleVM.Dr_LastName</td>
                             <td>@scheduleVM.Dept_Name</td>
                             <td>@scheduleVM.Available_Date.ToString("dd/MM/yyyy")</td>
                             <td>@scheduleVM.Start_Time</td>
@@ -71,7 +77,7 @@
         </div>
     </div>
 </div>
-</div>
+
 <div class="sidebar-overlay" data-reff=""></div>
 <script src="assets/js/jquery-3.2.1.min.js"></script>
 <script src="assets/js/popper.min.js"></script>
@@ -83,13 +89,3 @@
 <script src="assets/js/moment.min.js"></script>
 <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
 <script src="assets/js/app.js"></script>
-
-
-<div class="row">
-    <div class="col-sm-12">
-        <div class="see-all">
-            <a class="see-all-btn" href="javascript:void(0);">More</a>
-        </div>
-    </div>
-</div>
-        </div>

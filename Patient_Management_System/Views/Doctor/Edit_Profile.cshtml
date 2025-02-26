@@ -5,14 +5,27 @@
 @using (Html.BeginForm("Edit_Profile", "Doctor", FormMethod.Post))
 {@Html.AntiForgeryToken()
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="row">
-    
-        <div class="col-lg-8 offset-lg-2">
-            <h4 class="page-title">Edit Profile</h4>
-        </div>
-    </div>    
-    <div class="row">
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+if (ViewBag.Message != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+        <strong>@ViewBag.Message</strong>
+        <strong>@ViewBag.Error</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+
+<div class="row">
+
+    <div class="col-lg-8 offset-lg-2">
+        <h4 class="page-title">Edit Profile</h4>
+    </div>
+</div>
+<div class="row">
     <div class="col-lg-8 offset-lg-2">
         <div class="row">
 
@@ -22,7 +35,7 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>First Name</label>
-                    @Html.EditorFor(model => model.Dr_FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Dr_FirstName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.Dr_FirstName, "", new { @class = "text-danger" })
 
                 </div>
@@ -31,7 +44,7 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Last Name</label>
-                    @Html.EditorFor(model => model.Dr_LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Dr_LastName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.Dr_LastName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -39,7 +52,7 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label>Qualification</label>
-                    @Html.EditorFor(model => model.Dr_Qualification, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Dr_Qualification, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.Dr_Qualification, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -48,7 +61,7 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label>Specialities</label>
-                    @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, htmlAttributes: new { @class = "form-control", required = "required" })
                     @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -57,10 +70,11 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label>Consultation Fees</label>
-                    @Html.EditorFor(model => model.Fees, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Fees, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.Fees, "", new { @class = "text-danger" })
                 </div>
             </div>
+
             <!-- Gender -->
             <div class="col-sm-4">
                 <div class="form-group gender-select">
@@ -83,7 +97,7 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label>Date Of Birth</label>
-                    @Html.TextBoxFor(model => model.Dr_DOB, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", max = DateTime.Now.ToString("yyyy-MM-dd") })
+                    @Html.TextBoxFor(model => model.Dr_DOB, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", max = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" })
                     @Html.ValidationMessageFor(model => model.Dr_DOB, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -91,7 +105,7 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label>Phone</label>
-                    @Html.EditorFor(model => model.Dr_Phone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Dr_Phone, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.Dr_Phone, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -112,22 +126,24 @@
                     <div class="profile-upload">
 
                         <div class="upload-img">
-                            <img alt="" src="~/Content/Admin/assets/img/user.jpg" />
+                            <img alt="Doctor Image" src="@Url.Content(Model.Dr_ImagePath ?? "~/Content/Admin/assets/img/user.jpg")" />
                         </div>
 
+
                         <div class="upload-input">
-                            <input type="file" name="Dr_ImagePath" id="Dr_ImagePath" class="form-control" />
+                            <input type="file" name="Dr_ImagePath" id="Dr_ImagePath" class="form-control" required />
                         </div>
                         @Html.ValidationMessageFor(model => model.Dr_ImagePath, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
 
+
             <!-- Address -->
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Address</label>
-                    @Html.EditorFor(model => model.Dr_Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Dr_Address, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.Dr_Address, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -136,7 +152,7 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label>City</label>
-                    @Html.EditorFor(model => model.Dr_City, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Dr_City, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.Dr_City, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -145,7 +161,7 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label>State</label>
-                    @Html.EditorFor(model => model.Dr_State, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Dr_State, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.Dr_State, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -154,8 +170,8 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label>Pincode</label>
-                    @Html.EditorFor(model => model.Dr_Pincode, new { htmlAttributes = new { @class = "form-control" } })
-                    @*@Html.ValidationMessageFor(model => model.Dr_Pincode, "", new { @class = "text-danger" })*@
+                    @Html.EditorFor(model => model.Dr_Pincode, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Dr_Pincode, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -166,14 +182,17 @@
                     @Html.DropDownListFor(model => model.Dr_Status, new List<SelectListItem>
                      {
              new SelectListItem { Text = "Active", Value = "Active" },
-             new SelectListItem { Text = "Inactive", Value = "Inactive" } }, "Select Status", new { @class = "form-control", @id = "Dr_Status" })
+             new SelectListItem { Text = "Inactive", Value = "Inactive" } }, "Select Status", new { @class = "form-control", @id = "Dr_Status", required = "required" })
                     @Html.ValidationMessageFor(model => model.Dr_Status, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div>
-    <button type="submit" class="btn btn-primary">Update Profile</button>
+
+
+
+<div class="m-t-20 text-center">
+    <button class="btn btn-primary submit-btn" style="margin-left:130px; ">Update Profile</button>
 </div>
 }
