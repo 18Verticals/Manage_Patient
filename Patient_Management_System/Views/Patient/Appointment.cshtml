@@ -8,291 +8,259 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-
-
-
     if (TempData["SuccessMessage"] != null)
     {
-        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-            <strong>@TempData["SuccessMessage"]</strong>
-            <strong style="color: red;">@TempData["ErrorMessage"]</strong>
-
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <div class="alert alert-success text-center">@TempData["SuccessMessage"]</div>
+    }
+    if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger text-center">@TempData["ErrorMessage"]</div>
     }
 
-
-    <div class="page-wrapper">
-        <!-- header section start -->
-        <div class="header_section">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <!-- <a class="navbar-brand"href="index.html"><img src="images/logo.png"></a> -->
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                </nav>
-            </div>
-            <!-- header section end -->
-            <!-- banner section start -->
-            <div class="banner_section layout_padding">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="banner_taital">Book <span style="color: #fc8004;">Appointment</span></h1>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- banner section end -->
+    <div class="container">
+        <h2>Book an Appointment</h2>
         </div>
-        <!-- header section end -->
-        <!-- appointment section start -->
-        <div class="appointment_section">
-            <div class="container">
-                <div class="appointment_box">
-                    <h3><span style="color: #fc8004;">Note:  </span>      Use the same number entered during Login.</h3>
-                    <div class="formbold-main-wrapper">
+       
+    <div class="col-sm-6">
+
+        <div class="input-group">
+            <span class="input-group-text"><i class="fa fa-hospital-o"></i></span>
+            <label>Department</label>
+            @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Department --", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
+        </div>
 
 
-
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                @Html.ValidationMessageFor(model => model.P_FirstName, "", new { @class = "text-danger" })
-                            </div>
-                            <!-- Department -->
-                            <div class="col-sm-6">
-
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fa fa-hospital-o"></i></span>
-                                    @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "--Department--", new { @class = "form-control uniform-input", required = "required" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
-                            </div>
-
-
-                            <div class="col-sm-6">
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fa fa-user-md"></i></span>
-                                    @Html.DropDownList("Doctor_ID", (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "--Doctor--", new { @class = "form-control uniform-input", required = "required" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="col-sm-6">
-
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                    @Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control uniform-input", type = "date", style = "height:49px;", min = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.Apt_Date, "", new { @class = "text-danger" })
-                            </div>
-
-                            <!-- Time Slot -->
-                            <div class="col-sm-6">
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
-                                    @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control uniform-input", required = "required" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.Apt_Time, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="col-sm-6">
-
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-align-left"></i>
-                                    </span>
-                                    @Html.TextBoxFor(model => model.Description, new { @class = "form-control", rows = 1, style = "height:49px; resize: none;", placeholder = "Description" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="col-sm-6">
-
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-phone"></i> <!-- Font Awesome icon -->
-                                    </span>
-                                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", style = "height:49px;", required = "required", placeholder = "Contact Number" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="col-sm-6">
-
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-stethoscope"></i> <!-- Icon for diseases -->
-                                    </span>
-                                    @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;", placeholder = "Diseases" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="col-sm-12 text-center mt-4">
-                                <button type="submit" class="formbold-btn">Make Appointment</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-text"><i class="fa fa-user-md"></i></span>
+                <label>Doctor</label>
+                @Html.DropDownList("Doctor_ID", new SelectList(Enumerable.Empty<SelectListItem>()), "-- Select Doctor --", new { @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
             </div>
+        </div>
+
+
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                <label>Date</label>
+                @Html.TextBoxFor(model => model.Apt_Date, new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" })
+                @Html.ValidationMessageFor(model => model.Apt_Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
+                <label>Time Slot</label>
+
+                @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(model => model.Apt_Time, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-text"><i class="fa fa-align-left"></i></span>
+                <label>Description</label>
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 3, placeholder = "Enter details" })
+            </div>
+        </div>
+
+
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i class="fa fa-phone"></i>
+                </span>
+               <label>Phone</label>
+                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", required = "required", placeholder = "Enter phone number" })
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i class="fa fa-stethoscope"></i>
+                </span>
+                @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;", placeholder = "Diseases" })
+            </div>
+            @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div class="col-sm-12 text-center mt-4">
+            <button type="submit" class="formbold-btn">Make Appointment</button>
         </div>
     </div>
-}
-<script src="~/Content/Appointment/js/jquery.min.js"></script>
-<script src="~/Content/Appointment/js/popper.min.js"></script>
-<script src="~/Content/Appointment/js/bootstrap.bundle.min.js"></script>
-<script src="~/Content/Appointment/js/jquery-3.0.0.min.js"></script>
-<script src="~/Content/Appointment/js/plugin.js"></script>
-<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="js/custom.js"></script>
-<script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+                                                }
+                                                <script src="~/Content/Appointment/js/jquery.min.js"></script>
+                                                <script src="~/Content/Appointment/js/popper.min.js"></script>
+                                                <script src="~/Content/Appointment/js/bootstrap.bundle.min.js"></script>
+                                                <script src="~/Content/Appointment/js/jquery-3.0.0.min.js"></script>
+                                                <script src="~/Content/Appointment/js/plugin.js"></script>
+                                                <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+                                                <script src="js/custom.js"></script>
+                                                <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+                                                <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+
+
+                                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                                <script>
+                                                    $(document).ready(function () {
+                                                        $("#Dept_ID").change(function () {
+                                                            var deptId = $(this).val();
+                                                            if (deptId) {
+                                                                $.getJSON('/Patient/GetDoctorsByDepartment', { deptId: deptId }, function (data) {
+                                                                    var doctorDropdown = $("#Doctor_ID");
+                                                                    doctorDropdown.empty();
+                                                                    doctorDropdown.append('<option value="">-- Select Doctor --</option>');
+                                                                    $.each(data, function (index, item) {
+                                                                        doctorDropdown.append('<option value="' + item.Doctor_ID + '">' + item.Dr_FirstName + '</option>');
+                                                                    });
+                                                                });
+                                                            }
+                                                        });
+                                                    });
+                                                </script>
+                                                <script>
+                                                    $(document).ready(function () {
+                                                        $("#Doctor_ID, #Apt_Date").change(function () {
+                                                            var doctorId = $("#Doctor_ID").val();
+                                                            var date = $("#Apt_Date").val();
+
+                                                            if (doctorId && date) {
+                                                                $.getJSON('/Appointment/GetAvailableSlots', { doctorId: doctorId, date: date }, function (data) {
+                                                                    var timeSlotDropdown = $("#TimeSlot");
+                                                                    timeSlotDropdown.empty();
+                                                                    $.each(data, function (index, item) {
+                                                                        timeSlotDropdown.append($('<option>', { value: item, text: item }));
+                                                                    });
+                                                                });
+                                                            }
+                                                        });
+                                                    });
+                                                </script>
+
+
+                                                <script>
+                                                    $('#datepicker').datepicker({
+                                                        uiLibrary: 'bootstrap'
+                                                    });
+                                                </script>
 
 
 
-<script>
-    $(document).ready(function () {
-        $("#Doctor_ID, #Apt_Date").change(function () {
-            var doctorId = $("#Doctor_ID").val();
-            var date = $("#Apt_Date").val();
 
-            if (doctorId && date) {
-                $.getJSON('/Appointment/GetAvailableSlots', { doctorId: doctorId, date: date }, function (data) {
-                    var timeSlotDropdown = $("#TimeSlot");
-                    timeSlotDropdown.empty();
-                    $.each(data, function (index, item) {
-                        timeSlotDropdown.append($('<option>', { value: item, text: item }));
-                    });
-                });
-            }
-        });
-    });
-</script>
+                                                <script>
+                                                    $('#timepicker').timepicker({
+                                                        uiLibrary: 'bootstrap'
+                                                    });
+                                                </script>
 
+                                                <style>
+                                                    * {
+                                                        margin: 0;
+                                                        padding: 0;
+                                                        box-sizing: border-box;
+                                                    }
 
-<script>
-    $('#datepicker').datepicker({
-        uiLibrary: 'bootstrap'
-    });
-</script>
+                                                    body {
+                                                        font-family: "Inter", Arial, Helvetica, sans-serif;
+                                                    }
 
+                                                    .formbold-mb-5 {
+                                                        margin-bottom: 20px;
+                                                    }
 
-<script>
-    $('#timepicker').timepicker({
-        uiLibrary: 'bootstrap'
-    });
-</script>
+                                                    .formbold-pt-3 {
+                                                        padding-top: 12px;
+                                                    }
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+                                                    .formbold-main-wrapper {
+                                                        display: flex;
+                                                        align-items: center;
+                                                        justify-content: center;
+                                                        padding: 48px;
+                                                    }
 
-    body {
-        font-family: "Inter", Arial, Helvetica, sans-serif;
-    }
+                                                    .formbold-form-wrapper {
+                                                        margin: 0 auto;
+                                                        max-width: 550px;
+                                                        width: 100%;
+                                                        background: white;
+                                                    }
 
-    .formbold-mb-5 {
-        margin-bottom: 20px;
-    }
+                                                    .formbold-form-label {
+                                                        display: block;
+                                                        font-weight: 500;
+                                                        font-size: 16px;
+                                                        color: #07074d;
+                                                        margin-bottom: 12px;
+                                                    }
 
-    .formbold-pt-3 {
-        padding-top: 12px;
-    }
+                                                    .formbold-form-label-2 {
+                                                        font-weight: 600;
+                                                        font-size: 20px;
+                                                        margin-bottom: 20px;
+                                                    }
 
-    .formbold-main-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 48px;
-    }
+                                                    .formbold-form-input {
+                                                        width: 100%;
+                                                        padding: 12px 24px;
+                                                        border-radius: 6px;
+                                                        border: 1px solid #e0e0e0;
+                                                        background: white;
+                                                        font-weight: 500;
+                                                        font-size: 16px;
+                                                        color: #6b7280;
+                                                        outline: none;
+                                                        resize: none;
+                                                    }
 
-    .formbold-form-wrapper {
-        margin: 0 auto;
-        max-width: 550px;
-        width: 100%;
-        background: white;
-    }
+                                                        .formbold-form-input:focus {
+                                                            border-color: #6a64f1;
+                                                            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+                                                        }
 
-    .formbold-form-label {
-        display: block;
-        font-weight: 500;
-        font-size: 16px;
-        color: #07074d;
-        margin-bottom: 12px;
-    }
+                                                    .formbold-btn {
+                                                        text-align: center;
+                                                        font-size: 16px;
+                                                        border-radius: 6px;
+                                                        padding: 14px 32px;
+                                                        border: none;
+                                                        font-weight: 600;
+                                                        background-color: #6a64f1;
+                                                        color: white;
+                                                        width: 100%;
+                                                        cursor: pointer;
+                                                    }
 
-    .formbold-form-label-2 {
-        font-weight: 600;
-        font-size: 20px;
-        margin-bottom: 20px;
-    }
+                                                        .formbold-btn:hover {
+                                                            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+                                                        }
 
-    .formbold-form-input {
-        width: 100%;
-        padding: 12px 24px;
-        border-radius: 6px;
-        border: 1px solid #e0e0e0;
-        background: white;
-        font-weight: 500;
-        font-size: 16px;
-        color: #6b7280;
-        outline: none;
-        resize: none;
-    }
+                                                    .formbold--mx-3 {
+                                                        margin-left: -12px;
+                                                        margin-right: -12px;
+                                                    }
 
-        .formbold-form-input:focus {
-            border-color: #6a64f1;
-            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
-        }
+                                                    .formbold-px-3 {
+                                                        padding-left: 12px;
+                                                        padding-right: 12px;
+                                                    }
 
-    .formbold-btn {
-        text-align: center;
-        font-size: 16px;
-        border-radius: 6px;
-        padding: 14px 32px;
-        border: none;
-        font-weight: 600;
-        background-color: #6a64f1;
-        color: white;
-        width: 100%;
-        cursor: pointer;
-    }
+                                                    .flex {
+                                                        display: flex;
+                                                    }
 
-        .formbold-btn:hover {
-            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
-        }
+                                                    .flex-wrap {
+                                                        flex-wrap: wrap;
+                                                    }
 
-    .formbold--mx-3 {
-        margin-left: -12px;
-        margin-right: -12px;
-    }
-
-    .formbold-px-3 {
-        padding-left: 12px;
-        padding-right: 12px;
-    }
-
-    .flex {
-        display: flex;
-    }
-
-    .flex-wrap {
-        flex-wrap: wrap;
-    }
-
-    .w-full {
-        width: 100%;
-    }
-</style>
-
+                                                    .w-full {
+                                                        width: 100%;
+                                                    }
+                                                </style>

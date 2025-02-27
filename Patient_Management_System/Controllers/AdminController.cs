@@ -1,5 +1,4 @@
 ﻿using Microsoft.Ajax.Utilities;
-using PagedList;
 using Patient_Management_System.Models;
 using Patient_Management_System.ViewModel;
 using System;

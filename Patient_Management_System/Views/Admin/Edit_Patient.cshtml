@@ -190,10 +190,11 @@
                             <div class="upload-input">
                                 <input type="file" name="ImageFile" id="P_Image" class="form-control" />
                             </div>
-                            @Html.ValidationMessageFor(model => model.P_Image, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.P_Image, "", new { @class = "text-danger" , required = "required" })
                         </div>
                     </div>
                 </div>
+
 
                 <div class="m-t-20 text-center">
                     <button class="btn btn-primary submit-btn" style="margin-left:275px;">Update Details</button>

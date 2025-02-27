@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout_Doctor.cshtml";
     ViewBag.Title = "Doctor Appointments";
+    var selectedDate = ViewBag.SelectedDate ?? DateTime.Now.ToString("yyyy-MM-dd"); // Default to today if not set
 }
 
 <div class="container">
@@ -9,7 +10,7 @@
 
     <div class="date-picker-container">
         <label for="appointmentDate">Select Date:</label>
-        <input type="date" id="appointmentDate" />
+        <input type="date" id="appointmentDate" value="@selectedDate" />
         <button id="filterBtn">View Appointments</button>
     </div>
 
@@ -44,17 +45,33 @@
         }
         else
         {
-            <p class="no-appointments">No appointments.</p>
+            <p class="no-appointments">No appointments found for the selected date.</p>
         }
     </div>
 </div>
 
 <script>
-    document.getElementById("filterBtn").addEventListener("click", function () {
-        var selectedDate = document.getElementById("appointmentDate").value;
-        if (selectedDate) {
-            window.location.href = '@Url.Action("Appointments", "Doctor")' + '?selectedDate=' + selectedDate;
+    document.addEventListener("DOMContentLoaded", function () {
+        var appointmentDateInput = document.getElementById("appointmentDate");
+        var today = new Date().toISOString().split("T")[0];
+
+        if (!appointmentDateInput.value) {
+            appointmentDateInput.value = today; // Set default to today if empty
         }
+
+        // Load today's appointments automatically if no date selected
+        var urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has("selectedDate")) {
+            window.location.href = '@Url.Action("Appointments", "Doctor")' + '?selectedDate=' + appointmentDateInput.value;
+        }
+
+        // Filter appointments based on selected date
+        document.getElementById("filterBtn").addEventListener("click", function () {
+            var selectedDate = appointmentDateInput.value;
+            if (selectedDate) {
+                window.location.href = '@Url.Action("Appointments", "Doctor")' + '?selectedDate=' + selectedDate;
+            }
+        });
     });
 </script>
 
