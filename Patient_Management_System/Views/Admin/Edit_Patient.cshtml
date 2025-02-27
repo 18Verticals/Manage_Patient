@@ -188,7 +188,7 @@
                             <div class="upload-input">
                                 <input type="file" name="P_Image" id="P_Image" class="form-control" onchange="previewFile()" />
                             </div>
-                            @Html.ValidationMessageFor(model => model.P_Image, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.P_Image, "", new { @class = "text-danger" , required = "required" })
                         </div>
                     </div>
                 </div>

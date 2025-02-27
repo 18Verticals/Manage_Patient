@@ -23,6 +23,102 @@ namespace Patient_Management_System.Controllers
         {
             return View();
         }
+
+
+
+
+        //[HttpGet]
+        //public ActionResult Register()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //public ActionResult Register(PatientVM patients, HttpPostedFileBase P_Image)
+        //{
+        //    string str = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
+        //    SqlConnection conn = new SqlConnection(str);
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        string imagePath = null;
+
+        //        if (P_Image != null && P_Image.ContentLength > 0)
+        //        {
+        //            string uploadPath = Server.MapPath("~/Content/UploadedImages/");
+        //            string fileName = Path.GetFileNameWithoutExtension(P_Image.FileName);
+        //            string extension = Path.GetExtension(P_Image.FileName);
+        //            imagePath = "~/Content/UploadedImages/" + fileName + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
+        //            System.Diagnostics.Debug.WriteLine("Image Path: " + imagePath); 
+        //            try
+        //            {
+        //                P_Image.SaveAs(Server.MapPath(imagePath));
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                System.Diagnostics.Debug.WriteLine("Error saving image: " + ex.Message);
+        //                return View(patients);
+        //            }
+        //        }
+        //        try
+        //        {
+        //            using (conn)
+        //            {
+        //                conn.Open();
+
+
+        //                using (SqlCommand cmd = new SqlCommand("sp_Add_Patients", conn))
+        //                {
+        //                    cmd.CommandType = CommandType.StoredProcedure;
+        //                    cmd.Parameters.AddWithValue("@P_FirstName", patients.P_FirstName);
+        //                    cmd.Parameters.AddWithValue("@P_MiddleName", patients.P_MiddleName);
+        //                    cmd.Parameters.AddWithValue("@P_LastName", patients.P_LastName);
+        //                    cmd.Parameters.AddWithValue("@P_Gender", patients.P_Gender);
+        //                    cmd.Parameters.AddWithValue("@P_DOB", patients.P_DOB ?? (object)DBNull.Value);
+        //                    cmd.Parameters.AddWithValue("@P_Email", patients.P_Email);
+        //                    cmd.Parameters.AddWithValue("@P_Phone", patients.P_Phone);
+        //                    cmd.Parameters.AddWithValue("@P_BloodGrp", patients.P_BloodGrp);
+        //                    cmd.Parameters.AddWithValue("@P_Address", patients.P_Address);
+        //                    cmd.Parameters.AddWithValue("@P_City", patients.P_City);
+        //                    cmd.Parameters.AddWithValue("@P_State", patients.P_State);
+        //                    cmd.Parameters.AddWithValue("@P_Pincode", patients.P_Pincode);
+        //                    cmd.Parameters.AddWithValue("@P_Message", patients.P_Message);
+        //                    cmd.Parameters.AddWithValue("@P_Image", imagePath ?? (object)DBNull.Value);
+        //                    cmd.Parameters.AddWithValue("@P_Password", patients.P_Password);
+        //                    cmd.ExecuteNonQuery();
+        //                }
+        //            }
+        //            return RedirectToAction("Login");
+        //        }
+        //        catch (SqlException ex)
+        //        {
+
+        //            if (ex.Number == 2627 || ex.Number == 2601)
+        //            {
+        //                ViewBag.Message = "The Email you entered is already associated with another patient. Please use a different email.";
+        //            }
+        //            else
+        //            {
+        //                ViewBag.Message = "An error occurred: " + ex.Message;
+        //            }
+        //            System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+        //        {
+        //            System.Diagnostics.Debug.WriteLine($"Validation Error: {error.ErrorMessage}");
+        //        }
+        //    }
+        //    return View(patients);
+        //}
+
+
+
+
+
+
         [HttpGet]
         public ActionResult Register()
         {
@@ -45,7 +141,7 @@ namespace Patient_Management_System.Controllers
                     string fileName = Path.GetFileNameWithoutExtension(P_Image.FileName);
                     string extension = Path.GetExtension(P_Image.FileName);
                     imagePath = "~/Content/UploadedImages/" + fileName + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
-                    System.Diagnostics.Debug.WriteLine("Image Path: " + imagePath); 
+                    System.Diagnostics.Debug.WriteLine("Image Path: " + imagePath);
                     try
                     {
                         P_Image.SaveAs(Server.MapPath(imagePath));
@@ -62,7 +158,6 @@ namespace Patient_Management_System.Controllers
                     {
                         conn.Open();
 
-                        
                         using (SqlCommand cmd = new SqlCommand("sp_Add_Patients", conn))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
@@ -88,10 +183,13 @@ namespace Patient_Management_System.Controllers
                 }
                 catch (SqlException ex)
                 {
-
                     if (ex.Number == 2627 || ex.Number == 2601)
                     {
-                        ViewBag.Message = "The Email you entered is already associated with another patient. Please use a different email.";
+                        ViewBag.Message = "The Email you entered is already associated with another patient.";
+                    }
+                    else if (ex.Message.Contains("Email already registered."))
+                    {
+                        ViewBag.Message = "The Email you entered is already registered.";
                     }
                     else
                     {
@@ -109,6 +207,22 @@ namespace Patient_Management_System.Controllers
             }
             return View(patients);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public ActionResult Login()
         {
@@ -157,7 +271,7 @@ namespace Patient_Management_System.Controllers
         public ActionResult Appointment()
         {
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name");
-            ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName");
+            ViewBag.Doctor_ID = new SelectList(new List<SelectListItem>(), "Value", "Text"); // Initially empty doctor list
             ViewBag.TimeSlots = GetTimeSlots();
             return View();
         }
@@ -167,8 +281,8 @@ namespace Patient_Management_System.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", aptVM.Doctor_ID);
                 ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", aptVM.Dept_ID);
+                ViewBag.Doctor_ID = new SelectList(db.DoctorTbls.Where(d => d.Dept_ID == aptVM.Dept_ID), "Doctor_ID", "Dr_FirstName", aptVM.Doctor_ID);
                 return View(aptVM);
             }
 
@@ -177,7 +291,6 @@ namespace Patient_Management_System.Controllers
                 using (SqlCommand cmd = new SqlCommand("[sp_Demo_Book_Appointment]", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.AddWithValue("@Doctor_ID", aptVM.Doctor_ID);
                     cmd.Parameters.AddWithValue("@Dept_ID", aptVM.Dept_ID);
                     cmd.Parameters.AddWithValue("@Apt_Date", aptVM.Apt_Date);
@@ -206,33 +319,37 @@ namespace Patient_Management_System.Controllers
 
                     if (result == 1)
                     {
-                        ViewBag.Message = "Appointment booked successfully!";
                         TempData["SuccessMessage"] = "Appointment booked successfully!";
-
                         SendEmailNotification(patientEmail, aptVM);
                     }
                     else if (result == 0)
                     {
-                        ViewBag.Message = "This time slot is already booked!";
-                        TempData["SuccessMessage"] = "This time slot is already booked!";
+                        TempData["ErrorMessage"] = "This time slot is already booked!";
                     }
                     else if (result == -1)
                     {
-                        ViewBag.Message = "No patient exists with this phone number.";
-                        TempData["SuccessMessage"] = "No patient exists with this phone number.";
+                        TempData["ErrorMessage"] = "No patient exists with this phone number.";
                     }
                     else
                     {
-                        ViewBag.Message = "An unexpected error occurred.";
-                        TempData["SuccessMessage"] = "An unexpected error occurred.";
+                        TempData["ErrorMessage"] = "An unexpected error occurred.";
                     }
                 }
             }
-            ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name", aptVM.Dept_ID);
-            ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", aptVM.Doctor_ID);
-            ViewBag.TimeSlots = GetTimeSlots();
-            return View(aptVM);
+            return RedirectToAction("Appointment");
         }
+
+        [HttpGet]
+        public JsonResult GetDoctorsByDepartment(int deptId)
+        {
+            var doctors = db.DoctorTbls.Where(d => d.Dept_ID == deptId)
+                                       .Select(d => new { d.Doctor_ID, d.Dr_FirstName })
+                                       .ToList();
+            return Json(doctors, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         private List<SelectListItem> GetTimeSlots()
         {
             List<SelectListItem> timeSlots = new List<SelectListItem>();
@@ -316,6 +433,8 @@ namespace Patient_Management_System.Controllers
                 Console.WriteLine("Email sending failed: " + ex.Message);
             }
         }
+
+
         public ActionResult Search_Doctor(string searchTerm)
         {
             List<DoctorVM> doctors = new List<DoctorVM>();

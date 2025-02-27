@@ -44,7 +44,7 @@ namespace Patient_Management_System.Controllers
                     SendEmail(model.Email, "Password Reset"," Please Do Not Reply , Your  new password is: " + newPassword);
 
                     ViewBag.Message = "A new password has been sent to your email.";
-                    return RedirectToAction( "Login","Doctor");
+                    return View();
                 }
                 else
                 {

@@ -2933,8 +2933,6 @@
     <Content Include="Content\template\assets\images\nabh-logo\NABH-MC-3264.webp" />
     <Content Include="Content\template\assets\images\nabh-logo\NABH-medical-imaging-services.webp" />
     <Content Include="Content\template\assets\images\nabh-logo\NABH-nursing-service.webp" />
-    <Content Include="Content\template\assets\images\Patient_Speaks.webp" />
-    <Content Include="Content\template\assets\images\Renal-Transplant.webp" />
     <Content Include="Content\template\assets\images\specialities-icon\Ophthalmology.webp" />
     <Content Include="Content\template\assets\images\specialities-icon\Orthopaedic.webp" />
     <Content Include="Content\template\assets\images\specialities-icon\Paediatrics.webp" />
@@ -3105,7 +3103,6 @@
     <Content Include="Views\Patient\Search_Doctor.cshtml" />
     <Content Include="Views\Shared\_Layout_Doctor.cshtml" />
     <Content Include="Views\Doctor\Edit_Schedule.cshtml" />
-    <Content Include="Views\Doctor\Forgot_Password.cshtml" />
     <Content Include="Views\Forgot_Password\ForgotPassword.cshtml" />
     <Content Include="Views\Patient\Login.cshtml" />
     <Content Include="Views\Patient\Register.cshtml" />
