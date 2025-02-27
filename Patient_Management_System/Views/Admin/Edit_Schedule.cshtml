@@ -32,6 +32,7 @@
             <div class="row">
 
                 @Html.HiddenFor(model => model.Schedule_ID)
+
                 <!-- Doctor -->
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -41,15 +42,16 @@
                     </div>
                 </div>
 
-                <!-- Department -->
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <div class="form-group">
-
                         <label>Specialities</label>
-                        @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Department --", new { @class = "form-control" })
+                        @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Specialities --", new { @class = "form-control", @id = "Dept_ID", @disabled = "disabled" })
                         @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
+                        <input type="hidden" id="Hidden_Dept_ID" name="Dept_ID" />
                     </div>
                 </div>
+
+
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Available Date</label>
@@ -95,4 +97,29 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $("#Doctor_ID").change(function () {
+            var doctorId = $(this).val();
+            if (doctorId) {
+                $.ajax({
+                    url: '@Url.Action("GetDepartmentByDoctor", "Admin")',
+                    type: "GET",
+                    data: { doctorId: doctorId },
+                    success: function (data) {
+                        if (data) {
+                            $("#Dept_ID").val(data.Dept_ID).prop("disabled", true); // Keep dropdown readonly
+                            $("#Hidden_Dept_ID").val(data.Dept_ID); // Store value for submission
+                        }
+                    },
+                    error: function () {
+                        alert("Error retrieving department data.");
+                    }
+                });
+            }
+        });
+    });
+    </script>
 }
