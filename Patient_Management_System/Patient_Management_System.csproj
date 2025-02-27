@@ -245,6 +245,7 @@
     <Compile Include="ViewModel\AdminVM.cs" />
     <Compile Include="ViewModel\AppointmentVM.cs" />
     <Compile Include="ViewModel\ContactVM.cs" />
+    <Compile Include="ViewModel\DashboardVM.cs" />
     <Compile Include="ViewModel\DepartmentVM.cs" />
     <Compile Include="ViewModel\DoctorVM.cs" />
     <Compile Include="ViewModel\ForgotPasswordVM.cs" />

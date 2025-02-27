@@ -23,11 +23,9 @@
     }
 
     <div class="row">
-
         <div class="col-lg-8 offset-lg-2">
             <h4 class="page-title">Edit Patient</h4>
         </div>
-
     </div>
 
 
@@ -176,24 +174,25 @@
                     </div>
                 </div>
 
-                <!-- Image -->
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label> Image</label>
                         <div class="profile-upload">
                             <div class="upload-img">
-                                <img alt="Patient Image"
-                                     src="@Url.Content(Model.P_Image ?? "~/Content/Admin/assets/img/user.jpg")"
+                                <img id="previewImage"
+                                     alt="Patient Image"
+                                     src="@Url.Content(Model.P_Image ?? ViewBag.ImagePath ?? "~/Content/Admin/assets/img/user.jpg")"
                                      style="width: 100px; height: 100px; border-radius: 50%;" />
                             </div>
 
                             <div class="upload-input">
-                                <input type="file" name="ImageFile" id="P_Image" class="form-control" />
+                                <input type="file" name="P_Image" id="P_Image" class="form-control" onchange="previewFile()" />
                             </div>
                             @Html.ValidationMessageFor(model => model.P_Image, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
+
 
                 <div class="m-t-20 text-center">
                     <button class="btn btn-primary submit-btn" style="margin-left:275px;">Update Details</button>
@@ -203,4 +202,5 @@
         </div>
     </div>
 
+    
 }

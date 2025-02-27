@@ -55,20 +55,22 @@
         <div class="appointment_section">
             <div class="container">
                 <div class="appointment_box">
-                    <h3><span style="color: #fc8004;">Note:  </span>      Use the same number entered during Login.</h3>
+                    <h3><span style="color: #fc8004;">Note:  </span>   Use the same number entered during Login.</h3>
                     <div class="formbold-main-wrapper">
 
 
 
 
                         <div class="row">
+
                             <div class="col-sm-6">
                                 @Html.ValidationMessageFor(model => model.P_FirstName, "", new { @class = "text-danger" })
                             </div>
+
                             <!-- Department -->
                             <div class="col-sm-6">
-
                                 <div class="input-group">
+
                                     <span class="input-group-text"><i class="fa fa-hospital-o"></i></span>
                                     @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "--Department--", new { @class = "form-control uniform-input", required = "required" })
                                 </div>
@@ -117,7 +119,7 @@
 
                                 <div class="input-group">
                                     <span class="input-group-text">
-                                        <i class="fa fa-phone"></i> <!-- Font Awesome icon -->
+                                        <i class="fa fa-phone"></i> 
                                     </span>
                                     @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", style = "height:49px;", required = "required", placeholder = "Contact Number" })
                                 </div>
@@ -125,15 +127,15 @@
                             </div>
 
                             <div class="col-sm-6">
-
                                 <div class="input-group">
                                     <span class="input-group-text">
-                                        <i class="fa fa-stethoscope"></i> <!-- Icon for diseases -->
+                                        <i class="fa fa-stethoscope"></i> 
                                     </span>
                                     @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;", placeholder = "Diseases" })
                                 </div>
                                 @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
                             </div>
+
 
                             <div class="col-sm-12 text-center mt-4">
                                 <button type="submit" class="formbold-btn">Make Appointment</button>
