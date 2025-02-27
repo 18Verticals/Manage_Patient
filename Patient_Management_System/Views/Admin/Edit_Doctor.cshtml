@@ -2,12 +2,13 @@
 @{
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
-@using (Html.BeginForm("Edit_Doctor", "Admin", FormMethod.Post))
+@using (Html.BeginForm("Edit_Doctor", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
 
 {
 
     @Html.AntiForgeryToken()
-   
+
 
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -125,23 +126,22 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Current Image</label>
-                        <div class="profile-upload">
-                            <div class="upload-img">
-                                <img id="previewImage" alt="Doctor Image"
-                                     src="@(string.IsNullOrEmpty(Model.Dr_ImagePath) ? Url.Content("~/Content/Admin/assets/img/user.jpg") : Url.Content(Model.Dr_ImagePath))"
-                                     style="width: 100px; height: 100px; border-radius: 50%;" />
-                            </div>
-
-                            <div class="upload-input">
-                                <input type="file" name="Dr_ImagePath" id="Dr_ImagePath" class="form-control" />
-                            </div>
-                            @Html.ValidationMessageFor(model => model.Dr_ImagePath, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label>Doctor Image</label>
+                    <div class="profile-upload">
+                        <div class="upload-img">
+                            <img id="previewImage"
+                                 src="@Url.Content(Model.Dr_ImagePath ?? "~/Content/Admin/assets/img/user.jpg")"
+                                 alt="Doctor Image"
+                                 style="width: 100px; height: 100px; border-radius: 50%;" />
                         </div>
+                        <div class="upload-input">
+                            <input type="file" name="Dr_ImagePath" id="Dr_ImagePath" class="form-control" onchange="previewFile()" />
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Dr_ImagePath, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
 
 
                 <!-- Address -->
@@ -198,4 +198,20 @@
     <div>
         <button type="submit" class="btn btn-primary submit-btn" style="margin-left:430px; ">Update Doctor</button>
     </div>
+    <script>
+        function previewFile() {
+            var preview = document.getElementById('previewImage');
+            var file = document.getElementById('Dr_ImagePath').files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
 }

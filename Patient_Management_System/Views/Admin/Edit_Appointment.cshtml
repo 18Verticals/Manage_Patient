@@ -47,14 +47,16 @@
                 </div>
 
                 <!-- Department -->
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <div class="form-group">
-
                         <label>Specialities</label>
-                        @Html.DropDownList("Dept_ID", null, htmlAttributes: new { @class = "form-control", required = "required" })
+                        @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Specialities --", new { @class = "form-control", @id = "Dept_ID", @disabled = "disabled" })
                         @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
+                        <input type="hidden" id="Hidden_Dept_ID" name="Dept_ID" />
                     </div>
                 </div>
+
+
                 <!-- Email -->
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -104,7 +106,35 @@
         </div>
     </div>
 
-    <div>
-        <button type="submit" class="btn btn-primary" style="margin-top:50px;">Update Appointment</button>
+    <div class="m-t-20 text-center">
+        <button class="btn btn-primary submit-btn" style="margin-left:-10px;">Update Appointment</button>
     </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+$(document).ready(function () {
+    $("#Doctor_ID").change(function () {
+        var doctorId = $(this).val();
+        if (doctorId) {
+            $.ajax({
+                url: '@Url.Action("GetDepartmentByDoctor", "Admin")',
+                type: "GET",
+                data: { doctorId: doctorId },
+                success: function (data) {
+                    if (data) {
+                        $("#Dept_ID").val(data.Dept_ID).prop("disabled", true); 
+                        $("#Hidden_Dept_ID").val(data.Dept_ID); 
+                    }
+                },
+                error: function () {
+                    alert("Error retrieving department data.");
+                }
+            });
+        }
+    });
+});
+    </script>
+
 }
