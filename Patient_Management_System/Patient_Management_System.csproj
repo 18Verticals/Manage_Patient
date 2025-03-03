@@ -3120,6 +3120,9 @@
     <Content Include="Views\Admin\List_Schedule.cshtml" />
     <Content Include="Views\Admin\Delete_Department.cshtml" />
     <Content Include="Views\Doctor\Appointments.cshtml" />
+    <Content Include="Views\Patient\Doctor_ViewProfile.cshtml" />
+    <Content Include="Views\Doctor\Delete_Schedule.cshtml" />
+    <Content Include="Views\Admin\Delete_Schedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

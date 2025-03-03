@@ -9,14 +9,17 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.AntiForgeryToken()
 
-    if (ViewBag.Message != null)
+    if (!string.IsNullOrEmpty(ViewBag.Message))
     {
-        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
-            <strong>@ViewBag.Message</strong>
-            <strong>@ViewBag.Error</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+        <script>
+         alert("@ViewBag.Message");
+        </script>
+    }
+
+    if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success text-center">
+            <strong>@TempData["SuccessMessage"]</strong>
         </div>
     }
 
@@ -52,11 +55,23 @@
                 </div>
 
 
-                <div class="col-md-6">
+                @*<div class="col-md-6">
+                        <div class="form-group">
+                            <label>Available Date</label>
+                            @Html.EditorFor(model => model.Available_Date, new { htmlAttributes = new { @class = "form-control", required = "required", type = "date" } })
+                            @Html.ValidationMessageFor(model => model.Available_Date, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+
+                <!-- Date -->
+                <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Available Date</label>
-                        @Html.EditorFor(model => model.Available_Date, new { htmlAttributes = new { @class = "form-control", required = "required", type = "date" } })
+                        <label>Date</label>
+                        @*@Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })*@
                         @Html.ValidationMessageFor(model => model.Available_Date, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(model => model.Available_Date, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+
                     </div>
                 </div>
 

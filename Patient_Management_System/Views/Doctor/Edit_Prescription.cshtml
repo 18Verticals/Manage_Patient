@@ -8,15 +8,11 @@
 {
     @Html.AntiForgeryToken()
 
-    if (ViewBag.Message != null)
+    if (!string.IsNullOrEmpty(ViewBag.Message))
     {
-        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
-            <strong>@ViewBag.Message</strong>
-            <strong>@ViewBag.Error</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <script>
+         alert("@ViewBag.Message");
+        </script>
     }
 
     <div class="row">
@@ -31,22 +27,38 @@
                 @Html.HiddenFor(m => m.Presc_ID)
 
                 <!-- Patient Selection -->
-                <div class="col-md-6">
+                <!--<div class="col-md-6">
+        <div class="form-group">
+            <label>Patient</label>
+            @Html.DropDownListFor(model => model.Patient_ID, ViewBag.Patient_ID as SelectList, "Select a Patient", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.Patient_ID, "", new { @class = "text-danger" })
+        </div>
+    </div>-->
+                <!-- Doctor Selection -->
+                <!--<div class="col-md-6">
+        <div class="form-group">
+            <label>Doctor</label>
+            @Html.DropDownListFor(model => model.Doctor_ID, ViewBag.Doctor_ID as SelectList, "Select a Doctor", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
+        </div>
+    </div>-->
+
+                <div class="col-sm-6">
                     <div class="form-group">
                         <label>Patient</label>
-                        @Html.DropDownListFor(model => model.Patient_ID, ViewBag.Patient_ID as SelectList, "Select a Patient", new { @class = "form-control", required = "required" })
+                        @Html.DropDownListFor(model => model.Patient_ID, ViewBag.Patient_ID as SelectList, "Select a Patient", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Patient_ID, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <!-- Doctor Selection -->
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <div class="form-group">
                         <label>Doctor</label>
-                        @Html.DropDownListFor(model => model.Doctor_ID, ViewBag.Doctor_ID as SelectList, "Select a Doctor", new { @class = "form-control", required = "required" })
+                        @Html.DropDownList("Doctor_ID", ViewBag.Doctor_ID as SelectList, "Select a Doctor", new { @class = "form-control", required = "required" })
                         @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
 
                 <!-- Medication -->
                 <div class="col-md-6">

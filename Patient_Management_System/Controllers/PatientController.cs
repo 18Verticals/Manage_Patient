@@ -139,7 +139,7 @@ namespace Patient_Management_System.Controllers
                         patient = new PatientVM
                         {
                             Patient_Id = Convert.ToInt32(reader["Patient_Id"]),
-                           P_FirstName = reader["P_FirstName"].ToString(),
+                            P_FirstName = reader["P_FirstName"].ToString(),
                             P_Email = reader["P_Email"].ToString()
                         };
                     }
@@ -151,7 +151,7 @@ namespace Patient_Management_System.Controllers
             {
                 Session["Patient_Id"] = patient.Patient_Id;
                 Session["P_FirstName"] = patient.P_FirstName;
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
             ViewBag.Error = "Invalid email or password!";
             return View();
@@ -201,16 +201,29 @@ namespace Patient_Management_System.Controllers
                     };
                     cmd.Parameters.Add(emailParam);
 
+                    SqlParameter patientNameParam = new SqlParameter("@PatientName", SqlDbType.NVarChar, 100)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(patientNameParam);
+
+                    SqlParameter doctorNameParam = new SqlParameter("@DoctorName", SqlDbType.NVarChar, 100)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(doctorNameParam);
+
                     con.Open();
                     cmd.ExecuteNonQuery();
 
                     int result = (returnValue.Value != DBNull.Value) ? Convert.ToInt32(returnValue.Value) : -2;
                     string patientEmail = emailParam.Value.ToString();
-
+                    string patientName = patientNameParam.Value?.ToString() ?? "Patient";
+                    string doctorName = doctorNameParam.Value?.ToString() ?? "Doctor";
                     if (result == 1)
                     {
                         TempData["SuccessMessage"] = "Appointment booked successfully!";
-                        SendEmailNotification(patientEmail, aptVM);
+                        SendEmailNotification(patientEmail, patientName, doctorName, aptVM);
                     }
                     else if (result == 0)
                     {
@@ -228,6 +241,49 @@ namespace Patient_Management_System.Controllers
             }
             return RedirectToAction("Appointment");
         }
+
+
+        private void SendEmailNotification(string email, string patientName, string doctorName, AppointmentVM aptVM)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    Console.WriteLine("No email found for the patient.");
+                    return;
+                }
+
+                MailMessage mail = new MailMessage
+                {
+                    From = new MailAddress("hemangkanzariya00@gmail.com"),
+                    Subject = "Appointment Confirmation",
+                    Body = $"Dear {patientName},\n\n" +
+                           $"Your appointment has been confirmed with Dr. {doctorName} on {aptVM.Apt_Date:dd-MM-yyyy} at {aptVM.Apt_Time}.\n\n" +
+                           $"Description: {aptVM.Description}\n\n" +
+                           $"Thank you!\n\nBest Regards,\nLiveDoc Multispecialist Hospital\n\n" +
+                           $"Any Query? Please Contact Us: 70465 90890",
+                    IsBodyHtml = false
+                };
+                mail.To.Add(email);
+
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "elkj hzfh wfgd rtvd")
+                };
+
+                smtp.Send(mail);
+                Console.WriteLine("Email sent successfully!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Email sending failed: " + ex.Message);
+            }
+        }
+
 
         [HttpGet]
         public JsonResult GetDoctorsByDepartment(int deptId)
@@ -324,6 +380,46 @@ namespace Patient_Management_System.Controllers
             }
         }
 
+        public ActionResult Doctor_ViewProfile(int id)
+        {
+            DoctorVM doctor = null;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_GetDoctorProfile", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Doctor_ID", id);
+
+                    con.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            doctor = new DoctorVM
+                            {
+                                Doctor_ID = Convert.ToInt32(dr["Doctor_ID"]),
+                                Dr_FirstName = dr["Dr_FirstName"].ToString(),
+                                Dr_LastName = dr["Dr_LastName"].ToString(),
+                                Dr_Status = dr["Dr_Status"].ToString(),
+                                Dept_Name = dr["Dept_Name"].ToString(),
+                                Dr_Qualification = dr["Dr_Qualification"].ToString(),
+                                Dr_ImagePath = dr["Dr_ImagePath"].ToString(),
+                                Fees = Convert.ToInt32(dr["Fees"]),
+
+                            };
+                        }
+                    }
+                }
+            }
+
+            if (doctor == null)
+            {
+                return HttpNotFound("Doctor not found.");
+            }
+
+            return View(doctor);
+        }
 
         public ActionResult Search_Doctor(string searchTerm)
         {
@@ -345,21 +441,29 @@ namespace Patient_Management_System.Controllers
                             {
                                 Doctor_ID = Convert.ToInt32(dr["Doctor_ID"]),
                                 Dr_FirstName = dr["Dr_FirstName"].ToString(),
+                                Dr_LastName = dr["Dr_LastName"].ToString(),
                                 Dept_Name = dr["Dept_Name"].ToString(),
                                 Dr_Qualification = dr["Dr_Qualification"].ToString(),
                                 Dr_ImagePath = dr["Dr_ImagePath"].ToString(),
                                 Fees = Convert.ToInt32(dr["Fees"]),
+                                Dr_Status = dr["Dr_Status"].ToString(),
+                                Available_Date = dr["Available_Date"] != DBNull.Value ? (DateTime?)dr["Available_Date"] : null,
+                                Start_Time = dr["Start_Time"] != DBNull.Value ? (TimeSpan?)dr["Start_Time"] : null,
+                                End_Time = dr["End_Time"] != DBNull.Value ? (TimeSpan?)dr["End_Time"] : null
                             });
                         }
                     }
                 }
             }
+
             if (doctors.Count == 0)
             {
                 ViewBag.Message = "No doctors found.";
             }
+
             return View(doctors);
         }
+
 
         [HttpGet]
         public ActionResult Contact_Us()
@@ -385,7 +489,7 @@ namespace Patient_Management_System.Controllers
                             cmd.Parameters.AddWithValue("@Message", contact.Message);
                             cmd.Parameters.AddWithValue("@Phone", contact.Phone);
 
-                         
+
                             int rowsAffected = cmd.ExecuteNonQuery();
 
                             if (rowsAffected > 0)

@@ -40,16 +40,16 @@ namespace Patient_Management_System.ViewModel
         [StringLength(10, ErrorMessage = "Phone number cannot exceed 10 digits.")]
         public string Dr_Phone { get; set; }
 
-       
+
         public string Dr_Qualification { get; set; }
 
-       
+
         public string Dr_Address { get; set; }
 
-        
+
         public string Dr_City { get; set; }
 
-       
+
         public string Dr_State { get; set; }
 
         [Required(ErrorMessage = "Pincode is required.")]
@@ -64,10 +64,15 @@ namespace Patient_Management_System.ViewModel
         [Range(1, int.MaxValue, ErrorMessage = "Fees must be a positive number.")]
         public int Fees { get; set; }
 
-        
+
         public int Dept_ID { get; set; }
+
+        public TimeSpan? Start_Time { get; set; }
+        public TimeSpan? End_Time { get; set; }
+        public Nullable<System.DateTime> Available_Date { get; set; }
 
         public string Dept_Name { get; set; }
         public DepartmentTbl Department { get; set; }
+        public ScheduleTbl Schedule { get; set; }
     }
 }

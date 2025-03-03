@@ -1,0 +1,59 @@
+﻿@model Patient_Management_System.ViewModel.DoctorVM
+
+@{
+    ViewBag.Title = "Doctor Profile";
+    //Layout = "~/Views/Shared/_Layout_Doctor.cshtml";
+}
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .profile-card {
+        width: 500px;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+        .profile-card img {
+            border: 3px solid #007bff;
+            padding: 5px;
+        }
+
+        .profile-card h3 {
+            color: #007bff;
+        }
+
+        .profile-card p {
+            font-size: 18px;
+            color: #333;
+        }
+
+    .badge-status {
+        font-size: 16px;
+        padding: 8px 15px;
+    }
+</style>
+
+<div class="profile-card">
+    <img src="@Model.Dr_ImagePath" alt="Doctor Image" class="rounded-circle" width="150" height="150" />
+    <h3 class="mt-3">@Model.Dr_FirstName @Model.Dr_LastName</h3>
+    <span class="badge badge-status @(Model.Dr_Status == "Available" ? "bg-success" : "bg-danger")">
+        @Model.Dr_Status
+    </span>
+
+    <div class="mt-4 text-start">
+        <p><strong>🩺 Department:</strong> @Model.Dept_Name</p>
+        <p><strong>🎓 Qualification:</strong> @Model.Dr_Qualification</p>
+        <p><strong>💰 Fees:</strong> <span class="text-success fw-bold">@Model.Fees</span></p>
+    </div>
+</div>

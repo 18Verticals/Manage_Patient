@@ -525,22 +525,38 @@ namespace Patient_Management_System.Controllers
             }
         }
 
+        //public ActionResult Delete_Schedule(int Schedule_ID)
 
-
-
-
-
-
-
-
+        //{
+        //    using (SqlConnection conn = new SqlConnection(connectionString))
+        //    {
+        //        try
+        //        {
+        //            conn.Open();
+        //            using (SqlCommand cmd = new SqlCommand("sp_Delete_Schedule", conn))
+        //            {
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                cmd.Parameters.AddWithValue("@Schedule_ID", Schedule_ID);
+        //                cmd.ExecuteNonQuery();
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ViewBag.Error = "An error occurred while deleting the schedule: " + ex.Message;
+        //            System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
+        //            return View("Delete_Schedule", Schedule_ID);
+        //        }
+        //    }
+        //    TempData["SuccessMessage"] = "Schedule Details have been deleted Successfully!";
+        //    return RedirectToAction("List_Schedule", "Doctor");
+        //}
 
 
         public ActionResult Delete_Schedule(int Schedule_ID)
-
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                try
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand("sp_Delete_Schedule", conn))
@@ -550,16 +566,22 @@ namespace Patient_Management_System.Controllers
                         cmd.ExecuteNonQuery();
                     }
                 }
-                catch (Exception ex)
-                {
-                    ViewBag.Error = "An error occurred while deleting the schedule: " + ex.Message;
-                    System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
-                    return View("Delete_Schedule", Schedule_ID);
-                }
+
+                TempData["SuccessMessage"] = "Schedule deleted successfully!";
             }
-            TempData["SuccessMessage"] = "Schedule Details have been deleted Successfully!";
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error deleting schedule: " + ex.Message;
+                System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
+            }
+
+            // Redirect to the list page after delete
             return RedirectToAction("List_Schedule", "Doctor");
         }
+
+
+
+
 
         // GET: Doctor/Prescription
         public ActionResult Prescription()
