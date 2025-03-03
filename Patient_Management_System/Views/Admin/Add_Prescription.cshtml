@@ -1,4 +1,4 @@
-﻿﻿@model Patient_Management_System.ViewModel.PrescriptionVM
+﻿@model Patient_Management_System.ViewModel.PrescriptionVM
 
 @{
     ViewBag.Title = "Add Prescription";
@@ -9,16 +9,39 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    if (ViewBag.Message != null)
+
+    if (!string.IsNullOrEmpty(ViewBag.Message))
     {
-        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
-            <strong>@ViewBag.Message</strong>
-            <strong>@ViewBag.Error</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <script>
+     alert("@ViewBag.Message");
+        </script>
     }
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $("#Doctor_ID").change(function () {
+            var doctorId = $(this).val();
+            if (doctorId) {
+                $.ajax({
+                    url: '@Url.Action("GetPatientsByDoctor", "Admin")',
+                    type: "GET",
+                    data: { Doctor_ID: doctorId },
+                    success: function (data) {
+                        var patientDropdown = $("#Patient_ID");
+                        patientDropdown.empty();
+                        patientDropdown.append('<option value="">-- Select Patient --</option>');
+                        $.each(data, function (index, patient) {
+                            patientDropdown.append('<option value="' + patient.Value + '">' + patient.Text + '</option>');
+                        });
+                    }
+                });
+            }
+        });
+    });
+    </script>
+
 
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
@@ -39,11 +62,13 @@
                     </div>
                 </div>
 
-                <!-- Department Dropdown -->
+                <!-- Patient Dropdown -->
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Patient</label>
-                        @Html.DropDownList("Patient_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Specialities --", new { @class = "form-control", required = "required" })
+                        @Html.DropDownList("Patient_ID", (IEnumerable<SelectListItem>)ViewBag.Patient_ID, "-- Select Patient --", new { @class = "form-control", required = "required" })
+
+                        @*@Html.DropDownList("Patient_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Specialities --", new { @class = "form-control", required = "required" })*@
                         @Html.ValidationMessageFor(model => model.Patient_ID, "", new { @class = "text-danger" })
                     </div>
                 </div>

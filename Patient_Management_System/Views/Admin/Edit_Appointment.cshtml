@@ -2,28 +2,32 @@
 @{
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
+
 @using (Html.BeginForm("Edit_Appointment", "Admin", FormMethod.Post))
 {
-
-
     @Html.AntiForgeryToken()
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+    @*if (ViewBag.Message != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                <strong>@ViewBag.Message</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }*@
 
-    if (ViewBag.Message != null)
+    if (!string.IsNullOrEmpty(ViewBag.Message))
     {
-        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
-            <strong>@ViewBag.Message</strong>
-            <strong>@ViewBag.Error</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <script>
+   alert("@ViewBag.Message");
+        </script>
     }
 
-    <div class="row">
 
+    <div class="row">
         <div class="col-lg-8 offset-lg-2">
             <h4 class="page-title">Edit Appointment</h4>
         </div>
@@ -32,48 +36,50 @@
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
             <div class="row">
-
                 @Html.HiddenFor(m => m.Appointment_ID)
 
-                <!-- Doctor -->
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Doctor Name</label>
-                        @Html.DropDownList("Doctor_ID", (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "-- Select Doctor --", new { @class = "form-control", required = "required" })
 
-                        @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
-
-                    </div>
-                </div>
 
                 <!-- Department -->
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Specialities</label>
-                        @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Specialities --", new { @class = "form-control", @id = "Dept_ID", @disabled = "disabled" })
+                        <label>Specialties</label>
+                        @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Speciality --", new { @class = "form-control", @id = "Dept_ID", required = "required" })
                         @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                         <input type="hidden" id="Hidden_Dept_ID" name="Dept_ID" />
                     </div>
                 </div>
 
 
-                <!-- Email -->
+                <!-- Doctor -->
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Phone</label>
-                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        <label>Doctor</label>
+                        @Html.DropDownList("Doctor_ID", new List<SelectListItem>(), "-- Select Doctor --", new { @class = "form-control", @id = "Doctor_ID", required = "required" })
+                        @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <!-- Description -->
+                <!-- Date -->
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Description</label>
-                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        <label>Date</label>
+                        @*@Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })*@
+                        @Html.ValidationMessageFor(model => model.Apt_Date, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(model => model.Apt_Date, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+
                     </div>
                 </div>
+
+                <!-- Time Slot -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Time Slot</label>
+                        @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control", required = "required" })
+                        @Html.ValidationMessageFor(model => model.Apt_Time, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
 
                 <!-- Diseases -->
                 <div class="col-sm-6">
@@ -84,23 +90,25 @@
                     </div>
                 </div>
 
+                <!-- Phone -->
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Date</label>
-                        @Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })
-                        @Html.ValidationMessageFor(model => model.Apt_Date, "", new { @class = "text-danger" })
+                        <label>Contact</label>
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Description</label>
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 1, required = "required" })
                     </div>
                 </div>
 
 
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Booking Slot</label>
 
-                        @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control", required = "required" })
-                        @Html.ValidationMessageFor(model => model.Apt_Time, "", new { @class = "text-danger" })
-                    </div>
-                </div>
 
             </div>
         </div>
@@ -109,32 +117,32 @@
     <div class="m-t-20 text-center">
         <button class="btn btn-primary submit-btn" style="margin-left:-10px;">Update Appointment</button>
     </div>
-
-
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-$(document).ready(function () {
-    $("#Doctor_ID").change(function () {
-        var doctorId = $(this).val();
-        if (doctorId) {
-            $.ajax({
-                url: '@Url.Action("GetDepartmentByDoctor", "Admin")',
-                type: "GET",
-                data: { doctorId: doctorId },
-                success: function (data) {
-                    if (data) {
-                        $("#Dept_ID").val(data.Dept_ID).prop("disabled", true); 
-                        $("#Hidden_Dept_ID").val(data.Dept_ID); 
-                    }
-                },
-                error: function () {
-                    alert("Error retrieving department data.");
-                }
-            });
-        }
-    });
-});
-    </script>
-
 }
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#Dept_ID").change(function () {
+            var deptId = $(this).val();
+            if (deptId) {
+                $.ajax({
+                    url: '@Url.Action("GetDoctorsBySpecialty", "Admin")',
+                    type: "GET",
+                    data: { deptId: deptId },
+                    success: function (data) {
+                        var doctorDropdown = $("#Doctor_ID");
+                        doctorDropdown.empty().append('<option value="">-- Select Doctor --</option>');
+                        $.each(data, function (index, item) {
+                            doctorDropdown.append('<option value="' + item.Value + '">' + item.Text + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert("Error retrieving doctors.");
+                    }
+                });
+            } else {
+                $("#Doctor_ID").empty().append('<option value="">-- Select Doctor --</option>');
+            }
+        });
+    });
+</script>
