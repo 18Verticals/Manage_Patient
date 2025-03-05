@@ -55,25 +55,16 @@
                 </div>
 
 
-                @*<div class="col-md-6">
+                <div class="col-md-6">
                         <div class="form-group">
                             <label>Available Date</label>
                             @Html.EditorFor(model => model.Available_Date, new { htmlAttributes = new { @class = "form-control", required = "required", type = "date" } })
                             @Html.ValidationMessageFor(model => model.Available_Date, "", new { @class = "text-danger" })
                         </div>
-                    </div>*@
-
-
-                <!-- Date -->
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Date</label>
-                        @@Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })@
-                        @Html.ValidationMessageFor(model => model.Available_Date, "", new { @class = "text-danger" })
-                        @Html.TextBoxFor(model => model.Available_Date, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
-
                     </div>
-                </div>
+
+
+                
 
                 <div class="col-md-6">
                     <div class="form-group">

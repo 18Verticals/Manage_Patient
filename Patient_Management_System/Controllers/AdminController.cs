@@ -594,10 +594,6 @@ namespace Patient_Management_System.Controllers
         .ToList();
 }
 
-            
-
-
-
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
