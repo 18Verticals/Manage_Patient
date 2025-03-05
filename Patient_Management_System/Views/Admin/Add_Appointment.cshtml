@@ -10,11 +10,13 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+
     if (!string.IsNullOrEmpty(ViewBag.Message))
     {
         <script>
             alert("@ViewBag.Message");
         </script>
+
     }
 
     <div class="row">
@@ -31,11 +33,12 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Specialties</label>
+
                         @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Speciality --", new { @class = "form-control", id = "Dept_ID" })
+
                         @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                     </div>
-                </div>
-
+                </div
                 <!-- Doctor Dropdown -->
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -43,6 +46,7 @@
                         <select id="Doctor_ID" name="Doctor_ID" class="form-control">
                             <option value="">-- Select Doctor --</option>
                         </select>
+
                         @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -65,7 +69,7 @@
                     </div>
                 </div>
 
-                <!-- Diseases Input -->
+
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Diseases</label>
@@ -80,7 +84,7 @@
                         @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", required = "required" })
                     </div>
                 </div>
-
+                  
                 <!-- Description Input -->
                 <div class="col-sm-12">
                     <div class="form-group">
@@ -92,6 +96,7 @@
                 <!-- Submit Button -->
                 <div class="m-t-20 text-center">
                     <button class="btn btn-primary submit-btn" style="margin-left:325px;">Add Appointment</button>
+
                 </div>
 
             </div>
@@ -101,7 +106,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
+  
 $(document).ready(function () {
     $("#Dept_ID").change(function () {
         $.get('@Url.Action("GetDoctorsBySpecialty", "Admin")', { deptId: $(this).val() }, function (data) {
@@ -126,3 +131,4 @@ $(document).ready(function () {
 });
 
 </script>
+

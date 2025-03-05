@@ -1,4 +1,5 @@
 using Patient_Management_System.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -486,7 +487,7 @@ namespace Patient_Management_System.Controllers
             return View(model);
         }
 
-        public ActionResult List_Schedule()
+        public ActionResult List_Schedule(ScheduleVM scheduleVM , int? page, string searchQuery)
         {
             if (Session["Doctor_ID"] == null)
                 return RedirectToAction("Login");
@@ -531,7 +532,21 @@ namespace Patient_Management_System.Controllers
                 }
             }
 
-            return View(schedules);
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                schedules = schedules
+                    .Where(s =>
+                        (s.Dr_FirstName != null && s.Dr_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (s.Dept_Name != null && s.Dept_Name.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (s.Available_Date.HasValue && s.Available_Date.Value.ToString("yyyy-MM-dd").Contains(searchQuery)) // Searching by date
+                    ).ToList();
+            }
+
+
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(schedules.ToPagedList(pageNumber, pageSize));
         }       
 
 
@@ -603,14 +618,7 @@ namespace Patient_Management_System.Controllers
                 return View(scheduleVM);
             }
         }
-
-
-
-
-
-
-
-
+        
         public ActionResult Delete_Schedule(int Schedule_ID)
         {
             try
@@ -627,17 +635,19 @@ namespace Patient_Management_System.Controllers
                 }
 
                 TempData["SuccessMessage"] = "Schedule deleted successfully!";
+
             }
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = "Error deleting schedule: " + ex.Message;
                 System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
             }            
+
             return RedirectToAction("List_Schedule", "Doctor");
         }
 
         // GET: Doctor/Prescription
-        public ActionResult Prescription()
+        public ActionResult Prescription(int? page , string searchQuery)
         {
             if (Session["Doctor_ID"] == null)
                 return RedirectToAction("Login");
@@ -674,8 +684,17 @@ namespace Patient_Management_System.Controllers
                     reader.Close();
                 }
             }
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                prescriptions = prescriptions
+                    .Where(d => d.P_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
+                    .ToList();
+            }
 
-            return View(prescriptions);
+
+            int pageSize = 5; 
+            int pageNumber = (page ?? 1);
+            return View(prescriptions.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Delete_Prescription(int PrescId)

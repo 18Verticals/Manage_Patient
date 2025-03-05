@@ -24,6 +24,20 @@
 </div>
 
 
+<div class="row mb-3">
+    <div class="col-md-3">
+        <form method="get" action="@Url.Action("List_Doctor", "Admin")">
+            <div class="input-group">
+                <input type="text" name="searchQuery" class="form-control" placeholder="Search Doctor..." value="@Request.QueryString["searchQuery"]">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 <div style="overflow-x:auto;">
     <table class="table table-striped">
         <thead class="bg-danger text-white">
