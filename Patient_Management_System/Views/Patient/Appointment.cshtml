@@ -136,7 +136,7 @@
                                     <span class="input-group-text">
                                         <i class="fa fa-stethoscope"></i>
                                     </span>
-                                    @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;", placeholder = "Diseases" })
+                                    @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;", placeholder = "Diseases", required = "required" })
                                 </div>
                                 @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
                             </div>
