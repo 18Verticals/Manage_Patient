@@ -1,119 +1,52 @@
-﻿
-@model Patient_Management_System.ViewModel.AppointmentVM
-
+﻿@model Patient_Management_System.ViewModel.DepartmentVM
 @{
-    ViewBag.Title = "Add Appointment";
+    ViewBag.Title = "Add Department";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 
-@using (Html.BeginForm("Add_Appointment", "Admin", FormMethod.Post))
+@using (Html.BeginForm("Add_Department", "Admin", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
+
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     if (!string.IsNullOrEmpty(ViewBag.Message))
     {
         <script>
-         alert("@ViewBag.Message");
+     alert("@ViewBag.Message");
         </script>
     }
 
     <div class="row">
-        <div class="col-sm-4 col-3">
-            <h4 class="page-title">Add Appointment</h4>
+
+        <div class="col-lg-8 offset-lg-2">
+            <h4 class="page-title">Add Specialities</h4>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
             <div class="row">
-                <div class="col-sm-6">
+
+
+                <!-- Dept Name -->
+                <div class="col-sm-9">
                     <div class="form-group">
-                        <label>Doctor</label>
-                        @Html.DropDownList("Doctor_ID", (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "-- Select Doctor --", new { @class = "form-control", required = "required", @id = "Doctor_ID" })
-                        @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
+                        <label>Specialities Name</label>
+                        @Html.EditorFor(model => model.Dept_Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Dept_Name, "", new { @class = "text-danger" })
+
                     </div>
                 </div>
 
-
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Specialities</label>
-                        @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Specialities --", new { @class = "form-control", @id = "Dept_ID", @disabled = "disabled" })
-                        @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
-                        <input type="hidden" id="Hidden_Dept_ID" name="Dept_ID" />
-                    </div>
-                </div>
-
-
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Date</label>
-                        @Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Time Slot</label>
-                        @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control", required = "required" })
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Description</label>
-                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 3, required = "required" })
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Contact</label>
-                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", required = "required" })
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Diseases</label>
-                        @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", required = "required" })
-                    </div>
-                </div>
-
+                <!-- Submit Button -->
                 <div class="m-t-20 text-center">
-                    <button class="btn btn-primary submit-btn" style="margin-left:180px;">Add Appointment</button>
+                    <button class="btn btn-primary submit-btn" style="margin-left:180px;">Add Specialities</button>
                 </div>
+
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-
-
-    $(document).ready(function () {
-        $("#Doctor_ID").change(function () {
-            var doctorId = $(this).val();
-            if (doctorId) {
-                $.ajax({
-                    url: '@Url.Action("GetDepartmentByDoctor", "Admin")',
-                    type: "GET",
-                    data: { doctorId: doctorId },
-                    success: function (data) {
-                        if (data) {
-                            $("#Dept_ID").val(data.Dept_ID).prop("disabled", true);
-                            $("#Hidden_Dept_ID").val(data.Dept_ID);
-                        }
-                    },
-                    error: function () {
-                        alert("Error retrieving department data.");
-                    }
-                });
-            }
-        });
-    });
-    </script>
-
 }
+

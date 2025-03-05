@@ -42,10 +42,13 @@
                     <div class="form-group">
 
                         <label>Specialities</label>
-                        @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Department --", new { @class = "form-control", required = "required" })
+                        @*@Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Department --", new { @class = "form-control", required = "required" })*@
                         @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Dept_Name, new { htmlAttributes = new { @class = "form-control", required = "required", type = "date" } })
                     </div>
                 </div>
+
+                <!-- Available Date -->
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Available Date</label>
@@ -54,6 +57,7 @@
                     </div>
                 </div>
 
+                <!-- Start Time -->
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Start Time</label>
@@ -62,7 +66,7 @@
                     </div>
                 </div>
 
-
+                <!-- End Time -->
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>End Time</label>

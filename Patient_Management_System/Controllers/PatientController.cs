@@ -90,7 +90,7 @@ namespace Patient_Management_System.Controllers
                 {
                     if (ex.Number == 2627 || ex.Number == 2601)
                     {
-                        ViewBag.Message = "The Email you entered is already associated with another patient.";
+                        ViewBag.Message = "User already registered";
                     }
                     else if (ex.Message.Contains("Email already registered."))
                     {
@@ -161,7 +161,7 @@ namespace Patient_Management_System.Controllers
         public ActionResult Appointment()
         {
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name");
-            ViewBag.Doctor_ID = new SelectList(new List<SelectListItem>(), "Value", "Text"); // Initially empty doctor list
+            ViewBag.Doctor_ID = new SelectList(new List<SelectListItem>(), "Value", "Text"); 
             ViewBag.TimeSlots = GetTimeSlots();
             return View();
         }
@@ -227,15 +227,15 @@ namespace Patient_Management_System.Controllers
                     }
                     else if (result == 0)
                     {
-                        TempData["ErrorMessage"] = "This time slot is already booked!";
+                        TempData["SuccessMessage"] = "This time slot is already booked!";
                     }
                     else if (result == -1)
                     {
-                        TempData["ErrorMessage"] = "No patient exists with this phone number.";
+                        TempData["SuccessMessage"] = "No patient exists with this phone number.";
                     }
                     else
                     {
-                        TempData["ErrorMessage"] = "An unexpected error occurred.";
+                        TempData["SuccessMessage"] = "An unexpected error occurred.";
                     }
                 }
             }

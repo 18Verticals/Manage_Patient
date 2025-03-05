@@ -1,9 +1,9 @@
-@model Patient_Management_System.ViewModel.AppointmentVM
+@model Patient_Management_System.ViewModel.AppointmentVM   
 @{
     Layout = "~/Views/Shared/_Layout_Patient.cshtml";
 }
 
-@using (Html.BeginForm("Appointment", "Patient", FormMethod.Post))
+@using (Html.BeginForm("Appointment", "Patient", FormMethod.Post)) 
 
 
 {
@@ -38,7 +38,6 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-
                 </nav>
             </div>
             <!-- header section end -->
@@ -115,9 +114,6 @@
                                 </div>
                                 @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
                             </div>
-
-
-
 
                             <div class="col-sm-6">
                                 <div class="input-group">

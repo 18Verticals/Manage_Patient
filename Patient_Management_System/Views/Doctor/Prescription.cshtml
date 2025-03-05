@@ -1,4 +1,4 @@
-﻿@model List<Patient_Management_System.ViewModel.PrescriptionVM>
+﻿
 
 @{
     Layout = "~/Views/Shared/_Layout_Doctor.cshtml";
@@ -10,7 +10,6 @@
      style="background: linear-gradient(to right, #5e87e6, #d5e3c3); color: white; height: 100px;">
     <h1 class="display-6 text-center">Prescription Details</h1>
 </div>
-
 
 @if (TempData["SuccessMessage"] != null)
 {
@@ -24,15 +23,29 @@
     </div>
 }
 
+<div class="row mb-3">
+    <div class="col-md-3">
+        <form method="get" action="@Url.Action("Prescription", "Doctor")">
+            <div class="input-group">
+                <input type="text" name="searchQuery" class="form-control" placeholder="Search Prescription..." value="@Request.QueryString["searchQuery"]">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
-@if (Model != null && Model.Any())
+@if (Model != null && Model.Count > 0)
 {
-    <div class="d-flex justify-content-center">
-        <table id="prescriptionTable" class="table table-bordered text-center">
-            <thead>
-                <tr>
-                    <th></th>
 
+
+<div class="d-flex justify-content-center">
+    <div class="table-responsive" style="max-width: 80%; margin: auto;">
+        <table class="table table-border table-striped custom-table datatable mb-0 text-center">
+            <thead class="bg-danger text-white">
+                <tr>
+                    <th>Actions</th>
                     <th>Patient Name</th>
                     <th>Date Issued</th>
                     <th>Medication</th>
@@ -44,26 +57,16 @@
                 @foreach (var prescription in Model)
                 {
                     <tr>
-                        <td class="text-center">
 
+                        <td>
                             <a class="btn btn-sm btn-warning" href="@Url.Action("Edit_Prescription", "Doctor", new { PrescId = prescription.Presc_ID })">
                                 <i class="fa fa-pencil"></i>
                             </a>
-
-                            <!-- Delete-->
-                            <script type="text/javascript">
-                                function confirmDelete(url) {
-                                    if (confirm("Are you sure you want to delete this prescription?")) {
-                                        window.location.href = url;
-                                    }
-                                }
-                            </script>
 
                             <a class="btn btn-sm btn-danger" href="javascript:void(0);" onclick="confirmDelete('@Url.Action("Delete_Prescription", "Doctor", new { PrescId = prescription.Presc_ID })')">
                                 <i class="fa fa-trash-o"></i>
                             </a>
                         </td>
-
                         <td>@prescription.P_FirstName @prescription.P_MiddleName</td>
                         <td>@prescription.DateIssued.ToShortDateString()</td>
                         <td>@prescription.Medication</td>
@@ -74,11 +77,16 @@
             </tbody>
         </table>
     </div>
+</div>
+
 }
 else
 {
     <p class="text-center">No prescriptions found.</p>
 }
+
+
+
 
 <div class="d-flex justify-content-center mt-3">
     <a href="@Url.Action("Add_Prescription", "Doctor")" class="btn btn-primary btn-rounded">
@@ -98,3 +106,49 @@ else
         });
     });
 </script>
+
+<nav aria-label="Prescription Pagination">
+    <ul class="pagination">
+        @if (Model.HasPreviousPage)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Prescription", new { page = Model.PageNumber - 1 })">Previous</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Previous</a>
+            </li>
+        }
+
+        @for (int i = 1; i <= Model.PageCount; i++)
+        {
+            if (i == Model.PageNumber)
+            {
+                <li class="page-item active">
+                    <a class="page-link" href="#">@i</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Prescription", new { page = i })">@i</a>
+                </li>
+            }
+        }
+
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Prescription", new { page = Model.PageNumber + 1 })">Next</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        }
+    </ul>
+</nav>
