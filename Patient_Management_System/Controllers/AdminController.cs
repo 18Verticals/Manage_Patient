@@ -1,4 +1,4 @@
-﻿using Microsoft.Ajax.Utilities;
+using Microsoft.Ajax.Utilities;
 using PagedList;
 using Patient_Management_System.Models;
 using Patient_Management_System.ViewModel;
@@ -210,8 +210,9 @@ namespace Patient_Management_System.Controllers
             if (!string.IsNullOrEmpty(searchQuery))
             {
                 patientList = patientList
-                    .Where(d => d.P_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
-                    .Where(d => d.P_LastName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
+                    .Where(d => d.P_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0
+                             || d.P_MiddleName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0
+                             || d.P_LastName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
                     .ToList();
             }
 
@@ -327,7 +328,6 @@ namespace Patient_Management_System.Controllers
             };
             return View(patientVM);
         }
-
 
         [HttpPost]
         public ActionResult Edit_Patient(PatientVM patient, HttpPostedFileBase P_Image)
@@ -587,12 +587,13 @@ namespace Patient_Management_System.Controllers
 
 
             if (!string.IsNullOrEmpty(searchQuery))
-            {
-                doctorList = doctorList
-                    .Where(d => d.Dr_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
-                    .Where(d => d.Dr_LastName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
-                    .ToList();
-            }
+{
+    doctorList = doctorList
+        .Where(d => d.Dr_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0
+                 || d.Dr_LastName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
+        .ToList();
+}
+
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -2228,6 +2229,3 @@ namespace Patient_Management_System.Controllers
 
     }
 }
-
-
-
