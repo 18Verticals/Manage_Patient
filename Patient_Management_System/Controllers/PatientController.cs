@@ -224,17 +224,17 @@ namespace Patient_Management_System.Controllers
                     if (result == 1)
                     {
 
-                        TempData["SuccessMessage"] = "Appointment booked successfully!";
+                        TempData["ErrorMessage"] = "Appointment booked successfully!";
 
                         SendEmailNotification(patientEmail, patientName, doctorName, aptVM);
                     }
                     else if (result == 0)
                     {
-                        TempData["SuccessMessage"] = "This time slot is already booked!";
+                        TempData["ErrorMessage"] = "This time slot is already booked!";
                     }
                     else if (result == -1)
                     {
-                        TempData["SuccessMessage"] = "No patient exists with this phone number.";
+                        TempData["ErrorMessage"] = "No patient exists with this phone number.";
                     }
                     else if (result == -2)
                     {
@@ -242,7 +242,7 @@ namespace Patient_Management_System.Controllers
                     }
                     else
                     {
-                        TempData["SuccessMessage"] = "An unexpected error occurred.";
+                        TempData["ErrorMessage"] = "An unexpected error occurred.";
                     }
                 }
             }
