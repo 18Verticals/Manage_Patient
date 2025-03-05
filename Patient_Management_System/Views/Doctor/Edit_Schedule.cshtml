@@ -28,24 +28,27 @@
             <div class="row">
 
                 @Html.HiddenFor(model => model.Schedule_ID)
+
                 <!-- Doctor -->
-                <div class="col-sm-6">
+                <!--<div class="col-sm-6">
                     <div class="form-group">
                         <label>Doctor Name</label>
                         @Html.DropDownList("Doctor_ID", (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "-- Select Doctor --", new { @class = "form-control", required = "required" })
                         @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
                     </div>
-                </div>
+                </div>-->
 
                 <!-- Department -->
-                <div class="col-sm-6">
+                <!--<div class="col-sm-6">
                     <div class="form-group">
 
                         <label>Specialities</label>
                         @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Department --", new { @class = "form-control", required = "required" })
                         @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                     </div>
-                </div>
+                </div>-->
+
+
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Available Date</label>
