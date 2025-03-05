@@ -58,7 +58,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Specialities*</label>
-                        @Html.DropDownList("Dept_ID", null, htmlAttributes: new { @class = "form-control", required = "required" })
+                        @Html.DropDownList("Dept_ID", ViewBag.Dept_ID as List<SelectListItem>, "-- Select Department --", new { @class = "form-control", required = "required" })
                         @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -144,7 +144,6 @@
                     </div>
                 </div>
 
-
                 <!-- Address -->
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -153,7 +152,6 @@
                         @Html.ValidationMessageFor(model => model.Dr_Address, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
 
                 <!-- City -->
                 <div class="col-sm-4">

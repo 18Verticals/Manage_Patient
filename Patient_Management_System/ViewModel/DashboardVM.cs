@@ -12,7 +12,5 @@ namespace Patient_Management_System.ViewModel
 
         public int TotalDepartmenets { get; set; }
 
-     
-
     }
 }

@@ -18,7 +18,7 @@ namespace Patient_Management_System.Controllers
         private readonly Patient_Management_SystemEntities db = new Patient_Management_SystemEntities();
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
 
-        // GET: Patient
+        
         public ActionResult Index()
         {
             return View();
@@ -195,6 +195,7 @@ namespace Patient_Management_System.Controllers
                     };
                     cmd.Parameters.Add(returnValue);
 
+
                     SqlParameter emailParam = new SqlParameter("@PatientEmail", SqlDbType.NVarChar, 100)
                     {
                         Direction = ParameterDirection.Output
@@ -215,14 +216,16 @@ namespace Patient_Management_System.Controllers
 
                     con.Open();
                     cmd.ExecuteNonQuery();
-
+                    
                     int result = (returnValue.Value != DBNull.Value) ? Convert.ToInt32(returnValue.Value) : -2;
                     string patientEmail = emailParam.Value.ToString();
                     string patientName = patientNameParam.Value?.ToString() ?? "Patient";
                     string doctorName = doctorNameParam.Value?.ToString() ?? "Doctor";
                     if (result == 1)
                     {
+
                         TempData["SuccessMessage"] = "Appointment booked successfully!";
+
                         SendEmailNotification(patientEmail, patientName, doctorName, aptVM);
                     }
                     else if (result == 0)
@@ -232,6 +235,10 @@ namespace Patient_Management_System.Controllers
                     else if (result == -1)
                     {
                         TempData["SuccessMessage"] = "No patient exists with this phone number.";
+                    }
+                    else if (result == -2)
+                    {
+                        TempData["ErrorMessage"] = "You have already booked an appointment with this doctor on the same day.";
                     }
                     else
                     {
