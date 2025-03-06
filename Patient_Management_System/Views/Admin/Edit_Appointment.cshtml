@@ -40,23 +40,22 @@
 
 
 
-                <!-- Department -->
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Specialties</label>
-                        @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Speciality --", new { @class = "form-control", @id = "Dept_ID", required = "required" })
-                        @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
+                        <label>Specialities</label>
+                        @Html.DropDownListFor(model => model.Department_Name, (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "---Select---", new { @class = "form-control", @id = "Dept_ID", @disabled = "disabled" })
+                        @Html.ValidationMessageFor(model => model.Department_Name, "", new { @class = "text-danger" })
                         <input type="hidden" id="Hidden_Dept_ID" name="Dept_ID" />
                     </div>
                 </div>
 
 
-                <!-- Doctor -->
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Doctor</label>
-                        @Html.DropDownList("Doctor_ID", new List<SelectListItem>(), "-- Select Doctor --", new { @class = "form-control", @id = "Doctor_ID", required = "required" })
-                        @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
+                        <label>Doctor Name</label>
+                        @Html.DropDownListFor(model => model.Doctor_Name, (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "---Select---", new { @class = "form-control", required = "required", @id = "Doctor_ID", @disabled = "disabled" })
+                        @Html.ValidationMessageFor(model => model.Doctor_Name, "", new { @class = "text-danger" })
+                        <input type="hidden" id="Hidden_Dept_ID" name="Doctor_ID" />
                     </div>
                 </div>
 
@@ -64,7 +63,6 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Date</label>
-                        @*@Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })*@
                         @Html.ValidationMessageFor(model => model.Apt_Date, "", new { @class = "text-danger" })
                         @Html.TextBoxFor(model => model.Apt_Date, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
 

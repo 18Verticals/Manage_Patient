@@ -21,6 +21,8 @@ namespace Patient_Management_System.ViewModel
         public string P_MiddleName { get; set; }
         public Nullable<int> Dept_ID { get; set; }
         public string Dept_Name { get; set; }
+        public string Doctor_Name { get; set; }
+        public string Department_Name { get; set; }
         public Nullable<System.DateTime> Apt_Date { get; set; }
 
 
