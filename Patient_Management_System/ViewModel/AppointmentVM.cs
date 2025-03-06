@@ -1,4 +1,4 @@
-﻿using Patient_Management_System.Models;
+using Patient_Management_System.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
