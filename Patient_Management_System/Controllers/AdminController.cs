@@ -52,7 +52,6 @@ namespace Patient_Management_System.Controllers
                     }
                 }
             }
-
             return View(dashboard);
         }
         public ActionResult Logout()
@@ -97,7 +96,7 @@ namespace Patient_Management_System.Controllers
             }
             return View(adminVM);
         }
-        private SelectList GetDoctors()
+        private List<SelectListItem> GetDoctors()
         {
             List<SelectListItem> doctors = new List<SelectListItem>();
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -118,7 +117,7 @@ namespace Patient_Management_System.Controllers
                     }
                 }
             }
-            return new SelectList(doctors, "Value", "Text");
+            return doctors;
         }
 
         private SelectList GetDepartment()
@@ -167,7 +166,6 @@ namespace Patient_Management_System.Controllers
                     }
                 }
             }
-
             return new SelectList(patients, "Value", "Text");
         }
 
@@ -215,7 +213,6 @@ namespace Patient_Management_System.Controllers
                              || d.P_LastName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
                     .ToList();
             }
-
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(patientList.ToPagedList(pageNumber, pageSize));
@@ -286,7 +283,6 @@ namespace Patient_Management_System.Controllers
                     {
                         ViewBag.Message = "The Email you entered is already associated with another patient. Please use a different email.";
                     }
-
                 }
                 else
                 {
@@ -362,7 +358,6 @@ namespace Patient_Management_System.Controllers
                         imagePath = "~/Content/UploadedImages/" + fileName;
                         P_Image.SaveAs(Path.Combine(uploadFolder, fileName));
                     }
-
                     using (SqlCommand cmd = new SqlCommand("sp_Edit_Patient", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -399,7 +394,6 @@ namespace Patient_Management_System.Controllers
                 {
                     ViewBag.Message = "An error occurred: " + ex.Message;
                 }
-
                 return View(patient);
             }
         }
@@ -521,7 +515,6 @@ namespace Patient_Management_System.Controllers
         public ActionResult Delete_Patient(int patientId)
         {
             SqlConnection conn = new SqlConnection(connectionString);
-
             try
             {
                 using (conn)
@@ -535,7 +528,6 @@ namespace Patient_Management_System.Controllers
                     }
                 }
                 TempData["SuccessMessage"] = "Patient Record  has been Deleted successfully.";
-
                 return RedirectToAction("List_Patient", "Admin");
             }
             catch (Exception ex)
@@ -543,11 +535,8 @@ namespace Patient_Management_System.Controllers
                 ViewBag.Message = "An error occurred while deleting the doctor: " + ex.Message;
                 System.Diagnostics.Debug.WriteLine("Database error: " + ex.Message);
             }
-
             return RedirectToAction("List_Patient", "Admin");
         }
-
-
 
         public ActionResult List_Doctor(DoctorVM doctorVM, int? page, string searchQuery)
         {
@@ -584,23 +573,18 @@ namespace Patient_Management_System.Controllers
                     doctorList.Add(doctor);
                 }
             }
-
-
             if (!string.IsNullOrEmpty(searchQuery))
 {
-    doctorList = doctorList
+         doctorList = doctorList
         .Where(d => d.Dr_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0
                  || d.Dr_LastName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
         .ToList();
 }
-
-
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(doctorList.ToPagedList(pageNumber, pageSize));
 
         }
-
 
         public string UploadImage(HttpPostedFileBase file)
         {
@@ -623,13 +607,13 @@ namespace Patient_Management_System.Controllers
             }
             return null;
         }
+
         [HttpGet]
         public ActionResult Add_Doctor()
         {
             ViewBag.Dept_ID = GetDepartment();
             return View();
         }
-
 
         [HttpPost]
         public ActionResult Add_Doctor(DoctorVM doctorVM, HttpPostedFileBase Dr_ImagePath)
@@ -670,7 +654,6 @@ namespace Patient_Management_System.Controllers
                             cmd.Parameters.AddWithValue("@Dr_Status", doctorVM.Dr_Status);
                             cmd.Parameters.AddWithValue("@Fees", doctorVM.Fees);
                             cmd.Parameters.AddWithValue("@Dept_ID", doctorVM.Dept_ID);
-
                             cmd.ExecuteNonQuery();
                         }
                     }
@@ -698,7 +681,6 @@ namespace Patient_Management_System.Controllers
                     System.Diagnostics.Debug.WriteLine($"Validation Error: {error.ErrorMessage}");
                 }
             }
-
             ViewBag.Dept_ID = GetDepartment();
             return View(doctorVM);
         }
@@ -714,7 +696,6 @@ namespace Patient_Management_System.Controllers
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@Schedule_ID", scheduleId);
-
                         cmd.ExecuteNonQuery();
                     }
 
@@ -728,7 +709,6 @@ namespace Patient_Management_System.Controllers
             }
             return RedirectToAction("List_Schedule", "Admin");
         }
-
 
         public ActionResult List_Schedule(ScheduleVM scheduleVM, int? page, string searchQuery)
         {
@@ -763,18 +743,12 @@ namespace Patient_Management_System.Controllers
                 ScheduleList = ScheduleList
                     .Where(d => d.Dr_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
                     .Where(d => d.Dr_LastName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
-
                     .ToList();
             }
-
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(ScheduleList.ToPagedList(pageNumber, pageSize));
         }
-
-
-
-
 
         [HttpGet]
         public ActionResult Add_Schedule()
@@ -784,7 +758,6 @@ namespace Patient_Management_System.Controllers
             return View(new ScheduleVM());
         }
 
-
         [HttpPost]
         public ActionResult Add_Schedule(ScheduleVM scheduleVM)
         {
@@ -792,7 +765,6 @@ namespace Patient_Management_System.Controllers
             {
                 ViewBag.Doctor_ID = GetDoctors();
                 ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name");
-
                 return View(scheduleVM);
             }
 
@@ -826,392 +798,6 @@ namespace Patient_Management_System.Controllers
 
 
         [HttpGet]
-        public ActionResult Edit_Schedule(int scheduleId)
-        {
-            if (scheduleId == 0)
-            {
-                TempData["Error"] = "Invalid schedule ID.";
-                return RedirectToAction("List_Doctor");
-            }
-
-            var schedule = db.ScheduleTbls.FirstOrDefault(d => d.Schedule_ID == scheduleId);
-            if (schedule == null)
-            {
-                TempData["Error"] = "Schedule not found.";
-                return RedirectToAction("List_Doctor");
-            }
-
-            ScheduleVM scheduleVM = new ScheduleVM
-            {
-                Schedule_ID = schedule.Schedule_ID,
-                Doctor_ID = schedule.Doctor_ID,
-                Dept_ID = schedule.Dept_ID,
-                Start_Time = schedule.Start_Time,
-                End_Time = schedule.End_Time,
-                Available_Date = schedule.Available_Date,
-                Status = schedule.Status
-            };
-
-            ViewBag.Dept_ID = GetDepartment();
-            ViewBag.Doctor_ID = GetDoctors();
-
-            return View(scheduleVM);
-        }
-
-        //[HttpPost]
-        //public ActionResult Edit_Schedule(ScheduleVM scheduleVM)
-        //{
-        //    try
-        //    {
-        //        ViewBag.Dept_ID = GetDepartment();
-        //        ViewBag.Doctor_ID = GetDoctors();
-
-        //        List<(string Email, string PatientName)> affectedPatients = new List<(string, string)>();
-
-        //        using (SqlConnection con = new SqlConnection(connectionString))
-        //        {
-        //            using (SqlCommand cmd = new SqlCommand("sp_Edit_Schedule", con))
-        //            {
-        //                cmd.CommandType = CommandType.StoredProcedure;
-        //                cmd.Parameters.AddWithValue("@Schedule_ID", scheduleVM.Schedule_ID);
-        //                cmd.Parameters.AddWithValue("@Doctor_ID", scheduleVM.Doctor_ID);
-        //                cmd.Parameters.AddWithValue("@Dept_ID", scheduleVM.Dept_ID);
-        //                cmd.Parameters.AddWithValue("@Start_Time", scheduleVM.Start_Time);
-        //                cmd.Parameters.AddWithValue("@End_Time", scheduleVM.End_Time);
-        //                cmd.Parameters.AddWithValue("@Available_Date", scheduleVM.Available_Date);
-        //                cmd.Parameters.AddWithValue("@Status", scheduleVM.Status);
-
-        //                con.Open();
-        //                using (SqlDataReader reader = cmd.ExecuteReader())
-        //                {
-        //                    while (reader.Read())
-        //                    {
-        //                        affectedPatients.Add((reader["PatientEmail"].ToString(), reader["PatientName"].ToString()));
-        //                    }
-        //                }
-        //            }
-        //        }
-
-
-        //        foreach (var patient in affectedPatients)
-        //        {
-        //            SendEmailCancellationNotification(patient.Email, patient.PatientName, GetDoctorName(scheduleVM.Doctor_ID),
-        //                                              scheduleVM.Available_Date.ToString("dd-MM-yyyy"),
-        //                                              scheduleVM.Start_Time.ToString(@"hh\:mm tt"));
-        //        }
-
-        //        TempData["SuccessMessage"] = "Schedule updated successfully. Affected patients have been notified.";
-        //        return RedirectToAction("List_Schedule");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TempData["Error"] = ex.Message;
-        //        return View(scheduleVM);
-        //    }
-        //}
-
-
-        private void SendEmailCancellationNotification(string email, string patientName, string doctorName, string appointmentDate, string appointmentTime)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(email))
-                {
-                    Console.WriteLine("No email found for the patient.");
-                    return;
-                }
-
-                string emailBody = $@"
-<html>
-<body>
-    <p>Dear {patientName},</p>
-    <p>We regret to inform you that your appointment with <strong>Dr. {doctorName}</strong> on <strong>{appointmentDate}</strong> at <strong>{appointmentTime}</strong> has been <strong>canceled</strong>.</p>
-    <p>If you have any questions or would like to reschedule, please contact us.</p>
-    <p>Thank you for understanding.</p>
-    <p>Best Regards,<br/>LiveDoc Multispecialist Hospital</p>
-    <p>Any Query? Please Contact Us: 70465 90890</p>
-</body>
-</html>";
-
-                MailMessage mail = new MailMessage
-                {
-                    From = new MailAddress("your-email@gmail.com"),
-                    Subject = "Appointment Cancellation Notification",
-                    Body = emailBody,
-                    IsBodyHtml = true
-                };
-                mail.To.Add(email);
-
-                SmtpClient smtp = new SmtpClient
-                {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "sraz evwu hvpx jvdi"),
-                    EnableSsl = true
-                };
-
-                smtp.Send(mail);
-                Console.WriteLine("Cancellation email sent successfully!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Email sending failed: " + ex.Message);
-            }
-        }
-
-
-
-        public ActionResult List_Appointment(AppointmentVM aptVM, int? page, string searchQuery)
-        {
-            List<AppointmentVM> aptList = new List<AppointmentVM>();
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("sp_Get_Appointment", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    AppointmentVM apt = new AppointmentVM
-                    {
-                        Appointment_ID = reader["Appointment_ID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Appointment_ID"]),
-                        Doctor_ID = reader["Doctor_ID"] != DBNull.Value ? Convert.ToInt32(reader["Doctor_ID"]) : (int?)null,
-                        Dr_FirstName = reader["Dr_FirstName"].ToString(),
-                        Dr_LastName = reader["Dr_LastName"].ToString(),
-                        Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : (int?)null,
-                        P_FirstName = reader["P_FirstName"].ToString(),
-                        P_MiddleName = reader["P_MiddleName"].ToString(),
-                        Dept_ID = reader["Dept_ID"] != DBNull.Value ? Convert.ToInt32(reader["Dept_ID"]) : (int?)null,
-                        Dept_Name = reader["Dept_Name"].ToString(),
-                        Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
-                        Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
-                        Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : string.Empty,
-                        Diseases = reader["Diseases"] != DBNull.Value ? reader["Diseases"].ToString() : string.Empty,
-                        Phone = reader["Phone"] != DBNull.Value ? reader["Phone"].ToString() : string.Empty,
-                    };
-                    aptList.Add(apt);
-                }
-            }
-            if (!string.IsNullOrEmpty(searchQuery))
-            {
-                aptList = aptList
-                    .Where(d =>
-                        (d.P_FirstName != null && d.P_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0) ||
-                        (d.Dept_Name != null && d.Dept_Name.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0) ||
-                        (d.Dr_FirstName != null && d.Dr_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0))
-                    .ToList();
-            }
-
-
-
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            return View(aptList.ToPagedList(pageNumber, pageSize));
-        }
-
-        private void SendEmailNotification(string email, string patientName, string doctorName, AppointmentVM aptVM)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(email))
-                {
-                    Console.WriteLine("No email found for the patient.");
-                    return;
-                }
-
-                MailMessage mail = new MailMessage
-                {
-                    From = new MailAddress("hemangkanzariya00@gmail.com"),
-                    Subject = "Appointment Confirmation",
-                    Body = $"Dear {patientName},\n\n" +
-                           $"Your appointment has been confirmed with Dr. {doctorName} on {aptVM.Apt_Date:dd-MM-yyyy} at {aptVM.Apt_Time}.\n\n" +
-                           $"Description: {aptVM.Description}\n\n" +
-                           $"Thank you!\n\nBest Regards,\nLiveDoc Multispecialist Hospital\n\n" +
-                           $"Any Query? Please Contact Us: 70465 90890",
-                    IsBodyHtml = false
-                };
-                mail.To.Add(email);
-
-                SmtpClient smtp = new SmtpClient
-                {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "ylba zcnu rsmn nvro"),
-                    EnableSsl = true
-                };
-
-                smtp.Send(mail);
-                Console.WriteLine("Email sent successfully!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Email sending failed: " + ex.Message);
-            }
-        }
-
-
-        [HttpGet]
-        public ActionResult Add_Appointment()
-        {
-            ViewBag.Dept_ID = GetDepartment();
-            ViewBag.Doctor_ID = new List<SelectListItem>();
-            ViewBag.TimeSlots = new List<SelectListItem>();
-            return View();
-        }
-
-
-        [HttpPost]
-        public ActionResult Add_Appointment(AppointmentVM aptVM)
-        {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.Dept_ID = GetDepartment();
-                ViewBag.Doctor_ID = GetDoctors();
-                ViewBag.TimeSlots = GetTimeSlots();
-                return View(aptVM);
-            }
-
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand("sp_Demo_Book_Appointment", con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Doctor_ID", aptVM.Doctor_ID);
-                    cmd.Parameters.AddWithValue("@Dept_ID", aptVM.Dept_ID);
-                    cmd.Parameters.AddWithValue("@Apt_Date", aptVM.Apt_Date);
-                    cmd.Parameters.AddWithValue("@Apt_Time", aptVM.Apt_Time);
-                    cmd.Parameters.AddWithValue("@Description", aptVM.Description);
-                    cmd.Parameters.AddWithValue("@Phone", aptVM.Phone);
-                    cmd.Parameters.AddWithValue("@Diseases", aptVM.Diseases);
-
-                    SqlParameter returnValue = new SqlParameter { Direction = ParameterDirection.ReturnValue };
-                    cmd.Parameters.Add(returnValue);
-
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    int result = Convert.ToInt32(returnValue.Value);
-
-                    if (result == 1)
-                    {
-                        TempData["SuccessMessage"] = "Appointment booked successfully!";
-                        return RedirectToAction("List_Appointment");
-                    }
-                    else if (result == 0)
-                    {
-                        ViewBag.Message = "This time slot is already booked!";
-                    }
-                    else if (result == -2)
-                    {
-                        ViewBag.Message = "You have already booked an appointment with this doctor on this date.";
-                    }
-                    else if (result == -3)
-                    {
-                        ViewBag.Message = "Invalid appointment time. Please choose from available slots.";
-                    }
-                    else
-                    {
-                        ViewBag.Message = "An error occurred.";
-                    }
-                }
-            }
-
-            ViewBag.Dept_ID = GetDepartment();
-            ViewBag.Doctor_ID = GetDoctors();
-            ViewBag.TimeSlots = GetTimeSlots();
-            return View(aptVM);
-        }
-
-        public JsonResult GetDoctorsBySpecialty(int deptId)
-        {
-            var doctors = db.DoctorTbls.Where(d => d.Dept_ID == deptId)
-                                       .Select(d => new SelectListItem
-                                       {
-                                           Value = d.Doctor_ID.ToString(),
-                                           Text = d.Dr_FirstName + " " + d.Dr_LastName
-                                       }).ToList();
-            return Json(doctors, JsonRequestBehavior.AllowGet);
-        }
-        private List<SelectListItem> GetTimeSlots()
-        {
-            List<SelectListItem> timeSlots = new List<SelectListItem>();
-            TimeSpan startTime = new TimeSpan(9, 30, 0);
-            TimeSpan endTime = new TimeSpan(18, 30, 0);
-
-            while (startTime <= endTime)
-            {
-                string timeValue = startTime.ToString(@"hh\:mm");
-                timeSlots.Add(new SelectListItem { Value = timeValue, Text = timeValue });
-                startTime = startTime.Add(new TimeSpan(0, 30, 0));
-            }
-            return timeSlots;
-        }
-
-
-
-        [HttpGet]
-        public JsonResult GetAvailableSlots(int doctorId, DateTime date)
-        {
-            List<string> availableSlots = new List<string>();
-
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                con.Open();
-                string query = @"
-        SELECT DISTINCT FORMAT(ts.TimeSlot, 'hh\:mm tt') AS TimeSlot 
-        FROM TimeSlots ts
-        INNER JOIN ScheduleTbl s ON s.Doctor_ID = @Doctor_ID 
-        WHERE s.Available_Date = @Apt_Date
-        AND ts.TimeSlot BETWEEN s.Start_Time AND s.End_Time
-        AND ts.TimeSlot NOT IN (
-            SELECT Apt_Time FROM AppointmentTbl 
-            WHERE Doctor_ID = @Doctor_ID AND Apt_Date = @Apt_Date
-        )";
-
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@Doctor_ID", doctorId);
-                    cmd.Parameters.AddWithValue("@Apt_Date", date);
-
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            availableSlots.Add(dr["TimeSlot"].ToString());
-                        }
-                    }
-                }
-            }
-            return Json(availableSlots, JsonRequestBehavior.AllowGet);
-        }
-
-
-
-        [HttpGet]
-        public JsonResult GetAvailableDates(int doctorId)
-        {
-            var availableDates = db.ScheduleTbls
-                                   .Where(s => s.Doctor_ID == doctorId && s.Available_Date >= DateTime.Today)
-                                   .Select(s => s.Available_Date.Value.ToString("yyyy-MM-dd"))
-                                   .Distinct()
-                                   .ToList();
-
-            return Json(availableDates, JsonRequestBehavior.AllowGet);
-        }
-
-
-
-
-        public JsonResult GetDepartmentByDoctor(int doctorId)
-        {
-            var doctor = db.DoctorTbls.Where(d => d.Doctor_ID == doctorId)
-                                      .Select(d => new { Dept_ID = d.Dept_ID })
-                                      .FirstOrDefault();
-            return Json(doctor, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
         public ActionResult Edit_Appointment(int aptId)
         {
             var appointment = db.AppointmentTbls.FirstOrDefault(d => d.Appointment_ID == aptId);
@@ -1232,40 +818,43 @@ namespace Patient_Management_System.Controllers
                 Apt_Time = appointment.Apt_Time,
             };
 
-            ViewBag.Dept_ID = GetDepartment();
-            ViewBag.Doctor_ID = GetDoctors();
+            ViewBag.Dept_ID = new SelectList(GetDepartment(), "Value", "Text", aptVM.Dept_ID);
+            ViewBag.Doctor_ID = new SelectList(GetDoctors(), "Value", "Text", aptVM.Doctor_ID);
             ViewBag.TimeSlots = GetTimeSlots();
 
             return View(aptVM);
         }
-
 
         [HttpPost]
         public ActionResult Edit_Appointment(AppointmentVM aptVM)
         {
             if (!ModelState.IsValid)
             {
-
-
                 ViewBag.Dept_ID = GetDepartment();
                 ViewBag.Doctor_ID = GetDoctors();
                 ViewBag.TimeSlots = GetTimeSlots();
-
                 return View(aptVM);
             }
 
             try
             {
+
+                if (!int.TryParse(aptVM.Doctor_Name, out int doctorId) ||
+                   !int.TryParse(aptVM.Department_Name, out int deptId))
+                {
+                    TempData["Error"] = "Invalid doctor or department selection.";
+                    return View(aptVM);
+                }
+
+
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("sp_Edit_Appointment", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-
-
                         cmd.Parameters.AddWithValue("@Appointment_ID", aptVM.Appointment_ID);
-                        cmd.Parameters.AddWithValue("@Doctor_ID", aptVM.Doctor_ID);
-                        cmd.Parameters.AddWithValue("@Dept_ID", aptVM.Dept_ID);
+                        cmd.Parameters.AddWithValue("@Doctor_ID", doctorId);
+                        cmd.Parameters.AddWithValue("@Dept_ID", deptId);
                         cmd.Parameters.AddWithValue("@Apt_Date", aptVM.Apt_Date);
                         cmd.Parameters.AddWithValue("@Apt_Time", aptVM.Apt_Time);
                         cmd.Parameters.AddWithValue("@Description", aptVM.Description);
@@ -1327,7 +916,6 @@ namespace Patient_Management_System.Controllers
                         {
                             ViewBag.Message = "An unexpected error occurred.";
                         }
-
                     }
                 }
             }
@@ -1336,14 +924,480 @@ namespace Patient_Management_System.Controllers
                 TempData["Error"] = ex.Message;
             }
 
-            ViewBag.Dept_ID = GetDepartment();
-            ViewBag.Doctor_ID = GetDoctors();
+            ViewBag.Dept_ID = new SelectList(GetDepartment(), "Value", "Text", aptVM.Dept_ID);
+            ViewBag.Doctor_ID = new SelectList(GetDoctors(), "Value", "Text", aptVM.Doctor_ID);
 
             ViewBag.TimeSlots = GetTimeSlots();
 
             return View(aptVM);
         }
 
+
+        [HttpGet]
+        public ActionResult Edit_Prescription(int PrescId)
+        {
+            var presc = db.PrescriptionTbls.Where(d => d.Presc_ID == PrescId).FirstOrDefault();
+            if (presc == null)
+            {
+                return HttpNotFound();
+            }
+            PrescriptionVM prescVM = new PrescriptionVM
+            {
+                Presc_ID = presc.Presc_ID,
+                Patient_ID = presc.Patient_ID,
+                Doctor_ID = presc.Doctor_ID,
+                Medication = presc.Medication,
+                Instructions = presc.Instructions,
+                Dosage = presc.Dosage,
+                DateIssued = presc.DateIssued
+            };           
+            ViewBag.Patient_ID = new SelectList(GetPatients(), "Value", "Text", prescVM.Patient_ID);
+            ViewBag.Doctor_ID = new SelectList(GetDoctors(), "Value", "Text", prescVM.Doctor_ID);
+            return View(prescVM);
+        }
+
+
+
+        [HttpPost]
+        public ActionResult Edit_Prescription(PrescriptionVM prescVM)
+        {
+            try
+            {
+                ViewBag.Patient_ID = new SelectList(GetPatients(), "Value", "Text", prescVM.Patient_ID);
+                ViewBag.Doctor_ID = new SelectList(GetDoctors(), "Value", "Text", prescVM.Doctor_ID);
+
+                if (!int.TryParse(prescVM.Doctor_Name, out int doctorId) ||
+                    !int.TryParse(prescVM.Patient_Name, out int patientId))
+                {
+                    TempData["Error"] = "Invalid doctor or Patient selection.";
+                    return View(prescVM);
+                }
+
+
+                if (ModelState.IsValid)
+                {
+                    using (SqlConnection con = new SqlConnection(connectionString))
+                    {
+                        using (SqlCommand cmd = new SqlCommand("sp_Edit_Prescription", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@Presc_ID", prescVM.Presc_ID);
+                            cmd.Parameters.AddWithValue("@Patient_ID", patientId);
+                            cmd.Parameters.AddWithValue("@Doctor_ID", doctorId);
+                            cmd.Parameters.AddWithValue("@Medication", prescVM.Medication);
+                            cmd.Parameters.AddWithValue("@Instructions", prescVM.Instructions);
+                            cmd.Parameters.AddWithValue("@Dosage", prescVM.Dosage);
+                            cmd.Parameters.AddWithValue("@DateIssued", prescVM.DateIssued);
+
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    TempData["SuccessMessage"] = "Prescription details have been updated successfully.";
+                    return RedirectToAction("List_Prescription");
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = "An error occurred: " + ex.Message;
+            }
+           
+            return View(prescVM);
+        }
+
+
+
+        [HttpGet]
+        public ActionResult Edit_Schedule(int scheduleId)
+        {
+            if (scheduleId == 0)
+            {
+                TempData["Error"] = "Invalid schedule ID.";
+                return RedirectToAction("List_Doctor");
+            }
+
+            var schedule = db.ScheduleTbls.FirstOrDefault(d => d.Schedule_ID == scheduleId);
+            if (schedule == null)
+            {
+                TempData["Error"] = "Schedule not found.";
+                return RedirectToAction("List_Doctor");
+            }
+
+            ScheduleVM scheduleVM = new ScheduleVM
+            {
+                Schedule_ID = schedule.Schedule_ID,
+                Doctor_ID = schedule.Doctor_ID,
+                Dept_ID = schedule.Dept_ID,
+                Start_Time = schedule.Start_Time,
+                End_Time = schedule.End_Time,
+                Available_Date = schedule.Available_Date?.Date, 
+                Status = schedule.Status
+            };
+
+            ViewBag.Dept_ID = new SelectList(GetDepartment(), "Value", "Text", scheduleVM.Dept_ID);
+            ViewBag.Doctor_ID = new SelectList(GetDoctors(), "Value", "Text", scheduleVM.Doctor_ID);
+
+            return View(scheduleVM);
+        }
+
+
+        [HttpPost]
+        public ActionResult Edit_Schedule(ScheduleVM scheduleVM)
+        {
+            try
+            {
+                ViewBag.Dept_ID = new SelectList(GetDepartment(), "Value", "Text", scheduleVM.Dept_ID);
+                ViewBag.Doctor_ID = new SelectList(GetDoctors(), "Value", "Text", scheduleVM.Doctor_ID);
+
+                if (!int.TryParse(scheduleVM.Doctor_Name, out int doctorId) ||
+                    !int.TryParse(scheduleVM.Department_Name, out int deptId))
+                {
+                    TempData["Error"] = "Invalid doctor or department selection.";
+                    return View(scheduleVM);
+                }
+              
+                 
+
+                var affectedPatients = new List<(string Email, string PatientName)>();
+
+                using (var con = new SqlConnection(connectionString))
+                using (var cmd = new SqlCommand("sp_Edit_Schedule", con) { CommandType = CommandType.StoredProcedure })
+                {
+                    cmd.Parameters.AddWithValue("@Schedule_ID", scheduleVM.Schedule_ID);
+                    cmd.Parameters.AddWithValue("@Doctor_ID", doctorId);
+                    cmd.Parameters.AddWithValue("@Dept_ID", deptId);
+                    cmd.Parameters.AddWithValue("@Start_Time", scheduleVM.Start_Time);
+                    cmd.Parameters.AddWithValue("@End_Time", scheduleVM.End_Time);
+                    cmd.Parameters.AddWithValue("@Available_Date", scheduleVM.Available_Date);
+                    cmd.Parameters.AddWithValue("@Status", scheduleVM.Status);
+
+                    con.Open();
+                    using (var reader = cmd.ExecuteReader())
+                        while (reader.Read())
+                            affectedPatients.Add((reader["PatientEmail"].ToString(), reader["PatientName"].ToString()));
+                }
+
+                if (affectedPatients.Any())
+                {
+                    string doctorName = GetDoctorName(doctorId);
+                    string formattedDate = scheduleVM.Available_Date?.ToString("dd-MM-yyyy") ?? "N/A";
+                    string formattedTime = DateTime.Today.Add(scheduleVM.Start_Time ?? TimeSpan.Zero).ToString("hh:mm tt");
+
+                    affectedPatients.ForEach(patient =>
+                        SendEmailCancellationNotification(patient.Email, patient.PatientName, doctorName, formattedDate, formattedTime));
+
+                    TempData["SuccessMessage"] = "Schedule updated successfully. Affected patients have been notified.";
+                }
+                else
+                {
+                    TempData["SuccessMessage"] = "Schedule updated successfully.";
+                }
+
+                return RedirectToAction("List_Schedule");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error: " + ex.Message;
+                return View(scheduleVM);
+            }
+        }
+
+
+
+        private string GetDoctorName(int doctorId)
+        {
+            using (var db = new Patient_Management_SystemEntities())
+            {
+                return db.DoctorTbls.Where(d => d.Doctor_ID == doctorId).Select(d => d.Dr_FirstName).FirstOrDefault();
+            }
+        }
+
+        private void SendEmailCancellationNotification(string email, string patientName, string doctorName, string appointmentDate, string appointmentTime)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    Console.WriteLine("No email found for the patient.");
+                    return;
+                }
+
+                string emailBody = $@"
+<html>
+<body>
+    <p>Dear {patientName},</p>
+    <p>We regret to inform you that your appointment with <strong>Dr. {doctorName}</strong> on <strong>{appointmentDate}</strong> at <strong>{appointmentTime}</strong> has been <strong>canceled</strong>.</p>
+    <p>If you have any questions or would like to reschedule, please contact us.</p>
+    <p>Thank you for understanding.</p>
+    <p>Best Regards,<br/>LiveDoc Multispecialist Hospital</p>
+    <p>Any Query? Please Contact Us: 70465 90890</p>
+</body>
+</html>";
+
+                MailMessage mail = new MailMessage
+                {
+                    From = new MailAddress("your-email@gmail.com"),
+                    Subject = "Appointment Cancellation Notification",
+                    Body = emailBody,
+                    IsBodyHtml = true
+                };
+                mail.To.Add(email);
+
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "sraz evwu hvpx jvdi"),
+                    EnableSsl = true
+                };
+
+                smtp.Send(mail);
+                Console.WriteLine("Cancellation email sent successfully!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Email sending failed: " + ex.Message);
+            }
+        }
+
+        public ActionResult List_Appointment(AppointmentVM aptVM, int? page, string searchQuery)
+        {
+            List<AppointmentVM> aptList = new List<AppointmentVM>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("sp_Get_Appointment", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    AppointmentVM apt = new AppointmentVM
+                    {
+                        Appointment_ID = reader["Appointment_ID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Appointment_ID"]),
+                        Doctor_ID = reader["Doctor_ID"] != DBNull.Value ? Convert.ToInt32(reader["Doctor_ID"]) : (int?)null,
+                        Dr_FirstName = reader["Dr_FirstName"].ToString(),
+                        Dr_LastName = reader["Dr_LastName"].ToString(),
+                        Patient_ID = reader["Patient_ID"] != DBNull.Value ? Convert.ToInt32(reader["Patient_ID"]) : (int?)null,
+                        P_FirstName = reader["P_FirstName"].ToString(),
+                        P_MiddleName = reader["P_MiddleName"].ToString(),
+                        Dept_ID = reader["Dept_ID"] != DBNull.Value ? Convert.ToInt32(reader["Dept_ID"]) : (int?)null,
+                        Dept_Name = reader["Dept_Name"].ToString(),
+                        Apt_Date = reader["Apt_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Apt_Date"]) : DateTime.MinValue,
+                        Apt_Time = reader["Apt_Time"] != DBNull.Value ? (TimeSpan?)reader["Apt_Time"] : null,
+                        Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : string.Empty,
+                        Diseases = reader["Diseases"] != DBNull.Value ? reader["Diseases"].ToString() : string.Empty,
+                        Phone = reader["Phone"] != DBNull.Value ? reader["Phone"].ToString() : string.Empty,
+                    };
+                    aptList.Add(apt);
+                }
+            }
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                aptList = aptList
+                    .Where(d =>
+                        (d.P_FirstName != null && d.P_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (d.Dept_Name != null && d.Dept_Name.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (d.Dr_FirstName != null && d.Dr_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0))
+                    .ToList();
+            }
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(aptList.ToPagedList(pageNumber, pageSize));
+        }
+
+        private void SendEmailNotification(string email, string patientName, string doctorName, AppointmentVM aptVM)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    Console.WriteLine("No email found for the patient.");
+                    return;
+                }
+
+                MailMessage mail = new MailMessage
+                {
+                    From = new MailAddress("hemangkanzariya00@gmail.com"),
+                    Subject = "Appointment Confirmation",
+                    Body = $"Dear {patientName},\n\n" +
+                           $"Your appointment has been confirmed with Dr. {doctorName} on {aptVM.Apt_Date:dd-MM-yyyy} at {aptVM.Apt_Time}.\n\n" +
+                           $"Description: {aptVM.Description}\n\n" +
+                           $"Thank you!\n\nBest Regards,\nLiveDoc Multispecialist Hospital\n\n" +
+                           $"Any Query? Please Contact Us: 70465 90890",
+                    IsBodyHtml = false
+                };
+                mail.To.Add(email);
+
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "ylba zcnu rsmn nvro"),
+                    EnableSsl = true
+                };
+
+                smtp.Send(mail);
+                Console.WriteLine("Email sent successfully!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Email sending failed: " + ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Add_Appointment()
+        {
+            ViewBag.Dept_ID = GetDepartment();
+            ViewBag.Doctor_ID = new List<SelectListItem>();
+            ViewBag.TimeSlots = new List<SelectListItem>();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add_Appointment(AppointmentVM aptVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Dept_ID = GetDepartment();
+                ViewBag.Doctor_ID = GetDoctors();
+                ViewBag.TimeSlots = GetTimeSlots();
+                return View(aptVM);
+            }
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_Demo_Book_Appointment", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Doctor_ID", aptVM.Doctor_ID);
+                    cmd.Parameters.AddWithValue("@Dept_ID", aptVM.Dept_ID);
+                    cmd.Parameters.AddWithValue("@Apt_Date", aptVM.Apt_Date);
+                    cmd.Parameters.AddWithValue("@Apt_Time", aptVM.Apt_Time);
+                    cmd.Parameters.AddWithValue("@Description", aptVM.Description);
+                    cmd.Parameters.AddWithValue("@Phone", aptVM.Phone);
+                    cmd.Parameters.AddWithValue("@Diseases", aptVM.Diseases);
+
+                    SqlParameter returnValue = new SqlParameter { Direction = ParameterDirection.ReturnValue };
+                    cmd.Parameters.Add(returnValue);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    int result = Convert.ToInt32(returnValue.Value);
+
+                    if (result == 1)
+                    {
+                        TempData["SuccessMessage"] = "Appointment booked successfully!";
+                        return RedirectToAction("List_Appointment");
+                    }
+                    else if (result == 0)
+                    {
+                        ViewBag.Message = "This time slot is already booked!";
+                    }
+                    else if (result == -2)
+                    {
+                        ViewBag.Message = "You have already booked an appointment with this doctor on this date.";
+                    }
+                    else if (result == -3)
+                    {
+                        ViewBag.Message = "Invalid appointment time. Please choose from available slots.";
+                    }
+                    else
+                    {
+                        ViewBag.Message = "An error occurred.";
+                    }
+                }
+            }
+            ViewBag.Dept_ID = GetDepartment();
+            ViewBag.Doctor_ID = GetDoctors();
+            ViewBag.TimeSlots = GetTimeSlots();
+            return View(aptVM);
+        }
+
+        public JsonResult GetDoctorsBySpecialty(int deptId)
+        {
+            var doctors = db.DoctorTbls.Where(d => d.Dept_ID == deptId)
+                                       .Select(d => new SelectListItem
+                                       {
+                                           Value = d.Doctor_ID.ToString(),
+                                           Text = d.Dr_FirstName + " " + d.Dr_LastName
+                                       }).ToList();
+            return Json(doctors, JsonRequestBehavior.AllowGet);
+        }
+        private List<SelectListItem> GetTimeSlots()
+        {
+            List<SelectListItem> timeSlots = new List<SelectListItem>();
+            TimeSpan startTime = new TimeSpan(9, 30, 0);
+            TimeSpan endTime = new TimeSpan(18, 30, 0);
+
+            while (startTime <= endTime)
+            {
+                string timeValue = startTime.ToString(@"hh\:mm");
+                timeSlots.Add(new SelectListItem { Value = timeValue, Text = timeValue });
+                startTime = startTime.Add(new TimeSpan(0, 30, 0));
+            }
+            return timeSlots;
+        }
+
+        [HttpGet]
+        public JsonResult GetAvailableSlots(int doctorId, DateTime date)
+        {
+            List<string> availableSlots = new List<string>();
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                string query = @"
+        SELECT DISTINCT FORMAT(ts.TimeSlot, 'hh\:mm tt') AS TimeSlot 
+        FROM TimeSlots ts
+        INNER JOIN ScheduleTbl s ON s.Doctor_ID = @Doctor_ID 
+        WHERE s.Available_Date = @Apt_Date
+        AND ts.TimeSlot BETWEEN s.Start_Time AND s.End_Time
+        AND ts.TimeSlot NOT IN (
+            SELECT Apt_Time FROM AppointmentTbl 
+            WHERE Doctor_ID = @Doctor_ID AND Apt_Date = @Apt_Date
+        )";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@Doctor_ID", doctorId);
+                    cmd.Parameters.AddWithValue("@Apt_Date", date);
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            availableSlots.Add(dr["TimeSlot"].ToString());
+                        }
+                    }
+                }
+            }
+            return Json(availableSlots, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetAvailableDates(int doctorId)
+        {
+            var availableDates = db.ScheduleTbls
+                                   .Where(s => s.Doctor_ID == doctorId && s.Available_Date >= DateTime.Today)
+                                   .Select(s => s.Available_Date.Value.ToString("yyyy-MM-dd"))
+                                   .Distinct()
+                                   .ToList();
+
+            return Json(availableDates, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetDepartmentByDoctor(int doctorId)
+        {
+            var doctor = db.DoctorTbls.Where(d => d.Doctor_ID == doctorId)
+                                      .Select(d => new { Dept_ID = d.Dept_ID })
+                                      .FirstOrDefault();
+            return Json(doctor, JsonRequestBehavior.AllowGet);
+        }
+
+        
 
         private void SendEmailUpdateNotification(string email, string patientName, string doctorName, AppointmentVM aptVM)
         {
@@ -1353,8 +1407,6 @@ namespace Patient_Management_System.Controllers
                 {
                     Console.WriteLine("No email found for the patient.");
                     return;
-
-
                 }
                 string emailBody = $@"
                  <html>
@@ -1373,7 +1425,6 @@ namespace Patient_Management_System.Controllers
                      <p>Any Query? Please Contact Us: 70465 90890</p>
                  </body>
                  </html>";
-
 
                 MailMessage mail = new MailMessage
                 {
@@ -1401,7 +1452,6 @@ namespace Patient_Management_System.Controllers
                 Console.WriteLine("Email sending failed: " + ex.Message);
             }
         }
-
 
         public ActionResult List_Prescription(PrescriptionVM prescVM, int? page, string searchQuery)
 
@@ -1448,10 +1498,6 @@ namespace Patient_Management_System.Controllers
             return View(PrescList.ToPagedList(pageNumber, pageSize));
         }
 
-
-
-
-
         // GET: Add Prescription
         [HttpGet]
         public ActionResult Add_Prescription(int? Doctor_ID)
@@ -1475,10 +1521,6 @@ namespace Patient_Management_System.Controllers
             ViewBag.Patient_ID = GetPatients();
             return View();
         }
-
-
-
-
 
         [HttpPost]
         public ActionResult Add_Prescription(PrescriptionVM prescVM)
@@ -1518,8 +1560,6 @@ namespace Patient_Management_System.Controllers
             return View(prescVM);
         }
 
-
-
         [HttpGet]
         public JsonResult GetPatientsByDoctor(int Doctor_ID)
         {
@@ -1549,70 +1589,6 @@ namespace Patient_Management_System.Controllers
             return Json(patients, JsonRequestBehavior.AllowGet);
         }
 
-
-
-        [HttpGet]
-        public ActionResult Edit_Prescription(int PrescId)
-        {
-            var presc = db.PrescriptionTbls.Where(d => d.Presc_ID == PrescId).FirstOrDefault();
-            if (presc == null)
-            {
-                return HttpNotFound();
-            }
-
-            ViewBag.Doctor_ID = GetDoctors();
-            ViewBag.Patient_ID = GetPatients();
-
-            PrescriptionVM prescVM = new PrescriptionVM
-            {
-                Presc_ID = presc.Presc_ID,
-                Patient_ID = presc.Patient_ID,
-                Doctor_ID = presc.Doctor_ID,
-                Medication = presc.Medication,
-                Instructions = presc.Instructions,
-                Dosage = presc.Dosage,
-                DateIssued = presc.DateIssued
-            };
-            return View(prescVM);
-        }
-    
-            [HttpPost]
-            public ActionResult Edit_Prescription(PrescriptionVM prescVM)
-            {
-                try
-                {
-                    if (ModelState.IsValid)
-                    {
-                        using (SqlConnection con = new SqlConnection(connectionString))
-                        {
-                            using (SqlCommand cmd = new SqlCommand("sp_Edit_Prescription", con))
-                            {
-                                cmd.CommandType = CommandType.StoredProcedure;
-                                cmd.Parameters.AddWithValue("@Presc_ID", prescVM.Presc_ID);
-                                cmd.Parameters.AddWithValue("@Patient_ID", prescVM.Patient_ID);
-                                cmd.Parameters.AddWithValue("@Doctor_ID", prescVM.Doctor_ID);
-                                cmd.Parameters.AddWithValue("@Medication", prescVM.Medication);
-                                cmd.Parameters.AddWithValue("@Instructions", prescVM.Instructions);
-                                cmd.Parameters.AddWithValue("@Dosage", prescVM.Dosage);
-                                cmd.Parameters.AddWithValue("@DateIssued", prescVM.DateIssued);
-
-                                con.Open();
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
-                        TempData["SuccessMessage"] = "Prescription details have been updated successfully.";
-                        return RedirectToAction("List_Prescription");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    TempData["Message"] = "An error occurred: " + ex.Message;
-                }
-                ViewBag.Doctor_ID = new SelectList(db.DoctorTbls, "Doctor_ID", "Dr_FirstName", prescVM.Doctor_ID);
-                ViewBag.Patient_ID = new SelectList(db.PatientsTbls, "Patient_ID", "P_FirstName", prescVM.Patient_ID);
-
-                return View(prescVM);
-            }
         
         public ActionResult Delete_Prescription(int PrescId)
         {
@@ -1675,7 +1651,6 @@ namespace Patient_Management_System.Controllers
             return View(departmentList.ToPagedList(pageNumber, pageSize));
         }
 
-
         public ActionResult List_Contact(ContactVM ContactVM, int? page , string searchQuery)
         {
             List<ContactVM> ContactList = new List<ContactVM>();
@@ -1712,7 +1687,6 @@ namespace Patient_Management_System.Controllers
             return View(ContactList.ToPagedList(pageNumber, pageSize));
         }
 
-
         public ActionResult List_Payment(PaymentVM paymentVM, int? page , string searchQuery)
         {
             List<PaymentVM> PaymentList = new List<PaymentVM>();
@@ -1745,7 +1719,6 @@ namespace Patient_Management_System.Controllers
                     .Where(d => d.P_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
                     .ToList();
             }
-
 
             int pageSize = 5; 
             int pageNumber = (page ?? 1);
@@ -1807,7 +1780,6 @@ namespace Patient_Management_System.Controllers
             return View(departmentVM);
         }
 
-
         [HttpGet]
         public ActionResult Edit_Department(int deptId)
         {
@@ -1850,11 +1822,7 @@ namespace Patient_Management_System.Controllers
                 TempData["Error"] = "An error occurred: " + ex.Message;
                 return View(departmentVM);
             }
-        }
-        public ActionResult List_Contact()
-        {
-            return View(db.ContactUsTbls.ToList());
-        }
+        }       
 
         public ActionResult List_Payment(PaymentVM paymentVM)
         {
@@ -2119,10 +2087,6 @@ namespace Patient_Management_System.Controllers
             return RedirectToAction("List_Payment", "Admin");
         }
 
-
-
-
-
         public ActionResult Delete_Appointment(int aptId)
         {
             try
@@ -2170,7 +2134,6 @@ namespace Patient_Management_System.Controllers
 
             return RedirectToAction("List_Appointment", "Admin");
         }
-
 
         public ActionResult Delete_Department(int DeptId)
         {
