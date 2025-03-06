@@ -18,7 +18,7 @@ namespace Patient_Management_System.Controllers
         private readonly Patient_Management_SystemEntities db = new Patient_Management_SystemEntities();
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
 
-        
+
         public ActionResult Index()
         {
             return View();
@@ -161,7 +161,7 @@ namespace Patient_Management_System.Controllers
         public ActionResult Appointment()
         {
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name");
-            ViewBag.Doctor_ID = new SelectList(new List<SelectListItem>(), "Value", "Text"); 
+            ViewBag.Doctor_ID = new SelectList(new List<SelectListItem>(), "Value", "Text");
             ViewBag.TimeSlots = GetTimeSlots();
             return View();
         }
@@ -216,7 +216,7 @@ namespace Patient_Management_System.Controllers
 
                     con.Open();
                     cmd.ExecuteNonQuery();
-                    
+
                     int result = (returnValue.Value != DBNull.Value) ? Convert.ToInt32(returnValue.Value) : -2;
                     string patientEmail = emailParam.Value.ToString();
                     string patientName = patientNameParam.Value?.ToString() ?? "Patient";
