@@ -39,22 +39,23 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Doctor Name</label>
-                        @Html.DropDownListFor(model => model.Doctor_Name, (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "---Select---", new { @class = "form-control", required = "required", @id = "Doctor_ID", @disabled = "disabled" })
+                        @Html.DropDownListFor(model => model.Doctor_Name, (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "---Select---",
+                            new { @class = "form-control", required = "required", @id = "Doctor_ID" })
                         @Html.ValidationMessageFor(model => model.Doctor_Name, "", new { @class = "text-danger" })
-                        <input type="hidden" id="Hidden_Doctor_ID" name="Doctor_ID" />
+                        <input type="hidden" id="Hidden_Doctor_ID" name="Doctor_Name" value="@Model.Doctor_Name" />
                     </div>
                 </div>
-
-
 
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Specialities</label>
-                        @Html.DropDownListFor(model => model.Department_Name, (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "---Select---", new { @class = "form-control", @id = "Dept_ID", @disabled = "disabled" })
+                        @Html.DropDownListFor(model => model.Department_Name, (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "---Select---",
+                            new { @class = "form-control", @id = "Dept_ID", required = "required" })
                         @Html.ValidationMessageFor(model => model.Department_Name, "", new { @class = "text-danger" })
-                        <input type="hidden" id="Hidden_Dept_ID" name="Dept_ID" />
+                        <input type="hidden" id="Hidden_Dept_ID" name="Department_Name" value="@Model.Department_Name" />
                     </div>
                 </div>
+
 
                 <!-- Date -->
                 <div class="col-sm-6">
@@ -107,26 +108,33 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    $(document).ready(function () {
-        $("#Doctor_ID").change(function () {
-            var doctorId = $(this).val();
-            if (doctorId) {
-                $.ajax({
-                    url: '@Url.Action("GetDepartmentByDoctor", "Admin")',
-                    type: "GET",
-                    data: { doctorId: doctorId },
-                    success: function (data) {
-                        if (data) {
-                            $("#Dept_ID").val(data.Dept_ID).prop("disabled", true); 
-                            $("#Hidden_Dept_ID").val(data.Dept_ID); 
-                        }
-                    },
-                    error: function () {
-                        alert("Error retrieving department data.");
+   $(document).ready(function () {
+    $("#Doctor_ID").change(function () {
+        var doctorId = $(this).val();
+        $("#Hidden_Doctor_ID").val(doctorId); 
+
+        if (doctorId) {
+            $.ajax({
+                url: '@Url.Action("GetDepartmentByDoctor", "Admin")',
+                type: "GET",
+                data: { doctorId: doctorId },
+                success: function (data) {
+                    if (data) {
+                        $("#Dept_ID").val(data.Dept_ID);
+                        $("#Hidden_Dept_ID").val(data.Dept_ID); 
                     }
-                });
-            }
-        });
+                },
+                error: function () {
+                    alert("Error retrieving department data.");
+                }
+            });
+        }
     });
+
+    $("#Dept_ID").change(function () {
+        $("#Hidden_Dept_ID").val($(this).val()); 
+    });
+});
+
     </script>
 }
