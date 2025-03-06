@@ -16,11 +16,12 @@ namespace Patient_Management_System.ViewModel
         public int Doctor_ID { get; set; }
         public string Dr_FirstName { get; set; }
         public string Dr_LastName { get; set; }
-
-
         public System.DateTime DateIssued { get; set; }
         public string Medication { get; set; }
         public string Dosage { get; set; }
+        public string Doctor_Name { get; set; }
+        public string Patient_Name { get; set; }
+
         public string Instructions { get; set; }
         public virtual DoctorTbl DoctorTbl { get; set; }
         public virtual PatientsTbl PatientsTbl { get; set; }

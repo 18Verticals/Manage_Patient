@@ -2,12 +2,11 @@
 @{
     Layout = "~/Views/Shared/_Layout_Doctor.cshtml";
     ViewBag.Title = "Doctor Appointments";
-    var selectedDate = ViewBag.SelectedDate ?? DateTime.Now.ToString("yyyy-MM-dd"); // Default to today if not set
+    var selectedDate = ViewBag.SelectedDate ?? DateTime.Now.ToString("yyyy-MM-dd"); 
 }
 
 <div class="container">
     <h2>Appointments</h2>
-
     <div class="date-picker-container">
         <label for="appointmentDate">Select Date:</label>
         <input type="date" id="appointmentDate" value="@selectedDate" />
