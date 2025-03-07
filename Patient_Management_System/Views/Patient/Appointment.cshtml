@@ -1,12 +1,9 @@
-@model Patient_Management_System.ViewModel.AppointmentVM   
+@model Patient_Management_System.ViewModel.AppointmentVM
 @{
     Layout = "~/Views/Shared/_Layout_Patient.cshtml";
 }
 
-
 @using (Html.BeginForm("Appointment", "Patient", FormMethod.Post))
-
-
 
 {
     @Html.AntiForgeryToken()
@@ -14,26 +11,10 @@
 
     if (TempData["ErrorMessage"] != null)
     {
-        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-
-            <strong>@TempData["SuccessMessage"]</strong>
-            <strong style="color: red;">@TempData["ErrorMessage"]</strong>
-            <strong>@TempData["ErrorMessage"]</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    }
-
-
-    if (TempData["ErrorMessage"] != null)
-    {
         <script>
         alert("@TempData["ErrorMessage"]");
         </script>
     }
-
-
 
     if (!string.IsNullOrEmpty(ViewBag.Message))
     {
@@ -87,9 +68,6 @@
                                 @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                             </div>
 
-
-                            <!-- Doctor -->
-
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fa fa-user-md"></i></span>
@@ -98,8 +76,6 @@
                                 @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
                             </div>
 
-
-                            <!-- Date -->
                             <div class="col-sm-6">
 
                                 <div class="input-group">
@@ -109,7 +85,7 @@
                                 @Html.ValidationMessageFor(model => model.Apt_Date, "", new { @class = "text-danger" })
                             </div>
 
-                            <!-- Time Slot -->
+
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
@@ -118,13 +94,10 @@
                                 @Html.ValidationMessageFor(model => model.Apt_Time, "", new { @class = "text-danger" })
                             </div>
 
-
-                            <!-- phone -->
-
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <span class="input-group-text">
-                                        <i class="fa fa-phone"></i> <!-- Font Awesome icon -->
+                                        <i class="fa fa-phone"></i>
                                     </span>
                                     @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", style = "height:49px;", required = "required", placeholder = "Contact Number" })
                                 </div>
@@ -140,9 +113,6 @@
                                 </div>
                                 @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
                             </div>
-
-
-                            <!-- Description -->
 
                             <div class="col-sm-12">
                                 <div class="input-group">
@@ -213,17 +183,11 @@
             });
         });
     </script>
-
-
     <script>
         $('#datepicker').datepicker({
             uiLibrary: 'bootstrap'
         });
     </script>
-
-
-
-
     <script>
         $('#timepicker').timepicker({
             uiLibrary: 'bootstrap'

@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Schedule List";
     Layout = "~/Views/Shared/_Layout_Doctor.cshtml";
 }
@@ -64,7 +63,7 @@
                                     }
                                 </script>
 
-                                <a class="btn btn-danger btn-sm mx-1" href="javascript:void(0);" onclick="confirmDelete('@Url.Action("Delete_Schedule", new { Schedule_ID = scheduleVM.Schedule_ID })')">
+                                <a class="btn btn-danger btn-sm mx-1" href="javascript:void(0);" onclick="confirmDelete('@Url.Action("Delete_Schedule", new { scheduleId = scheduleVM.Schedule_ID })')">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </div>

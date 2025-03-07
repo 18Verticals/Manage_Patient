@@ -11,13 +11,13 @@ using System.Configuration;
 using System.IO;
 using System.Net.Mail;
 using System.Net;
+using System.Web.Security;
 namespace Patient_Management_System.Controllers
 {
     public class PatientController : Controller
     {
         private readonly Patient_Management_SystemEntities db = new Patient_Management_SystemEntities();
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
-
 
         public ActionResult Index()
         {
@@ -113,6 +113,13 @@ namespace Patient_Management_System.Controllers
             return View(patients);
         }
 
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
+        }
 
         public ActionResult Login()
         {
@@ -240,6 +247,16 @@ namespace Patient_Management_System.Controllers
                     {
                         TempData["ErrorMessage"] = "You have already booked an appointment with this doctor on the same day.";
                     }
+
+                    else if (result == -3)
+                    {
+                        TempData["ErrorMessage"] = "No Avaible Doctor This Date ";
+                    }
+
+                    else if (result == -4)
+                    {
+                        TempData["ErrorMessage"] = "Time Slot Not available ";
+                    }
                     else
                     {
                         TempData["ErrorMessage"] = "An unexpected error occurred.";
@@ -281,7 +298,6 @@ namespace Patient_Management_System.Controllers
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "elkj hzfh wfgd rtvd")
                 };
-
                 smtp.Send(mail);
                 Console.WriteLine("Email sent successfully!");
             }
@@ -291,7 +307,6 @@ namespace Patient_Management_System.Controllers
             }
         }
 
-
         [HttpGet]
         public JsonResult GetDoctorsByDepartment(int deptId)
         {
@@ -300,8 +315,13 @@ namespace Patient_Management_System.Controllers
                                        .ToList();
             return Json(doctors, JsonRequestBehavior.AllowGet);
         }
-
-
+        public JsonResult GetDepartmentByDoctor(int doctorId)
+        {
+            var doctor = db.DoctorTbls.Where(d => d.Doctor_ID == doctorId)
+                                      .Select(d => new { Dept_ID = d.Dept_ID })
+                                      .FirstOrDefault();
+            return Json(doctor, JsonRequestBehavior.AllowGet);
+        }
 
         private List<SelectListItem> GetTimeSlots()
         {
@@ -349,7 +369,6 @@ namespace Patient_Management_System.Controllers
             }
             return Json(availableSlots, JsonRequestBehavior.AllowGet);
         }
-
         private void SendEmailNotification(string email, AppointmentVM aptVM)
         {
             try
@@ -386,7 +405,6 @@ namespace Patient_Management_System.Controllers
                 Console.WriteLine("Email sending failed: " + ex.Message);
             }
         }
-
         public ActionResult Doctor_ViewProfile(int id)
         {
             DoctorVM doctor = null;
@@ -424,10 +442,8 @@ namespace Patient_Management_System.Controllers
             {
                 return HttpNotFound("Doctor not found.");
             }
-
             return View(doctor);
         }
-
         public ActionResult Search_Doctor(string searchTerm)
         {
             List<DoctorVM> doctors = new List<DoctorVM>();
@@ -444,33 +460,40 @@ namespace Patient_Management_System.Controllers
                     {
                         while (dr.Read())
                         {
-                            doctors.Add(new DoctorVM
+                            int doctorId = Convert.ToInt32(dr["Doctor_ID"]);
+                            var doctor = doctors.FirstOrDefault(d => d.Doctor_ID == doctorId);
+
+                            if (doctor == null)
                             {
-                                Doctor_ID = Convert.ToInt32(dr["Doctor_ID"]),
-                                Dr_FirstName = dr["Dr_FirstName"].ToString(),
-                                Dr_LastName = dr["Dr_LastName"].ToString(),
-                                Dept_Name = dr["Dept_Name"].ToString(),
-                                Dr_Qualification = dr["Dr_Qualification"].ToString(),
-                                Dr_ImagePath = dr["Dr_ImagePath"].ToString(),
-                                Fees = Convert.ToInt32(dr["Fees"]),
-                                Dr_Status = dr["Dr_Status"].ToString(),
-                                Available_Date = dr["Available_Date"] != DBNull.Value ? (DateTime?)dr["Available_Date"] : null,
-                                Start_Time = dr["Start_Time"] != DBNull.Value ? (TimeSpan?)dr["Start_Time"] : null,
-                                End_Time = dr["End_Time"] != DBNull.Value ? (TimeSpan?)dr["End_Time"] : null
-                            });
+                                doctor = new DoctorVM
+                                {
+                                    Doctor_ID = doctorId,
+                                    Dr_FirstName = dr["Dr_FirstName"].ToString(),
+                                    Dr_LastName = dr["Dr_LastName"].ToString(),
+                                    Dept_Name = dr["Dept_Name"].ToString(),
+                                    Dr_Qualification = dr["Dr_Qualification"].ToString(),
+                                    Dr_ImagePath = dr["Dr_ImagePath"].ToString(),
+                                    Fees = Convert.ToInt32(dr["Fees"]),
+                                    Status = dr["Status"].ToString(),
+                                    Available_Date = new List<DateTime>(),
+                                    DateTimeSlots = new Dictionary<DateTime, (TimeSpan, TimeSpan)>()
+                                };
+                                doctors.Add(doctor);
+                            }
+                            if (dr["Available_Date"] != DBNull.Value)
+                            {
+                                DateTime availableDate = Convert.ToDateTime(dr["Available_Date"]);
+                                doctor.Available_Date.Add(availableDate);
+                                TimeSpan startTime = dr["Start_Time"] != DBNull.Value ? (TimeSpan)dr["Start_Time"] : TimeSpan.Zero;
+                                TimeSpan endTime = dr["End_Time"] != DBNull.Value ? (TimeSpan)dr["End_Time"] : TimeSpan.Zero;
+                                doctor.DateTimeSlots[availableDate] = (startTime, endTime);
+                            }
                         }
                     }
                 }
             }
-
-            if (doctors.Count == 0)
-            {
-                ViewBag.Message = "No doctors found.";
-            }
-
             return View(doctors);
         }
-
 
         [HttpGet]
         public ActionResult Contact_Us()

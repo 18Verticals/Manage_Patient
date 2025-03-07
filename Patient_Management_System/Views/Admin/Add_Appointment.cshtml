@@ -10,15 +10,12 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-
     if (!string.IsNullOrEmpty(ViewBag.Message))
     {
         <script>
-            alert("@ViewBag.Message");
+        alert("@ViewBag.Message");
         </script>
-
     }
-
     <div class="row">
         <div class="col-sm-4 col-3">
             <h4 class="page-title">Add Appointment</h4>
@@ -28,47 +25,35 @@
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
             <div class="row">
-
-                <!-- Specialties Dropdown -->
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Specialties</label>
-
-                        @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Speciality --", new { @class = "form-control", id = "Dept_ID" })
-
+                        @Html.DropDownList("Dept_ID", (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "-- Select Speciality --", new { @class = "form-control", @id = "Dept_ID" })
                         @Html.ValidationMessageFor(model => model.Dept_ID, "", new { @class = "text-danger" })
                     </div>
-                </div
-                <!-- Doctor Dropdown -->
+                </div>
+
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Doctor</label>
-                        <select id="Doctor_ID" name="Doctor_ID" class="form-control">
-                            <option value="">-- Select Doctor --</option>
-                        </select>
-
+                        @Html.DropDownList("Doctor_ID", new List<SelectListItem>(), "-- Select Doctor --", new { @class = "form-control", @id = "Doctor_ID", required = "required" })
                         @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <!-- Date Selection -->
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Date</label>
-                        <select id="Apt_Date" name="Apt_Date" class="form-control" required>
-                            <option value="">-- Select Date --</option>
-                        </select>
+                        @Html.EditorFor(model => model.Apt_Date, new { htmlAttributes = new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd"), required = "required" } })
                     </div>
                 </div>
 
-                <!-- Time Slot Selection -->
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Time Slot</label>
                         @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control", required = "required" })
                     </div>
                 </div>
-
 
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -77,28 +62,22 @@
                     </div>
                 </div>
 
-                <!-- Contact Input -->
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Contact</label>
                         @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", required = "required" })
                     </div>
                 </div>
-                  
-                <!-- Description Input -->
+
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label>Description</label>
-                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 2, required = "required" })
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 1, required = "required" })
                     </div>
                 </div>
-
-                <!-- Submit Button -->
                 <div class="m-t-20 text-center">
-                    <button class="btn btn-primary submit-btn" style="margin-left:325px;">Add Appointment</button>
-
+                    <button class="btn btn-primary submit-btn" style="margin-left:300px; ">Add Appointment</button>
                 </div>
-
             </div>
         </div>
     </div>
@@ -106,29 +85,28 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  
-$(document).ready(function () {
-    $("#Dept_ID").change(function () {
-        $.get('@Url.Action("GetDoctorsBySpecialty", "Admin")', { deptId: $(this).val() }, function (data) {
-            $("#Doctor_ID").html('<option>-- Select Doctor --</option>');
-            $.each(data, function (_, item) { $("#Doctor_ID").append(`<option value="${item.Value}">${item.Text}</option>`); });
+    $(document).ready(function () {
+        $("#Dept_ID").change(function () {
+            var deptId = $(this).val();
+            if (deptId) {
+                $.ajax({
+                    url: '@Url.Action("GetDoctorsBySpecialty", "Admin")',
+                    type: "GET",
+                    data: { deptId: deptId },
+                    success: function (data) {
+                        var doctorDropdown = $("#Doctor_ID");
+                        doctorDropdown.empty().append('<option value="">-- Select Doctor --</option>');
+                        $.each(data, function (index, item) {
+                            doctorDropdown.append('<option value="' + item.Value + '">' + item.Text + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert("Error retrieving doctors.");
+                    }
+                });
+            } else {
+                $("#Doctor_ID").empty().append('<option value="">-- Select Doctor --</option>');
+            }
         });
     });
-
-    $("#Doctor_ID").change(function () {
-        $.get('@Url.Action("GetAvailableDates", "Admin")', { doctorId: $(this).val() }, function (data) {
-            $("#Apt_Date").html('<option>-- Select Date --</option>');
-            $.each(data, function (_, date) { $("#Apt_Date").append(`<option value="${date}">${date}</option>`); });
-        });
-    });
-
-    $("#Apt_Date").change(function () {
-        $.get('@Url.Action("GetAvailableSlots", "Admin")', { doctorId: $("#Doctor_ID").val(), date: $(this).val() }, function (data) {
-            $("#Apt_Time").html('<option>-- Select Time --</option>');
-            $.each(data, function (_, slot) { $("#Apt_Time").append(`<option value="${slot}">${slot}</option>`); });
-        });
-    });
-});
-
 </script>
-
