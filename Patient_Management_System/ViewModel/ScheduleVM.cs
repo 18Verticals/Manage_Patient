@@ -12,7 +12,7 @@ namespace Patient_Management_System.ViewModel
         public int Schedule_ID { get; set; }
         public int Doctor_ID { get; set; }
         public string Dr_FirstName { get; set; }
-        public string Dr_LastName { get; set; }        
+        public string Dr_LastName { get; set; }
         public int Dept_ID { get; set; }
         public string Dept_Name { get; set; }
         public TimeSpan? Start_Time { get; set; }
@@ -20,12 +20,10 @@ namespace Patient_Management_System.ViewModel
         public string Status { get; set; }
         public string Doctor_Name { get; set; }
         public string Department_Name { get; set; }
-        public string Avl_Date { get; set; }        
-        public Nullable<System.DateTime> Available_Date { get; set; }        
+        public string Avl_Date { get; set; }
+        public Nullable<System.DateTime> Available_Date { get; set; }
         public virtual ICollection<AppointmentTbl> AppointmentTbls { get; set; }
         public virtual DepartmentTbl DepartmentTbl { get; set; }
         public virtual DoctorTbl DoctorTbl { get; set; }
     }
 }
-
-

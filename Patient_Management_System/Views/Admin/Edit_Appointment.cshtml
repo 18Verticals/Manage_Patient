@@ -48,7 +48,6 @@
                     </div>
                 </div>
 
-               
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Date</label>
@@ -58,14 +57,14 @@
                     </div>
                 </div>
 
-              
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Time Slot</label>
-                        @Html.DropDownListFor(model => model.Apt_Time, ViewBag.TimeSlots as List<SelectListItem>, "-- Select Time --", new { @class = "form-control", required = "required" })
+                        @Html.EditorFor(model => model.Apt_Time, new { htmlAttributes = new { @class = "form-control", type = "time", min = "09:30", required = "required" } })
                         @Html.ValidationMessageFor(model => model.Apt_Time, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
 
 
                 <!-- Diseases -->
