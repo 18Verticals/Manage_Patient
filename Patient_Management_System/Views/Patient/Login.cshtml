@@ -8,6 +8,60 @@
     @Html.AntiForgeryToken()
 
     <link href="~/Content/login.css" rel="stylesheet" />
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <title>LiveDoc</title>
+
+        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/style.css">
+        <style>
+        </style>
+    </head>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-image">
+                <img src="~/Content/template/assets/images/patient_Login.png" alt="Login Image">
+            </div>
+            <div class="login-form">
+                <form method="post">
+
+                    @if (!string.IsNullOrEmpty(ViewBag.Message))
+                    {
+                        <div class="text-danger">@ViewBag.Message</div>
+                    }
+
+                    <div class="form-group">
+                        <div class="form__group field">
+                            <input type="email" name="email" class="form__field" required placeholder="Enter your Email" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form__group field">
+                            <input type="password" name="password" class="form__field" required placeholder="Enter your Password" />
+                        </div>
+                    </div>
+
+                    <p style="text-align: center; margin-top: -35px;">
+                        <a href="@Url.Action("ForgotPassword", "Forgot_Password")"
+                           style="color: black; margin-left: 135px; text-decoration: none;">
+                            Forgot Password?
+                        </a>
+                    </p>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary"><b>Login</b></button>
+                        <br><br>
+                        <p style="font-size: 16px;">
+                            Don't have an Account? <a href="Register" style="text-decoration: none; color: black;"><b>Register</b></a>
+                        </p>
+                    </div>
+            </div>
+        </div>
+    </div>
+
     <style>
         .login-container {
             display: flex;
@@ -45,72 +99,14 @@
         }
 
 
-            .login-image img {
-                max-width: 100%;
-                height: auto;
-            }
+        .login-image img {
+            max-width: 100%;
+            height: auto;
+        }
 
         .login-form {
             width: 50%;
             padding: 30px;
         }
     </style>
-
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>LiveDoc</title>
-
-        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="~/Content/Admin/assets/css/style.css">
-        <style>
-        </style>
-    </head>
-    <div class="login-container">
-        <div class="login-box">
-            <div class="login-image">
-                <img src="~/Content/template/assets/images/patient_Login.png" alt="Login Image">
-            </div>
-            <div class="login-form">
-                <form method="post">
-
-
-
-                    @if (!string.IsNullOrEmpty(ViewBag.Message))
-                    {
-                        <div class="text-danger">@ViewBag.Message</div>
-                    }
-
-                    <div class="form-group">
-                        <div class="form__group field">
-
-                            <input type="email" name="email" class="form__field" required placeholder="Enter your Email" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="form__group field">
-                            <input type="password" name="password" class="form__field" required placeholder="Enter your Password" />
-                        </div>
-                    </div>
-
-                    <p style="text-align: center; margin-top: 10px;">
-                        <a href="@Url.Action("ForgotPassword", "Forgot_Password")"
-                           style="color: black; margin-left: 135px; text-decoration: none;">
-                            Forgot Password?
-                        </a>
-                    </p>
-
-
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary"><b>Login</b></button>
-                        <br><br>
-                        <p style="font-size: 16px;">
-                            Don't have an Account? <a href="Register" style="text-decoration: none; color: black;"><b>Register</b></a>
-                        </p>
-                    </div>
-</div>
-        </div>
-    </div>
 }

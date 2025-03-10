@@ -79,7 +79,7 @@ namespace Patient_Management_System.Controllers
         {
             var fromAddress = new MailAddress("hemangkanzariya00@gmail.com", "LiveDoc Multispecialist Hospital");
             var toAddress = new MailAddress(toEmail);
-            const string fromPassword = "mali biwj ntwn oqye";
+            const string fromPassword = "cxku mstu mxpi wwtk";
 
             var smtp = new SmtpClient
             {
@@ -88,7 +88,7 @@ namespace Patient_Management_System.Controllers
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "mali biwj ntwn oqye") 
+                Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "lqri ukod qdsl qyfx") 
             };
 
             using (var message = new MailMessage(fromAddress, toAddress)

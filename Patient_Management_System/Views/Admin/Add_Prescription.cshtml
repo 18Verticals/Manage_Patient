@@ -132,11 +132,15 @@ $(document).ready(function () {
                     $.each(data, function (index, patient) {
                         patientDropdown.append('<option value="' + patient.Value + '">' + patient.Text + '</option>');
                     });
+                },
+                error: function () {
+                    alert("Error retrieving patients. Please try again.");
                 }
             });
         }
     });
 });
 
-</script>
+
+    </script>
 }

@@ -678,38 +678,42 @@ namespace Patient_Management_System.Controllers
                     Console.WriteLine("No email found for the patient.");
                     return;
                 }
+
                 string emailBody = $@"
-                    <html>
-                    <body>
-                        <p>Dear {patientName},</p>
-                        <p>We regret to inform you that your appointment with <strong>Dr. {doctorName}</strong> on <strong>{appointmentDate}</strong> at <strong>{appointmentTime}</strong> has been <strong>canceled</strong> due to schedule changes.</p>
-                        <p>If you have any questions or would like to reschedule, please contact us.</p>
-                        <p>Thank you for your understanding.</p>
-                        <p>Best Regards,<br/>LiveDoc Multispecialist Hospital</p>
-                        <p>Any Query? Please Contact Us: 70465 90890</p>
-                    </body>
-                    </html>";
-                using (MailMessage mail = new MailMessage())
+                <html>
+                <body>
+                    <p>Dear {patientName},</p>
+                    <p>We regret to inform you that your appointment with <strong>Dr. {doctorName}</strong> on <strong>{appointmentDate}</strong> at <strong>{appointmentTime}</strong> has been <strong>canceled</strong>.</p>
+                    <p>If you have any questions or would like to reschedule, please contact us.</p>
+                    <p>Thank you for understanding.</p>
+                    <p>Best Regards,<br/>LiveDoc Multispecialist Hospital</p>
+                    <p>Any Query? Please Contact Us: 70465 90890</p>
+                </body>
+                </html>";
+
+                MailMessage mail = new MailMessage
                 {
-                    mail.From = new MailAddress("hemangkanzariya00@gmail.com");
-                    mail.Subject = "Appointment Cancellation Notification";
-                    mail.Body = emailBody;
-                    mail.IsBodyHtml = true;
-                    mail.To.Add(email);
-
-                    using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
-                    {
-                        smtp.Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "ecjd twrf uibu ohuz");
-                        smtp.EnableSsl = true;
-                        smtp.Send(mail);
-                    }
-                }
-
-                Console.WriteLine($"Cancellation email sent successfully to {email}");
+                    From = new MailAddress("hemangkanzariya00@gmail.com"),
+                    Subject = "Appointment Cancellation Notification",
+                    Body = emailBody,
+                    IsBodyHtml = true
+                };
+                mail.To.Add(email);
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "lqri ukod qdsl qyfx"),
+                    EnableSsl = true
+                };
+                smtp.Send(mail);
+                Console.WriteLine("Cancellation email sent successfully!");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Email sending failed: " + ex.Message);
+
+                Console.WriteLine(ex.ToString());
             }
         }
 
@@ -728,6 +732,7 @@ namespace Patient_Management_System.Controllers
                         cmd.Parameters.AddWithValue("@Schedule_ID", scheduleId);
 
                         con.Open();
+
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
@@ -748,12 +753,24 @@ namespace Patient_Management_System.Controllers
                 {
                     foreach (var patient in affectedPatients)
                     {
-                        SendEmailCancellationNotification(patient.Email, patient.PatientName, patient.DoctorName, patient.AvailableDate, patient.StartTime);
+                        try
+                        {
+                            SendEmailCancellationNotification(
+                                patient.Email,
+                                patient.PatientName,
+                                patient.DoctorName,
+                                patient.AvailableDate,
+                                patient.StartTime
+                            );
+                            Console.WriteLine($"Email sent successfully to {patient.Email}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Failed to send email to {patient.Email}: {ex.Message}");
+                        }
                     }
-
                     TempData["SuccessMessage"] = "Schedule deleted successfully. Affected patients have been notified.";
                 }
-
                 else
                 {
                     TempData["SuccessMessage"] = "Schedule deleted successfully.";
@@ -763,6 +780,7 @@ namespace Patient_Management_System.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error in Delete_Schedule: {ex.Message}");
                 TempData["ErrorMessage"] = "An error occurred while deleting the schedule: " + ex.Message;
                 return RedirectToAction("List_Schedule");
             }

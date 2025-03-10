@@ -12,7 +12,7 @@ namespace Patient_Management_System.ViewModel
 
         [Required]
         public string P_FirstName { get; set; }
-
+        [Required]
         public string P_MiddleName { get; set; }
 
         [Required]
@@ -20,7 +20,7 @@ namespace Patient_Management_System.ViewModel
 
         [Required]
         public string P_Gender { get; set; }
-
+        [Required]
         public DateTime? P_DOB { get; set; }
 
         [Required]
@@ -29,9 +29,9 @@ namespace Patient_Management_System.ViewModel
 
         [Required]
         public string P_Phone { get; set; }
-
+        [Required]
         public string P_BloodGrp { get; set; }
-
+        [Required]
         public string P_Address { get; set; }
 
         public string P_City { get; set; }
