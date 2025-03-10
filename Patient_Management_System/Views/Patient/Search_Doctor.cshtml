@@ -52,16 +52,7 @@
                                     <li class="list-group-item"><strong>Fees:</strong> ₹ @doctor.Fees</li>
 
                                     <li class="list-group-item">
-                                        <strong class="me-2">Status:</strong>
-                                        <span class="badge @(doctor.Status == "Active" ? "bg-success" : "bg-danger") p-2 rounded-pill shadow-sm">
-                                            @doctor.Status
-                                        </span>
-                                    </li>
-
-                                    <li class="list-group-item">
-                                        <strong>
-                                            <i class="fa fa-calendar-alt text-primary"></i> Dates:
-                                        </strong>
+                                        <strong><i class="fa fa-calendar-alt text-primary"></i> Dates:</strong>
                                         @if (doctor.Available_Date.Any())
                                         {
                                             <div class="custom-dropdown mt-2">
@@ -70,12 +61,16 @@
                                                     {
                                                         var startTime = doctor.DateTimeSlots[date].Item1.ToString(@"hh\:mm");
                                                         var endTime = doctor.DateTimeSlots[date].Item2.ToString(@"hh\:mm");
-                                                        <option value="@date.ToString("yyyy-MM-dd")" data-start-time="@startTime" data-end-time="@endTime">
+                                                        var status = doctor.DateTimeSlots[date].Item3;
+
+                                                        <option value="@date.ToString("yyyy-MM-dd")"
+                                                                data-start-time="@startTime"
+                                                                data-end-time="@endTime"
+                                                                data-status="@status">
                                                             @date.ToString("dd/MM/yyyy")
                                                         </option>
                                                     }
                                                 </select>
-
                                             </div>
                                         }
                                         else
@@ -94,6 +89,14 @@
                                             @(doctor.End_Time.HasValue ? doctor.End_Time.Value.ToString(@"hh\:mm") : "N/A")
                                         </span>
                                     </li>
+
+                                    <li class="list-group-item">
+                                        <strong class="me-2">Status:</strong>
+                                        <span class="badge doctor-status @(doctor.Status == "Active" ? "bg-success" : "bg-danger") p-2 rounded-pill shadow-sm">
+                                            @doctor.Status
+                                        </span>
+                                    </li>
+
                                 </ul>
 
                                 <div class="mt-3">
@@ -119,6 +122,32 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.date-dropdown').on('change', function () {
+            var selectedOption = $(this).find('option:selected');
+            var startTime = selectedOption.data('start-time');
+            var endTime = selectedOption.data('end-time');
+            var status = selectedOption.data('status');
+
+            var doctorCard = $(this).closest('.doctor-card');
+            doctorCard.find('.start-time').text(startTime);
+            doctorCard.find('.end-time').text(endTime);
+
+            var statusBadge = doctorCard.find('.doctor-status');
+            statusBadge.text(status);
+            statusBadge.removeClass("bg-success bg-danger").addClass(status === "Active" ? "bg-success" : "bg-danger");
+        });
+
+        $('.date-dropdown').each(function () {
+            $(this).trigger('change');
+        });
+    });
+
+</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <style>
@@ -233,26 +262,3 @@
     }
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-
-        $('.date-dropdown').on('change', function () {
-            var selectedOption = $(this).find('option:selected');
-            var startTime = selectedOption.data('start-time');
-            var endTime = selectedOption.data('end-time');
-            var doctorCard = $(this).closest('.doctor-card');
-            doctorCard.find('.start-time').text(startTime);
-            doctorCard.find('.end-time').text(endTime);
-        });
-        $('.date-dropdown').each(function () {
-            $(this).trigger('change');
-        });
-    });
-
-    function showDoctorName(doctorName) {
-        document.getElementById("selectedDoctor").value = doctorName;
-    }
-</script>

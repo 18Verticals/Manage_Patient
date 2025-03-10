@@ -39,8 +39,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Doctor Name</label>
-                        @Html.DropDownListFor(model => model.Doctor_Name, (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "---Select---",
-                                 new { @class = "form-control", required = "required", @id = "Doctor_ID" })
+                        @Html.DropDownListFor(model => model.Doctor_Name, (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "---Select---",new { @class = "form-control", required = "required", @id = "Doctor_ID" })
                         @Html.ValidationMessageFor(model => model.Doctor_Name, "", new { @class = "text-danger" })
                         <input type="hidden" id="Hidden_Doctor_ID" name="Doctor_Name" value="@Model.Doctor_Name" />
                     </div>
@@ -49,12 +48,12 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Specialities</label>
-                        @Html.DropDownListFor(model => model.Department_Name, (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "---Select---",
-                                 new { @class = "form-control", @id = "Dept_ID", required = "required" })
+                        @Html.DropDownListFor(model => model.Department_Name, (IEnumerable<SelectListItem>)ViewBag.Dept_ID, "---Select---", new { @class = "form-control", @id = "Dept_ID", required = "required" })
                         @Html.ValidationMessageFor(model => model.Department_Name, "", new { @class = "text-danger" })
                         <input type="hidden" id="Hidden_Dept_ID" name="Department_Name" value="@Model.Department_Name" />
                     </div>
                 </div>
+
 
 
                 <!-- Date -->

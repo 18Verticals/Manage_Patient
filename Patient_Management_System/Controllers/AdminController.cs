@@ -218,7 +218,6 @@ namespace Patient_Management_System.Controllers
             return View(patientList.ToPagedList(pageNumber, pageSize));
         }
 
-
         [HttpGet]
         public ActionResult Add_Patient()
         {
@@ -292,7 +291,6 @@ namespace Patient_Management_System.Controllers
             }
             return View(patients);
         }
-
 
         [HttpGet]
         public ActionResult Edit_Patient(int patientId)
@@ -472,6 +470,7 @@ namespace Patient_Management_System.Controllers
                             }
                         }
                     }
+
                     using (SqlCommand cmd = new SqlCommand("sp_Edit_Doctor", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -685,7 +684,6 @@ namespace Patient_Management_System.Controllers
             return View(doctorVM);
         }
 
-
         public ActionResult Delete_Schedule(int scheduleId)
         {
             try
@@ -700,6 +698,7 @@ namespace Patient_Management_System.Controllers
                         cmd.Parameters.AddWithValue("@Schedule_ID", scheduleId);
 
                         con.Open();
+
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
@@ -720,12 +719,24 @@ namespace Patient_Management_System.Controllers
                 {
                     foreach (var patient in affectedPatients)
                     {
-                        SendEmailCancellationNotification(patient.Email, patient.PatientName, patient.DoctorName, patient.AvailableDate, patient.StartTime);
+                        try
+                        {
+                            SendEmailCancellationNotification(
+                                patient.Email,
+                                patient.PatientName,
+                                patient.DoctorName,
+                                patient.AvailableDate,
+                                patient.StartTime
+                            );
+                            Console.WriteLine($"Email sent successfully to {patient.Email}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Failed to send email to {patient.Email}: {ex.Message}");
+                        }
                     }
-
                     TempData["SuccessMessage"] = "Schedule deleted successfully. Affected patients have been notified.";
                 }
-
                 else
                 {
                     TempData["SuccessMessage"] = "Schedule deleted successfully.";
@@ -735,13 +746,60 @@ namespace Patient_Management_System.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error in Delete_Schedule: {ex.Message}");
                 TempData["ErrorMessage"] = "An error occurred while deleting the schedule: " + ex.Message;
                 return RedirectToAction("List_Schedule");
             }
         }
+        private void SendEmailCancellationNotification(string email, string patientName, string doctorName, string appointmentDate, string appointmentTime)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    Console.WriteLine("No email found for the patient.");
+                    return;
+                }
 
+                string emailBody = $@"
+<html>
+<body>
+    <p>Dear {patientName},</p>
+    <p>We regret to inform you that your appointment with <strong>Dr. {doctorName}</strong> on <strong>{appointmentDate}</strong> at <strong>{appointmentTime}</strong> has been <strong>canceled</strong>.</p>
+    <p>If you have any questions or would like to reschedule, please contact us.</p>
+    <p>Thank you for understanding.</p>
+    <p>Best Regards,<br/>LiveDoc Multispecialist Hospital</p>
+    <p>Any Query? Please Contact Us: 70465 90890</p>
+</body>
+</html>";
 
+                MailMessage mail = new MailMessage
+                {
+                    From = new MailAddress("hemangkanzariya00@gmail.com"),
+                    Subject = "Appointment Cancellation Notification",
+                    Body = emailBody,
+                    IsBodyHtml = true
+                };
+                mail.To.Add(email);
 
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "lqri ukod qdsl qyfx"),
+                    EnableSsl = true
+                };
+
+                smtp.Send(mail);
+                Console.WriteLine("Cancellation email sent successfully!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Email sending failed: " + ex.Message);
+                
+                Console.WriteLine(ex.ToString());
+            }
+        }
         public ActionResult List_Schedule(ScheduleVM scheduleVM, int? page, string searchQuery)
         {
             List<ScheduleVM> ScheduleList = new List<ScheduleVM>();
@@ -789,7 +847,6 @@ namespace Patient_Management_System.Controllers
             ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name");
             return View(new ScheduleVM());
         }
-
         [HttpPost]
         public ActionResult Add_Schedule(ScheduleVM scheduleVM)
         {
@@ -799,7 +856,6 @@ namespace Patient_Management_System.Controllers
                 ViewBag.Dept_ID = new SelectList(db.DepartmentTbls, "Dept_ID", "Dept_Name");
                 return View(scheduleVM);
             }
-
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -827,8 +883,6 @@ namespace Patient_Management_System.Controllers
             }
             return View(scheduleVM);
         }
-
-
         [HttpGet]
         public ActionResult Edit_Appointment(int aptId)
         {
@@ -869,18 +923,14 @@ namespace Patient_Management_System.Controllers
 
                 return View(aptVM);
             }
-
             try
             {
-
                 if (!int.TryParse(aptVM.Doctor_Name, out int doctorId) ||
                    !int.TryParse(aptVM.Department_Name, out int deptId))
                 {
                     TempData["Error"] = "Invalid doctor or department selection.";
                     return View(aptVM);
                 }
-
-
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("sp_Edit_Appointment", con))
@@ -894,8 +944,6 @@ namespace Patient_Management_System.Controllers
                         cmd.Parameters.AddWithValue("@Description", aptVM.Description);
                         cmd.Parameters.AddWithValue("@Phone", aptVM.Phone);
                         cmd.Parameters.AddWithValue("@Diseases", aptVM.Diseases);
-
-
                         SqlParameter patientEmailParam = new SqlParameter("@PatientEmail", SqlDbType.NVarChar, 100)
                         {
                             Direction = ParameterDirection.Output
@@ -914,7 +962,6 @@ namespace Patient_Management_System.Controllers
                         };
                         cmd.Parameters.Add(doctorNameParam);
 
-
                         SqlParameter returnValue = new SqlParameter
                         {
                             Direction = ParameterDirection.ReturnValue
@@ -924,9 +971,7 @@ namespace Patient_Management_System.Controllers
                         con.Open();
                         cmd.ExecuteNonQuery();
 
-
                         int result = (int)returnValue.Value;
-
 
                         if (result == 1)
                         {
@@ -946,6 +991,15 @@ namespace Patient_Management_System.Controllers
                         {
                             ViewBag.Message = "No patient exists with this phone number.";
                         }
+                        else if (result == -2)
+                        {
+                            ViewBag.Message = "Doctor is not available ";
+
+                        }
+                        else if (result == -3)
+                        {
+                            ViewBag.Message = "This Time Slot Not available,Choose another Slot ";
+                        }
                         else
                         {
                             ViewBag.Message = "An unexpected error occurred.";
@@ -957,10 +1011,8 @@ namespace Patient_Management_System.Controllers
             {
                 TempData["Error"] = ex.Message;
             }
-
             ViewBag.Dept_ID = new SelectList(GetDepartment(), "Value", "Text", aptVM.Dept_ID);
             ViewBag.Doctor_ID = new SelectList(GetDoctors(), "Value", "Text", aptVM.Doctor_ID);
-
             ViewBag.TimeSlots = new SelectList(GetTimeSlots(), "Value", "Text", aptVM.Apt_Time);
 
             return View(aptVM);
@@ -990,8 +1042,6 @@ namespace Patient_Management_System.Controllers
             return View(prescVM);
         }
 
-
-
         [HttpPost]
         public ActionResult Edit_Prescription(PrescriptionVM prescVM)
         {
@@ -1006,7 +1056,6 @@ namespace Patient_Management_System.Controllers
                     TempData["Error"] = "Invalid doctor or Patient selection.";
                     return View(prescVM);
                 }
-
 
                 if (ModelState.IsValid)
                 {
@@ -1035,11 +1084,8 @@ namespace Patient_Management_System.Controllers
             {
                 TempData["Message"] = "An error occurred: " + ex.Message;
             }
-
             return View(prescVM);
         }
-
-
 
         [HttpGet]
         public ActionResult Edit_Schedule(int scheduleId)
@@ -1144,54 +1190,7 @@ namespace Patient_Management_System.Controllers
             }
         }
 
-        private void SendEmailCancellationNotification(string email, string patientName, string doctorName, string appointmentDate, string appointmentTime)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(email))
-                {
-                    Console.WriteLine("No email found for the patient.");
-                    return;
-                }
-
-                string emailBody = $@"
-<html>
-<body>
-    <p>Dear {patientName},</p>
-    <p>We regret to inform you that your appointment with <strong>Dr. {doctorName}</strong> on <strong>{appointmentDate}</strong> at <strong>{appointmentTime}</strong> has been <strong>canceled</strong>.</p>
-    <p>If you have any questions or would like to reschedule, please contact us.</p>
-    <p>Thank you for understanding.</p>
-    <p>Best Regards,<br/>LiveDoc Multispecialist Hospital</p>
-    <p>Any Query? Please Contact Us: 70465 90890</p>
-</body>
-</html>";
-
-                MailMessage mail = new MailMessage
-                {
-                    From = new MailAddress("hemangkanzariya00@gmail.com"),
-                    Subject = "Appointment Cancellation Notification",
-                    Body = emailBody,
-                    IsBodyHtml = true
-                };
-                mail.To.Add(email);
-
-                SmtpClient smtp = new SmtpClient
-                {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "sraz evwu hvpx jvdi"),
-                    EnableSsl = true
-                };
-
-                smtp.Send(mail);
-                Console.WriteLine("Cancellation email sent successfully!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Email sending failed: " + ex.Message);
-            }
-        }
-
+        
         public ActionResult List_Appointment(AppointmentVM aptVM, int? page, string searchQuery)
         {
             List<AppointmentVM> aptList = new List<AppointmentVM>();
@@ -1266,7 +1265,7 @@ namespace Patient_Management_System.Controllers
                 {
                     Host = "smtp.gmail.com",
                     Port = 587,
-                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "ylba zcnu rsmn nvro"),
+                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "lqri ukod qdsl qyfx"),
                     EnableSsl = true
                 };
 
@@ -1394,6 +1393,10 @@ namespace Patient_Management_System.Controllers
                     else if (result == -4)
                     {
                         ViewBag.Message = "This Time Slot Not available,Choose another Slot ";
+                    }
+                    else if (result == -5)
+                    {
+                        ViewBag.Message = "Doctor is not available ";
                     }
                     else
                     {
@@ -1532,15 +1535,13 @@ namespace Patient_Management_System.Controllers
                     IsBodyHtml = true
                 };
                 mail.To.Add(email);
-
                 SmtpClient smtp = new SmtpClient
                 {
                     Host = "smtp.gmail.com",
                     Port = 587,
-                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "sraz evwu hvpx jvdi"),
+                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com","lqri ukod qdsl qyfx"),
                     EnableSsl = true
                 };
-
                 smtp.Send(mail);
                 Console.WriteLine("Email sent successfully!");
             }
@@ -1657,6 +1658,9 @@ namespace Patient_Management_System.Controllers
             return View(prescVM);
         }
 
+
+
+
         [HttpGet]
         public JsonResult GetPatientsByDoctor(int Doctor_ID)
         {
@@ -1676,7 +1680,7 @@ namespace Patient_Management_System.Controllers
                         {
                             patients.Add(new SelectListItem
                             {
-                                Value = reader["Patient_ID"].ToString(),
+                                Value = reader["Value"].ToString(),
                                 Text = reader["Text"].ToString().Trim()
                             });
                         }
@@ -1685,6 +1689,7 @@ namespace Patient_Management_System.Controllers
             }
             return Json(patients, JsonRequestBehavior.AllowGet);
         }
+
 
 
         public ActionResult Delete_Prescription(int PrescId)

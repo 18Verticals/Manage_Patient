@@ -173,6 +173,7 @@ namespace Patient_Management_System.Controllers
             return View();
         }
 
+
         [HttpPost]
         public ActionResult Appointment(AppointmentVM aptVM)
         {
@@ -257,6 +258,11 @@ namespace Patient_Management_System.Controllers
                     {
                         TempData["ErrorMessage"] = "Time Slot Not available ";
                     }
+                    else if(result == -5)
+                    {
+                        TempData["ErrorMessage"] = "Doctor is not available ";
+
+                    }
                     else
                     {
                         TempData["ErrorMessage"] = "An unexpected error occurred.";
@@ -296,7 +302,7 @@ namespace Patient_Management_System.Controllers
                     Port = 587,
                     EnableSsl = true,
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "elkj hzfh wfgd rtvd")
+                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "lqri ukod qdsl qyfx")
                 };
                 smtp.Send(mail);
                 Console.WriteLine("Email sent successfully!");
@@ -393,7 +399,7 @@ namespace Patient_Management_System.Controllers
                 {
                     Host = "smtp.gmail.com",
                     Port = 587,
-                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "ylba zcnu rsmn nvro"), // Use App Password
+                    Credentials = new NetworkCredential("hemangkanzariya00@gmail.com", "lqri ukod qdsl qyfx"), // Use App Password
                     EnableSsl = true
                 };
 
@@ -474,19 +480,22 @@ namespace Patient_Management_System.Controllers
                                     Dr_Qualification = dr["Dr_Qualification"].ToString(),
                                     Dr_ImagePath = dr["Dr_ImagePath"].ToString(),
                                     Fees = Convert.ToInt32(dr["Fees"]),
-                                    Status = dr["Status"].ToString(),
                                     Available_Date = new List<DateTime>(),
-                                    DateTimeSlots = new Dictionary<DateTime, (TimeSpan, TimeSpan)>()
+                                    DateTimeSlots = new Dictionary<DateTime, (TimeSpan, TimeSpan, string)>()
                                 };
                                 doctors.Add(doctor);
                             }
+
                             if (dr["Available_Date"] != DBNull.Value)
                             {
                                 DateTime availableDate = Convert.ToDateTime(dr["Available_Date"]);
                                 doctor.Available_Date.Add(availableDate);
+
                                 TimeSpan startTime = dr["Start_Time"] != DBNull.Value ? (TimeSpan)dr["Start_Time"] : TimeSpan.Zero;
                                 TimeSpan endTime = dr["End_Time"] != DBNull.Value ? (TimeSpan)dr["End_Time"] : TimeSpan.Zero;
-                                doctor.DateTimeSlots[availableDate] = (startTime, endTime);
+                                string status = dr["Status"] != DBNull.Value ? dr["Status"].ToString() : "Inactive";
+
+                                doctor.DateTimeSlots[availableDate] = (startTime, endTime, status);
                             }
                         }
                     }
@@ -494,6 +503,8 @@ namespace Patient_Management_System.Controllers
             }
             return View(doctors);
         }
+
+
 
         [HttpGet]
         public ActionResult Contact_Us()

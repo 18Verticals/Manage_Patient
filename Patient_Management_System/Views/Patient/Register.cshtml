@@ -88,17 +88,16 @@
                         @class = "form__field",
                         type = "date",
                         required = "required",
-                        max = DateTime.Now.ToString("yyyy-MM-dd") // Set max date to today
+                        max = DateTime.Now.ToString("dd-MM-yyyy") 
                     })
                     <label for="DOB" class="form__label">Date of Birth</label>
                     @Html.ValidationMessageFor(model => model.P_DOB, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-
             <div class="form-group col-md-4">
                 <div class="form__group field">
-                    @Html.EditorFor(model => model.P_Phone, new { htmlAttributes = new { @class = "form__field", required = "required" } })
+                    @Html.EditorFor(model => model.P_Phone, new { htmlAttributes = new { @class = "form__field", required = "required", type = "tel", pattern = "[0-9]{10}", title = "Enter a valid 10-digit mobile number" } })
                     <label for="Phone" class="form__label">Mobile Number</label>
                     @Html.ValidationMessageFor(model => model.P_Phone, "", new { @class = "text-danger" })
                 </div>
@@ -106,10 +105,9 @@
         </div>
 
         <div class="form-row">
-
             <div class="form-group col-md-4">
                 <div class="form__group field">
-                    @Html.EditorFor(model => model.P_Email, new { htmlAttributes = new { @class = "form__field", required = "required" } })
+                    @Html.EditorFor(model => model.P_Email, new { htmlAttributes = new { @class = "form__field", required = "required", type = "email" } })
                     <label for="Email" class="form__label">Email</label>
                     @Html.ValidationMessageFor(model => model.P_Email, "", new { @class = "text-danger" })
                 </div>
@@ -153,7 +151,7 @@
 
             <div class="form-group col-md-4">
                 <div class="form__group field">
-                    @Html.EditorFor(model => model.P_Pincode, new { htmlAttributes = new { @class = "form__field", required = "required", } })
+                    @Html.EditorFor(model => model.P_Pincode, new { htmlAttributes = new { @class = "form__field", required = "required", type = "text", pattern = "[0-9]{6}", title = "Enter a valid 6-digit pincode" } })
                     <label for="Pincode" class="form__label">Pincode</label>
                     @Html.ValidationMessageFor(model => model.P_Pincode, "", new { @class = "text-danger" })
                 </div>
@@ -179,7 +177,7 @@
 
             <div class="form-group col-md-4">
                 <div class="form__group field">
-                    @Html.TextAreaFor(model => model.P_Message, new { @class = "form__field", style = "height: 41px;" })
+                    @Html.TextAreaFor(model => model.P_Message, new { @class = "form__field", style = "height: 41px;", required = "required" })
                     <label for="Message" class="form__label">Comments</label>
                     @Html.ValidationMessageFor(model => model.P_Message, "", new { @class = "text-danger" })
                 </div>

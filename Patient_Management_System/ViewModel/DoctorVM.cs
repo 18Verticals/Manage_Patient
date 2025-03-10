@@ -53,7 +53,8 @@ namespace Patient_Management_System.ViewModel
         public DepartmentTbl Department { get; set; }
         public List<ScheduleTbl> Schedule { get; set; }
         public List<ScheduleVM> Schedules { get; set; } = new List<ScheduleVM>();
-        public Dictionary<DateTime, (TimeSpan StartTime, TimeSpan EndTime)> DateTimeSlots { get; set; }
+        public Dictionary<DateTime, (TimeSpan StartTime, TimeSpan EndTime, string Status)> DateTimeSlots { get; set; }
+    = new Dictionary<DateTime, (TimeSpan, TimeSpan, string)>();
         public DateTime? SelectedDate { get; set; }
         public TimeSpan? SelectedStartTime { get; set; }
         public TimeSpan? SelectedEndTime { get; set; }
