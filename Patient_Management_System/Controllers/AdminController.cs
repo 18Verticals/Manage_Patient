@@ -85,7 +85,7 @@ namespace Patient_Management_System.Controllers
 
                         if (result > 0)
                         {
-                            return RedirectToAction("List_Patient", "Admin");
+                            return RedirectToAction("Index", "Admin");
                         }
                         else
                         {
