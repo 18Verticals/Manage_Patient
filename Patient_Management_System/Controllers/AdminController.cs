@@ -883,6 +883,8 @@ namespace Patient_Management_System.Controllers
             }
             return View(scheduleVM);
         }
+
+
         [HttpGet]
         public ActionResult Edit_Appointment(int aptId)
         {
@@ -892,6 +894,13 @@ namespace Patient_Management_System.Controllers
                 TempData["Error"] = "Appointment not found.";
                 return RedirectToAction("List_Appointment");
             }
+
+            var doctor = db.DoctorTbls.FirstOrDefault(d => d.Doctor_ID == appointment.Doctor_ID);
+            var department = db.DepartmentTbls.FirstOrDefault(d => d.Dept_ID == appointment.Dept_ID);
+
+            ViewBag.SelectedDoctorName = doctor != null ? doctor.Dr_FirstName + " " + doctor.Dr_LastName : "Unknown";
+            ViewBag.SelectedDepartmentName = department != null ? department.Dept_Name : "Unknown";
+
             AppointmentVM aptVM = new AppointmentVM
             {
                 Appointment_ID = appointment.Appointment_ID,
@@ -901,11 +910,9 @@ namespace Patient_Management_System.Controllers
                 Phone = appointment.Phone,
                 Diseases = appointment.Diseases,
                 Apt_Date = appointment.Apt_Date,
-                Apt_Time = appointment.Apt_Time,
+                Apt_Time = appointment.Apt_Time
             };
 
-            ViewBag.Dept_ID = new SelectList(GetDepartment(), "Value", "Text", aptVM.Dept_ID);
-            ViewBag.Doctor_ID = new SelectList(GetDoctors(), "Value", "Text", aptVM.Doctor_ID);
             ViewBag.TimeSlots = new SelectList(GetTimeSlots(), "Value", "Text", aptVM.Apt_Time);
 
             return View(aptVM);
@@ -918,54 +925,48 @@ namespace Patient_Management_System.Controllers
             {
                 ViewBag.Dept_ID = new SelectList(GetDepartment(), "Value", "Text", aptVM.Dept_ID);
                 ViewBag.Doctor_ID = new SelectList(GetDoctors(), "Value", "Text", aptVM.Doctor_ID);
-
                 ViewBag.TimeSlots = new SelectList(GetTimeSlots(), "Value", "Text", aptVM.Apt_Time);
 
                 return View(aptVM);
             }
+
             try
             {
-                if (!int.TryParse(aptVM.Doctor_Name, out int doctorId) ||
-                   !int.TryParse(aptVM.Department_Name, out int deptId))
+                // Fetch the original doctor and department to prevent unauthorized changes
+                var existingAppointment = db.AppointmentTbls.FirstOrDefault(a => a.Appointment_ID == aptVM.Appointment_ID);
+                if (existingAppointment == null)
                 {
-                    TempData["Error"] = "Invalid doctor or department selection.";
-                    return View(aptVM);
+                    TempData["Error"] = "Appointment not found.";
+                    return RedirectToAction("List_Appointment");
                 }
+
+                aptVM.Doctor_ID = existingAppointment.Doctor_ID;
+                aptVM.Dept_ID = existingAppointment.Dept_ID;
+
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("sp_Edit_Appointment", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@Appointment_ID", aptVM.Appointment_ID);
-                        cmd.Parameters.AddWithValue("@Doctor_ID", doctorId);
-                        cmd.Parameters.AddWithValue("@Dept_ID", deptId);
+                        cmd.Parameters.AddWithValue("@Doctor_ID", aptVM.Doctor_ID);
+                        cmd.Parameters.AddWithValue("@Dept_ID", aptVM.Dept_ID);
                         cmd.Parameters.AddWithValue("@Apt_Date", aptVM.Apt_Date);
                         cmd.Parameters.AddWithValue("@Apt_Time", aptVM.Apt_Time);
                         cmd.Parameters.AddWithValue("@Description", aptVM.Description);
                         cmd.Parameters.AddWithValue("@Phone", aptVM.Phone);
                         cmd.Parameters.AddWithValue("@Diseases", aptVM.Diseases);
-                        SqlParameter patientEmailParam = new SqlParameter("@PatientEmail", SqlDbType.NVarChar, 100)
-                        {
-                            Direction = ParameterDirection.Output
-                        };
+
+                        SqlParameter patientEmailParam = new SqlParameter("@PatientEmail", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
                         cmd.Parameters.Add(patientEmailParam);
 
-                        SqlParameter patientNameParam = new SqlParameter("@PatientName", SqlDbType.NVarChar, 100)
-                        {
-                            Direction = ParameterDirection.Output
-                        };
+                        SqlParameter patientNameParam = new SqlParameter("@PatientName", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
                         cmd.Parameters.Add(patientNameParam);
 
-                        SqlParameter doctorNameParam = new SqlParameter("@DoctorName", SqlDbType.NVarChar, 100)
-                        {
-                            Direction = ParameterDirection.Output
-                        };
+                        SqlParameter doctorNameParam = new SqlParameter("@DoctorName", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output };
                         cmd.Parameters.Add(doctorNameParam);
 
-                        SqlParameter returnValue = new SqlParameter
-                        {
-                            Direction = ParameterDirection.ReturnValue
-                        };
+                        SqlParameter returnValue = new SqlParameter { Direction = ParameterDirection.ReturnValue };
                         cmd.Parameters.Add(returnValue);
 
                         con.Open();
@@ -993,12 +994,11 @@ namespace Patient_Management_System.Controllers
                         }
                         else if (result == -2)
                         {
-                            ViewBag.Message = "Doctor is not available ";
-
+                            ViewBag.Message = "Doctor is not available.";
                         }
                         else if (result == -3)
                         {
-                            ViewBag.Message = "This Time Slot Not available,Choose another Slot ";
+                            ViewBag.Message = "This Time Slot is not available, choose another.";
                         }
                         else
                         {
@@ -1011,12 +1011,18 @@ namespace Patient_Management_System.Controllers
             {
                 TempData["Error"] = ex.Message;
             }
+
             ViewBag.Dept_ID = new SelectList(GetDepartment(), "Value", "Text", aptVM.Dept_ID);
             ViewBag.Doctor_ID = new SelectList(GetDoctors(), "Value", "Text", aptVM.Doctor_ID);
             ViewBag.TimeSlots = new SelectList(GetTimeSlots(), "Value", "Text", aptVM.Apt_Time);
 
             return View(aptVM);
         }
+
+
+
+
+
 
 
         [HttpGet]
@@ -1103,6 +1109,18 @@ namespace Patient_Management_System.Controllers
                 return RedirectToAction("List_Doctor");
             }
 
+            string doctorName = db.DoctorTbls
+                                 .Where(d => d.Doctor_ID == schedule.Doctor_ID)
+                                 .Select(d => d.Dr_FirstName + " " + d.Dr_LastName)
+                                 .FirstOrDefault() ?? "N/A";
+
+
+            string departmentName = db.DepartmentTbls
+                                      .Where(d => d.Dept_ID == schedule.Dept_ID)
+                                      .Select(d => d.Dept_Name)
+                                      .FirstOrDefault() ?? "N/A";
+
+
             ScheduleVM scheduleVM = new ScheduleVM
             {
                 Schedule_ID = schedule.Schedule_ID,
@@ -1111,7 +1129,10 @@ namespace Patient_Management_System.Controllers
                 Start_Time = schedule.Start_Time,
                 End_Time = schedule.End_Time,
                 Available_Date = schedule.Available_Date?.Date,
-                Status = schedule.Status
+                Status = schedule.Status,
+
+                Doctor_Name = doctorName,  // Assigning Doctor Name
+                Department_Name = departmentName // Assigning Department Name
             };
 
             ViewBag.Dept_ID = new SelectList(GetDepartment(), "Value", "Text", scheduleVM.Dept_ID);
@@ -1119,6 +1140,7 @@ namespace Patient_Management_System.Controllers
 
             return View(scheduleVM);
         }
+
 
 
         [HttpPost]
@@ -1129,14 +1151,15 @@ namespace Patient_Management_System.Controllers
                 ViewBag.Dept_ID = new SelectList(GetDepartment(), "Value", "Text", scheduleVM.Dept_ID);
                 ViewBag.Doctor_ID = new SelectList(GetDoctors(), "Value", "Text", scheduleVM.Doctor_ID);
 
-                if (!int.TryParse(scheduleVM.Doctor_Name, out int doctorId) ||
-                    !int.TryParse(scheduleVM.Department_Name, out int deptId))
+                var schedule = db.ScheduleTbls.FirstOrDefault(d => d.Schedule_ID == scheduleVM.Schedule_ID);
+                if (schedule == null)
                 {
-                    TempData["Error"] = "Invalid doctor or department selection.";
+                    TempData["Error"] = "Schedule not found.";
                     return View(scheduleVM);
                 }
 
-
+                int doctorId = schedule.Doctor_ID; // Keep the existing Doctor_ID
+                int deptId = schedule.Dept_ID; // Keep the existing Dept_ID
 
                 var affectedPatients = new List<(string Email, string PatientName)>();
 
@@ -1181,6 +1204,7 @@ namespace Patient_Management_System.Controllers
                 return View(scheduleVM);
             }
         }
+
 
         private string GetDoctorName(int doctorId)
         {
@@ -1289,7 +1313,6 @@ namespace Patient_Management_System.Controllers
             ViewBag.TimeSlots = GetTimeSlots();
             return View();
         }
-
         [HttpPost]
         public ActionResult Add_Appointment(AppointmentVM aptVM)
         {
@@ -1789,44 +1812,7 @@ namespace Patient_Management_System.Controllers
             return View(ContactList.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult List_Payment(PaymentVM paymentVM, int? page, string searchQuery)
-        {
-            List<PaymentVM> PaymentList = new List<PaymentVM>();
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("sp_Get_Payment", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    PaymentVM payment = new PaymentVM
-                    {
-                        Payment_ID = Convert.ToInt32(reader["Payment_ID"]),
-                        Patient_ID = Convert.ToInt32(reader["Patient_ID"]),
-                        P_FirstName = reader["P_FirstName"].ToString(),
-                        Amount = Convert.ToInt32(reader["Amount"]),
-                        PaymentMethod = reader["PaymentMethod"].ToString(),
-                        PaymentDate = Convert.ToDateTime(reader["PaymentDate"]),
-                        Status = reader["Status"].ToString(),
-                        Remarks = reader["Remarks"].ToString(),
-                    };
-                    PaymentList.Add(payment);
-                }
-            }
-            if (!string.IsNullOrEmpty(searchQuery))
-            {
-                PaymentList = PaymentList
-                    .Where(d => d.P_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
-                    .ToList();
-            }
-
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            return View(PaymentList.ToPagedList(pageNumber, pageSize));
-        }
-
+       
         [HttpGet]
         public ActionResult Add_Department()
         {
@@ -1925,8 +1911,7 @@ namespace Patient_Management_System.Controllers
                 return View(departmentVM);
             }
         }
-
-        public ActionResult List_Payment(PaymentVM paymentVM)
+        public ActionResult List_Payment(PaymentVM paymentVM, int? page, string searchQuery)
         {
             List<PaymentVM> PaymentList = new List<PaymentVM>();
 
@@ -1944,15 +1929,27 @@ namespace Patient_Management_System.Controllers
                         Patient_ID = Convert.ToInt32(reader["Patient_ID"]),
                         P_FirstName = reader["P_FirstName"].ToString(),
                         Amount = Convert.ToInt32(reader["Amount"]),
-                        PaymentMethod = reader["PaymentMethod"].ToString(),
+                        CreditCardNumber = reader["PaymentMethod"].ToString(),
+                        Cvv = reader["Cvv"].ToString(),
+
                         PaymentDate = Convert.ToDateTime(reader["PaymentDate"]),
-                        Status = reader["Status"].ToString(),
+                        Exp_Date = Convert.ToDateTime(reader["Exp_Date"]),
+                        
                         Remarks = reader["Remarks"].ToString(),
                     };
                     PaymentList.Add(payment);
                 }
             }
-            return View(PaymentList);
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                PaymentList = PaymentList
+                    .Where(d => d.P_FirstName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
+                    .ToList();
+            }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(PaymentList.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpGet]
@@ -1980,9 +1977,13 @@ namespace Patient_Management_System.Controllers
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@Patient_ID", paymentVM.Patient_ID);
                         cmd.Parameters.AddWithValue("@Amount", paymentVM.Amount);
-                        cmd.Parameters.AddWithValue("@PaymentMethod", paymentVM.PaymentMethod);
+
+
+                        cmd.Parameters.AddWithValue("@CreditCardNumber", paymentVM.CreditCardNumber);                        
+                        cmd.Parameters.AddWithValue("@Exp_Date", paymentVM.Exp_Date);
+                        cmd.Parameters.AddWithValue("@Cvv", paymentVM.Cvv);
+
                         cmd.Parameters.AddWithValue("@PaymentDate", DateTime.Now);
-                        cmd.Parameters.AddWithValue("@Status", paymentVM.Status);
                         cmd.Parameters.AddWithValue("@Remarks", paymentVM.Remarks);
                         cmd.ExecuteNonQuery();
                     }
@@ -2071,6 +2072,7 @@ namespace Patient_Management_System.Controllers
             return View(contactUsTbl);
         }
 
+
         [HttpGet]
         public ActionResult Edit_Payment(int paymentId)
         {
@@ -2091,10 +2093,7 @@ namespace Patient_Management_System.Controllers
                             {
                                 Payment_ID = Convert.ToInt32(reader["Payment_ID"]),
                                 Patient_ID = Convert.ToInt32(reader["Patient_ID"]),
-                                Amount = Convert.ToDecimal(reader["Amount"]),
-                                PaymentMethod = reader["PaymentMethod"].ToString(),
-                                PaymentDate = Convert.ToDateTime(reader["PaymentDate"]),
-                                Status = reader["Status"].ToString(),
+                                Amount = Convert.ToDecimal(reader["Amount"]),                                
                                 Remarks = reader["Remarks"]?.ToString()
                             };
                             return View(paymentVM);
@@ -2105,6 +2104,7 @@ namespace Patient_Management_System.Controllers
             TempData["Error"] = "Payment record not found.";
             return RedirectToAction("List_Payments");
         }
+
         [HttpPost]
         public ActionResult Edit_Payment(PaymentVM paymentVM)
         {
@@ -2120,9 +2120,6 @@ namespace Patient_Management_System.Controllers
                             cmd.Parameters.AddWithValue("@Payment_ID", paymentVM.Payment_ID);
                             cmd.Parameters.AddWithValue("@Patient_ID", paymentVM.Patient_ID);
                             cmd.Parameters.AddWithValue("@Amount", paymentVM.Amount);
-                            cmd.Parameters.AddWithValue("@PaymentMethod", paymentVM.PaymentMethod);
-                            cmd.Parameters.AddWithValue("@PaymentDate", paymentVM.PaymentDate);
-                            cmd.Parameters.AddWithValue("@Status", paymentVM.Status);
                             cmd.Parameters.AddWithValue("@Remarks", paymentVM.Remarks ?? (object)DBNull.Value);
                             con.Open();
                             cmd.ExecuteNonQuery();

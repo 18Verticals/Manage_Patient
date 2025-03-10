@@ -55,9 +55,8 @@
 
                                     <th>PATIENT NAME </th>
                                     <th>AMOUNT</th>
-                                    <th>PAYMENT METHOD</th>
-                                    <th>PAYMENT DATE</th>
-                                    <th>STATUS</th>
+                                    <th>CARD NUMBER</th>                                    
+                                    <th>PAYMENT DATE</th>                                   
                                     <th>REMARKS</th>
 
                                 </tr>
@@ -89,11 +88,11 @@
                                             </a>
                                         </td>
 
-                                        <td>@item.P_FirstName </td>
+                                        <td>@item.P_FirstName@item.P_LastName </td>
                                         <td>@item.Amount</td>
-                                        <td> @item.PaymentMethod</td>
+                                        <td> @item.CredirCardNumber</td>
                                         <td> @item.PaymentDate</td>
-                                        <td> @item.Status</td>
+                                       
                                         <td> @item.Remarks</td>
                                     </tr>
                                 }

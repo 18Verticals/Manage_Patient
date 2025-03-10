@@ -122,21 +122,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Doctor Image</label>
-                    <div class="profile-upload">
-                        <div class="upload-img">
-                            <img id="previewImage"
-                                 src="@Url.Content(Model.Dr_ImagePath ?? "~/Content/Admin/assets/img/user.jpg")"
-                                 alt="Doctor Image"
-                                 style="width: 100px; height: 100px; border-radius: 50%;" />
-                        </div>
-                        <div class="upload-input">
-                            <input type="file" name="Dr_ImagePath" id="Dr_ImagePath" class="form-control" onchange="previewFile()" />
-                        </div>
-                        @Html.ValidationMessageFor(model => model.Dr_ImagePath, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+
 
 
 
@@ -177,6 +163,22 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label>Doctor Image</label>
+                    <div class="profile-upload">
+                        <div class="upload-img">
+                            <img id="previewImage"
+                                 src="@Url.Content(Model.Dr_ImagePath ?? "~/Content/Admin/assets/img/user.jpg")"
+                                 alt="Doctor Image"
+                                 style="width: 80px; height: 80px; border-radius: 50%;" />
+                        </div>
+                        <div class="upload-input">
+                            <input type="file" name="Dr_ImagePath" id="Dr_ImagePath" class="form-control" onchange="previewFile()" />
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Dr_ImagePath, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
                 <!-- Status -->
                 <div class="col-sm-4">
                     <div class="form-group">
@@ -209,5 +211,4 @@
             }
         }
     </script>
-
 }

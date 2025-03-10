@@ -114,7 +114,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Phone</label>
-                        @Html.EditorFor(model => model.P_Phone, new { htmlAttributes = new { @class = "form__field", required = "required", type = "tel", pattern = "[0-9]{10}", title = "Enter a valid 10-digit mobile number" } })
+                        @Html.EditorFor(model => model.P_Phone, new { htmlAttributes = new { @class = "form-control", required = "required", type = "tel", pattern = "[0-9]{10}", title = "Enter a valid 10-digit mobile number" } })
                         @Html.ValidationMessageFor(model => model.P_Phone, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Pincode</label>
-                        @Html.EditorFor(model => model.P_Pincode, new { htmlAttributes = new { @class = "form__field", required = "required", type = "text", pattern = "[0-9]{6}", title = "Enter a valid 6-digit pincode" } })
+                        @Html.EditorFor(model => model.P_Pincode, new { htmlAttributes = new { @class = "form-control", required = "required", type = "text", pattern = "[0-9]{6}", title = "Enter a valid 6-digit pincode" } })
                         @Html.ValidationMessageFor(model => model.P_Pincode, "", new { @class = "text-danger" })
                     </div>
                 </div>
