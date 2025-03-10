@@ -113,7 +113,6 @@ namespace Patient_Management_System.Controllers
             return View(patients);
         }
 
-
         public ActionResult Logout()
         {
             Session.Clear();
@@ -172,7 +171,6 @@ namespace Patient_Management_System.Controllers
             ViewBag.TimeSlots = GetTimeSlots();
             return View();
         }
-
 
         [HttpPost]
         public ActionResult Appointment(AppointmentVM aptVM)
@@ -437,7 +435,8 @@ namespace Patient_Management_System.Controllers
                                 Dr_Qualification = dr["Dr_Qualification"].ToString(),
                                 Dr_ImagePath = dr["Dr_ImagePath"].ToString(),
                                 Fees = Convert.ToInt32(dr["Fees"]),
-
+                                Dr_Email = dr["Dr_Email"].ToString(),
+                                Dr_Phone= dr["Dr_Phone"].ToString(),
                             };
                         }
                     }
@@ -503,6 +502,15 @@ namespace Patient_Management_System.Controllers
             }
             return View(doctors);
         }
+
+        public ActionResult Payment()
+        {
+            return View();
+
+        }
+
+
+
 
 
 
