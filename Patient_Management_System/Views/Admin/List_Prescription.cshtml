@@ -72,13 +72,12 @@
                                                     }
                                                 }
                                             </script>
-
                                             <a class="dropdown-item" href="javascript:void(0);" onclick="confirmDelete('@Url.Action("Delete_Prescription","Admin", new { PrescId =prescVM.Presc_ID })')"><i class="fa fa-trash-o m-r-5"></i></a>
                                         </td>
 
                                         <td>@prescVM.Dr_FirstName @prescVM.Dr_LastName</td>
                                         <td>@prescVM.P_FirstName  @prescVM.P_MiddleName</td>
-                                        <td>@prescVM.DateIssued</td>
+                                        <td>@prescVM.DateIssued.ToString("dd-MM-yyyy")</td>
                                         <td>@prescVM.Medication</td>
                                         <td>@prescVM.Dosage</td>
                                         <td>@prescVM.Instructions</td>

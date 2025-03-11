@@ -11,9 +11,10 @@
 
     if (TempData["ErrorMessage"] != null)
     {
-        <script>
-        alert("@TempData["ErrorMessage"]");
-        </script>
+<script>
+ alert("@TempData["ErrorMessage"]");
+
+</script>
     }
 
     if (!string.IsNullOrEmpty(ViewBag.Message))
@@ -58,8 +59,6 @@
                     <div class="formbold-main-wrapper">
 
                         <div class="row">
-
-
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fa fa-hospital-o"></i></span>
@@ -121,44 +120,105 @@
                                 </div>
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
-
-
-                            <div class="col-sm-12 text-center mt-4">
-                                <button type="submit" class="formbold-btn">Make Appointment</button>
-                            </div>
-
-
+                          
                             <div>
                                 <h3>Payment Information</h3>
                             </div>
 
                             <div class="formbold-main-wrapper">
+
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="input-group">
-                                            <span class="input-group-text"><i class="fa fa-stethoscope"></i>  </span>
-                                            @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;", placeholder = "Diseases", required = "required" })
+                                            <span class="input-group-text">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+
+                                            @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;", placeholder = "CardHolder Name", required = "required" })
                                         </div>
                                         @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
                                     </div>
 
                                     <div class="col-sm-6">
                                         <div class="input-group">
-                                            <span class="input-group-text"><i class="fa fa-stethoscope"></i>  </span>
-                                            @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;", placeholder = "Diseases", required = "required" })
+                                            <span class="input-group-text"><i class="fa fa-credit-card"></i>  </span>
+                                            @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;", placeholder = "XXXX-XXXX-XXXX", maxlength = "14", oninput = "formatCardInput(this)" })
                                         </div>
                                         @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
                                     </div>
 
+                                    <script>
+                                        function formatCardInput(input) {
+                                            let rawValue = input.value.replace(/[^0-9]/g, '');
+                                            let template = "XXXX-XXXX-XXXX";
+                                            let formattedValue = "";
+                                            let valueIndex = 0;
 
-                                </div>
+                                            for (let i = 0; i < template.length; i++) {
+                                                if (template[i] === 'X') {
+                                                    if (valueIndex < rawValue.length) {
+                                                        formattedValue += rawValue[valueIndex++];
+                                                    } else {
+                                                        formattedValue += '';
+                                                    }
+                                                } else {
+                                                    formattedValue += template[i];
+                                                }
+                                            }
+
+                                            input.value = formattedValue;
+                                        }
+                                    </script>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                            @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;", placeholder = "MM/YY", id = "expiryDate", maxlength = "5", oninput = "formatExpiryDate(this)", onblur = "validateExpiryDate(this)" })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <script>
+                                        function formatExpiryDate(input) {
+                                            let value = input.value.replace(/\D/g, "").slice(0, 4);
+                                            if (value.length > 2) value = value.slice(0, 2) + '/' + value.slice(2);
+                                            input.value = value;
+                                        }
+
+                                        function validateExpiryDate(input) {
+                                            let match = input.value.match(/^(\d{2})\/(\d{2})$/);
+                                            if (!match) return (input.value = "", alert("Invalid format. Use MM/YY."));
+
+                                            let [month, year] = match.slice(1).map(Number);
+                                            let [currentMonth, currentYear] = [new Date().getMonth() + 1, new Date().getFullYear() % 100];
+
+                                            if (month < 1 || month > 12 || year < currentYear || (year === currentYear && month < currentMonth)) {
+                                                input.value = "";
+                                                alert("Expiry date cannot be in the past.");
+                                            }
+                                        }
+                                    </script>
+
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fa fa-lock"></i>  </span>
+                                            @Html.TextBoxFor(model => model.Diseases, new { @class = "form-control", style = "height:49px;", placeholder = "CVV", maxlength = "3", type = "text", oninput = "this.value = this.value.replace(/[^0-9]/g, '')" })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Diseases, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="col-sm-12 text-center mt-4">
+                                        <button type="submit" class="formbold-btn">Make Appointment</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        </div>
+                    </div>
+                  </div>
                 </div>
             </div>
-        </div>
-    </div>
+       
+    
     <script src="~/Content/Appointment/js/jquery.min.js"></script>
     <script src="~/Content/Appointment/js/popper.min.js"></script>
     <script src="~/Content/Appointment/js/bootstrap.bundle.min.js"></script>

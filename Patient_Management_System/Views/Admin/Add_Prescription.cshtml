@@ -86,7 +86,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Medication </label>
-                        @Html.TextAreaFor(model => model.Medication, new { @class = "form-control", rows = 1, required = "required" })
+                        @Html.TextBoxFor(model => model.Medication, new { @class = "form-control", required = "required" })
                     </div>
                 </div>
 
@@ -97,11 +97,11 @@
                     </div>
                 </div>
 
-                <!-- Diseases -->
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Instructions</label>
-                        @Html.TextAreaFor(model => model.Instructions, new { @class = "form-control", rows = 1, required = "required" })
+                        <label>Instruction</label>
+                        @Html.TextAreaFor(model => model.Instructions, new { @class = "form-control", required = "required", rows = "1" })
+                        @Html.ValidationMessageFor(model => model.Instructions, "", new { @class = "text-danger" })
                     </div>
                 </div>
 

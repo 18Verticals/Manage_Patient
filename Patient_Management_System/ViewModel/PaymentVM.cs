@@ -12,6 +12,7 @@ namespace Patient_Management_System.ViewModel
         public int Payment_ID { get; set; }
         public decimal Amount { get; set; }
         public string CreditCardNumber { get; set; }
+        public string CardHolderName { get; set; }
         public string Cvv { get; set; }
         public  DateTime Exp_Date { get; set; }
         public DateTime PaymentDate { get; set; } = DateTime.Now;       
