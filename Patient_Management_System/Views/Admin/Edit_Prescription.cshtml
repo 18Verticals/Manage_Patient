@@ -30,21 +30,20 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Doctor Name</label>
-                        @Html.DropDownListFor(model => model.Doctor_Name, (IEnumerable<SelectListItem>)ViewBag.Doctor_ID, "---Select---", new { @class = "form-control", @id = "Doctor_ID" })
-                        @Html.ValidationMessageFor(model => model.Doctor_Name, "", new { @class = "text-danger" })
-                        <input type="hidden" id="Hidden_Doctor_ID" name="Doctor_ID" />
+                        <input type="text" class="form-control" value="@Model.Doctor_Name" readonly />
+                        <input type="hidden" name="Doctor_ID" value="@Model.Doctor_ID" />
                     </div>
                 </div>
 
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Patient Name</label>
-                        @Html.DropDownListFor(model => model.Patient_Name, (IEnumerable<SelectListItem>)ViewBag.Patient_ID, "---Select---", new { @class = "form-control", @id = "Patient_ID" })
-                        @Html.ValidationMessageFor(model => model.Patient_Name, "", new { @class = "text-danger" })
-                        <input type="hidden" id="Hidden_Patient_ID" name="Patient_ID" />
+                        <input type="text" class="form-control" value="@Model.Patient_Name" readonly />
+                        <input type="hidden" name="Patient_ID" value="@Model.Patient_ID" />
                     </div>
                 </div>
-             
+
+
                 <!-- Date -->
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -64,19 +63,20 @@
 
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Instruction</label>
-                        @Html.EditorFor(model => model.Instructions, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                        @Html.ValidationMessageFor(model => model.Instructions, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="form-group">
                         <label>Dosage</label>
                         @Html.EditorFor(model => model.Dosage, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                         @Html.ValidationMessageFor(model => model.Dosage, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Instruction</label>
+                        @Html.TextAreaFor(model => model.Instructions, new { @class = "form-control", required = "required", rows = "1" })
+                        @Html.ValidationMessageFor(model => model.Instructions, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
 
 
 

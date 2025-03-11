@@ -24,12 +24,9 @@
         </div>
     </div>
 
-
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
             <div class="row">
-
-
                 @Html.HiddenFor(m => m.Patient_Id)
 
 
@@ -76,7 +73,6 @@
                     </div>
                 </div>
 
-
                 <!-- Date of Birth -->
                 <div class="col-sm-4">
                     <div class="form-group">
@@ -86,13 +82,12 @@
                     </div>
                 </div>
 
-
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Blood Group</label>
 
                         @Html.DropDownListFor(model => model.P_BloodGrp, new SelectList(new List<SelectListItem>
-                                {
+                        {
                             new SelectListItem { Text = "A+", Value = "A+" },
                             new SelectListItem { Text = "A-", Value = "A-" },
                             new SelectListItem { Text = "B+", Value = "B+" },
